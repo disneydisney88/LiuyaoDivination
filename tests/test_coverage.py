@@ -4,7 +4,6 @@ from pathlib import Path
 from engine.semantics import (
     COLLECTION_GAP_TEMPLATE,
     COVERAGE_NOTE,
-    MATERIAL_DEPTH_LABELS,
     semantic_for_condition,
 )
 
@@ -92,23 +91,33 @@ def test_coverage_and_derived_outputs_have_no_forbidden_fields():
         assert FORBIDDEN_KEYS.isdisjoint(nested_keys(result))
 
 
-def test_material_depth_depends_only_on_absolute_addressed_count():
-    for path in TABLE_PATHS:
-        data = load_json(path)
-        for row in data["rows"]:
-            addressed = row["coverage"]["books_addressed"]
-            expected = "thick" if addressed >= 3 else "thin" if addressed in {1, 2} else "none"
-            assert row["material_depth"] == expected
-            assert row["material_depth"] in MATERIAL_DEPTH_LABELS
-
-
 def test_ui_material_text_does_not_claim_reliability_or_majority():
-    forbidden = ("可靠", "可信", "充分", "多數", "大部分", "主流")
-    texts = list(MATERIAL_DEPTH_LABELS.values())
+    forbidden = ("厚", "薄", "材料較少", "材料充足", "材料豐富", "優", "劣",
+                 "可靠", "可信", "充分", "多數", "大部分", "主流")
+    texts = []
     for path in TABLE_PATHS:
         data = load_json(path)
         texts.extend(row["coverage_label"] for row in data["rows"])
+        texts.extend(
+            COLLECTION_GAP_TEMPLATE.format(row["coverage"]["books_not_collected"])
+            for row in data["rows"] if row["coverage"]["books_not_collected"] > 0
+        )
+    page_source = (ROOT / "pages" / "tracks.py").read_text(encoding="utf-8")
+    assert "material_depth" not in page_source
     assert not any(word in text for text in texts for word in forbidden)
+
+
+def test_coverage_objects_have_no_evaluative_fields():
+    forbidden = {"material_depth", "depth", "quality", "richness", "strength", "厚度", "優劣"}
+    for path in TABLE_PATHS:
+        data = load_json(path)
+        for row in data["rows"]:
+            coverage = row["coverage"]
+            assert not any(
+                key in forbidden or any(token in key.lower() for token in ("depth", "quality", "richness", "strength"))
+                for key in coverage
+            )
+            assert "material_depth" not in row
 
 
 def test_uncollected_rows_show_explicit_collection_gap_text():

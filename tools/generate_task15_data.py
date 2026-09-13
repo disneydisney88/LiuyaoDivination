@@ -316,6 +316,7 @@ def update_c1() -> None:
                 cell.update({"status": "not_addressed", "verdict": None, "search_note": "搜尋『散＋救／解／复／仍／还』、『不散／难散／未散／虽散／既散／已散／冲脱／冲起』；覆蓋古本全檔 10,462 行，並逐一檢視 120 處『散』上下文；命中 15 句，無一回答散後可否救。"})
                 for key in ("source", "original", "rule_id", "evidence_strength"):
                     cell.pop(key, None)
+        row.pop("material_depth", None)
         row.update(calculate_coverage(row, books_total=len(data["books"])))
     write_json(path, data)
 

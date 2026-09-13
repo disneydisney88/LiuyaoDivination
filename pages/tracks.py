@@ -4,7 +4,6 @@ from engine.narrate import narrate
 from engine.semantics import (
     COLLECTION_GAP_TEMPLATE,
     COVERAGE_NOTE,
-    MATERIAL_DEPTH_LABELS,
     semantic_for_condition,
 )
 
@@ -38,14 +37,13 @@ def show_track(track_narrative, track, *, original_collapsed=True):
 
 
 st.header("多軌")
-st.caption("按資料狀態分組；不作跨軌裁決、多數決、可信度或加權。")
+st.caption("按資料狀態分組；不作跨軌裁決、多數決或加權。")
 condition = st.selectbox("選擇 C1 決策表格位", [
     "旺相之爻遇沖", "有氣之爻遇沖", "臨日月之爻遇沖", "休囚之爻遇日沖", "既判為散之後",
 ])
 result = semantic_for_condition(line=3, condition=condition)
 st.subheader("{}　{}".format(result["row_id"], condition))
 st.caption(result["coverage_label"])
-st.caption(MATERIAL_DEPTH_LABELS[result["material_depth"]])
 if result["coverage"]["books_not_collected"] > 0:
     st.caption(COLLECTION_GAP_TEMPLATE.format(result["coverage"]["books_not_collected"]))
 narrative = narrate(semantics=result, relations=st.session_state.get("current_relation_state", {}))

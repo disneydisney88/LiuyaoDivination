@@ -110,8 +110,7 @@
         "books_category_negated": 0,
         "books_not_collected": 4
       },
-      "coverage_label": "已採 4 本：4 本有表述；另 4 本未採",
-      "material_depth": "thick"
+      "coverage_label": "已採 4 本：4 本有表述；另 4 本未採"
     },
     {
       "row_id": "C1-R2",
@@ -164,8 +163,7 @@
         "books_category_negated": 0,
         "books_not_collected": 4
       },
-      "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採",
-      "material_depth": "thin"
+      "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採"
     },
     {
       "row_id": "C1-R3",
@@ -242,8 +240,7 @@
         "books_category_negated": 0,
         "books_not_collected": 4
       },
-      "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採",
-      "material_depth": "thin"
+      "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採"
     },
     {
       "row_id": "C1-R4",
@@ -334,8 +331,7 @@
         "books_category_negated": 1,
         "books_not_collected": 4
       },
-      "coverage_label": "已採 4 本：2 本有表述、1 本否定範疇、1 本未表述；另 4 本未採",
-      "material_depth": "thin"
+      "coverage_label": "已採 4 本：2 本有表述、1 本否定範疇、1 本未表述；另 4 本未採"
     },
     {
       "row_id": "C1-R5",
@@ -391,8 +387,7 @@
         "books_category_negated": 0,
         "books_not_collected": 4
       },
-      "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採",
-      "material_depth": "thin"
+      "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採"
     }
   ]
 }

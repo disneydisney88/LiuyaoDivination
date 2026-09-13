@@ -10,11 +10,6 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_TABLE_PATH = ROOT / "data" / "decision_tables" / "C1_chong_san.json"
 VALID_STATUSES = frozenset({"addressed", "not_addressed", "category_negated", "not_collected"})
 NO_SEMANTIC_EFFECTS = "structured_only_no_effects_implemented"
-MATERIAL_DEPTH_LABELS = {
-    "thick": "此格有三家以上原文可看",
-    "thin": "此格材料較少",
-    "none": "此格已採各本皆無表述",
-}
 COLLECTION_GAP_TEMPLATE = "另有 {} 本在庫未採集。此為採集缺口，非該書無立場。"
 COVERAGE_NOTE = """**關於本表之切法**
 
@@ -53,19 +48,16 @@ def calculate_coverage(row: dict[str, Any], books_total: int | None = None) -> d
         label += "：" + "、".join(parts)
     if counts["not_collected"]:
         label += f"；另 {counts['not_collected']} 本未採"
-    addressed = counts["addressed"]
-    depth = "thick" if addressed >= 3 else "thin" if addressed in {1, 2} else "none"
     return {
         "coverage": {
             "books_total": total,
             "books_collected": books_collected,
-            "books_addressed": addressed,
+            "books_addressed": counts["addressed"],
             "books_not_addressed": counts["not_addressed"],
             "books_category_negated": counts["category_negated"],
             "books_not_collected": counts["not_collected"],
         },
         "coverage_label": label,
-        "material_depth": depth,
     }
 
 
