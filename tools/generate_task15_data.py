@@ -3,11 +3,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 from typing import Iterable
 
-
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from engine.semantics import calculate_coverage
+
+
 DOCTRINAL = ROOT / "data" / "doctrinal"
 TABLES = ROOT / "data" / "decision_tables"
 DEFAULT_SOURCE = Path(r"G:\我的雲端硬碟\BOOK\八字\文王掛\06_卜筮全書\卜筮全書_古本.txt")
@@ -311,6 +316,7 @@ def update_c1() -> None:
                 cell.update({"status": "not_addressed", "verdict": None, "search_note": "搜尋『散＋救／解／复／仍／还』、『不散／难散／未散／虽散／既散／已散／冲脱／冲起』；覆蓋古本全檔 10,462 行，並逐一檢視 120 處『散』上下文；命中 15 句，無一回答散後可否救。"})
                 for key in ("source", "original", "rule_id", "evidence_strength"):
                     cell.pop(key, None)
+        row.update(calculate_coverage(row, books_total=len(data["books"])))
     write_json(path, data)
 
 
@@ -345,13 +351,14 @@ def write_c13() -> None:
         },
     }
     rows = []
-    for book in books:
-        rows.append({
-            "row_id": f"C13-{book['book_id']}",
-            "book_id": book["book_id"],
+    for system in systems:
+        row = {
+            "row_id": f"C13-{system['void_system_id']}",
+            "condition": system["name"],
+            "void_system_id": system["void_system_id"],
             "cells": [
                 {
-                    "void_system_id": system["void_system_id"],
+                    "book_id": book["book_id"],
                     "status": (
                         "addressed" if book["book_id"] == "buzhequanshu"
                         else "not_addressed" if book["book_id"] in searched_books
@@ -359,22 +366,11 @@ def write_c13() -> None:
                     ),
                     **({"search_note": search_note} if book["book_id"] in searched_books else {}),
                 }
-                for system in systems
+                for book in books
             ],
-        })
-    rows.append({
-        "row_id": "C13-OWN",
-        "condition": "該書自有之空亡分類系統",
-        "note": "此列不與上方五套對齊。各家名目互不重疊，屬 C12 類型五",
-        "cells": [
-            {
-                "book_id": book["book_id"],
-                "status": "addressed" if book["book_id"] in own_systems else "not_collected",
-                **own_systems.get(book["book_id"], {}),
-            }
-            for book in books
-        ],
-    })
+        }
+        row.update(calculate_coverage(row, books_total=len(books)))
+        rows.append(row)
     write_json(TABLES / "C13_kongwang_scope.json", {
         "table_id": "C13",
         "title": "空亡之所指範圍",
@@ -382,6 +378,16 @@ def write_c13() -> None:
         "books": books,
         "void_systems": systems,
         "rows": rows,
+        "own_systems": {
+            "note": "此區記錄各書自有之空亡分類系統。與上方五個系統互不重疊、不可對齊、不可互譯（C12 類型五）。此區不計入 coverage，亦不參與任何跨書比較",
+            "entries": [
+                {
+                    "book_id": book_id,
+                    **details,
+                }
+                for book_id, details in own_systems.items()
+            ],
+        },
     })
 
 

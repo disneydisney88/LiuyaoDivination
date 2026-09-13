@@ -101,7 +101,17 @@
           "status": "not_collected"
         }
       ],
-      "row_title": "三家判不散，一家判損"
+      "row_title": "三家判不散，一家判損",
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 4,
+        "books_addressed": 4,
+        "books_not_addressed": 0,
+        "books_category_negated": 0,
+        "books_not_collected": 4
+      },
+      "coverage_label": "已採 4 本：4 本有表述；另 4 本未採",
+      "material_depth": "thick"
     },
     {
       "row_id": "C1-R2",
@@ -145,7 +155,17 @@
           "book_id": "yiyin",
           "status": "not_collected"
         }
-      ]
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 4,
+        "books_addressed": 1,
+        "books_not_addressed": 3,
+        "books_category_negated": 0,
+        "books_not_collected": 4
+      },
+      "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採",
+      "material_depth": "thin"
     },
     {
       "row_id": "C1-R3",
@@ -213,7 +233,17 @@
           "book_id": "yiyin",
           "status": "not_collected"
         }
-      ]
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 4,
+        "books_addressed": 1,
+        "books_not_addressed": 3,
+        "books_category_negated": 0,
+        "books_not_collected": 4
+      },
+      "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採",
+      "material_depth": "thin"
     },
     {
       "row_id": "C1-R4",
@@ -295,7 +325,17 @@
           "book_id": "yiyin",
           "status": "not_collected"
         }
-      ]
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 4,
+        "books_addressed": 2,
+        "books_not_addressed": 1,
+        "books_category_negated": 1,
+        "books_not_collected": 4
+      },
+      "coverage_label": "已採 4 本：2 本有表述、1 本否定範疇、1 本未表述；另 4 本未採",
+      "material_depth": "thin"
     },
     {
       "row_id": "C1-R5",
@@ -342,7 +382,17 @@
           "book_id": "yiyin",
           "status": "not_collected"
         }
-      ]
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 4,
+        "books_addressed": 1,
+        "books_not_addressed": 3,
+        "books_category_negated": 0,
+        "books_not_collected": 4
+      },
+      "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採",
+      "material_depth": "thin"
     }
   ]
 }

@@ -64,250 +64,24 @@
   ],
   "rows": [
     {
-      "row_id": "C13-yimao",
-      "book_id": "yimao",
-      "cells": [
-        {
-          "void_system_id": "liujia_kongwang",
-          "status": "not_addressed",
-          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
-        },
-        {
-          "void_system_id": "tiandi_kongwang",
-          "status": "not_addressed",
-          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
-        },
-        {
-          "void_system_id": "sidakong_kongwang",
-          "status": "not_addressed",
-          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
-        },
-        {
-          "void_system_id": "jielu_kongwang",
-          "status": "not_addressed",
-          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
-        },
-        {
-          "void_system_id": "wu_kong",
-          "status": "not_addressed",
-          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
-        }
-      ]
-    },
-    {
-      "row_id": "C13-zengshan",
-      "book_id": "zengshan",
-      "cells": [
-        {
-          "void_system_id": "liujia_kongwang",
-          "status": "not_addressed",
-          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
-        },
-        {
-          "void_system_id": "tiandi_kongwang",
-          "status": "not_addressed",
-          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
-        },
-        {
-          "void_system_id": "sidakong_kongwang",
-          "status": "not_addressed",
-          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
-        },
-        {
-          "void_system_id": "jielu_kongwang",
-          "status": "not_addressed",
-          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
-        },
-        {
-          "void_system_id": "wu_kong",
-          "status": "not_addressed",
-          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
-        }
-      ]
-    },
-    {
-      "row_id": "C13-buzhengzong",
-      "book_id": "buzhengzong",
-      "cells": [
-        {
-          "void_system_id": "liujia_kongwang",
-          "status": "not_addressed",
-          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
-        },
-        {
-          "void_system_id": "tiandi_kongwang",
-          "status": "not_addressed",
-          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
-        },
-        {
-          "void_system_id": "sidakong_kongwang",
-          "status": "not_addressed",
-          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
-        },
-        {
-          "void_system_id": "jielu_kongwang",
-          "status": "not_addressed",
-          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
-        },
-        {
-          "void_system_id": "wu_kong",
-          "status": "not_addressed",
-          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
-        }
-      ]
-    },
-    {
-      "row_id": "C13-huozhulin",
-      "book_id": "huozhulin",
-      "cells": [
-        {
-          "void_system_id": "liujia_kongwang",
-          "status": "not_collected"
-        },
-        {
-          "void_system_id": "tiandi_kongwang",
-          "status": "not_collected"
-        },
-        {
-          "void_system_id": "sidakong_kongwang",
-          "status": "not_collected"
-        },
-        {
-          "void_system_id": "jielu_kongwang",
-          "status": "not_collected"
-        },
-        {
-          "void_system_id": "wu_kong",
-          "status": "not_collected"
-        }
-      ]
-    },
-    {
-      "row_id": "C13-huangjin_ce",
-      "book_id": "huangjin_ce",
-      "cells": [
-        {
-          "void_system_id": "liujia_kongwang",
-          "status": "not_collected"
-        },
-        {
-          "void_system_id": "tiandi_kongwang",
-          "status": "not_collected"
-        },
-        {
-          "void_system_id": "sidakong_kongwang",
-          "status": "not_collected"
-        },
-        {
-          "void_system_id": "jielu_kongwang",
-          "status": "not_collected"
-        },
-        {
-          "void_system_id": "wu_kong",
-          "status": "not_collected"
-        }
-      ]
-    },
-    {
-      "row_id": "C13-buzhequanshu",
-      "book_id": "buzhequanshu",
-      "cells": [
-        {
-          "void_system_id": "liujia_kongwang",
-          "status": "addressed"
-        },
-        {
-          "void_system_id": "tiandi_kongwang",
-          "status": "addressed"
-        },
-        {
-          "void_system_id": "sidakong_kongwang",
-          "status": "addressed"
-        },
-        {
-          "void_system_id": "jielu_kongwang",
-          "status": "addressed"
-        },
-        {
-          "void_system_id": "wu_kong",
-          "status": "addressed"
-        }
-      ]
-    },
-    {
-      "row_id": "C13-jing_shi_yizhuan",
-      "book_id": "jing_shi_yizhuan",
-      "cells": [
-        {
-          "void_system_id": "liujia_kongwang",
-          "status": "not_collected"
-        },
-        {
-          "void_system_id": "tiandi_kongwang",
-          "status": "not_collected"
-        },
-        {
-          "void_system_id": "sidakong_kongwang",
-          "status": "not_collected"
-        },
-        {
-          "void_system_id": "jielu_kongwang",
-          "status": "not_collected"
-        },
-        {
-          "void_system_id": "wu_kong",
-          "status": "not_collected"
-        }
-      ]
-    },
-    {
-      "row_id": "C13-yiyin",
-      "book_id": "yiyin",
-      "cells": [
-        {
-          "void_system_id": "liujia_kongwang",
-          "status": "not_collected"
-        },
-        {
-          "void_system_id": "tiandi_kongwang",
-          "status": "not_collected"
-        },
-        {
-          "void_system_id": "sidakong_kongwang",
-          "status": "not_collected"
-        },
-        {
-          "void_system_id": "jielu_kongwang",
-          "status": "not_collected"
-        },
-        {
-          "void_system_id": "wu_kong",
-          "status": "not_collected"
-        }
-      ]
-    },
-    {
-      "row_id": "C13-OWN",
-      "condition": "該書自有之空亡分類系統",
-      "note": "此列不與上方五套對齊。各家名目互不重疊，屬 C12 類型五",
+      "row_id": "C13-liujia_kongwang",
+      "condition": "六甲空亡",
+      "void_system_id": "liujia_kongwang",
       "cells": [
         {
           "book_id": "yimao",
-          "status": "addressed",
-          "own_system": "旬空章十三法（建空、動空、填空、旺空、相空、半空、援空、安空、破空、絕空、真空、克空、傷空）；另類總章八法",
-          "source": "旬空章第二十六 399–402；類總章第四十一 692"
+          "status": "not_addressed",
+          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
         },
         {
           "book_id": "zengshan",
-          "status": "addressed",
-          "own_system": "轉述「諸書」十四項：真空、假空、動空、沖空、填空、援空、無故自空、有故而空、散空、墓空、絕空、害空、安空、破空；野鶴另有自述條例",
-          "source": "旬空章第二十六 1842–1844"
+          "status": "not_addressed",
+          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
         },
         {
           "book_id": "buzhengzong",
-          "status": "addressed",
-          "own_system": "不立名目清單，以四句立條例",
-          "source": "旬空論第十"
+          "status": "not_addressed",
+          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
         },
         {
           "book_id": "huozhulin",
@@ -319,7 +93,7 @@
         },
         {
           "book_id": "buzhequanshu",
-          "status": "not_collected"
+          "status": "addressed"
         },
         {
           "book_id": "jing_shi_yizhuan",
@@ -329,7 +103,245 @@
           "book_id": "yiyin",
           "status": "not_collected"
         }
-      ]
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 4,
+        "books_addressed": 1,
+        "books_not_addressed": 3,
+        "books_category_negated": 0,
+        "books_not_collected": 4
+      },
+      "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採",
+      "material_depth": "thin"
+    },
+    {
+      "row_id": "C13-tiandi_kongwang",
+      "condition": "天地空亡",
+      "void_system_id": "tiandi_kongwang",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "not_addressed",
+          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "not_addressed",
+          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 4,
+        "books_addressed": 1,
+        "books_not_addressed": 3,
+        "books_category_negated": 0,
+        "books_not_collected": 4
+      },
+      "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採",
+      "material_depth": "thin"
+    },
+    {
+      "row_id": "C13-sidakong_kongwang",
+      "condition": "四大空亡",
+      "void_system_id": "sidakong_kongwang",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "not_addressed",
+          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "not_addressed",
+          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 4,
+        "books_addressed": 1,
+        "books_not_addressed": 3,
+        "books_category_negated": 0,
+        "books_not_collected": 4
+      },
+      "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採",
+      "material_depth": "thin"
+    },
+    {
+      "row_id": "C13-jielu_kongwang",
+      "condition": "截路空亡",
+      "void_system_id": "jielu_kongwang",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "not_addressed",
+          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "not_addressed",
+          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 4,
+        "books_addressed": 1,
+        "books_not_addressed": 3,
+        "books_category_negated": 0,
+        "books_not_collected": 4
+      },
+      "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採",
+      "material_depth": "thin"
+    },
+    {
+      "row_id": "C13-wu_kong",
+      "condition": "五空",
+      "void_system_id": "wu_kong",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "not_addressed",
+          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "not_addressed",
+          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "search_note": "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 4,
+        "books_addressed": 1,
+        "books_not_addressed": 3,
+        "books_category_negated": 0,
+        "books_not_collected": 4
+      },
+      "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採",
+      "material_depth": "thin"
     }
-  ]
+  ],
+  "own_systems": {
+    "note": "此區記錄各書自有之空亡分類系統。與上方五個系統互不重疊、不可對齊、不可互譯（C12 類型五）。此區不計入 coverage，亦不參與任何跨書比較",
+    "entries": [
+      {
+        "book_id": "yimao",
+        "own_system": "旬空章十三法（建空、動空、填空、旺空、相空、半空、援空、安空、破空、絕空、真空、克空、傷空）；另類總章八法",
+        "source": "旬空章第二十六 399–402；類總章第四十一 692"
+      },
+      {
+        "book_id": "zengshan",
+        "own_system": "轉述「諸書」十四項：真空、假空、動空、沖空、填空、援空、無故自空、有故而空、散空、墓空、絕空、害空、安空、破空；野鶴另有自述條例",
+        "source": "旬空章第二十六 1842–1844"
+      },
+      {
+        "book_id": "buzhengzong",
+        "own_system": "不立名目清單，以四句立條例",
+        "source": "旬空論第十"
+      }
+    ]
+  }
 }

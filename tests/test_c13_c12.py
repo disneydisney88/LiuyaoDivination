@@ -22,25 +22,30 @@ def test_c12_has_exactly_five_types_and_parallel_handling():
     assert "不可互譯" in parallel
 
 
-def test_c13_collected_books_are_not_addressed_for_all_five_systems():
+def test_c13_uses_five_system_rows_and_keeps_existing_books_not_addressed():
     data = load_json(TABLE_PATH)
-    rows = {row["book_id"]: row for row in data["rows"] if row.get("row_id") != "C13-OWN"}
+    assert len(data["rows"]) == 5
+    rows = data["rows"]
     for book_id in {"yimao", "zengshan", "buzhengzong"}:
-        cells = rows[book_id]["cells"]
-        assert len(cells) == 5
-        assert {cell["status"] for cell in cells} == {"not_addressed"}
-        assert all(cell["search_note"] for cell in cells)
+        for row in rows:
+            cell = next(cell for cell in row["cells"] if cell["book_id"] == book_id)
+            assert cell["status"] == "not_addressed"
+            assert cell["search_note"]
+    for row in rows:
+        quanshu = next(cell for cell in row["cells"] if cell["book_id"] == "buzhequanshu")
+        assert quanshu["status"] == "addressed"
 
 
 def test_c13_own_systems_do_not_align_or_translate_systems():
     data = load_json(TABLE_PATH)
-    own = next(row for row in data["rows"] if row.get("row_id") == "C13-OWN")
+    assert all(row.get("row_id") != "C13-OWN" for row in data["rows"])
+    own = data["own_systems"]
+    assert "coverage" not in own
     forbidden = ("相當於", "對應", "等同")
-    addressed = [cell for cell in own["cells"] if cell["status"] == "addressed"]
-    assert len(addressed) == 3
-    for cell in addressed:
-        assert cell["own_system"]
-        assert not any(word in cell["own_system"] for word in forbidden)
+    assert own["entries"]
+    for entry in own["entries"]:
+        assert entry["own_system"]
+        assert not any(word in entry["own_system"] for word in forbidden)
 
 
 def test_zengshan_provenance_is_weak_and_explained():

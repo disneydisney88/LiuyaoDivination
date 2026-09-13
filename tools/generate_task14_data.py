@@ -2,10 +2,15 @@
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from engine.semantics import calculate_coverage
+
+
 DOCTRINAL = ROOT / "data" / "doctrinal"
 TABLES = ROOT / "data" / "decision_tables"
 
@@ -231,6 +236,7 @@ def decision_table() -> dict:
         row = {"row_id": row_id, "condition": condition, "cells": cells}
         if row_id == "C1-R1":
             row["row_title"] = "三家判不散，一家判損"
+        row.update(calculate_coverage(row, books_total=len(BOOKS)))
         output_rows.append(row)
     return {"table_id": "C1", "title": "沖與散之判定", "conflict_ids": ["C1", "C11", "C12"],
             "books": BOOKS, "rows": output_rows}

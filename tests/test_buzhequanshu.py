@@ -72,21 +72,34 @@ def test_buzhequanshu_uses_clean_corpus_path():
     assert not data["corpus_path"].endswith("卜筮全書.txt")
 
 
-def test_c13_keeps_existing_three_books_not_addressed():
+def test_c13_has_five_system_rows_and_eight_book_cells():
     data = load_json(C13_PATH)
     assert len(data["books"]) == 8
     assert len(data["void_systems"]) == 5
-    assert len(data["rows"]) == 9
-    assert all(len(row["cells"]) == 5 for row in data["rows"] if row.get("row_id") != "C13-OWN")
+    assert len(data["rows"]) == 5
+    assert all(len(row["cells"]) == 8 for row in data["rows"])
+    assert {row["void_system_id"] for row in data["rows"]} == {
+        system["void_system_id"] for system in data["void_systems"]
+    }
     existing_books = {"yimao", "zengshan", "buzhengzong"}
     for row in data["rows"]:
-        if row.get("row_id") == "C13-OWN":
-            continue
-        if row["book_id"] in existing_books:
-            assert {cell["status"] for cell in row["cells"]} == {"not_addressed"}
-            assert all(cell["search_note"] for cell in row["cells"])
-    quanshu = next(row for row in data["rows"] if row["book_id"] == "buzhequanshu")
-    assert {cell["status"] for cell in quanshu["cells"]} == {"addressed"}
+        cells = {cell["book_id"]: cell for cell in row["cells"]}
+        assert {cells[book_id]["status"] for book_id in existing_books} == {"not_addressed"}
+        assert all(cells[book_id]["search_note"] for book_id in existing_books)
+        assert cells["buzhequanshu"]["status"] == "addressed"
+
+
+def test_c13_own_systems_are_parallel_and_excluded_from_coverage():
+    data = load_json(C13_PATH)
+    assert all(row.get("row_id") != "C13-OWN" for row in data["rows"])
+    own_systems = data["own_systems"]
+    assert own_systems not in data["rows"]
+    assert "coverage" not in own_systems
+    forbidden = ("相當於", "對應", "等同")
+    assert own_systems["entries"]
+    for entry in own_systems["entries"]:
+        assert entry["own_system"]
+        assert not any(word in entry["own_system"] for word in forbidden)
 
 
 def test_c1_quanshu_r2_r5_not_addressed_have_search_notes():
