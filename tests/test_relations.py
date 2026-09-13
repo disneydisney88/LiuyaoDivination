@@ -39,6 +39,17 @@ def test_seasonal_state_is_mechanical_only():
     assert seasonal_state("水", "土") == "死"
 
 
+def test_month_break_is_mechanical_marker():
+    """R-L2-03: month branch clash marks 月破 without assigning an effect."""
+    graph = build_relation_graph(line_rows=sample_rows(), month_element="土", month_branch="子",
+                                 day_stem="甲", day_branch="子")
+    by_position = {row["position"]: row for row in graph["lines"]}
+    assert by_position[1]["branch"] == "子"
+    assert by_position[1]["month_break"] is False
+    assert by_position[4]["branch"] == "午"
+    assert by_position[4]["month_break"] is True
+
+
 def test_xunkong_is_mechanically_derived():
     """Self-consistency: 甲子旬 gives 戌亥空 without an effect judgment."""
     assert xunkong("甲", "子") == ("戌", "亥")
