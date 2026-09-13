@@ -70,22 +70,18 @@ def build(lines: Iterable[int]) -> dict:
     palace_najia = _line_najia(tuple(palace_head["lines"]))
     palace_relatives = [relation(record["palace_element"], BRANCH_ELEMENT[item["branch"]])
                         for item in palace_najia]
-    hidden_candidates = []
+    hidden = []
     for relative in ("父母", "官鬼", "妻財", "子孫", "兄弟"):
         if relative not in present:
             hidden_positions = [i for i, value in enumerate(palace_relatives) if value == relative]
-            hidden_candidates.append((relative, hidden_positions))
-    assert len(hidden_candidates) <= 1, "R-L1-08a expects at most one absent six-relative"
-    hidden = None
-    if hidden_candidates:
-        relative, hidden_positions = hidden_candidates[0]
-        assert len(hidden_positions) == 1, "R-L1-08a expects one palace-head position"
-        i = hidden_positions[0]
-        hidden = {"六親": relative, "branch": palace_najia[i]["branch"],
-                  "element": BRANCH_ELEMENT[palace_najia[i]["branch"]],
-                  "position": i + 1, "flying_branch": rows[i]["branch"],
-                  "flying_element": rows[i]["element"], "rule_id": "R-L1-08a",
-                  "伏神能否為用": "TODO: pending R-L1-08b verification"}
+            if len(hidden_positions) != 1:
+                raise RuntimeError("R-L1-08a expects one palace-head position per absent six-relative")
+            i = hidden_positions[0]
+            hidden.append({"六親": relative, "branch": palace_najia[i]["branch"],
+                           "element": BRANCH_ELEMENT[palace_najia[i]["branch"]],
+                           "position": i + 1, "flying_branch": rows[i]["branch"],
+                           "flying_element": rows[i]["element"], "rule_id": "R-L1-08a",
+                           "伏神能否為用": "TODO: pending R-L1-08b verification"})
     return {"hexagram_id": record["hexagram_id"], "name": record["name"],
             "lines": list(bits), "palace": record["palace"],
             "palace_element": record["palace_element"], "position": record["position"],

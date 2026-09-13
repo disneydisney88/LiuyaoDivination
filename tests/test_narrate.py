@@ -2,6 +2,7 @@ import ast
 import json
 from pathlib import Path
 
+from engine.build import build
 from engine.narrate import narrate
 from engine.semantics import semantic_for_condition
 
@@ -91,3 +92,15 @@ def test_no_llm_imports_in_engine_or_pages():
         for path in folder.glob("*.py"):
             source = path.read_text(encoding="utf-8").lower()
             assert not any("import " + name in source or "from " + name in source for name in forbidden)
+
+
+def test_multiple_hidden_entries_are_each_rendered_in_plain_language():
+    hidden = build([0, 0, 1, 1, 1, 1])["hidden"]
+    output = narrate(
+        semantics={"line": 1, "hidden": hidden, "tracks": {}},
+        relations={"lines": [{"position": 1}]},
+    )
+    assert output["hidden"] == hidden
+    assert len(output["hidden_narratives"]) == 2
+    assert [item["六親"] for item in output["hidden_narratives"]] == ["妻財", "子孫"]
+    assert all("伏神" in item["text"] and "飛神" in item["text"] for item in output["hidden_narratives"])

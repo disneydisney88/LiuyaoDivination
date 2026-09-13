@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -130,6 +130,7 @@ def _track(cell: dict[str, Any], book_name: str) -> dict[str, Any]:
 
 
 def semantic_for_condition(*, line: int, condition: str,
+                           hidden: Iterable[dict] = (),
                            table: dict[str, Any] | None = None,
                            table_path: str | Path = DEFAULT_TABLE_PATH) -> dict[str, Any]:
     """Return every table cell as a separate track; never infer missing books."""
@@ -144,6 +145,7 @@ def semantic_for_condition(*, line: int, condition: str,
         "table_id": decision_table.get("table_id"),
         "line": line,
         "condition": condition,
+        "hidden": [dict(item) for item in hidden],
         "tracks": tracks,
     }
     result["row_id"] = row["row_id"]
@@ -155,10 +157,11 @@ def semantic_for_condition(*, line: int, condition: str,
     return result
 
 
-def build_semantics(*, line: int, condition: str,
+def build_semantics(*, line: int, condition: str, hidden: Iterable[dict] = (),
                     table: dict[str, Any] | None = None,
                     table_path: str | Path = DEFAULT_TABLE_PATH) -> dict[str, Any]:
-    return semantic_for_condition(line=line, condition=condition, table=table, table_path=table_path)
+    return semantic_for_condition(line=line, condition=condition, hidden=hidden,
+                                  table=table, table_path=table_path)
 
 
 def semantics_from_relations(relation_result: dict[str, Any], *, line: int, condition: str,
@@ -166,6 +169,8 @@ def semantics_from_relations(relation_result: dict[str, Any], *, line: int, cond
                              table_path: str | Path = DEFAULT_TABLE_PATH) -> dict[str, Any]:
     if "lines" not in relation_result or "edges" not in relation_result:
         raise ValueError("relation_result must be an engine.relations output")
-    result = semantic_for_condition(line=line, condition=condition, table=table, table_path=table_path)
+    result = semantic_for_condition(line=line, condition=condition,
+                                    hidden=relation_result.get("hidden", []),
+                                    table=table, table_path=table_path)
     result["relation_scope"] = relation_result.get("rule_scope", [])
     return result

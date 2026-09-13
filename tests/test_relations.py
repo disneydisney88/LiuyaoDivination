@@ -1,4 +1,6 @@
+from engine.build import build
 from engine.relations import build_relation_graph, classify_motion, seasonal_state, xunkong
+from engine.semantics import semantics_from_relations
 
 
 def sample_rows():
@@ -59,3 +61,14 @@ def test_empty_then_clash_is_full_motion_not_scatter():
     """Sourced R-L2-09 ordering: empty is checked before 日辰冲."""
     assert classify_motion(moving=True, empty=True, day_branch="午", line_branch="子") == "全動"
     assert classify_motion(moving=True, empty=False, day_branch="午", line_branch="子") == "散"
+
+
+def test_multiple_hidden_entries_pass_through_relations_and_semantics():
+    derived = build([0, 0, 1, 1, 1, 1])
+    graph = build_relation_graph(
+        line_rows=derived["lines_detail"], hidden=derived["hidden"],
+        month_element="土", month_branch="辰", day_stem="甲", day_branch="子",
+    )
+    assert graph["hidden"] == derived["hidden"]
+    semantics = semantics_from_relations(graph, line=1, condition="旺相之爻遇沖")
+    assert semantics["hidden"] == derived["hidden"]

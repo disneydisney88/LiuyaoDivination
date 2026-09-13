@@ -20,7 +20,7 @@ TRACK_RECORD_FIELDS = [
 RECORD_FIELDS = [
     "case_id", "cast_datetime", "lines", "question_text", "background_text", "is_proxy",
     "hexagram_name", "palace", "palace_element", "shi", "ying", "month_branch", "day_branch",
-    "xunkong", "month_break", "yongshen_selected", "yongshen_selected_by", "yongshen_candidates",
+    "xunkong", "month_break", "hidden", "yongshen_selected", "yongshen_selected_by", "yongshen_candidates",
     *TRACK_RECORD_FIELDS, "yingqi_candidates", "actual_outcome", "actual_outcome_date",
     "verified", "verification_note", "narration_template_ids", "template_missing",
 ]
@@ -46,7 +46,7 @@ def make_case(*, coin_counts: Iterable[int], cast_datetime: datetime,
         raise ValueError("coin_counts must contain six values from 0 to 3")
     lines = [1 if value in (1, 3) else 0 for value in counts]
     derived = build(lines)
-    hidden = derived.get("hidden")
+    hidden = derived["hidden"]
     cast_date = cast_datetime.date()
     return {
         "case_id": str(uuid.uuid4()), "cast_datetime": cast_datetime.isoformat(timespec="minutes"),
@@ -54,8 +54,8 @@ def make_case(*, coin_counts: Iterable[int], cast_datetime: datetime,
         "is_proxy": bool(is_proxy), "hexagram_name": derived["name"], "palace": derived["palace"],
         "palace_element": derived["palace_element"], "shi": derived["shi"], "ying": derived["ying"],
         "month_branch": month_branch_for_date(cast_date), "day_branch": day_branch_for_date(cast_date),
-        "xunkong": [], "month_break": [], "yongshen_selected": None,
-        "yongshen_selected_by": "human", "yongshen_candidates": [hidden] if hidden else [],
+        "xunkong": [], "month_break": [], "hidden": hidden, "yongshen_selected": None,
+        "yongshen_selected_by": "human", "yongshen_candidates": list(hidden),
         **{field: None for field in TRACK_RECORD_FIELDS},
         "yingqi_candidates": [], "actual_outcome": None, "actual_outcome_date": None,
         "verified": False, "verification_note": None,
@@ -67,11 +67,29 @@ def make_case(*, coin_counts: Iterable[int], cast_datetime: datetime,
 def load_cases() -> list[dict[str, Any]]:
     if not RECORDS_PATH.exists():
         return []
-    return [json.loads(line) for line in RECORDS_PATH.read_text(encoding="utf-8").splitlines() if line.strip()]
+    cases = [json.loads(line) for line in RECORDS_PATH.read_text(encoding="utf-8").splitlines() if line.strip()]
+    for case in cases:
+        hidden = case.get("hidden")
+        if hidden is None:
+            hidden = build(case["lines"])["hidden"]
+        elif isinstance(hidden, dict):
+            hidden = [hidden]
+        elif len(hidden) == 1 and isinstance(hidden[0], list):
+            hidden = hidden[0]
+        case["hidden"] = hidden
+        candidates = case.get("yongshen_candidates")
+        if candidates is None or (len(candidates) == 1 and isinstance(candidates[0], list)):
+            case["yongshen_candidates"] = list(hidden)
+    return cases
 
 
 def save_cases(cases: list[dict[str, Any]]) -> None:
     RECORDS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    for case in cases:
+        hidden = case.get("hidden", [])
+        if isinstance(hidden, dict):
+            hidden = [hidden]
+        case["hidden"] = list(hidden)
     RECORDS_PATH.write_text("\n".join(json.dumps(case, ensure_ascii=False) for case in cases) + ("\n" if cases else ""), encoding="utf-8")
 
 

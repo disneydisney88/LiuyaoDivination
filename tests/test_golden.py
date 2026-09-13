@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from random import Random
 
 from engine.build import build
 from tools.generate_data import IMAGES, POSITIONS, SHI, TRIGRAMS, generate_bagong, generate_changsheng
@@ -45,10 +46,53 @@ def test_tian_feng_gou_sourced_najia_case():
         ("午", "火"), ("申", "金"), ("戌", "土")]
     assert [x["six_relative"] for x in result["lines_detail"]] == [
         "父母", "子孫", "兄弟", "官鬼", "兄弟", "父母"]
-    assert result["hidden"] == {
+    assert result["hidden"] == [{
         "六親": "妻財", "branch": "寅", "element": "木", "position": 2,
         "flying_branch": "亥", "flying_element": "水", "rule_id": "R-L1-08a",
-        "伏神能否為用": "TODO: pending R-L1-08b verification"}
+        "伏神能否為用": "TODO: pending R-L1-08b verification"}]
+
+
+def test_build_all_64_static_and_random_moving_samples_do_not_raise():
+    rows = generate_bagong()
+    for row in rows:
+        assert build(row["lines"])["lines"] == row["lines"]
+
+    # Moving/old coin values normalize to the same six yin/yang inputs accepted
+    # by build().  Exercise a deterministic sample across hexagrams and masks.
+    random = Random(108)
+    for _ in range(256):
+        row = random.choice(rows)
+        moving_mask = random.randrange(1 << 6)
+        coin_counts = []
+        for index, line in enumerate(row["lines"]):
+            moving = bool(moving_mask & (1 << index))
+            coin_counts.append(3 if line and moving else 1 if line else 0 if moving else 2)
+        normalized = [1 if count in (1, 3) else 0 for count in coin_counts]
+        assert build(normalized)["lines"] == row["lines"]
+
+
+def test_hidden_is_always_a_list_and_static_distribution_is_stable():
+    lengths = [len(build(row["lines"])["hidden"]) for row in generate_bagong()]
+    assert all(isinstance(build(row["lines"])["hidden"], list) for row in generate_bagong())
+    assert {length: lengths.count(length) for length in range(5)} == {
+        0: 20, 1: 32, 2: 12, 3: 0, 4: 0,
+    }
+
+
+def test_two_absent_six_relatives_each_have_hidden_and_flying_lines():
+    result = build([0, 0, 1, 1, 1, 1])
+    assert result["hidden"] == [
+        {
+            "六親": "妻財", "branch": "寅", "element": "木", "position": 2,
+            "flying_branch": "午", "flying_element": "火", "rule_id": "R-L1-08a",
+            "伏神能否為用": "TODO: pending R-L1-08b verification",
+        },
+        {
+            "六親": "子孫", "branch": "子", "element": "水", "position": 1,
+            "flying_branch": "辰", "flying_element": "土", "rule_id": "R-L1-08a",
+            "伏神能否為用": "TODO: pending R-L1-08b verification",
+        },
+    ]
 
 
 def test_bagong_structural_invariants():

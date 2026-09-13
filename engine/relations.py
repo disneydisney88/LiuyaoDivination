@@ -81,13 +81,17 @@ def classify_motion(*, moving: bool, empty: bool, day_branch: str, line_branch: 
 def build_relation_graph(*, line_rows: Iterable[dict], month_element: str,
                          month_branch: str, day_stem: str, day_branch: str,
                          moving_positions: Iterable[int] = (),
-                         changing_positions: Iterable[int] = ()) -> dict:
+                         changing_positions: Iterable[int] = (),
+                         hidden: Iterable[dict] = ()) -> dict:
     """Build only L2 labels and directed graph scope constraints.
 
     ``line_rows`` uses the L1 shape (position, branch, element).  No question
     text, yongshen choice, prediction, or empty/scatter effect is accepted.
     """
     rows = list(line_rows)
+    hidden_rows = [dict(item) for item in hidden]
+    if any(not isinstance(item, dict) for item in hidden_rows):
+        raise ValueError("hidden must be an iterable of mappings")
     moving = set(moving_positions)
     changing = set(changing_positions)
     empty_branches = xunkong(day_stem, day_branch)
@@ -128,6 +132,6 @@ def build_relation_graph(*, line_rows: Iterable[dict], month_element: str,
         "rule_scope": ["R-L2-01", "R-L2-02", "R-L2-03", "R-L2-04", "R-L2-05", "R-L2-09"],
         "empty_branches": list(empty_branches), "month_branch": month_branch,
         "day_stem": day_stem, "day_branch": day_branch,
-        "lines": states, "edges": edges,
+        "lines": states, "hidden": hidden_rows, "edges": edges,
         "semantic_effects": "NOT IMPLEMENTED: pending C1 track decision",
     }

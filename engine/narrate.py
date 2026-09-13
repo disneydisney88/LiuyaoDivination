@@ -16,6 +16,20 @@ DOCTRINAL_PATH = ROOT / "data" / "doctrinal"
 MISSING_TEXT = "（此情況未有對應模板）"
 
 
+def narrate_hidden(hidden: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Render every mechanical R-L1-08a entry without assigning an effect."""
+    narratives = []
+    for item in hidden:
+        entry = dict(item)
+        entry["text"] = "{}伏神在第{}爻：{}{}；飛神為{}{}。".format(
+            item.get("六親", ""), item.get("position", ""), item.get("branch", ""),
+            item.get("element", ""), item.get("flying_branch", ""),
+            item.get("flying_element", ""),
+        )
+        narratives.append(entry)
+    return narratives
+
+
 def _load_templates() -> dict[str, dict[str, Any]]:
     return json.loads(TEMPLATES_PATH.read_text(encoding="utf-8"))
 
@@ -149,6 +163,10 @@ def narrate(*, semantics: dict[str, Any], relations: dict[str, Any]) -> dict[str
     """Render one semantic cell with only supplied relation state."""
     templates = _load_templates()
     by_rule, negated = _load_sources()
+    hidden = semantics.get("hidden") or relations.get("hidden") or []
+    if not isinstance(hidden, list):
+        raise ValueError("hidden must be a list")
+    hidden_rows = [dict(item) for item in hidden]
     line = semantics.get("line")
     relation_row = next((item for item in relations.get("lines", []) if item.get("position") == line), {})
     header = "{}爻 {}{} {}".format(line, relation_row.get("branch", ""), relation_row.get("element", ""), relation_row.get("six_relative", ""))
@@ -176,5 +194,6 @@ def narrate(*, semantics: dict[str, Any], relations: dict[str, Any]) -> dict[str
     template_ids = [step["template_id"] for step in derivation if step.get("template_id")]
     template_ids.extend(track["template_id"] for track in tracks if track.get("template_id"))
     return {"line": line, "header": header, "derivation": derivation,
+            "hidden": hidden_rows, "hidden_narratives": narrate_hidden(hidden_rows),
             "tracks": tracks, "template_ids": template_ids,
             "template_missing": missing}

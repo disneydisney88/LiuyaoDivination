@@ -20,7 +20,13 @@ else:
         st.caption("來源：增刪卜易，代占相關原文。")
     if case.get("yongshen_candidates"):
         st.subheader("機械候選（仍由使用者揀）")
-        st.json(case["yongshen_candidates"])
+        for candidate in case["yongshen_candidates"]:
+            with st.container(border=True):
+                st.write("{}伏神：第{}爻 {}{}（飛神 {}{}）".format(
+                    candidate["六親"], candidate["position"], candidate["branch"],
+                    candidate["element"], candidate["flying_branch"],
+                    candidate["flying_element"],
+                ))
     if selected:
         cols = st.columns(len(selected))
         for col, choice in zip(cols, selected):
