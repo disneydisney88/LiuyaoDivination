@@ -1,0 +1,48 @@
+{
+  "金": {
+    "track_A": {
+      "長生": "巳",
+      "墓": "丑",
+      "source": "spec §7 (single track)",
+      "rule_id": "R-CS-金-A"
+    }
+  },
+  "水": {
+    "track_A": {
+      "長生": "申",
+      "墓": "辰",
+      "source": "spec §7 (single track)",
+      "rule_id": "R-CS-水-A"
+    }
+  },
+  "木": {
+    "track_A": {
+      "長生": "亥",
+      "墓": "未",
+      "source": "spec §7 (single track)",
+      "rule_id": "R-CS-木-A"
+    }
+  },
+  "火": {
+    "track_A": {
+      "長生": "寅",
+      "墓": "戌",
+      "source": "spec §7 (single track)",
+      "rule_id": "R-CS-火-A"
+    }
+  },
+  "土": {
+    "track_A": {
+      "長生": "申",
+      "墓": "辰",
+      "source": "卜筮正宗（通行說）",
+      "rule_id": "R-CS-土-A"
+    },
+    "track_B": {
+      "長生": "寅",
+      "墓": "戌",
+      "source": "火土同源說，散見卜筮全書／易冒",
+      "rule_id": "R-CS-土-B"
+    }
+  }
+}

@@ -1,0 +1,386 @@
+[
+  {
+    "trigram": "乾",
+    "side": "inner",
+    "line": 1,
+    "stem": "甲",
+    "branch": "子",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "乾",
+    "side": "inner",
+    "line": 2,
+    "stem": "甲",
+    "branch": "寅",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "乾",
+    "side": "inner",
+    "line": 3,
+    "stem": "甲",
+    "branch": "辰",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "乾",
+    "side": "outer",
+    "line": 1,
+    "stem": "壬",
+    "branch": "午",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "乾",
+    "side": "outer",
+    "line": 2,
+    "stem": "壬",
+    "branch": "申",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "乾",
+    "side": "outer",
+    "line": 3,
+    "stem": "壬",
+    "branch": "戌",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "坎",
+    "side": "inner",
+    "line": 1,
+    "stem": "戊",
+    "branch": "寅",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "坎",
+    "side": "inner",
+    "line": 2,
+    "stem": "戊",
+    "branch": "辰",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "坎",
+    "side": "inner",
+    "line": 3,
+    "stem": "戊",
+    "branch": "午",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "坎",
+    "side": "outer",
+    "line": 1,
+    "stem": "戊",
+    "branch": "申",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "坎",
+    "side": "outer",
+    "line": 2,
+    "stem": "戊",
+    "branch": "戌",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "坎",
+    "side": "outer",
+    "line": 3,
+    "stem": "戊",
+    "branch": "子",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "艮",
+    "side": "inner",
+    "line": 1,
+    "stem": "丙",
+    "branch": "辰",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "艮",
+    "side": "inner",
+    "line": 2,
+    "stem": "丙",
+    "branch": "午",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "艮",
+    "side": "inner",
+    "line": 3,
+    "stem": "丙",
+    "branch": "申",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "艮",
+    "side": "outer",
+    "line": 1,
+    "stem": "丙",
+    "branch": "戌",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "艮",
+    "side": "outer",
+    "line": 2,
+    "stem": "丙",
+    "branch": "子",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "艮",
+    "side": "outer",
+    "line": 3,
+    "stem": "丙",
+    "branch": "寅",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "震",
+    "side": "inner",
+    "line": 1,
+    "stem": "庚",
+    "branch": "子",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "震",
+    "side": "inner",
+    "line": 2,
+    "stem": "庚",
+    "branch": "寅",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "震",
+    "side": "inner",
+    "line": 3,
+    "stem": "庚",
+    "branch": "辰",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "震",
+    "side": "outer",
+    "line": 1,
+    "stem": "庚",
+    "branch": "午",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "震",
+    "side": "outer",
+    "line": 2,
+    "stem": "庚",
+    "branch": "申",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "震",
+    "side": "outer",
+    "line": 3,
+    "stem": "庚",
+    "branch": "戌",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "巽",
+    "side": "inner",
+    "line": 1,
+    "stem": "辛",
+    "branch": "丑",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "巽",
+    "side": "inner",
+    "line": 2,
+    "stem": "辛",
+    "branch": "亥",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "巽",
+    "side": "inner",
+    "line": 3,
+    "stem": "辛",
+    "branch": "酉",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "巽",
+    "side": "outer",
+    "line": 1,
+    "stem": "辛",
+    "branch": "未",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "巽",
+    "side": "outer",
+    "line": 2,
+    "stem": "辛",
+    "branch": "巳",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "巽",
+    "side": "outer",
+    "line": 3,
+    "stem": "辛",
+    "branch": "卯",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "離",
+    "side": "inner",
+    "line": 1,
+    "stem": "己",
+    "branch": "卯",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "離",
+    "side": "inner",
+    "line": 2,
+    "stem": "己",
+    "branch": "丑",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "離",
+    "side": "inner",
+    "line": 3,
+    "stem": "己",
+    "branch": "亥",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "離",
+    "side": "outer",
+    "line": 1,
+    "stem": "己",
+    "branch": "酉",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "離",
+    "side": "outer",
+    "line": 2,
+    "stem": "己",
+    "branch": "未",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "離",
+    "side": "outer",
+    "line": 3,
+    "stem": "己",
+    "branch": "巳",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "坤",
+    "side": "inner",
+    "line": 1,
+    "stem": "乙",
+    "branch": "未",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "坤",
+    "side": "inner",
+    "line": 2,
+    "stem": "乙",
+    "branch": "巳",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "坤",
+    "side": "inner",
+    "line": 3,
+    "stem": "乙",
+    "branch": "卯",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "坤",
+    "side": "outer",
+    "line": 1,
+    "stem": "癸",
+    "branch": "丑",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "坤",
+    "side": "outer",
+    "line": 2,
+    "stem": "癸",
+    "branch": "亥",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "坤",
+    "side": "outer",
+    "line": 3,
+    "stem": "癸",
+    "branch": "酉",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "兌",
+    "side": "inner",
+    "line": 1,
+    "stem": "丁",
+    "branch": "巳",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "兌",
+    "side": "inner",
+    "line": 2,
+    "stem": "丁",
+    "branch": "卯",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "兌",
+    "side": "inner",
+    "line": 3,
+    "stem": "丁",
+    "branch": "丑",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "兌",
+    "side": "outer",
+    "line": 1,
+    "stem": "丁",
+    "branch": "亥",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "兌",
+    "side": "outer",
+    "line": 2,
+    "stem": "丁",
+    "branch": "酉",
+    "used_in_relations": false
+  },
+  {
+    "trigram": "兌",
+    "side": "outer",
+    "line": 3,
+    "stem": "丁",
+    "branch": "未",
+    "used_in_relations": false
+  }
+]
