@@ -1,10 +1,32 @@
 import streamlit as st
+
 from engine.narrate import narrate
 from engine.semantics import semantic_for_condition
 
+
+def show_track(track_narrative, track, *, original_collapsed=True):
+    st.write(track_narrative["verdict_plain"])
+    if track_narrative.get("implication"):
+        st.caption(track_narrative["implication"])
+    st.caption("框架：{}".format(track.get("framework", "未提供")))
+    if track.get("framework_position") is not None:
+        st.caption("框架位置：{}".format(track["framework_position"]))
+    if track.get("evidence_strength"):
+        st.caption("證據強度：{}".format(track["evidence_strength"]))
+    st.caption("出處：{}".format(track_narrative.get("source_locator") or track.get("source", "未表述")))
+    original = track_narrative.get("original") or "現有 doctrinal 資料未提供逐字原文。"
+    if original_collapsed:
+        with st.expander("原文（預設摺疊）"):
+            st.write(original)
+    else:
+        st.write(original)
+
+
 st.header("多軌")
-st.caption("各書保留原框架；不作綜合結論、多數決、可信度或加權。")
-condition = st.selectbox("選擇 C1 決策表格位", ["旺相之爻遇沖", "有氣之爻遇沖", "臨日月之爻遇沖", "休囚之爻遇日沖", "既判為散之後"])
+st.caption("按資料狀態分組；不作跨軌裁決、多數決、可信度或加權。")
+condition = st.selectbox("選擇 C1 決策表格位", [
+    "旺相之爻遇沖", "有氣之爻遇沖", "臨日月之爻遇沖", "休囚之爻遇日沖", "既判為散之後",
+])
 result = semantic_for_condition(line=3, condition=condition)
 narrative = narrate(semantics=result, relations=st.session_state.get("current_relation_state", {}))
 st.subheader(narrative["header"])
@@ -14,26 +36,35 @@ for step in narrative["derivation"]:
         st.warning("{}：{}".format(label, step["text"]))
     else:
         st.write("{}：{}（{}）".format(label, step["text"], step.get("rule_id")))
-if result.get("consensus"):
-    st.success("三家共識（只標示共識，不作跨軌推導）")
-cols = st.columns(3)
-for col, track_narrative in zip(cols, narrative["tracks"]):
-    name = track_narrative["book"]
-    track = result["tracks"][name]
-    with col:
+
+narrative_by_book = {item["book"]: item for item in narrative["tracks"]}
+tracks = result["tracks"]
+negated = [book for book, track in tracks.items() if track["status"] == "category_negated"]
+addressed = [book for book, track in tracks.items() if track["status"] == "addressed"]
+not_addressed = [book for book, track in tracks.items() if track["status"] == "not_addressed"]
+not_collected = [book for book, track in tracks.items() if track["status"] == "not_collected"]
+
+if result.get("consensus") and addressed:
+    with st.expander("{} 家一致：各家均有表態（保留各家原框架）".format(len(addressed)), expanded=False):
+        for book in addressed:
+            show_track(narrative_by_book[book], tracks[book])
+elif addressed:
+    st.subheader("分歧")
+    for book in addressed:
+        with st.expander(book, expanded=True):
+            show_track(narrative_by_book[book], tracks[book], original_collapsed=False)
+
+if negated:
+    st.subheader("否定範疇")
+    for book in negated:
         with st.container(border=True):
-            st.subheader(name)
-            if track_narrative.get("category_negated"):
-                st.warning(track_narrative["verdict_plain"])
-            else:
-                st.write(track_narrative["verdict_plain"])
-            if track_narrative.get("implication"):
-                st.caption(track_narrative["implication"])
-            st.caption(f"框架：{track.get('framework', '未提供')}")
-            if track.get("framework_position") is not None:
-                st.caption(f"看用神十八法第 {track['framework_position']} 位")
-            if track.get("framework_note"):
-                st.write(track["framework_note"])
-            st.caption(f"出處：{track_narrative.get('source_locator') or track.get('source', '未表述')}")
-            with st.expander("原文（預設摺疊）"):
-                st.write(track_narrative.get("original") or "現有 doctrinal 資料未提供逐字原文。")
+            st.markdown("**{}**".format(book))
+            show_track(narrative_by_book[book], tracks[book])
+
+if not_addressed:
+    with st.expander("未表述：{}".format("、".join(not_addressed)), expanded=False):
+        st.write("已讀取之材料未表述此問題；不等於未採集。")
+
+if not_collected:
+    with st.expander("未採集：{}".format("、".join(not_collected)), expanded=False):
+        st.write("此為採集缺口，非該書無立場。")

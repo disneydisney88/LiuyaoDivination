@@ -1,9 +1,22 @@
 {
+  "book_id": "yimao",
   "source_book": "易冒",
+  "era": "清",
+  "author": "程良玉",
+  "attribution_status": "attested",
+  "framework_type": "ordinal_18",
+  "framework_note": "十八級序數排序，全吉 1–8／半吉 9–11／凶陷 12–18；帶明文遞增比較語；第 17 項有明文例外",
+  "doctrinal_status": "single_school",
+  "conflicts_with": [
+    "C1",
+    "C11",
+    "C12"
+  ],
+  "corpus_path": "07_易冒/易冒.txt",
   "source_file": "07_易冒/易冒.txt",
   "extraction_task": "TASK_CODEX_07",
-  "semantic_status": "structured_only_no_effects_implemented",
   "warning": "排序非全序，見 YM_SET_01 item_ordinal 17 之 exception_original",
+  "semantic_status": "structured_only_no_effects_implemented",
   "sets": [
     {
       "set_id": "YM_SET_01",

@@ -1,9 +1,10 @@
 from engine.semantics import semantic_for_condition
 
 
-def test_disputed_cell_has_exactly_three_tracks():
+def test_disputed_cell_has_all_eight_tracks():
     result = semantic_for_condition(line=3, condition="休囚之爻遇日沖")
-    assert set(result["tracks"]) == {"易冒", "卜筮正宗", "增刪卜易"}
+    assert len(result["tracks"]) == 8
+    assert {"易冒", "卜筮正宗", "增刪卜易"} <= set(result["tracks"])
 
 
 def test_zengshan_disputed_track_is_category_negation_without_verdict():
@@ -26,10 +27,17 @@ def test_framework_position_only_yimao_is_ranked():
     assert tracks["增刪卜易"]["framework_position"] is None
 
 
-def test_consensus_cell_is_marked_and_has_three_sources():
+def test_uncollected_books_are_explicitly_distinct():
+    tracks = semantic_for_condition(line=3, condition="休囚之爻遇日沖")["tracks"]
+    assert sum(track["status"] == "not_collected" for track in tracks.values()) == 5
+    assert all("verdict" not in track for track in tracks.values() if track["status"] == "not_collected")
+
+
+def test_consensus_cell_is_marked_and_collected_sources_are_present():
     result = semantic_for_condition(line=3, condition="旺相之爻遇沖")
     assert result["consensus"] is True
-    assert all(track["source"] for track in result["tracks"].values())
+    collected = [track for track in result["tracks"].values() if track["status"] == "addressed"]
+    assert all(track["source"] for track in collected)
 
 
 def test_not_addressed_and_category_negated_are_distinct():

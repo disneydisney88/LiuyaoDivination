@@ -1,0 +1,280 @@
+{
+  "table_id": "C1",
+  "title": "沖與散之判定",
+  "conflict_ids": [
+    "C1",
+    "C11",
+    "C12"
+  ],
+  "books": [
+    {
+      "book_id": "yimao",
+      "name": "易冒"
+    },
+    {
+      "book_id": "zengshan",
+      "name": "增刪卜易"
+    },
+    {
+      "book_id": "buzhengzong",
+      "name": "卜筮正宗"
+    },
+    {
+      "book_id": "huozhulin",
+      "name": "火珠林"
+    },
+    {
+      "book_id": "huangjin_ce",
+      "name": "黃金策"
+    },
+    {
+      "book_id": "bushi_quanshu",
+      "name": "卜筮全書"
+    },
+    {
+      "book_id": "jing_shi_yizhuan",
+      "name": "京氏易傳"
+    },
+    {
+      "book_id": "yiyin",
+      "name": "易隱"
+    }
+  ],
+  "rows": [
+    {
+      "row_id": "C1-R1",
+      "condition": "旺相之爻遇沖",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "不散（為動）",
+          "source": "類總章 690",
+          "original": "一旺一衰，则衰散而旺动",
+          "rule_id": "R-YM-04-03"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "不散",
+          "source": "六沖章第二十 1525",
+          "original": "爻遇日沖為暗動。",
+          "rule_id": "R-ZS-08-02"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "不散",
+          "source": "辟增刪卜易之謬 436",
+          "original": "暗动之法，必须旺相。旺相者，如人之身强力壮，虽遇冲而不散，故名为动；休囚者，如人之衰弱疲惫，遇冲则散，名为日破。岂可谓之暗动耶？《增删》不论旺相休囚，一概以日冲为暗动，此不知旺相休囚之辨，谬之甚也。",
+          "rule_id": "R-BZ-03-01",
+          "evidence_strength": "weak"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "bushi_quanshu",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "consensus": true
+    },
+    {
+      "row_id": "C1-R2",
+      "condition": "有氣之爻遇沖",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "not_addressed",
+          "verdict": null
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "不散",
+          "source": "動散章 1673"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "bushi_quanshu",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ]
+    },
+    {
+      "row_id": "C1-R3",
+      "condition": "臨日月之爻遇沖",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "不散",
+          "source": "類總章 690；日沖章 416",
+          "original": "临日月不散",
+          "rule_id": "R-YM-04-02"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "not_addressed",
+          "verdict": null
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "bushi_quanshu",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ]
+    },
+    {
+      "row_id": "C1-R4",
+      "condition": "休囚之爻遇日沖",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "散",
+          "source": "日沖章 416；類總章 690",
+          "original": "十八曰散，谓动逢日神变动之冲而散，虽救之无从，是谓大凶",
+          "rule_id": "R-YM-01-18",
+          "framework_position": 18
+        },
+        {
+          "book_id": "zengshan",
+          "status": "category_negated",
+          "verdict": null,
+          "negation_original": "余从来不言散",
+          "negation_source": "元神忌神衰旺章第十 922",
+          "negation_category": "散"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "散（名日破）",
+          "source": "辟增刪卜易之謬 436",
+          "original": "暗动之法，必须旺相。旺相者，如人之身强力壮，虽遇冲而不散，故名为动；休囚者，如人之衰弱疲惫，遇冲则散，名为日破。岂可谓之暗动耶？《增删》不论旺相休囚，一概以日冲为暗动，此不知旺相休囚之辨，谬之甚也。",
+          "rule_id": "R-BZ-03-01",
+          "evidence_strength": "weak"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "bushi_quanshu",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ]
+    },
+    {
+      "row_id": "C1-R5",
+      "condition": "既判為散之後",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "不可救",
+          "source": "類總章第 18 法",
+          "original": "十八曰散，谓动逢日神变动之冲而散，虽救之无从，是谓大凶",
+          "rule_id": "R-YM-01-18",
+          "framework_position": 18
+        },
+        {
+          "book_id": "zengshan",
+          "status": "not_addressed",
+          "verdict": null
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "bushi_quanshu",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+"""Generate TASK14 doctrinal envelopes and the data-backed C1 table."""
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+DOCTRINAL = ROOT / "data" / "doctrinal"
+TABLES = ROOT / "data" / "decision_tables"
+
+BOOKS = [
+    {"book_id": "yimao", "name": "易冒"},
+    {"book_id": "zengshan", "name": "增刪卜易"},
+    {"book_id": "buzhengzong", "name": "卜筮正宗"},
+    {"book_id": "huozhulin", "name": "火珠林"},
+    {"book_id": "huangjin_ce", "name": "黃金策"},
+    {"book_id": "bushi_quanshu", "name": "卜筮全書"},
+    {"book_id": "jing_shi_yizhuan", "name": "京氏易傳"},
+    {"book_id": "yiyin", "name": "易隱"},
+]
+
+ENVELOPES = {
+    "yimao": {
+        "source_book": "易冒", "era": "清", "author": "程良玉",
+        "attribution_status": "attested", "framework_type": "ordinal_18",
+        "framework_note": "十八級序數排序，全吉 1–8／半吉 9–11／凶陷 12–18；帶明文遞增比較語；第 17 項有明文例外",
+        "doctrinal_status": "single_school", "conflicts_with": ["C1", "C11", "C12"],
+        "corpus_path": "07_易冒/易冒.txt",
+    },
+    "zengshan": {
+        "source_book": "增刪卜易", "era": "清", "author": "野鶴老人",
+        "attribution_status": "attested", "framework_type": "binary_enumeration",
+        "framework_note": "成對之能／不能列舉，無排序、無中間態、無嚴重度分級",
+        "doctrinal_status": "single_school", "conflicts_with": ["C1", "C11", "C12"],
+        "corpus_path": "05_增刪卜易/增刪卜易_完整版_A.md",
+    },
+}
+
+
+def write_json(path: Path, value: object) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def update_envelope(book_id: str) -> None:
+    path = DOCTRINAL / (book_id + "_rules.json")
+    data = json.loads(path.read_text(encoding="utf-8"))
+    meta = ENVELOPES[book_id]
+    envelope = {"book_id": book_id, **meta}
+    preserved = {key: data[key] for key in ("source_file", "extraction_task", "warning") if key in data}
+    envelope.update(preserved)
+    envelope["semantic_status"] = data.get("semantic_status", "structured_only_no_effects_implemented")
+    envelope["sets"] = data.get("sets", [])
+    write_json(path, envelope)
+
+
+def buzhengzong() -> dict:
+    return {
+        "book_id": "buzhengzong",
+        "source_book": "卜筮正宗",
+        "era": "清",
+        "author": "王洪緒",
+        "attribution_status": "attested",
+        "framework_type": "true_false_binary",
+        "framework_note": "〈月破論第九〉分真破假破，〈旬空論第十〉分真空假空。真者到底無救，假者可解。無「散」之級別，無排序",
+        "doctrinal_status": "single_school",
+        "semantic_status": "structured_only_no_effects_implemented",
+        "conflicts_with": ["C1", "C11", "C12"],
+        "corpus_path": "04_卜筮正宗/卜筮正宗_完整版_A.md",
+        "sets": [
+            {
+                "set_id": "BZ_SET_01", "set_name": "月破論第九", "chapter": "月破論第九", "line": 2691,
+                "items": [{
+                    "item_ordinal": 1,
+                    "definition_original": "凡卦中月破之爻，乃关因之所现也。动者亦能生克他爻，变者亦能生克本爻，目下虽破出月不破矣！今日虽破，值日不破矣！月破最喜逢合填实，远应年月，近应日时。如破而安静再值旬空衰弱，遇动爻月建日辰克害，此等月破谓之真破，到底破矣！",
+                    "rule_id": "R-BZ-01-01", "line": 2691,
+                }],
+            },
+            {
+                "set_id": "BZ_SET_02", "set_name": "旬空論第十", "chapter": "旬空論第十", "line": 2699,
+                "items": [{
+                    "item_ordinal": 1,
+                    "definition_original": "凡卦中爻遇旬空，乃神机发现于此也。如旺相旬空，或休囚发动，日辰生扶、动爻生扶、动爻变空、伏而旺相，此等旬空到底有用，不过待其出旬、值日、有合空、冲起、冲实、填补之法，后卷占验注明。如：休囚安静或日辰克动，爻克伏而被克，静逢月破值此旬空者，谓之真空到底空矣！",
+                    "rule_id": "R-BZ-02-01", "line": 2699,
+                }],
+            },
+            {
+                "set_id": "BZ_SET_03", "set_name": "辟增刪卜易之謬（暗動條）", "chapter": "辟增刪卜易之謬", "line": 436,
+                "items": [{
+                    "item_ordinal": 1,
+                    "definition_original": "暗动之法，必须旺相。旺相者，如人之身强力壮，虽遇冲而不散，故名为动；休囚者，如人之衰弱疲惫，遇冲则散，名为日破。岂可谓之暗动耶？《增删》不论旺相休囚，一概以日冲为暗动，此不知旺相休囚之辨，谬之甚也。",
+                    "rule_id": "R-BZ-03-01", "line": 436,
+                    "evidence_strength": "weak",
+                    "evidence_note": "出自論戰文字，非其體例章節；全書「日破」僅此一處",
+                }],
+            },
+        ],
+    }
+
+
+def cell(book_id: str, status: str, *, verdict: str | None = None, source: str | None = None,
+         original: str | None = None, rule_id: str | None = None,
+         framework_position: int | None = None, evidence_strength: str | None = None,
+         negation_original: str | None = None, negation_source: str | None = None,
+         negation_category: str | None = None) -> dict:
+    result = {"book_id": book_id, "status": status}
+    if status in {"addressed", "not_addressed", "category_negated"}:
+        result["verdict"] = verdict
+    if source is not None:
+        result["source"] = source
+    if original is not None:
+        result["original"] = original
+    if rule_id is not None:
+        result["rule_id"] = rule_id
+    if framework_position is not None:
+        result["framework_position"] = framework_position
+    if evidence_strength is not None:
+        result["evidence_strength"] = evidence_strength
+    if negation_original is not None:
+        result["negation_original"] = negation_original
+    if negation_source is not None:
+        result["negation_source"] = negation_source
+    if negation_category is not None:
+        result["negation_category"] = negation_category
+    return result
+
+
+def decision_table() -> dict:
+    not_collected = [item["book_id"] for item in BOOKS if item["book_id"] not in {"yimao", "zengshan", "buzhengzong"}]
+    rows = [
+        ("C1-R1", "旺相之爻遇沖", [
+            cell("yimao", "addressed", verdict="不散（為動）", source="類總章 690", original="一旺一衰，则衰散而旺动", rule_id="R-YM-04-03"),
+            cell("zengshan", "addressed", verdict="不散", source="六沖章第二十 1525", original="爻遇日沖為暗動。", rule_id="R-ZS-08-02"),
+            cell("buzhengzong", "addressed", verdict="不散", source="辟增刪卜易之謬 436", original="暗动之法，必须旺相。旺相者，如人之身强力壮，虽遇冲而不散，故名为动；休囚者，如人之衰弱疲惫，遇冲则散，名为日破。岂可谓之暗动耶？《增删》不论旺相休囚，一概以日冲为暗动，此不知旺相休囚之辨，谬之甚也。", rule_id="R-BZ-03-01", evidence_strength="weak"),
+        ]),
+        ("C1-R2", "有氣之爻遇沖", [
+            cell("yimao", "not_addressed"),
+            cell("zengshan", "addressed", verdict="不散", source="動散章 1673"),
+            cell("buzhengzong", "not_addressed"),
+        ]),
+        ("C1-R3", "臨日月之爻遇沖", [
+            cell("yimao", "addressed", verdict="不散", source="類總章 690；日沖章 416", original="临日月不散", rule_id="R-YM-04-02"),
+            cell("zengshan", "not_addressed"),
+            cell("buzhengzong", "not_addressed"),
+        ]),
+        ("C1-R4", "休囚之爻遇日沖", [
+            cell("yimao", "addressed", verdict="散", source="日沖章 416；類總章 690", original="十八曰散，谓动逢日神变动之冲而散，虽救之无从，是谓大凶", rule_id="R-YM-01-18", framework_position=18),
+            cell("zengshan", "category_negated", negation_original="余从来不言散", negation_source="元神忌神衰旺章第十 922", negation_category="散"),
+            cell("buzhengzong", "addressed", verdict="散（名日破）", source="辟增刪卜易之謬 436", original="暗动之法，必须旺相。旺相者，如人之身强力壮，虽遇冲而不散，故名为动；休囚者，如人之衰弱疲惫，遇冲则散，名为日破。岂可谓之暗动耶？《增删》不论旺相休囚，一概以日冲为暗动，此不知旺相休囚之辨，谬之甚也。", rule_id="R-BZ-03-01", evidence_strength="weak"),
+        ]),
+        ("C1-R5", "既判為散之後", [
+            cell("yimao", "addressed", verdict="不可救", source="類總章第 18 法", original="十八曰散，谓动逢日神变动之冲而散，虽救之无从，是谓大凶", rule_id="R-YM-01-18", framework_position=18),
+            cell("zengshan", "not_addressed"),
+            cell("buzhengzong", "not_addressed"),
+        ]),
+    ]
+    output_rows = []
+    for row_id, condition, cells in rows:
+        cells.extend(cell(book_id, "not_collected") for book_id in not_collected)
+        row = {"row_id": row_id, "condition": condition, "cells": cells}
+        if row_id == "C1-R1":
+            row["consensus"] = True
+        output_rows.append(row)
+    return {"table_id": "C1", "title": "沖與散之判定", "conflict_ids": ["C1", "C11", "C12"],
+            "books": BOOKS, "rows": output_rows}
+
+
+def main() -> None:
+    update_envelope("yimao")
+    update_envelope("zengshan")
+    write_json(DOCTRINAL / "buzhengzong_rules.json", buzhengzong())
+    write_json(TABLES / "C1_chong_san.json", decision_table())
+
+
+if __name__ == "__main__":
+    main()

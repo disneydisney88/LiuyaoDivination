@@ -110,24 +110,20 @@ def _track_text(book: str, track: dict[str, Any], templates: dict[str, dict[str,
         template_id = "T-NEGATED-01"
         template = templates[template_id]
         implication = template["implication"].format(
-            author="《增刪卜易》", category="散",
+            author="《{}》".format(book), category=track.get("negation_category", "散"),
         )
         return template["verdict_plain"], implication, template_id
+    if track.get("not_collected"):
+        return _render("T-TRACK-NOT-COLLECTED-01", {}, templates)[0], "", "T-TRACK-NOT-COLLECTED-01"
     if track.get("not_addressed"):
-        text, template_id = _render("T-TRACK-VERDICT-01", {"verdict": "未表述"}, templates)
+        text, template_id = _render("T-TRACK-NOT-ADDRESSED-01", {}, templates)
         return text, "", template_id
-    if book == "易冒" and track.get("rule_id") == "R-YM-01-18":
+    if track.get("rule_id") == "R-YM-01-18":
         verdict, verdict_id = _render("T-TRACK-YM-18", {}, templates)
         implication, _ = _render("T-TRACK-IMPLICATION-YM", {}, templates)
         return verdict, implication, verdict_id
     verdict, verdict_id = _render("T-TRACK-VERDICT-01", {"verdict": track.get("verdict")}, templates)
-    implication_ids = {
-        "易冒": "T-TRACK-IMPLICATION-YM",
-        "增刪卜易": "T-TRACK-IMPLICATION-ZS",
-        "卜筮正宗": "T-TRACK-IMPLICATION-BZ",
-    }
-    implication_id = implication_ids.get(book, "T-TRACK-IMPLICATION-BZ")
-    implication, _ = _render(implication_id, {}, templates)
+    implication, _ = _render("T-TRACK-IMPLICATION-GENERIC", {}, templates)
     return verdict, implication, verdict_id
 
 
@@ -137,10 +133,9 @@ def _source_fields(book: str, track: dict[str, Any], by_rule: dict[str, dict[str
         original = item.get("definition_original")
         return original, original
     if track.get("category_negated"):
-        item = negated.get("散")
-        if item:
-            original = item.get("original")
-            return original, original
+        original = track.get("negation_original")
+        if original:
+            return original, track.get("negation_source")
     return None, None
 
 

@@ -9,15 +9,19 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from engine.build import build
+from engine.semantics import load_decision_table
 
 ROOT = Path(__file__).resolve().parent
 RECORDS_PATH = ROOT / "records" / "cases.jsonl"
+TRACK_RECORD_FIELDS = [
+    "track_{}_verdict".format(book["book_id"])
+    for book in load_decision_table().get("books", [])
+]
 RECORD_FIELDS = [
     "case_id", "cast_datetime", "lines", "question_text", "background_text", "is_proxy",
     "hexagram_name", "palace", "palace_element", "shi", "ying", "month_branch", "day_branch",
     "xunkong", "month_break", "yongshen_selected", "yongshen_selected_by", "yongshen_candidates",
-    "track_yimao_verdict", "track_yimao_framework_position", "track_zengshan_verdict",
-    "track_buzhengzong_verdict", "yingqi_candidates", "actual_outcome", "actual_outcome_date",
+    *TRACK_RECORD_FIELDS, "yingqi_candidates", "actual_outcome", "actual_outcome_date",
     "verified", "verification_note", "narration_template_ids", "template_missing",
 ]
 FORBIDDEN_RECORD_FIELDS = {"conclusion", "final_verdict", "prediction"}
@@ -52,8 +56,7 @@ def make_case(*, coin_counts: Iterable[int], cast_datetime: datetime,
         "month_branch": month_branch_for_date(cast_date), "day_branch": day_branch_for_date(cast_date),
         "xunkong": [], "month_break": [], "yongshen_selected": None,
         "yongshen_selected_by": "human", "yongshen_candidates": [hidden] if hidden else [],
-        "track_yimao_verdict": None, "track_yimao_framework_position": None,
-        "track_zengshan_verdict": None, "track_buzhengzong_verdict": None,
+        **{field: None for field in TRACK_RECORD_FIELDS},
         "yingqi_candidates": [], "actual_outcome": None, "actual_outcome_date": None,
         "verified": False, "verification_note": None,
         "narration_template_ids": [], "template_missing": False,

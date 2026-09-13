@@ -1,0 +1,63 @@
+{
+  "book_id": "buzhengzong",
+  "source_book": "卜筮正宗",
+  "era": "清",
+  "author": "王洪緒",
+  "attribution_status": "attested",
+  "framework_type": "true_false_binary",
+  "framework_note": "〈月破論第九〉分真破假破，〈旬空論第十〉分真空假空。真者到底無救，假者可解。無「散」之級別，無排序",
+  "doctrinal_status": "single_school",
+  "semantic_status": "structured_only_no_effects_implemented",
+  "conflicts_with": [
+    "C1",
+    "C11",
+    "C12"
+  ],
+  "corpus_path": "04_卜筮正宗/卜筮正宗_完整版_A.md",
+  "sets": [
+    {
+      "set_id": "BZ_SET_01",
+      "set_name": "月破論第九",
+      "chapter": "月破論第九",
+      "line": 2691,
+      "items": [
+        {
+          "item_ordinal": 1,
+          "definition_original": "凡卦中月破之爻，乃关因之所现也。动者亦能生克他爻，变者亦能生克本爻，目下虽破出月不破矣！今日虽破，值日不破矣！月破最喜逢合填实，远应年月，近应日时。如破而安静再值旬空衰弱，遇动爻月建日辰克害，此等月破谓之真破，到底破矣！",
+          "rule_id": "R-BZ-01-01",
+          "line": 2691
+        }
+      ]
+    },
+    {
+      "set_id": "BZ_SET_02",
+      "set_name": "旬空論第十",
+      "chapter": "旬空論第十",
+      "line": 2699,
+      "items": [
+        {
+          "item_ordinal": 1,
+          "definition_original": "凡卦中爻遇旬空，乃神机发现于此也。如旺相旬空，或休囚发动，日辰生扶、动爻生扶、动爻变空、伏而旺相，此等旬空到底有用，不过待其出旬、值日、有合空、冲起、冲实、填补之法，后卷占验注明。如：休囚安静或日辰克动，爻克伏而被克，静逢月破值此旬空者，谓之真空到底空矣！",
+          "rule_id": "R-BZ-02-01",
+          "line": 2699
+        }
+      ]
+    },
+    {
+      "set_id": "BZ_SET_03",
+      "set_name": "辟增刪卜易之謬（暗動條）",
+      "chapter": "辟增刪卜易之謬",
+      "line": 436,
+      "items": [
+        {
+          "item_ordinal": 1,
+          "definition_original": "暗动之法，必须旺相。旺相者，如人之身强力壮，虽遇冲而不散，故名为动；休囚者，如人之衰弱疲惫，遇冲则散，名为日破。岂可谓之暗动耶？《增删》不论旺相休囚，一概以日冲为暗动，此不知旺相休囚之辨，谬之甚也。",
+          "rule_id": "R-BZ-03-01",
+          "line": 436,
+          "evidence_strength": "weak",
+          "evidence_note": "出自論戰文字，非其體例章節；全書「日破」僅此一處"
+        }
+      ]
+    }
+  ]
+}

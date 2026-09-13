@@ -35,6 +35,24 @@
     "rule_id": null,
     "slots": ["verdict"]
   },
+  "T-TRACK-NOT-ADDRESSED-01": {
+    "template_id": "T-TRACK-NOT-ADDRESSED-01",
+    "pattern": "未表述。",
+    "rule_id": null,
+    "slots": []
+  },
+  "T-TRACK-NOT-COLLECTED-01": {
+    "template_id": "T-TRACK-NOT-COLLECTED-01",
+    "pattern": "未採集：此為採集缺口，非該書無立場。",
+    "rule_id": null,
+    "slots": []
+  },
+  "T-TRACK-IMPLICATION-GENERIC": {
+    "template_id": "T-TRACK-IMPLICATION-GENERIC",
+    "pattern": "只保留該書原框架表述。",
+    "rule_id": null,
+    "slots": []
+  },
   "T-TRACK-YM-18": {
     "template_id": "T-TRACK-YM-18",
     "pattern": "判為「散」。屬看用神十八法第 18 位，凶陷之末。",

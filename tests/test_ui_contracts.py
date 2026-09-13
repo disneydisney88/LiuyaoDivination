@@ -38,8 +38,10 @@ def test_record_schema_has_no_single_conclusion():
     assert {"case_id", "question_text", "background_text", "yongshen_selected_by", "track_yimao_verdict", "track_zengshan_verdict", "track_buzhengzong_verdict"} <= set(RECORD_FIELDS)
 
 
-def test_three_tracks_and_human_only_contract():
-    assert {field for field in RECORD_FIELDS if field.startswith("track_") and field.endswith("_verdict")} == {"track_yimao_verdict", "track_zengshan_verdict", "track_buzhengzong_verdict"}
+def test_n_tracks_and_human_only_contract():
+    track_fields = {field for field in RECORD_FIELDS if field.startswith("track_") and field.endswith("_verdict")}
+    assert len(track_fields) == 8
+    assert {"track_yimao_verdict", "track_zengshan_verdict", "track_buzhengzong_verdict"} <= track_fields
     assert "human" in (ROOT / "ui_contracts.py").read_text(encoding="utf-8")
 
 

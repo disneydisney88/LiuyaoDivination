@@ -1,15 +1,19 @@
 {
+  "book_id": "zengshan",
   "source_book": "增刪卜易",
+  "era": "清",
   "author": "野鶴老人",
-  "doctrinal_status": "single_school",
+  "attribution_status": "attested",
   "framework_type": "binary_enumeration",
   "framework_note": "成對之能／不能列舉，無排序、無中間態、無嚴重度分級",
-  "semantic_status": "structured_only_no_effects_implemented",
+  "doctrinal_status": "single_school",
   "conflicts_with": [
     "C1",
     "C11",
     "C12"
   ],
+  "corpus_path": "05_增刪卜易/增刪卜易_完整版_A.md",
+  "semantic_status": "structured_only_no_effects_implemented",
   "sets": [
     {
       "set_id": "ZS_SET_01",
