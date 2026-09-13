@@ -3,3 +3,4 @@
 *.pyc
 .env
 .streamlit/secrets.toml
+records/
