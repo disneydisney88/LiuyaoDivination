@@ -8,6 +8,10 @@ def show_track(track_narrative, track, *, original_collapsed=True):
     st.write(track_narrative["verdict_plain"])
     if track_narrative.get("implication"):
         st.caption(track_narrative["implication"])
+    if track_narrative.get("verdict_note"):
+        st.caption("判語註記：{}".format(track_narrative["verdict_note"]))
+    if track_narrative.get("search_note"):
+        st.caption("檢索註記：{}".format(track_narrative["search_note"]))
     st.caption("框架：{}".format(track.get("framework", "未提供")))
     if track.get("framework_position") is not None:
         st.caption("框架位置：{}".format(track["framework_position"]))
@@ -20,6 +24,12 @@ def show_track(track_narrative, track, *, original_collapsed=True):
             st.write(original)
     else:
         st.write(original)
+    related_material = track_narrative.get("related_material")
+    if related_material:
+        with st.expander("相關材料（保留原文）"):
+            for material in related_material:
+                st.caption("{}（行號 {}）".format(material.get("source", "來源未標明"), material.get("line", "未標明")))
+                st.write(material.get("original", ""))
 
 
 st.header("多軌")
@@ -44,7 +54,12 @@ addressed = [book for book, track in tracks.items() if track["status"] == "addre
 not_addressed = [book for book, track in tracks.items() if track["status"] == "not_addressed"]
 not_collected = [book for book, track in tracks.items() if track["status"] == "not_collected"]
 
-if result.get("consensus") and addressed:
+if result.get("row_title") and addressed:
+    st.subheader(result["row_title"])
+    for book in addressed:
+        with st.expander(book, expanded=True):
+            show_track(narrative_by_book[book], tracks[book], original_collapsed=False)
+elif result.get("consensus") and addressed:
     with st.expander("{} 家一致：各家均有表態（保留各家原框架）".format(len(addressed)), expanded=False):
         for book in addressed:
             show_track(narrative_by_book[book], tracks[book])

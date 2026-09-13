@@ -257,20 +257,56 @@ def update_c1() -> None:
         if book["book_id"] == "bushi_quanshu":
             book["book_id"] = "buzhequanshu"
     for row in data["rows"]:
+        if row["row_id"] == "C1-R1":
+            row["row_title"] = "三家判不散，一家判損"
+            row.pop("consensus", None)
         for cell in row["cells"]:
             if cell["book_id"] != "bushi_quanshu" and cell["book_id"] != "buzhequanshu":
                 continue
             cell["book_id"] = "buzhequanshu"
             if row["row_id"] == "C1-R1":
-                cell.update({"status": "addressed", "verdict": None, "source": "採集報告 R1-a 5080–5081、R1-b 5500–5505、R1-c 5403–5408", "original": "大凡旺处逢冲则损，绝处逢冲则散，空处逢冲则不空。", "rule_id": "R-BQ-C1-R1"})
+                cell.update({
+                    "status": "addressed",
+                    "verdict": "損",
+                    "verdict_note": "原文判『旺處逢沖則損』。『損』與其餘三家之『不散』不同，亦與『散』不同 —— 同句中『絕處逢沖則散』顯示該書明確區分二者。不得將『損』對齊為『不散』或『散』。",
+                    "line": ["5080–5081", "5500–5505", "5403–5408"],
+                    "source": "採集報告 R1-a 5080–5081、R1-b 5500–5505、R1-c 5403–5408",
+                    "original": "大凡旺处逢冲则损，绝处逢冲则散，空处逢冲则不空。",
+                    "rule_id": "R-BQ-C1-R1",
+                })
             elif row["row_id"] == "C1-R2":
                 cell.update({"status": "not_addressed", "verdict": None, "search_note": "以『有气／得地／得时／当令／得令／月令／有力』分别與『冲／散／空亡』交叉搜尋；覆蓋古本全檔 10,462 行；命中 0。"})
                 for key in ("source", "original", "rule_id", "evidence_strength"):
                     cell.pop(key, None)
             elif row["row_id"] == "C1-R3":
-                cell.update({"status": "addressed", "verdict": None, "source": "採集報告 R3-a 5515–5516、R3-b 7801–7803、R3-c 5410–5414", "original": "虽见刑冲克害，不能挫其势。", "rule_id": "R-BQ-C1-R3"})
+                cell.update({
+                    "status": "not_addressed",
+                    "verdict": None,
+                    "line": ["5515–5516", "7801–7803", "5410–5414"],
+                    "search_note": "原文有『雖見刑沖克害，不能挫其勢』之判語（5515–5516），惟同段將『令星』定義為四時月令，非『爻臨日月』。月令（季節五行）與月建（地支）非同一概念，未作對齊。已搜尋範圍見採集報告 R3-a/b/c。",
+                    "related_material": [
+                        {"source": "R3-a", "line": "5515–5516", "original": "爻遇令星，物难我害；\n令星者，四时月令之辰。春木、夏火、秋金、冬水。亦是得时健旺之星。虽见刑冲克害，不能挫其势。故曰：物难我害，逢空一半力。"},
+                        {"source": "R3-b", "line": "7801–7803", "original": "日辰冲克，定然诽谤之多招；\n日辰刑冲克世，必招诽谤。依五类推之。如带兄弟，因贪贿赂，或征科太急。带财爻，因无调度，或财赋不起。带子孙，嗜酒好游，怠于政事。带父母，因事繁剧，不能料理。带官鬼，非酷刑，则同僚不和。\n以上皆招诽谤，声名必不能振。若得世临月建，虽有诽谤，不能为害。"},
+                        {"source": "R3-c", "line": "5410–5414", "original": "月建乃万卜之提纲，岂可助桀而为虐。\n月建乃龙德之神，故卜卦以是为提纲。须详其有无刑冲克害，有无生扶拱合；与世身主象，有无干涉，便见吉凶。月建中有，乃是真有。如坏事，乃真正坏事也。"},
+                    ],
+                })
+                for key in ("source", "original", "rule_id", "evidence_strength"):
+                    cell.pop(key, None)
             elif row["row_id"] == "C1-R4":
-                cell.update({"status": "addressed", "verdict": None, "source": "採集報告 R4-a 3119、R4-b 4435、R4-c 3170–3173、R4-d 5568–5569", "original": "动爻遇冲则散。", "rule_id": "R-BQ-C1-R4"})
+                cell.update({
+                    "status": "not_addressed",
+                    "verdict": None,
+                    "line": ["3119", "4435", "3170–3173", "5568–5569"],
+                    "search_note": "原有 original『動爻遇沖則散』（3119）未帶『休囚』或『日沖』條件，其命題範圍較本格為闊。R4-c（3170–3173）、R4-d（5568–5569）有休囚相關材料但未足以支持本格條件。採集報告註明 R4-a/R4-b 以動靜空為分類，未就休囚另立條件。",
+                    "related_material": [
+                        {"source": "R4-a", "line": "3119", "original": "且如六爻安静，不遇冲则不动。若日辰相冲，名曰暗动。暗动者，有吉有凶，各有所用，不可一概而论。……"},
+                        {"source": "R4-b", "line": "4435", "original": "冲者：……爻虽安静，见冲则为暗动，动爻遇冲则散，空亡遇冲则不空。冲则动，动则战，战则争矣。"},
+                        {"source": "R4-c", "line": "3170–3173", "original": "最忌动摇，大宜安静。\n出现旺相可为远日之图，有气伏藏只利暂时之用。日辰旺相，方能生合相扶；用爻休囚，最怕逢空冲克。\n旺相能克休囚，休囚难克旺相；交重能克单拆，单拆难克交重。\n伏藏不论旬空，（旬空者：甲子旬中戌亥空之类）出现怕临月破。（假如正月建寅，用爻是申，为月破也。）"},
+                        {"source": "R4-d", "line": "5568–5569", "original": "主象休囚，怕见刑冲克害；\n休囚则不能敌杀。故怕见之。如五月乙未日，占财，得泰之大畜卦。用爻无气，又被日辰克害，果无望。"},
+                    ],
+                })
+                for key in ("source", "original", "rule_id", "evidence_strength"):
+                    cell.pop(key, None)
             elif row["row_id"] == "C1-R5":
                 cell.update({"status": "not_addressed", "verdict": None, "search_note": "搜尋『散＋救／解／复／仍／还』、『不散／难散／未散／虽散／既散／已散／冲脱／冲起』；覆蓋古本全檔 10,462 行，並逐一檢視 120 處『散』上下文；命中 15 句，無一回答散後可否救。"})
                 for key in ("source", "original", "rule_id", "evidence_strength"):

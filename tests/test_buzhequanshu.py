@@ -95,7 +95,31 @@ def test_c1_quanshu_r2_r5_not_addressed_have_search_notes():
         row["row_id"]: next(cell for cell in row["cells"] if cell["book_id"] == "buzhequanshu")
         for row in data["rows"]
     }
-    assert {quanshu_cells[row_id]["status"] for row_id in ("C1-R1", "C1-R3", "C1-R4")} == {"addressed"}
-    for row_id in ("C1-R2", "C1-R5"):
+    assert quanshu_cells["C1-R1"]["status"] == "addressed"
+    assert quanshu_cells["C1-R1"]["verdict"] == "損"
+    for row_id in ("C1-R2", "C1-R3", "C1-R4", "C1-R5"):
         assert quanshu_cells[row_id]["status"] == "not_addressed"
         assert quanshu_cells[row_id]["search_note"]
+
+
+def test_c1_r1_is_not_consensus_and_keeps_distinct_verdict_note():
+    data = load_json(C1_PATH)
+    row = next(row for row in data["rows"] if row["row_id"] == "C1-R1")
+    assert row["row_title"] == "三家判不散，一家判損"
+    assert "consensus" not in row
+    cell = next(cell for cell in row["cells"] if cell["book_id"] == "buzhequanshu")
+    assert cell["verdict_note"]
+    assert "損" in cell["verdict_note"] and "散" in cell["verdict_note"]
+    assert cell["line"] == ["5080–5081", "5500–5505", "5403–5408"]
+
+
+def test_c1_r3_r4_preserve_related_material_without_alignment():
+    data = load_json(C1_PATH)
+    cells = {
+        row["row_id"]: next(cell for cell in row["cells"] if cell["book_id"] == "buzhequanshu")
+        for row in data["rows"]
+    }
+    assert cells["C1-R3"]["status"] == "not_addressed"
+    assert len(cells["C1-R3"]["related_material"]) == 3
+    assert cells["C1-R4"]["status"] == "not_addressed"
+    assert len(cells["C1-R4"]["related_material"]) == 4

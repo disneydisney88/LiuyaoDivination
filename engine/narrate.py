@@ -156,6 +156,9 @@ def narrate(*, semantics: dict[str, Any], relations: dict[str, Any]) -> dict[str
             "citation": citation, "source_locator": track.get("source"),
             "implication": implication, "rule_id": track.get("rule_id"),
         }
+        for key in ("verdict_note", "line", "related_material", "search_note"):
+            if key in track:
+                entry[key] = track[key]
         if verdict_template:
             entry["template_id"] = verdict_template
         if track.get("category_negated"):

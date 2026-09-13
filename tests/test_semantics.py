@@ -33,9 +33,10 @@ def test_uncollected_books_are_explicitly_distinct():
     assert all("verdict" not in track for track in tracks.values() if track["status"] == "not_collected")
 
 
-def test_consensus_cell_is_marked_and_collected_sources_are_present():
+def test_r1_label_is_non_consensus_and_collected_sources_are_present():
     result = semantic_for_condition(line=3, condition="旺相之爻遇沖")
-    assert result["consensus"] is True
+    assert "consensus" not in result
+    assert result["row_title"] == "三家判不散，一家判損"
     collected = [track for track in result["tracks"].values() if track["status"] == "addressed"]
     assert all(track["source"] for track in collected)
 

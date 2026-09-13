@@ -22,6 +22,8 @@ def _validate_cell(cell: dict[str, Any]) -> None:
         raise ValueError("invalid decision-table status")
     if status == "not_collected" and "verdict" in cell:
         raise ValueError("not_collected cells must not contain verdict")
+    if status == "addressed" and cell.get("verdict") is None:
+        raise ValueError("addressed cells must have a non-null verdict")
     if status in {"not_addressed", "category_negated"} and cell.get("verdict") is not None:
         raise ValueError("non-addressed cells must have a null verdict")
     if status == "category_negated" and not cell.get("negation_original"):
@@ -47,6 +49,7 @@ def _track(cell: dict[str, Any], book_name: str) -> dict[str, Any]:
     if status != "not_collected":
         result["verdict"] = cell.get("verdict")
     for key in ("source", "original", "rule_id", "evidence_strength", "evidence_note",
+                "verdict_note", "line", "related_material", "search_note",
                 "negation_original", "negation_source", "negation_category"):
         if key in cell:
             result[key] = cell[key]
@@ -71,6 +74,8 @@ def semantic_for_condition(*, line: int, condition: str,
         book_id = cell["book_id"]
         tracks[names.get(book_id, book_id)] = _track(cell, names.get(book_id, book_id))
     result: dict[str, Any] = {"line": line, "condition": condition, "tracks": tracks}
+    if row.get("row_title"):
+        result["row_title"] = row["row_title"]
     if row.get("consensus"):
         result["consensus"] = True
     return result

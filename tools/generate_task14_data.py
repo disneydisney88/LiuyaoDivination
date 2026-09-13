@@ -230,7 +230,7 @@ def decision_table() -> dict:
         cells.extend(cell(book_id, "not_collected") for book_id in not_collected)
         row = {"row_id": row_id, "condition": condition, "cells": cells}
         if row_id == "C1-R1":
-            row["consensus"] = True
+            row["row_title"] = "三家判不散，一家判損"
         output_rows.append(row)
     return {"table_id": "C1", "title": "沖與散之判定", "conflict_ids": ["C1", "C11", "C12"],
             "books": BOOKS, "rows": output_rows}
