@@ -72,16 +72,19 @@ def test_buzhequanshu_uses_clean_corpus_path():
     assert not data["corpus_path"].endswith("卜筮全書.txt")
 
 
-def test_c13_keeps_existing_three_books_not_collected():
+def test_c13_keeps_existing_three_books_not_addressed():
     data = load_json(C13_PATH)
     assert len(data["books"]) == 8
     assert len(data["void_systems"]) == 5
-    assert len(data["rows"]) == 8
-    assert all(len(row["cells"]) == 5 for row in data["rows"])
+    assert len(data["rows"]) == 9
+    assert all(len(row["cells"]) == 5 for row in data["rows"] if row.get("row_id") != "C13-OWN")
     existing_books = {"yimao", "zengshan", "buzhengzong"}
     for row in data["rows"]:
+        if row.get("row_id") == "C13-OWN":
+            continue
         if row["book_id"] in existing_books:
-            assert {cell["status"] for cell in row["cells"]} == {"not_collected"}
+            assert {cell["status"] for cell in row["cells"]} == {"not_addressed"}
+            assert all(cell["search_note"] for cell in row["cells"])
     quanshu = next(row for row in data["rows"] if row["book_id"] == "buzhequanshu")
     assert {cell["status"] for cell in quanshu["cells"]} == {"addressed"}
 

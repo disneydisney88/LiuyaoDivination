@@ -14,6 +14,19 @@
     "C12"
   ],
   "corpus_path": "05_增刪卜易/增刪卜易_完整版_A.md",
+  "corpus_variant": "simplified_full",
+  "provenance_strength": "weak",
+  "provenance_note": "底本為簡體 .md，無 sidecar、無任何外部來源記錄（網址／repo／revision 皆無）。僅有檔內自述「古吳版／全書共 237 頁」及 237 個頁碼標記。取得途徑在本語料庫內無線索。此為目前 provenance 鏈上最弱一環，而該書為決策表三軌之一",
+  "comparison_edition": {
+    "path": "05_增刪卜易/（33 個繁體 .txt）",
+    "variant": "traditional_partial",
+    "source": "維基文庫，逐檔有 wikisource_title／url／revision_id（2100290–2100780 區間，18.txt 為 2101727），fetched 2026-09-13",
+    "coverage": "序＋章第一至又二十六，共 32 章；簡體本正文章題 98 條。繁體本僅約全書三分之一",
+    "missing": "0 個編號卦例（簡體本 68 個）；簡體本第 2057 行以後約 6,700 行無對應",
+    "role": "對照本。不另開 book_id，不入決策表",
+    "known_contamination": "4 處現代編注署名「原劍」：03.txt:97–99、05.txt:26–28、09.txt:18–20、13.txt:18–20。另 3 處〈〉夾註未署名，性質未判定",
+    "sidecar_gap": "sidecar 有 revision_id，但未記該維基頁面所據之紙本底本；正文亦無版本題識"
+  },
   "semantic_status": "structured_only_no_effects_implemented",
   "sets": [
     {

@@ -26,6 +26,6 @@ def test_conflict_ids_match_spec():
 
 
 def test_conflict_types_are_c12_types():
-    allowed = {"differing_claim", "misattribution", "framework_incommensurable", "category_negation"}
+    allowed = {"differing_claim", "misattribution", "framework_incommensurable", "category_negation", "parallel_systems"}
     for item in load_conflicts()["conflicts"]:
         assert set(item["conflict_type"]) <= allowed

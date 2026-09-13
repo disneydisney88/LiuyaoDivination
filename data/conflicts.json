@@ -108,8 +108,8 @@
     },
     {
       "conflict_id": "C12",
-      "title": "衝突之四種類型",
-      "conflict_type": ["differing_claim", "misattribution", "framework_incommensurable", "category_negation"],
+      "title": "衝突之五種類型",
+      "conflict_type": ["differing_claim", "misattribution", "framework_incommensurable", "category_negation", "parallel_systems"],
       "resolved": false,
       "parties": ["講法不同", "轉述失真", "框架不可通約", "否定範疇"],
       "decision_table": null,
@@ -118,7 +118,7 @@
     {
       "conflict_id": "C13",
       "title": "空亡之所指範圍",
-      "conflict_type": ["framework_incommensurable"],
+      "conflict_type": ["parallel_systems"],
       "resolved": false,
       "parties": ["卜筮全書五套空亡系統", "清代三家旬空專章"],
       "decision_table": "data/decision_tables/C13_kongwang_scope.json",

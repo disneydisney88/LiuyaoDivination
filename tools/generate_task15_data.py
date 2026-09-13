@@ -292,12 +292,53 @@ def write_c13() -> None:
         {"void_system_id": "jielu_kongwang", "name": "截路空亡"},
         {"void_system_id": "wu_kong", "name": "五空"},
     ]
+    searched_books = {"yimao", "zengshan", "buzhengzong"}
+    search_note = "TASK_17 於該書全檔逐行檢索，命中 0 次。檢索詞：天地空亡、四大空亡、截路空亡、五空、六甲空亡。三本合計 17,742 行"
+    own_systems = {
+        "yimao": {
+            "own_system": "旬空章十三法（建空、動空、填空、旺空、相空、半空、援空、安空、破空、絕空、真空、克空、傷空）；另類總章八法",
+            "source": "旬空章第二十六 399–402；類總章第四十一 692",
+        },
+        "zengshan": {
+            "own_system": "轉述「諸書」十四項：真空、假空、動空、沖空、填空、援空、無故自空、有故而空、散空、墓空、絕空、害空、安空、破空；野鶴另有自述條例",
+            "source": "旬空章第二十六 1842–1844",
+        },
+        "buzhengzong": {
+            "own_system": "不立名目清單，以四句立條例",
+            "source": "旬空論第十",
+        },
+    }
     rows = []
     for book in books:
         rows.append({
+            "row_id": f"C13-{book['book_id']}",
             "book_id": book["book_id"],
-            "cells": [{"void_system_id": system["void_system_id"], "status": "addressed" if book["book_id"] == "buzhequanshu" else "not_collected"} for system in systems],
+            "cells": [
+                {
+                    "void_system_id": system["void_system_id"],
+                    "status": (
+                        "addressed" if book["book_id"] == "buzhequanshu"
+                        else "not_addressed" if book["book_id"] in searched_books
+                        else "not_collected"
+                    ),
+                    **({"search_note": search_note} if book["book_id"] in searched_books else {}),
+                }
+                for system in systems
+            ],
         })
+    rows.append({
+        "row_id": "C13-OWN",
+        "condition": "該書自有之空亡分類系統",
+        "note": "此列不與上方五套對齊。各家名目互不重疊，屬 C12 類型五",
+        "cells": [
+            {
+                "book_id": book["book_id"],
+                "status": "addressed" if book["book_id"] in own_systems else "not_collected",
+                **own_systems.get(book["book_id"], {}),
+            }
+            for book in books
+        ],
+    })
     write_json(TABLES / "C13_kongwang_scope.json", {
         "table_id": "C13",
         "title": "空亡之所指範圍",
