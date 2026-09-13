@@ -28,7 +28,7 @@
           "comparative_original": null,
           "exception_original": null,
           "rule_id": "R-YM-01-01",
-          "definition_incomplete": true
+          "definition_shared_with": 2
         },
         {
           "set_id": "YM_SET_01",
@@ -104,7 +104,7 @@
           "comparative_original": null,
           "exception_original": null,
           "rule_id": "R-YM-01-06",
-          "definition_incomplete": true
+          "definition_shared_with": 7
         },
         {
           "set_id": "YM_SET_01",
@@ -1264,7 +1264,10 @@
       "line": 1034,
       "declared_count": 7,
       "actual_count": 6,
+      "count_declared": 7,
+      "count_actual": 6,
       "count_mismatch": true,
+      "note_original": "原文 1035 行夾註稱「以上七法系大凶」，而 1034 行實列六項：動散、月破、克空、日破、受傷無援、脫氣",
       "items": [
         {
           "set_id": "YM_SET_11",

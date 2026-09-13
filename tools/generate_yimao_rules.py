@@ -10,7 +10,7 @@ SOURCE = Path(r"G:\我的雲端硬碟\BOOK\八字\文王掛\07_易冒\易冒.txt
 OUTPUT = Path("data/doctrinal/yimao_rules.json")
 
 
-def item(set_id, set_name, chapter, line, ordinal, name, definition, *, incomplete=False, rank=None, band=None, comparative=None, exception=None):
+def item(set_id, set_name, chapter, line, ordinal, name, definition, *, incomplete=False, shared_with=None, rank=None, band=None, comparative=None, exception=None):
     result = {
         "set_id": set_id,
         "set_name": set_name,
@@ -28,6 +28,8 @@ def item(set_id, set_name, chapter, line, ordinal, name, definition, *, incomple
     }
     if incomplete:
         result["definition_incomplete"] = True
+    if shared_with is not None:
+        result["definition_shared_with"] = shared_with
     return result
 
 
@@ -41,13 +43,13 @@ def main() -> None:
     sets = []
 
     names = [
-        ("日神", "一曰日神", True, None),
-        ("月将", "二曰月将，言用临日月也", False, None),
-        ("旺", "三曰旺，日月之扶也", False, None),
-        ("相", "四曰相，日月之生也", False, None),
-        ("生", "五曰生，生言贪生忘克，转转来生也", False, None),
-        ("变生", "六曰变生", True, None),
-        ("动生", "七曰动生，变生亲而动生疏也", False, None),
+        ("日神", "一曰日神", False, None, 2),
+        ("月将", "二曰月将，言用临日月也", False, None, None),
+        ("旺", "三曰旺，日月之扶也", False, None, None),
+        ("相", "四曰相，日月之生也", False, None, None),
+        ("生", "五曰生，生言贪生忘克，转转来生也", False, None, None),
+        ("变生", "六曰变生", False, None, 7),
+        ("动生", "七曰动生，变生亲而动生疏也", False, None, None),
         ("安", "八曰安，无伤而无泄也", False, None),
         ("有玷", "九曰有玷，或日克而月生，或月克而日生，吉之半也", False, "吉之半"),
         ("旺相空", "十曰旺相空，吉之又半也", False, None),
@@ -61,8 +63,9 @@ def main() -> None:
         ("散", "十八曰散，谓动逢日神变动之冲而散，虽救之无从，是谓大凶", False, None),
     ]
     items = []
-    for ordinal, (name, definition, incomplete, comparative) in enumerate(names, 1):
-        items.append(item("YM_SET_01", "看用神十八法", "類總章第四十一", 698, ordinal, name, definition, incomplete=incomplete, rank=ordinal, band=full_good if ordinal <= 8 else half_good if ordinal <= 11 else bad, comparative=comparative, exception="唯竟無若當時相，及一象來生，猶勝於死氣" if ordinal == 17 else None))
+    for ordinal, (name, definition, incomplete, comparative, *shared) in enumerate(names, 1):
+        shared_with = shared[0] if shared else None
+        items.append(item("YM_SET_01", "看用神十八法", "類總章第四十一", 698, ordinal, name, definition, incomplete=incomplete, shared_with=shared_with, rank=ordinal, band=full_good if ordinal <= 8 else half_good if ordinal <= 11 else bad, comparative=comparative, exception="唯竟無若當時相，及一象來生，猶勝於死氣" if ordinal == 17 else None))
     sets.append({"set_id": "YM_SET_01", "set_name": "看用神十八法", "chapter": "類總章第四十一", "line": 698, "declared_count": 18, "actual_count": 18, "count_mismatch": False, "items": items})
 
     sets.append({"set_id": "YM_SET_02", "set_name": "世應十忌", "chapter": "類總章第四十一", "line": 680, "declared_count": 10, "actual_count": 10, "count_mismatch": False, "items": [
@@ -88,7 +91,7 @@ def main() -> None:
     set10_lines = [400, 400, 400, 400, 400, 400, 400, 402, 402, 402, 402, 402, 402]
     sets.append({"set_id": "YM_SET_10", "set_name": "旬空十三法", "chapter": "旬空章第二十六", "line": 399, "declared_count": 13, "actual_count": 13, "count_mismatch": False, "items": [item("YM_SET_10", "旬空十三法", "旬空章第二十六", set10_lines[n - 1], n, name, definition) for n, (name, definition) in enumerate(set10_entries, 1)]})
 
-    sets.append({"set_id": "YM_SET_11", "set_name": "疾病七法", "chapter": "疾病章第五十五", "line": 1034, "declared_count": 7, "actual_count": 6, "count_mismatch": True, "items": [item("YM_SET_11", "疾病七法", "疾病章第五十五", 1035, n, name, definition) for n, (name, definition) in enumerate([("动散", "动散"), ("月破", "月破"), ("克空", "克空"), ("日破", "日破"), ("受伤无援", "受伤无援"), ("脱气", "脱气")], 1)]})
+    sets.append({"set_id": "YM_SET_11", "set_name": "疾病七法", "chapter": "疾病章第五十五", "line": 1034, "declared_count": 7, "actual_count": 6, "count_declared": 7, "count_actual": 6, "count_mismatch": True, "note_original": "原文 1035 行夾註稱「以上七法系大凶」，而 1034 行實列六項：動散、月破、克空、日破、受傷無援、脫氣", "items": [item("YM_SET_11", "疾病七法", "疾病章第五十五", 1035, n, name, definition) for n, (name, definition) in enumerate([("动散", "动散"), ("月破", "月破"), ("克空", "克空"), ("日破", "日破"), ("受伤无援", "受伤无援"), ("脱气", "脱气")], 1)]})
 
     payload = {
         "source_book": "易冒",
