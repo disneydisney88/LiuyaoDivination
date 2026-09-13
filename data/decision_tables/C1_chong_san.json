@@ -28,7 +28,7 @@
       "name": "黃金策"
     },
     {
-      "book_id": "bushi_quanshu",
+      "book_id": "buzhequanshu",
       "name": "卜筮全書"
     },
     {
@@ -79,8 +79,12 @@
           "status": "not_collected"
         },
         {
-          "book_id": "bushi_quanshu",
-          "status": "not_collected"
+          "book_id": "buzhequanshu",
+          "status": "addressed",
+          "verdict": null,
+          "source": "採集報告 R1-a 5080–5081、R1-b 5500–5505、R1-c 5403–5408",
+          "original": "大凡旺处逢冲则损，绝处逢冲则散，空处逢冲则不空。",
+          "rule_id": "R-BQ-C1-R1"
         },
         {
           "book_id": "jing_shi_yizhuan",
@@ -122,8 +126,10 @@
           "status": "not_collected"
         },
         {
-          "book_id": "bushi_quanshu",
-          "status": "not_collected"
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "以『有气／得地／得时／当令／得令／月令／有力』分别與『冲／散／空亡』交叉搜尋；覆蓋古本全檔 10,462 行；命中 0。"
         },
         {
           "book_id": "jing_shi_yizhuan",
@@ -166,8 +172,12 @@
           "status": "not_collected"
         },
         {
-          "book_id": "bushi_quanshu",
-          "status": "not_collected"
+          "book_id": "buzhequanshu",
+          "status": "addressed",
+          "verdict": null,
+          "source": "採集報告 R3-a 5515–5516、R3-b 7801–7803、R3-c 5410–5414",
+          "original": "虽见刑冲克害，不能挫其势。",
+          "rule_id": "R-BQ-C1-R3"
         },
         {
           "book_id": "jing_shi_yizhuan",
@@ -218,8 +228,12 @@
           "status": "not_collected"
         },
         {
-          "book_id": "bushi_quanshu",
-          "status": "not_collected"
+          "book_id": "buzhequanshu",
+          "status": "addressed",
+          "verdict": null,
+          "source": "採集報告 R4-a 3119、R4-b 4435、R4-c 3170–3173、R4-d 5568–5569",
+          "original": "动爻遇冲则散。",
+          "rule_id": "R-BQ-C1-R4"
         },
         {
           "book_id": "jing_shi_yizhuan",
@@ -263,8 +277,10 @@
           "status": "not_collected"
         },
         {
-          "book_id": "bushi_quanshu",
-          "status": "not_collected"
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "搜尋『散＋救／解／复／仍／还』、『不散／难散／未散／虽散／既散／已散／冲脱／冲起』；覆蓋古本全檔 10,462 行，並逐一檢視 120 處『散』上下文；命中 15 句，無一回答散後可否救。"
         },
         {
           "book_id": "jing_shi_yizhuan",

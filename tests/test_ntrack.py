@@ -76,7 +76,7 @@ def test_category_negated_has_null_verdict_and_negation_source():
 def test_not_collected_has_no_verdict_or_inferred_text():
     table = load_decision_table()
     cells = [cell for row in table["rows"] for cell in row["cells"] if cell["status"] == "not_collected"]
-    assert len(cells) == 25
+    assert len(cells) == 20
     assert all("verdict" not in cell for cell in cells)
     result = semantic_for_condition(line=3, condition="休囚之爻遇日沖")
     assert all("verdict" not in track for track in result["tracks"].values() if track["status"] == "not_collected")

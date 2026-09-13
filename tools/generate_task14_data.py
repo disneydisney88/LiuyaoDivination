@@ -15,7 +15,7 @@ BOOKS = [
     {"book_id": "buzhengzong", "name": "卜筮正宗"},
     {"book_id": "huozhulin", "name": "火珠林"},
     {"book_id": "huangjin_ce", "name": "黃金策"},
-    {"book_id": "bushi_quanshu", "name": "卜筮全書"},
+    {"book_id": "buzhequanshu", "name": "卜筮全書"},
     {"book_id": "jing_shi_yizhuan", "name": "京氏易傳"},
     {"book_id": "yiyin", "name": "易隱"},
 ]

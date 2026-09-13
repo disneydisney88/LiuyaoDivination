@@ -1,0 +1,1490 @@
+{
+  "book_id": "buzhequanshu",
+  "source_book": "卜筮全書",
+  "era": "明",
+  "author": "姚際隆刪補",
+  "attribution_status": "compiled",
+  "framework_type": "by_topic_no_chapters",
+  "framework_note": "無專章體例。以事類編排，術語散見占斷之中。以相關術語立目者僅四條，全部用「空亡」。「空亡」為複數概念，含六甲空亡、天地空亡、四大空亡、截路空亡、五空",
+  "enumeration_style": "none",
+  "doctrinal_status": "single_school",
+  "semantic_status": "structured_only_no_effects_implemented",
+  "conflicts_with": [
+    "C1",
+    "C11",
+    "C12",
+    "C13"
+  ],
+  "corpus_path": "06_卜筮全書/卜筮全書_古本.txt",
+  "corpus_note": "以古本為準。原檔含現代編校者注解 164 行及《易經》增補 642 行，已分離，不得入庫",
+  "provenance_gap": "本檔取得網址／版次未曾記錄（待核項 P-015）",
+  "sets": [
+    {
+      "set_id": "BQ_SET_VOID_MENTIONED",
+      "set_name": "四條空亡立目",
+      "chapter": "卷四·闡奧歌章上",
+      "line": 3316,
+      "count_declared": null,
+      "count_actual": 4,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "四、世应生克动静空亡决：\n\n世应相生则吉，世应相克则凶，世应比和事却中，作事谋为可用。\n应动他人反变，应空他意难同，世空世动我心慵，只恐自家懒动。\n\n十四、用爻不上卦或落空亡诀：\n\n用象如无或落空，就将本卦六亲攻，动爻生用终须吉，若遇交重克用凶。\n    夫用爻者，假如问子孙，则子孙为用爻。动爻生合则吉，冲克则凶。或用爻不上卦，或落空亡，就将本宫六亲用爻审明。飞伏生克，以定吉凶。《玄微赋》云：明用爻之得失，定事体之吉凶。\n\n十七、用爻空亡诀：\n\n空在旁宫不断空，（即伏藏不论空亡也。）空如出现却为空；忌神最喜逢空吉，用与元辰不可空。春土夏金秋是木，三冬逢火是真空；（春之辰戌丑未，夏之申酉，秋之寅卯，冬之巳午，四季月之亥子，是为真空。）旬中占得真空卦，纵吉须知到底凶。\n\n十九、六神空亡诀：\n\n青龙空亡家虚喜，朱雀空亡讼得理。\n勾陈空亡无勾连，螣蛇空亡怪异已。\n白虎空亡病可痊，玄武空亡盗贼死。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 3316,
+          "chapter": "卷四·四 世應生克動靜空亡訣",
+          "definition_original": "世应相生则吉，世应相克则凶，世应比和事却中，作事谋为可用。",
+          "rule_id": "R-BQ-VOID-MENTION-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 3380,
+          "chapter": "卷四·十四 用爻不上卦或落空亡訣",
+          "definition_original": "用象如无或落空，就将本卦六亲攻，动爻生用终须吉，若遇交重克用凶。",
+          "rule_id": "R-BQ-VOID-MENTION-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 3398,
+          "chapter": "卷四·十七 用爻空亡訣",
+          "definition_original": "空在旁宫不断空，（即伏藏不论空亡也。）空如出现却为空；忌神最喜逢空吉，用与元辰不可空。春土夏金秋是木，三冬逢火是真空；（春之辰戌丑未，夏之申酉，秋之寅卯，冬之巳午，四季月之亥子，是为真空。）旬中占得真空卦，纵吉须知到底凶。",
+          "rule_id": "R-BQ-VOID-MENTION-03",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 4,
+          "line": 3408,
+          "chapter": "卷四·十九 六神空亡訣",
+          "definition_original": "青龙空亡家虚喜，朱雀空亡讼得理。",
+          "rule_id": "R-BQ-VOID-MENTION-04",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "BQ_SET_02",
+      "set_name": "總斷千金賦論空",
+      "chapter": "卷八·總斷千金賦",
+      "line": 5558,
+      "count_declared": null,
+      "count_actual": 5,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "卦遇凶星，避之则吉；\n凶星，刑冲克害是。避之，六甲空亡是。夫空之一字，极有玄妙；若执真空，便失先天之旨。盖百物自空中来，无中生有，还归于空。空中不受伤克，反有可成之机。\n如六爻安静，用爻无故自空，此为真空，万事无成。若被日辰动爻刑冲克害于用爻，而用爻在空，此为避凶而空。\n《金锁玄关》所谓：克空为用是也。即是不坏，但目下略阻，过旬即成。\n如六月壬申日，占子病，得姤之大过卦。父母旺动，用爻无气，本为凶兆；喜得用爻在空避之，果至丙子日愈。盖至丙子，则前面已过，又遇用爻帝旺之地，故也。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 5558,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "夫空之一字，极有玄妙；若执真空，便失先天之旨。盖百物自空中来，无中生有，还归于空。空中不受伤克，反有可成之机。",
+          "rule_id": "R-BQ-02-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 5559,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "如六爻安静，用爻无故自空，此为真空，万事无成。",
+          "rule_id": "R-BQ-02-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 5559,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "若被日辰动爻刑冲克害于用爻，而用爻在空，此为避凶而空。",
+          "rule_id": "R-BQ-02-03",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 4,
+          "line": 5560,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "《金锁玄关》所谓：克空为用是也。即是不坏，但目下略阻，过旬即成。",
+          "rule_id": "R-BQ-02-04",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 5,
+          "line": 5561,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "如六月壬申日，占子病，得姤之大过卦。父母旺动，用爻无气，本为凶兆；喜得用爻在空避之，果至丙子日愈。盖至丙子，则前面已过，又遇用爻帝旺之地，故也。",
+          "rule_id": "R-BQ-02-05",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "BQ_SET_03",
+      "set_name": "斷易通玄賦六親空亡歌訣",
+      "chapter": "卷四·二 斷易通玄賦",
+      "line": 3270,
+      "count_declared": null,
+      "count_actual": 11,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "爻动始为定，－－看卦之动爻，而定其吉凶。\n    次吉论空亡。－－吉神忌空，凶煞喜空。\n    彭城有秘诀，切记不可忘。－－诀云：子落空亡忧远行，病值空亡宜作福，久病空亡身【下亡】，财若空亡难把捉，鬼遇空亡官事停，妻值空亡妻有孕，空女空亡有外情，宅值空亡急作福，父母空亡忧病生，兄弟空亡不得力，子孙空亡主伶仃。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 3270,
+          "chapter": "卷四·二 斷易通玄賦",
+          "definition_original": "子落空亡忧远行",
+          "rule_id": "R-BQ-03-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 3270,
+          "chapter": "卷四·二 斷易通玄賦",
+          "definition_original": "病值空亡宜作福",
+          "rule_id": "R-BQ-03-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 3270,
+          "chapter": "卷四·二 斷易通玄賦",
+          "definition_original": "久病空亡身【下亡】",
+          "rule_id": "R-BQ-03-03",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 4,
+          "line": 3270,
+          "chapter": "卷四·二 斷易通玄賦",
+          "definition_original": "财若空亡难把捉",
+          "rule_id": "R-BQ-03-04",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 5,
+          "line": 3270,
+          "chapter": "卷四·二 斷易通玄賦",
+          "definition_original": "鬼遇空亡官事停",
+          "rule_id": "R-BQ-03-05",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 6,
+          "line": 3270,
+          "chapter": "卷四·二 斷易通玄賦",
+          "definition_original": "妻值空亡妻有孕",
+          "rule_id": "R-BQ-03-06",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 7,
+          "line": 3270,
+          "chapter": "卷四·二 斷易通玄賦",
+          "definition_original": "空女空亡有外情",
+          "rule_id": "R-BQ-03-07",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 8,
+          "line": 3270,
+          "chapter": "卷四·二 斷易通玄賦",
+          "definition_original": "宅值空亡急作福",
+          "rule_id": "R-BQ-03-08",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 9,
+          "line": 3270,
+          "chapter": "卷四·二 斷易通玄賦",
+          "definition_original": "父母空亡忧病生",
+          "rule_id": "R-BQ-03-09",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 10,
+          "line": 3270,
+          "chapter": "卷四·二 斷易通玄賦",
+          "definition_original": "兄弟空亡不得力",
+          "rule_id": "R-BQ-03-10",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 11,
+          "line": 3270,
+          "chapter": "卷四·二 斷易通玄賦",
+          "definition_original": "子孙空亡主伶仃",
+          "rule_id": "R-BQ-03-11",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "BQ_SET_04",
+      "set_name": "六爻空亡歌",
+      "chapter": "卷六·九 出行章",
+      "line": 4909,
+      "count_declared": null,
+      "count_actual": 10,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "五位逢空，路上凄凉无旅店；六爻临鬼，地头寂寞有忧愁。\n初爻空亡无脚子，二爻空亡身有阻；三爻空亡伴侣稀，四爻空亡难出户；五爻若也值空亡，旅店荒凉受辛苦；更看六爻若逢空，地头寂寞无人住。六爻俱不落空亡，任意挥鞭千里去。\n以上论空亡者，不可一概论，必从吉凶分别。凡吉神空则凶，凶神空则吉。依此推之，万无一失。\n占出行，不宜见官鬼，六爻遇之，皆不利。初爻：主脚痛。二爻：身有灾。三爻：伴侣有疾。四爻：去后户庭有官事相缠。五爻：道路梗塞。六爻：地头不利，不得意而归。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 4909,
+          "chapter": "卷六·九 出行章",
+          "definition_original": "五位逢空，路上凄凉无旅店",
+          "rule_id": "R-BQ-04-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 4909,
+          "chapter": "卷六·九 出行章",
+          "definition_original": "六爻临鬼，地头寂寞有忧愁",
+          "rule_id": "R-BQ-04-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 4910,
+          "chapter": "卷六·九 出行章",
+          "definition_original": "初爻空亡无脚子",
+          "rule_id": "R-BQ-04-03",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 4,
+          "line": 4910,
+          "chapter": "卷六·九 出行章",
+          "definition_original": "二爻空亡身有阻",
+          "rule_id": "R-BQ-04-04",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 5,
+          "line": 4910,
+          "chapter": "卷六·九 出行章",
+          "definition_original": "三爻空亡伴侣稀",
+          "rule_id": "R-BQ-04-05",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 6,
+          "line": 4910,
+          "chapter": "卷六·九 出行章",
+          "definition_original": "四爻空亡难出户",
+          "rule_id": "R-BQ-04-06",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 7,
+          "line": 4910,
+          "chapter": "卷六·九 出行章",
+          "definition_original": "五爻若也值空亡，旅店荒凉受辛苦",
+          "rule_id": "R-BQ-04-07",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 8,
+          "line": 4910,
+          "chapter": "卷六·九 出行章",
+          "definition_original": "更看六爻若逢空，地头寂寞无人住",
+          "rule_id": "R-BQ-04-08",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 9,
+          "line": 4910,
+          "chapter": "卷六·九 出行章",
+          "definition_original": "六爻俱不落空亡，任意挥鞭千里去",
+          "rule_id": "R-BQ-04-09",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 10,
+          "line": 4911,
+          "chapter": "卷六·九 出行章",
+          "definition_original": "凡吉神空则凶，凶神空则吉",
+          "rule_id": "R-BQ-04-10",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "BQ_SET_05",
+      "set_name": "總斷千金賦空亡諸節",
+      "chapter": "卷八·總斷千金賦",
+      "line": 5459,
+      "count_declared": null,
+      "count_actual": 7,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "无故勿空。\n夫旬中空亡，有有故而空者，有无故而空者。凡遇日月动爻伤克，而在空亡，谓有故而空，避之可也。若无刑冲克害，而身世主象自落空亡，此为无故而空。大凶之兆。占病必死，占事不成，占人有难。盖空则虽有日辰动爻，难以扶持救援之故也。\n\n空逢冲而有用；\n凡遇卦爻空亡，今人不拘吉凶，概以无用论之。殊不知见冲亦有可用之处。盖冲则必动，动则不空。所以虽空而有用也。假如戊午日，占天时，得升之乾卦。。卦中父母空亡，却被日辰\n冲动，定有雨。惟忌火空见冲则不吉。\n\n合遭破以无功。\n卦中有合，所谋易遂。如两人同心协力，事必克济。惟恐奸诈小人两边破说，则未必不生一二猜忌之心也。故凡遇合，须防刑冲克害以破之，则不成合。\n且如寅亥两爻，本相和合；若有申字动，则申金克了寅木，又害了亥水，故虽合亦无功用矣。三合同看。天玄赋有合处逢冲之论，宜详味之。\n\n自空化空，必成凶咎；\n六甲空亡，犹深渊大壑，人不可履之地。若世身主象，无故而自入于空；或发动而入于空者；皆为大凶之兆，作事不利。惟忌爻见之反吉。\n\n带旺匪空。\n旺者，旺相爻也。谓春月木旺火相，夏月火旺土相，秋月金旺水相，冬月水旺木相，四季之月，土旺金相。古人所谓当生者旺，所生者相是也。此爻空亡，不作空论。以其有气故也。虽日下见阻，过旬则成。\n古人云：旺相空亡过一旬。谓值过此一旬则不空，而谋事始成矣。\n\n用化用，有用无用；\n卦中既有用爻，不可再化出来，谓之化去。且不独用爻自化，或旁爻化出，皆不济事。故虽有用爻，此同无用爻之卦一般。占病尤忌。\n\n空化空，虽空弗空。\n假如甲辰旬中占卦，卦中寅动空亡，而化出卯字亦空，谓之空化空。可作一半用。盖本寅字当了空亡，后来卯字不作空矣。故虽空而不为空也。《金锁玄关》谓：重空不空。亦是此意也。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 5459,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "夫旬中空亡，有有故而空者，有无故而空者。凡遇日月动爻伤克，而在空亡，谓有故而空，避之可也。若无刑冲克害，而身世主象自落空亡，此为无故而空。大凶之兆。占病必死，占事不成，占人有难。盖空则虽有日辰动爻，难以扶持救援之故也。",
+          "rule_id": "R-BQ-05-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 5462,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "凡遇卦爻空亡，今人不拘吉凶，概以无用论之。殊不知见冲亦有可用之处。盖冲则必动，动则不空。所以虽空而有用也。假如戊午日，占天时，得升之乾卦。。卦中父母空亡，却被日辰",
+          "rule_id": "R-BQ-05-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 5463,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "冲动，定有雨。惟忌火空见冲则不吉。",
+          "rule_id": "R-BQ-05-03",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 4,
+          "line": 5470,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "六甲空亡，犹深渊大壑，人不可履之地。若世身主象，无故而自入于空；或发动而入于空者；皆为大凶之兆，作事不利。惟忌爻见之反吉。",
+          "rule_id": "R-BQ-05-04",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 5,
+          "line": 5489,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "旺者，旺相爻也。谓春月木旺火相，夏月火旺土相，秋月金旺水相，冬月水旺木相，四季之月，土旺金相。古人所谓当生者旺，所生者相是也。此爻空亡，不作空论。以其有气故也。虽日下见阻，过旬则成。",
+          "rule_id": "R-BQ-05-05",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 6,
+          "line": 5490,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "古人云：旺相空亡过一旬。谓值过此一旬则不空，而谋事始成矣。",
+          "rule_id": "R-BQ-05-06",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 7,
+          "line": 5578,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "假如甲辰旬中占卦，卦中寅动空亡，而化出卯字亦空，谓之空化空。可作一半用。盖本寅字当了空亡，后来卯字不作空矣。故虽空而不为空也。《金锁玄关》谓：重空不空。亦是此意也。",
+          "rule_id": "R-BQ-05-07",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "BQ_SET_VOID_01",
+      "set_name": "六甲空亡",
+      "chapter": "卷十四",
+      "line": 10430,
+      "count_declared": null,
+      "count_actual": 2,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "六甲空亡：\n用爻恶空，忌爻喜空。\n甲子旬中戌亥空，甲戌旬中申酉空，甲申旬中午未空，甲午旬中辰巳空，甲辰旬中寅卯空，甲寅旬中子丑空。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 10430,
+          "chapter": "卷十四·六甲空亡",
+          "definition_original": "用爻恶空，忌爻喜空。",
+          "rule_id": "R-BQ-VOID-01-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 10431,
+          "chapter": "卷十四·六甲空亡",
+          "definition_original": "甲子旬中戌亥空，甲戌旬中申酉空，甲申旬中午未空，甲午旬中辰巳空，甲辰旬中寅卯空，甲寅旬中子丑空。",
+          "rule_id": "R-BQ-VOID-01-02",
+          "enumeration_source": "editorial"
+        }
+      ],
+      "void_system_id": "liujia_kongwang",
+      "equivalent_to_qing_term": "旬空",
+      "equivalence_note": "清代三家所稱之旬空，對應本書之六甲空亡。此對應為編者判定，非原文明言。"
+    },
+    {
+      "set_id": "BQ_SET_VOID_02",
+      "set_name": "天地空亡",
+      "chapter": "卷十一·墳墓",
+      "line": 8417,
+      "count_declared": null,
+      "count_actual": 5,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "犯天地四大空亡之煞，骸骨不明：穴遇三传刑刃之空，尸首有损。\n甲午乙丑，甲申乙亥，甲戌乙酉，壬子癸丑，壬寅癸未，壬辰癸巳，以上乃天地空亡。子午旬无水，寅甲不见金。\n四位：如四大空亡。三传：乃太岁月建日辰也。三刑羊刃。\n且如己卯日，占得坤卦：甲子亡命，穴临上六，癸酉金乃甲戌旬中空金，乃甲寅旬之空。甲子天干日从乾上起，顺飞至乾，乾遇得癸。地支子从坎上类起，顺飞至坎，遇金住。天干乃遇乾，地支遇坎，乃乾中有壬，坎中有子，壬子乃天地空亡。又类至乾卦有甲，坎卦有申，乃甲申为空亡。三传带刑刃，凶杀伤克本命六爻，或又在日辰旬之空亡，主骸骨不明，尸首有损。\n乾宫卦无甲午，只有壬午，壬申。甲申，甲午为天地空亡。甲子旬中见水为四大空亡。命见乙酉，穴见己丑，亦是天地空亡也。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 8417,
+          "chapter": "卷十一·墳墓·天地空亡",
+          "definition_original": "甲午乙丑，甲申乙亥，甲戌乙酉，壬子癸丑，壬寅癸未，壬辰癸巳，以上乃天地空亡。子午旬无水，寅甲不见金。",
+          "rule_id": "R-BQ-VOID-02-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 8419,
+          "chapter": "卷十一·墳墓·天地空亡",
+          "definition_original": "壬子乃天地空亡。",
+          "rule_id": "R-BQ-VOID-02-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 8419,
+          "chapter": "卷十一·墳墓·天地空亡",
+          "definition_original": "甲子天干日从乾上起，顺飞至乾，乾遇得癸。地支子从坎上类起，顺飞至坎，遇金住。天干乃遇乾，地支遇坎，乃乾中有壬，坎中有子，壬子乃天地空亡。",
+          "rule_id": "R-BQ-VOID-02-03",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 4,
+          "line": 8420,
+          "chapter": "卷十一·墳墓·天地空亡",
+          "definition_original": "甲申，甲午为天地空亡。",
+          "rule_id": "R-BQ-VOID-02-04",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 5,
+          "line": 8420,
+          "chapter": "卷十一·墳墓·天地空亡",
+          "definition_original": "命见乙酉，穴见己丑，亦是天地空亡也。",
+          "rule_id": "R-BQ-VOID-02-05",
+          "enumeration_source": "editorial"
+        }
+      ],
+      "void_system_id": "tiandi_kongwang",
+      "equivalent_to_qing_term": null,
+      "equivalence_note": "清代三家未見對應術語，是否棄用未查（見 C13）"
+    },
+    {
+      "set_id": "BQ_SET_VOID_03",
+      "set_name": "四大空亡",
+      "chapter": "卷十一·墳墓",
+      "line": 8416,
+      "count_declared": null,
+      "count_actual": 3,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "犯天地四大空亡之煞，骸骨不明：穴遇三传刑刃之空，尸首有损。\n甲午乙丑，甲申乙亥，甲戌乙酉，壬子癸丑，壬寅癸未，壬辰癸巳，以上乃天地空亡。子午旬无水，寅甲不见金。\n四位：如四大空亡。三传：乃太岁月建日辰也。三刑羊刃。\n且如己卯日，占得坤卦：甲子亡命，穴临上六，癸酉金乃甲戌旬中空金，乃甲寅旬之空。甲子天干日从乾上起，顺飞至乾，乾遇得癸。地支子从坎上类起，顺飞至坎，遇金住。天干乃遇乾，地支遇坎，乃乾中有壬，坎中有子，壬子乃天地空亡。又类至乾卦有甲，坎卦有申，乃甲申为空亡。三传带刑刃，凶杀伤克本命六爻，或又在日辰旬之空亡，主骸骨不明，尸首有损。\n乾宫卦无甲午，只有壬午，壬申。甲申，甲午为天地空亡。甲子旬中见水为四大空亡。命见乙酉，穴见己丑，亦是天地空亡也。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 8416,
+          "chapter": "卷十一·墳墓·四大空亡",
+          "definition_original": "犯天地四大空亡之煞，骸骨不明：穴遇三传刑刃之空，尸首有损。",
+          "rule_id": "R-BQ-VOID-03-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 8418,
+          "chapter": "卷十一·墳墓·四大空亡",
+          "definition_original": "四位：如四大空亡。",
+          "rule_id": "R-BQ-VOID-03-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 8420,
+          "chapter": "卷十一·墳墓·四大空亡",
+          "definition_original": "甲子旬中见水为四大空亡。",
+          "rule_id": "R-BQ-VOID-03-03",
+          "enumeration_source": "editorial"
+        }
+      ],
+      "void_system_id": "sidakong_kongwang",
+      "equivalent_to_qing_term": null,
+      "equivalence_note": "清代三家未見對應術語，是否棄用未查（見 C13）"
+    },
+    {
+      "set_id": "BQ_SET_VOID_04",
+      "set_name": "截路空亡",
+      "chapter": "卷十四",
+      "line": 10434,
+      "count_declared": null,
+      "count_actual": 2,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "截路空亡：\n出行大忌。\n甲己申酉最为愁，乙庚午未不须求，丙辛辰巳君休去，丁壬寅卯一场忧，戊癸子丑高堂坐，时犯空亡万事休。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 10434,
+          "chapter": "卷十四·截路空亡",
+          "definition_original": "出行大忌。",
+          "rule_id": "R-BQ-VOID-04-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 10435,
+          "chapter": "卷十四·截路空亡",
+          "definition_original": "甲己申酉最为愁，乙庚午未不须求，丙辛辰巳君休去，丁壬寅卯一场忧，戊癸子丑高堂坐，时犯空亡万事休。",
+          "rule_id": "R-BQ-VOID-04-02",
+          "enumeration_source": "editorial"
+        }
+      ],
+      "void_system_id": "jielu_kongwang",
+      "equivalent_to_qing_term": null,
+      "equivalence_note": "清代三家未見對應術語，是否棄用未查（見 C13）"
+    },
+    {
+      "set_id": "BQ_SET_VOID_05",
+      "set_name": "五空",
+      "chapter": "卷十一·墳墓",
+      "line": 8423,
+      "count_declared": null,
+      "count_actual": 1,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "五空：\n乾：壬申，戌亥；兑：丁酉；艮：丙丑，寅；离：巳午；坎：戊子；坤：乙未，申；震：寅卯；巽：辰巳。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 8423,
+          "chapter": "卷十一·墳墓·五空",
+          "definition_original": "乾：壬申，戌亥；兑：丁酉；艮：丙丑，寅；离：巳午；坎：戊子；坤：乙未，申；震：寅卯；巽：辰巳。",
+          "rule_id": "R-BQ-VOID-05-01",
+          "enumeration_source": "editorial"
+        }
+      ],
+      "void_system_id": "wu_kong",
+      "equivalent_to_qing_term": null,
+      "equivalence_note": "清代三家未見對應術語，是否棄用未查（見 C13）"
+    },
+    {
+      "set_id": "BQ_SET_MONTH_BREAK",
+      "set_name": "月破相關散見材料",
+      "chapter": "卷三、卷十一、卷十三",
+      "line": 3173,
+      "count_declared": null,
+      "count_actual": 11,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "伏藏不论旬空，（旬空者：甲子旬中戌亥空之类）出现怕临月破。（假如正月建寅，用爻是申，为月破也。）\n\n月建临于用爻，求官必定迁高职。月破临于用爻，作事无成病不痊。\n\n宅临月破克身，生灾不已。\n月建相冲为月破，若动克世爻，及系占人身命爻，主生灾未已。\n\n日家应家白虎，即胎神；月破白虎，六神白虎，太岁白虎，命家白虎，即日神。白虎化白虎，重重临宅克身，主刑克伏制之事。若带鬼杀重重，并丧吊凶神，举家遭祸死亡，庶十几八九。若卦中龙德动，主喜事至，则稍轻，是悲喜相半之兆。\n\n若临月破白虎之位，主是古旧坟莹。在归魂卦，或鬼飞入穴，为还魂葬地。\n\n劫亡刑刃伤吊月破等杀，在日辰旬中发动，若占者被冲刑伤克身命，主见灾危，劫杀之事。余仿此。\n\n兄作为门，更怕日辰冲损；子孙为器，最忧月破加临。子逢金旺，便言镜必光明；福值木衰，可见秤无星两。金鬼休囚，香炉破损；木官旺相，神像无伤。\n\n木爻朱雀动，市井相连迹；二爻日月破，灾祸无休日。\n\n月破入官求七杀，日辰带鬼告三司。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 3173,
+          "chapter": "卷三·斷易總論",
+          "definition_original": "出现怕临月破。（假如正月建寅，用爻是申，为月破也。）",
+          "rule_id": "R-BQ-MONTH-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 3173,
+          "chapter": "卷三·斷易總論",
+          "definition_original": "伏藏不论旬空，（旬空者：甲子旬中戌亥空之类）出现怕临月破。",
+          "rule_id": "R-BQ-MONTH-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 3184,
+          "chapter": "卷三·斷易總論",
+          "definition_original": "月建临于用爻，求官必定迁高职。月破临于用爻，作事无成病不痊。",
+          "rule_id": "R-BQ-MONTH-03",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 4,
+          "line": 8061,
+          "chapter": "卷十一·家宅",
+          "definition_original": "宅临月破克身，生灾不已。",
+          "rule_id": "R-BQ-MONTH-04",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 5,
+          "line": 8062,
+          "chapter": "卷十一·家宅",
+          "definition_original": "月建相冲为月破，若动克世爻，及系占人身命爻，主生灾未已。",
+          "rule_id": "R-BQ-MONTH-05",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 6,
+          "line": 8240,
+          "chapter": "卷十一",
+          "definition_original": "日家应家白虎，即胎神；月破白虎，六神白虎，太岁白虎，命家白虎，即日神。白虎化白虎，重重临宅克身，主刑克伏制之事。若带鬼杀重重，并丧吊凶神，举家遭祸死亡，庶十几八九。若卦中龙德动，主喜事至，则稍轻，是悲喜相半之兆。",
+          "rule_id": "R-BQ-MONTH-06",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 7,
+          "line": 8323,
+          "chapter": "卷十一·墳墓",
+          "definition_original": "若临月破白虎之位，主是古旧坟莹。在归魂卦，或鬼飞入穴，为还魂葬地。",
+          "rule_id": "R-BQ-MONTH-07",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 8,
+          "line": 8465,
+          "chapter": "卷十一",
+          "definition_original": "劫亡刑刃伤吊月破等杀，在日辰旬中发动，若占者被冲刑伤克身命，主见灾危，劫杀之事。余仿此。",
+          "rule_id": "R-BQ-MONTH-08",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 9,
+          "line": 9804,
+          "chapter": "卷十三",
+          "definition_original": "兄作为门，更怕日辰冲损；子孙为器，最忧月破加临。子逢金旺，便言镜必光明；福值木衰，可见秤无星两。金鬼休囚，香炉破损；木官旺相，神像无伤。",
+          "rule_id": "R-BQ-MONTH-09",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 10,
+          "line": 9892,
+          "chapter": "卷十三",
+          "definition_original": "木爻朱雀动，市井相连迹；二爻日月破，灾祸无休日。",
+          "rule_id": "R-BQ-MONTH-10",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 11,
+          "line": 9991,
+          "chapter": "卷十三",
+          "definition_original": "月破入官求七杀，日辰带鬼告三司。",
+          "rule_id": "R-BQ-MONTH-11",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "BQ_SET_DARK_MOVE",
+      "set_name": "暗動相關散見材料",
+      "chapter": "卷三、卷六、卷七、卷八、卷九、卷十三",
+      "line": 78,
+      "count_declared": null,
+      "count_actual": 17,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "五、逢冲暗动：\n\n    且如六爻安静，不遇冲则不动。若日辰相冲，名曰暗动。暗动者，有吉有凶，各有所用，不可一概而论。若遇凶煞暗动,伤身克世，件件皆非所宜。吉神暗动，合世生身，事事无不为吉。余推其义，暗者必非明也，乃阴私潜伏也。福来而不知，祸来而未觉。爻吉则暗中有补，爻凶则暗中有伤。\n    占婚遇之，吉则暗中有人网维，凶则暗中有人破败。\n    占产遇胎爻或子孙暗动，必会转胎。\n    求官遇之，吉则有无心之机会，凶则阴中有人损害。\n    占讼遇之，吉则得人解救，凶则被人暗算。\n    失脱遇之，吉则暗中捕捉可获，凶则暗味难寻。\n    求财遇之，吉则隐然求之，利益殊厚；凶则被人劫骗，利不可得。\n    行人遇之，吉则心欲动而未发，凶则暗中有阻，未能起身。\n    家宅遇之，吉则暗中有补，福已至而不知；凶则暗中有害，祸欲萌而未觉。\n    占病亦随其所遇之神，而定其吉凶也。\n\n冲者：子午、卯酉、辰戌、丑未、寅申、巳亥，对冲是也。有年月冲、日辰冲、世应冲。凡财福逢冲则凶，鬼杀逢冲则吉。爻虽安静，见冲则为暗动，动爻遇冲则散，空亡遇冲则不空。冲则动，动则战，战则争矣。\n\n若逢暗动伤身，须遇阴谋刺客。\n凡鬼爻暗动，更加劫杀、大杀，刑克世爻，主将须防刺客。卦内若得子孙发动来救，刺客决然被擒。比同燕太子丹使荆轲刺秦王之类。若日辰冲动，伏鬼伤飞爻，须防自己手下有人谋己；卦中无救，祸将及身；鬼旺日，决见应验也。\n\n故天玄赋以为逢冲暗动。但不可只以日辰取之，有旺动之爻亦能冲起。其吉凶详见天玄赋中。\n\n如五月甲戌日，久晴占雨，得屯卦。财不出现，父爻衰空，同是雨晴难定之象。喜得日辰冲并，卦中土鬼暗动，果应有雨。但鬼临土爻克水，所以雨亦不多矣。\n\n鬼爻暗动伤身，吴王被专诸之刺。\n官爻虽静，而被日辰冲动旺相，克害身世，必若吴王被专诸之刺。若鬼暗动，而被世克，或子动来救，则如荆何刺秦王不中，而反自被诛也。\n\n凡占六冲，财福发动；或得日辰六冲暗动，则财有生气，鬼有克制；所以产母安然而卧也。\n\n鬼临初位暗兴，宅有伏尸古煞；官遇六爻暗动，匠工作弊为殃。巽宫木动，当生缢颈之人；坎卦水兴，必出投河之鬼。离宫水动，汤浇死；但遇火鬼，火汤伤。官临土旺，断言土府抢攘；鬼值木兴，详会树神作碍。鬼入坤来，定有坟茔之崇；官临艮上，必逢狱禁之魂。鬼附鰧蛇生怪梦，官临朱雀惹闲非。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 78,
+          "chapter": "目錄·卷三·五 逢沖暗動",
+          "definition_original": "五、逢冲暗动",
+          "rule_id": "R-BQ-DARK-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 3117,
+          "chapter": "卷三·五 逢沖暗動",
+          "definition_original": "五、逢冲暗动：",
+          "rule_id": "R-BQ-DARK-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 3119,
+          "chapter": "卷三·五 逢沖暗動",
+          "definition_original": "若日辰相冲，名曰暗动。",
+          "rule_id": "R-BQ-DARK-03",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 4,
+          "line": 3119,
+          "chapter": "卷三·五 逢沖暗動",
+          "definition_original": "暗动者，有吉有凶，各有所用，不可一概而论。",
+          "rule_id": "R-BQ-DARK-04",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 5,
+          "line": 3119,
+          "chapter": "卷三·五 逢沖暗動",
+          "definition_original": "若遇凶煞暗动,伤身克世，件件皆非所宜。吉神暗动，合世生身，事事无不为吉。",
+          "rule_id": "R-BQ-DARK-05",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 6,
+          "line": 3121,
+          "chapter": "卷三·五 逢沖暗動",
+          "definition_original": "占产遇胎爻或子孙暗动，必会转胎。",
+          "rule_id": "R-BQ-DARK-06",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 7,
+          "line": 4411,
+          "chapter": "卷六·啟蒙／卦爻呈象",
+          "definition_original": "如逢卦静，专寻暗动及空亡；若见爻兴，便察吉凶分造化。",
+          "rule_id": "R-BQ-DARK-07",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 8,
+          "line": 4435,
+          "chapter": "卷六·二 身命章",
+          "definition_original": "爻虽安静，见冲则为暗动，动爻遇冲则散，空亡遇冲则不空。",
+          "rule_id": "R-BQ-DARK-08",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 9,
+          "line": 5226,
+          "chapter": "卷七·天玄賦下",
+          "definition_original": "若逢暗动伤身，须遇阴谋刺客。",
+          "rule_id": "R-BQ-DARK-09",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 10,
+          "line": 5227,
+          "chapter": "卷七·天玄賦下",
+          "definition_original": "凡鬼爻暗动，更加劫杀、大杀，刑克世爻，主将须防刺客。卦内若得子孙发动来救，刺客决然被擒。比同燕太子丹使荆轲刺秦王之类。若日辰冲动，伏鬼伤飞爻，须防自己手下有人谋己；卦中无救，祸将及身；鬼旺日，决见应验也。",
+          "rule_id": "R-BQ-DARK-10",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 11,
+          "line": 5483,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "故天玄赋以为逢冲暗动。但不可只以日辰取之，有旺动之爻亦能冲起。其吉凶详见天玄赋中。",
+          "rule_id": "R-BQ-DARK-11",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 12,
+          "line": 5860,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "如五月甲戌日，久晴占雨，得屯卦。财不出现，父爻衰空，同是雨晴难定之象。喜得日辰冲并，卦中土鬼暗动，果应有雨。但鬼临土爻克水，所以雨亦不多矣。",
+          "rule_id": "R-BQ-DARK-12",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 13,
+          "line": 6175,
+          "chapter": "卷九·黃金策二",
+          "definition_original": "鬼爻暗动伤身，吴王被专诸之刺。",
+          "rule_id": "R-BQ-DARK-13",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 14,
+          "line": 6176,
+          "chapter": "卷九·黃金策二",
+          "definition_original": "官爻虽静，而被日辰冲动旺相，克害身世，必若吴王被专诸之刺。若鬼暗动，而被世克，或子动来救，则如荆何刺秦王不中，而反自被诛也。",
+          "rule_id": "R-BQ-DARK-14",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 15,
+          "line": 6723,
+          "chapter": "卷九·黃金策二",
+          "definition_original": "凡占六冲，财福发动；或得日辰六冲暗动，则财有生气，鬼有克制；所以产母安然而卧也。",
+          "rule_id": "R-BQ-DARK-15",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 16,
+          "line": 9808,
+          "chapter": "卷十三",
+          "definition_original": "鬼临初位暗兴，宅有伏尸古煞；",
+          "rule_id": "R-BQ-DARK-16",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 17,
+          "line": 9808,
+          "chapter": "卷十三",
+          "definition_original": "官遇六爻暗动，匠工作弊为殃。",
+          "rule_id": "R-BQ-DARK-17",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "BQ_SET_CLOSED_01",
+      "set_name": "隨官入墓其目有三",
+      "chapter": "卷三·四 隨官入墓",
+      "line": 3097,
+      "count_declared": null,
+      "count_actual": 3,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "四、随官入墓：\n\n    随官入墓，其目有三：有身随鬼入墓，有世随鬼入墓，有命随鬼入墓。\n    且如丑日，占得雷水解卦。身鬼俱在五爻，乃身随鬼入墓也。\n    若未日，占得山天大畜。世在二爻属木，乃世随鬼入墓也。\n    又如未日，寅生人占得地雷复，卯生人占得火泽睽，本命皆在鬼爻，此乃命随鬼入墓也。\n    以上三墓，不问占何事，意皆非吉兆。\n    占身遇之，须防目下有灾，终身不能显达。\n    占婚，遇世随鬼入墓，男家贫乏，女财不备。\n    占产，遇命随鬼入墓，须防妻命入黄泉。\n    求官遇之，事体难成。虽成，终不能振。若入杀墓，更为大凶。（杀墓者，丁未、戊戌是也。）\n    占讼遇之，有牢狱禁系之忧，或讼散身危，或讼中有病。\n    求财遇之，勤劳备历，终归他人。\n    出行遇之，多是去不成，若去愈为不美，必主去后有病。\n    家宅遇之，宅长有忧。\n    占病遇之，十占九死。\n    略举一二卦为例，其余各以类推。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 3097,
+          "chapter": "卷三·四 隨官入墓",
+          "definition_original": "有身随鬼入墓",
+          "rule_id": "R-BQ-OSED_01-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 3097,
+          "chapter": "卷三·四 隨官入墓",
+          "definition_original": "有世随鬼入墓",
+          "rule_id": "R-BQ-OSED_01-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 3097,
+          "chapter": "卷三·四 隨官入墓",
+          "definition_original": "有命随鬼入墓",
+          "rule_id": "R-BQ-OSED_01-03",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "BQ_SET_CLOSED_02",
+      "set_name": "貴人有二",
+      "chapter": "卷六·五 求仕章",
+      "line": 4680,
+      "count_declared": null,
+      "count_actual": 2,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "贵人有二：有天乙贵人，有福星贵人。宜旺相，怕刑冲。若临官鬼及文书，主官职高迁，必登相位。福贵持世，主人有福德，一生见险无虞，临凶无咎也。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 4680,
+          "chapter": "卷六·五 求仕章",
+          "definition_original": "有天乙贵人",
+          "rule_id": "R-BQ-OSED_02-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 4680,
+          "chapter": "卷六·五 求仕章",
+          "definition_original": "有福星贵人",
+          "rule_id": "R-BQ-OSED_02-02",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "BQ_SET_CLOSED_03",
+      "set_name": "青龍其動有三",
+      "chapter": "卷六·五 求仕章",
+      "line": 4683,
+      "count_declared": null,
+      "count_actual": 3,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "青龙动，则事业易成；朱雀空，而文书难就。\n青龙者：吉庆福德之喜神，其动有三：年建青龙、月建青龙、日建青龙。若见发动，必加官进禄。与天马并立，自有升腾进益之喜。不宜落空，必主虚喜。若得兴隆，事事称心，吉无不利。朱雀：占官之用爻，宜旺不宜衰。若见空亡，文书必难成就。或被刑克，文书必遭伤坏。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 4683,
+          "chapter": "卷六·五 求仕章",
+          "definition_original": "年建青龙",
+          "rule_id": "R-BQ-OSED_03-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 4683,
+          "chapter": "卷六·五 求仕章",
+          "definition_original": "月建青龙",
+          "rule_id": "R-BQ-OSED_03-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 4683,
+          "chapter": "卷六·五 求仕章",
+          "definition_original": "日建青龙",
+          "rule_id": "R-BQ-OSED_03-03",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "BQ_SET_CLOSED_04",
+      "set_name": "陰陽得位有兩端",
+      "chapter": "卷六·三 伉儷章",
+      "line": 4533,
+      "count_declared": null,
+      "count_actual": 2,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "阴阳得位有两端：有封象外阴内阳，有应阴世阳，二者皆为得位。一阴一阳之谓道，纯阴纯阳之谓鬼。纯阴不生，纯阳不化。一阴一阳，为夫为妇。\n又曰：占婚用爻，首要财鬼。二者俱全，称为大吉。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 4533,
+          "chapter": "卷六·三 伉儷章",
+          "definition_original": "有封象外阴内阳",
+          "rule_id": "R-BQ-OSED_04-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 4533,
+          "chapter": "卷六·三 伉儷章",
+          "definition_original": "有应阴世阳",
+          "rule_id": "R-BQ-OSED_04-02",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "BQ_SET_CLOSED_05",
+      "set_name": "生扶拱合以上四者",
+      "chapter": "卷八·總斷千金賦",
+      "line": 5379,
+      "count_declared": null,
+      "count_actual": 4,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "生扶拱合，时雨滋苗；\n生：谓相生。如用爻是金，却在辰戌丑未日占得，或卦中动爻属土，是也。\n扶者：谓卯爻见寅日，酉爻见申日，子见亥，午见巳，丑未见辰戌之类，是也。\n拱者：如寅爻见卯日，申爻见酉日，亥见子，巳见午之类，是也。\n合者：二合、六合、三合之类，是也。二合：子与丑合云。三合：即申子辰合成水局云。\n以上四者，皆能维持调护。爻象弱者，遇之则强，衰者见之则旺，伏者见之则起。故如时雨滋苗也。然亦有吉凶之辨。用爻见之则吉，忌爻见之则凶，所谓助桀为虐，其恶愈甚。学者自当辨用。下三条仿此。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 5379,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "生：谓相生。如用爻是金，却在辰戌丑未日占得，或卦中动爻属土，是也。",
+          "rule_id": "R-BQ-OSED_05-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 5380,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "扶者：谓卯爻见寅日，酉爻见申日，子见亥，午见巳，丑未见辰戌之类，是也。",
+          "rule_id": "R-BQ-OSED_05-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 5381,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "拱者：如寅爻见卯日，申爻见酉日，亥见子，巳见午之类，是也。",
+          "rule_id": "R-BQ-OSED_05-03",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 4,
+          "line": 5382,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "合者：二合、六合、三合之类，是也。二合：子与丑合云。三合：即申子辰合成水局云。",
+          "rule_id": "R-BQ-OSED_05-04",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "BQ_SET_CLOSED_06",
+      "set_name": "克害刑沖以上四者",
+      "chapter": "卷八·總斷千金賦",
+      "line": 5386,
+      "count_declared": null,
+      "count_actual": 4,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "克害刑冲，秋霜杀草。\n克者：相克。五行制压之神也。\n害者：六害。地支相凌之神也。\n刑者：三刑。意同仇敌。\n冲者：对冲。势如战斗。\n以上四者：能伤身，能败德，能制伏，能坏事。故喻之如秋霜杀草。惟忌神见之反吉。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 5386,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "克者：相克。五行制压之神也。",
+          "rule_id": "R-BQ-OSED_06-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 5387,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "害者：六害。地支相凌之神也。",
+          "rule_id": "R-BQ-OSED_06-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 5388,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "刑者：三刑。意同仇敌。",
+          "rule_id": "R-BQ-OSED_06-03",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 4,
+          "line": 5389,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "冲者：对冲。势如战斗。",
+          "rule_id": "R-BQ-OSED_06-04",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "BQ_SET_CLOSED_07",
+      "set_name": "死墓絕空四者",
+      "chapter": "卷八·總斷千金賦",
+      "line": 5396,
+      "count_declared": null,
+      "count_actual": 4,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "死墓绝空，乃是泥犁之地。\n死、墓、绝，皆从长生起。空是空亡。四者遇之，无不陷溺。虽得时旺相，亦不成事。故以泥犁喻之。\n盖死者，亡也。犹人患病而死也。\n墓者，蔽也。喻人死而葬于墓也。\n绝者，厌绝也。犹人葬于墓，而根本断绝也。\n空者，虚也。犹深渊薄冰处，不可临之履之也。\n泥犁，地狱名。言其至凶也。但凶神遇之，则又反为我吉矣。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 5396,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "死、墓、绝，皆从长生起。空是空亡。四者遇之，无不陷溺。虽得时旺相，亦不成事。故以泥犁喻之。",
+          "rule_id": "R-BQ-OSED_07-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 5397,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "盖死者，亡也。犹人患病而死也。",
+          "rule_id": "R-BQ-OSED_07-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 5398,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "墓者，蔽也。喻人死而葬于墓也。",
+          "rule_id": "R-BQ-OSED_07-03",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 4,
+          "line": 5399,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "绝者，厌绝也。犹人葬于墓，而根本断绝也。",
+          "rule_id": "R-BQ-OSED_07-04",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "BQ_SET_CLOSED_08",
+      "set_name": "沖之三分法（卷八）",
+      "chapter": "卷八·總斷千金賦",
+      "line": 5648,
+      "count_declared": null,
+      "count_actual": 3,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "动逢冲而事散，\n冲之一字，不可一例推之。如空爻逢冲则实，动爻逢冲则散，又谓冲脱。静逢冲则动，又谓冲起。故凡动爻逢冲，吉不成吉，凶不成凶也。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 5648,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "如空爻逢冲则实",
+          "rule_id": "R-BQ-OSED_08-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 5648,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "动爻逢冲则散，又谓冲脱",
+          "rule_id": "R-BQ-OSED_08-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 5648,
+          "chapter": "卷八·總斷千金賦",
+          "definition_original": "静逢冲则动，又谓冲起",
+          "rule_id": "R-BQ-OSED_08-03",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "BQ_SET_CLOSED_09",
+      "set_name": "沖之三分法（卷六）",
+      "chapter": "卷六·二 身命章",
+      "line": 4435,
+      "count_declared": null,
+      "count_actual": 3,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "刑克害冲，断一生之得失；\n刑者：三刑。子刑卯，卯刑子；寅刑巳，巳刑申，申刑寅；丑刑戌，戌刑未，未刑丑；辰午酉亥自刑。以上所言刑者，为阴阳反德。凡占有日辰刑，动爻刑。若刑父母，则双亲损。刑财爻，则妻妾伤。骨肉逢刑，无不伤残。却看在何限中，便知何年刑克，其余仿此推详。\n克者：阴阳不相和，故相克也。凡遇财福吉神克我，仍吉；鬼杀凶神克我，大凶。\n害者：穿心六害也。乃恩未结，怨已生也。子冲午、午合未，是谓子未六害；寅冲申、申合巳，是谓寅巳六害；卯冲酉，酉合辰，是谓卯辰六害。余皆仿此。六害见之，骨肉情疏，六亲分薄，夫妻不协，子息难招。\n冲者：子午、卯酉、辰戌、丑未、寅申、巳亥，对冲是也。有年月冲、日辰冲、世应冲。凡财福逢冲则凶，鬼杀逢冲则吉。爻虽安静，见冲则为暗动，动爻遇冲则散，空亡遇冲则不空。冲则动，动则战，战则争矣。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 4435,
+          "chapter": "卷六·二 身命章",
+          "definition_original": "爻虽安静，见冲则为暗动",
+          "rule_id": "R-BQ-OSED_09-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 4435,
+          "chapter": "卷六·二 身命章",
+          "definition_original": "动爻遇冲则散",
+          "rule_id": "R-BQ-OSED_09-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 4435,
+          "chapter": "卷六·二 身命章",
+          "definition_original": "空亡遇冲则不空",
+          "rule_id": "R-BQ-OSED_09-03",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "BQ_SET_CLOSED_10",
+      "set_name": "旺／絕／空逢沖三分法",
+      "chapter": "卷七·六畜章",
+      "line": 5081,
+      "count_declared": null,
+      "count_actual": 3,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "命逢生旺，当别吉凶；\n生旺若逢本命，本为吉兆。却看临财福旺相则吉，临鬼杀大小耗则凶，反不如不旺。凡吉神扶命旺处，六畜必盛；若加鬼杀，得是休囚，庶几损折亦轻。凡遇本命旺临财福，却加大小杀于其上，此主孳牲虽盛，损失亦多，得失相半之兆。不可概论，而断其吉凶。\n\n爻值刑冲，须分表里。\n分宫若日辰刑冲，或动爻刑冲，当有吉凶之辨，表里之分。凡分宫，会财福、青龙则吉，若逢刑冲则凶。若临鬼杀白虎逢刑冲，反吉。必主前虽损失，以后必然旺盛。大凡旺处逢冲则损，绝处逢冲则散，空处逢冲则不空。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 5081,
+          "chapter": "卷七·六畜章",
+          "definition_original": "旺处逢冲则损",
+          "rule_id": "R-BQ-OSED_10-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 5081,
+          "chapter": "卷七·六畜章",
+          "definition_original": "绝处逢冲则散",
+          "rule_id": "R-BQ-OSED_10-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 5081,
+          "chapter": "卷七·六畜章",
+          "definition_original": "空处逢冲则不空",
+          "rule_id": "R-BQ-OSED_10-03",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "BQ_SET_CLOSED_11",
+      "set_name": "太歲前十二神煞",
+      "chapter": "卷十四·神煞歌例",
+      "line": 10300,
+      "count_declared": null,
+      "count_actual": 12,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "岁前神煞：\n其法皆从太岁上起。假如子年，就子上是太岁，剑锋伏尸。丑是太阳天空，寅是丧门主孝服。逐一顺轮，周而复始。\n太岁剑锋伏尸同，二曰太阳并天空，三是丧门主孝服，四为勾绞贯索凶，五位官符兼五鬼，六曰死符小耗攻，七是栏干并大耗，八为暴败天厄中，九是飞廉同白虎，十为褔德卷舌从，十一天狗并吊客，十二病符切莫逢。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 10300,
+          "chapter": "卷十四·神煞歌例",
+          "definition_original": "太岁剑锋伏尸同",
+          "rule_id": "R-BQ-OSED_11-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 10300,
+          "chapter": "卷十四·神煞歌例",
+          "definition_original": "二曰太阳并天空",
+          "rule_id": "R-BQ-OSED_11-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 10300,
+          "chapter": "卷十四·神煞歌例",
+          "definition_original": "三是丧门主孝服",
+          "rule_id": "R-BQ-OSED_11-03",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 4,
+          "line": 10300,
+          "chapter": "卷十四·神煞歌例",
+          "definition_original": "四为勾绞贯索凶",
+          "rule_id": "R-BQ-OSED_11-04",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 5,
+          "line": 10300,
+          "chapter": "卷十四·神煞歌例",
+          "definition_original": "五位官符兼五鬼",
+          "rule_id": "R-BQ-OSED_11-05",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 6,
+          "line": 10300,
+          "chapter": "卷十四·神煞歌例",
+          "definition_original": "六曰死符小耗攻",
+          "rule_id": "R-BQ-OSED_11-06",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 7,
+          "line": 10300,
+          "chapter": "卷十四·神煞歌例",
+          "definition_original": "七是栏干并大耗",
+          "rule_id": "R-BQ-OSED_11-07",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 8,
+          "line": 10300,
+          "chapter": "卷十四·神煞歌例",
+          "definition_original": "八为暴败天厄中",
+          "rule_id": "R-BQ-OSED_11-08",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 9,
+          "line": 10300,
+          "chapter": "卷十四·神煞歌例",
+          "definition_original": "九是飞廉同白虎",
+          "rule_id": "R-BQ-OSED_11-09",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 10,
+          "line": 10300,
+          "chapter": "卷十四·神煞歌例",
+          "definition_original": "十为褔德卷舌从",
+          "rule_id": "R-BQ-OSED_11-10",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 11,
+          "line": 10300,
+          "chapter": "卷十四·神煞歌例",
+          "definition_original": "十一天狗并吊客",
+          "rule_id": "R-BQ-OSED_11-11",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 12,
+          "line": 10300,
+          "chapter": "卷十四·神煞歌例",
+          "definition_original": "十二病符切莫逢",
+          "rule_id": "R-BQ-OSED_11-12",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "BQ_SET_CLOSED_12",
+      "set_name": "退神四支",
+      "chapter": "卷六·十 行人章",
+      "line": 4947,
+      "count_declared": null,
+      "count_actual": 4,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "丁丑、丁未、壬辰、壬戌，四者为退神。凡用爻及动爻逢退神，行人登途，仍复返去。若动爻逢空，亦作返去断。看在哪位爻上空，便知何地转去。要知行几里回去，但依生成数推断，生旺倍加，死绝减半。六爻不动，本无归意。若日辰冲动应爻，必是睹物思归。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 4947,
+          "chapter": "卷六·十 行人章",
+          "definition_original": "丁丑",
+          "rule_id": "R-BQ-OSED_12-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 4947,
+          "chapter": "卷六·十 行人章",
+          "definition_original": "丁未",
+          "rule_id": "R-BQ-OSED_12-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 4947,
+          "chapter": "卷六·十 行人章",
+          "definition_original": "壬辰",
+          "rule_id": "R-BQ-OSED_12-03",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 4,
+          "line": 4947,
+          "chapter": "卷六·十 行人章",
+          "definition_original": "壬戌",
+          "rule_id": "R-BQ-OSED_12-04",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "BQ_SET_CLOSED_13",
+      "set_name": "五空",
+      "chapter": "卷十一·墳墓",
+      "line": 8423,
+      "count_declared": null,
+      "count_actual": 8,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "五空：\n乾：壬申，戌亥；兑：丁酉；艮：丙丑，寅；离：巳午；坎：戊子；坤：乙未，申；震：寅卯；巽：辰巳。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 8423,
+          "chapter": "卷十一·墳墓",
+          "definition_original": "乾：壬申，戌亥",
+          "rule_id": "R-BQ-OSED_13-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 8423,
+          "chapter": "卷十一·墳墓",
+          "definition_original": "兑：丁酉",
+          "rule_id": "R-BQ-OSED_13-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 8423,
+          "chapter": "卷十一·墳墓",
+          "definition_original": "艮：丙丑，寅",
+          "rule_id": "R-BQ-OSED_13-03",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 4,
+          "line": 8423,
+          "chapter": "卷十一·墳墓",
+          "definition_original": "离：巳午",
+          "rule_id": "R-BQ-OSED_13-04",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 5,
+          "line": 8423,
+          "chapter": "卷十一·墳墓",
+          "definition_original": "坎：戊子",
+          "rule_id": "R-BQ-OSED_13-05",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 6,
+          "line": 8423,
+          "chapter": "卷十一·墳墓",
+          "definition_original": "坤：乙未，申",
+          "rule_id": "R-BQ-OSED_13-06",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 7,
+          "line": 8423,
+          "chapter": "卷十一·墳墓",
+          "definition_original": "震：寅卯",
+          "rule_id": "R-BQ-OSED_13-07",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 8,
+          "line": 8423,
+          "chapter": "卷十一·墳墓",
+          "definition_original": "巽：辰巳",
+          "rule_id": "R-BQ-OSED_13-08",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "BQ_SET_BODY",
+      "set_name": "世身法",
+      "chapter": "卷一·十六 安身訣／十七 起月卦身訣",
+      "line": 577,
+      "count_declared": null,
+      "count_actual": 3,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "十六、安身决：\n\n    子午持世身居初，丑未持世身居二，寅申持世身居三，卯酉持世身居四，辰戌持世身居五，巳亥持世身居六。\n\n\n\n\n十七、起月卦身决：\n\n    阴世则从五（午）月起，阳世还从子月（子月乃十一月也）生，欲得识其卦中意，从初数至世方真。\n    看世在交拆爻为阴，在重单爻为阳。俱从初爻上数至世，便知何月卦，即是卦身也。吉神照临则吉，凶煞克害则凶。假如乾卦世爻是单，便以十一月从初爻数上去，到第六爻世上即是，四月卦也。又如明夷卦，世爻是拆，从初爻以五月数起，至世即八月卦也。",
+      "segmentation_note": "編者按採集報告之原文並列結構分 item；原書無項數宣告。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 577,
+          "chapter": "卷一·十六 安身訣",
+          "definition_original": "子午持世身居初，丑未持世身居二，寅申持世身居三，卯酉持世身居四，辰戌持世身居五，巳亥持世身居六。",
+          "rule_id": "R-BQ-BODY-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 584,
+          "chapter": "卷一·十七 起月卦身訣",
+          "definition_original": "阴世则从五（午）月起，阳世还从子月（子月乃十一月也）生，欲得识其卦中意，从初数至世方真。",
+          "rule_id": "R-BQ-BODY-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 585,
+          "chapter": "卷一·十七 起月卦身訣",
+          "definition_original": "看世在交拆爻为阴，在重单爻为阳。俱从初爻上数至世，便知何月卦，即是卦身也。吉神照临则吉，凶煞克害则凶。假如乾卦世爻是单，便以十一月从初爻数上去，到第六爻世上即是，四月卦也。又如明夷卦，世爻是拆，从初爻以五月数起，至世即八月卦也。",
+          "rule_id": "R-BQ-BODY-03",
+          "enumeration_source": "editorial"
+        }
+      ]
+    }
+  ]
+}

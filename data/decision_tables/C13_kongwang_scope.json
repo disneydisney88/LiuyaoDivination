@@ -1,0 +1,267 @@
+{
+  "table_id": "C13",
+  "title": "空亡之所指範圍",
+  "conflict_ids": [
+    "C13",
+    "C11",
+    "C12"
+  ],
+  "books": [
+    {
+      "book_id": "yimao",
+      "name": "易冒"
+    },
+    {
+      "book_id": "zengshan",
+      "name": "增刪卜易"
+    },
+    {
+      "book_id": "buzhengzong",
+      "name": "卜筮正宗"
+    },
+    {
+      "book_id": "huozhulin",
+      "name": "火珠林"
+    },
+    {
+      "book_id": "huangjin_ce",
+      "name": "黃金策"
+    },
+    {
+      "book_id": "buzhequanshu",
+      "name": "卜筮全書"
+    },
+    {
+      "book_id": "jing_shi_yizhuan",
+      "name": "京氏易傳"
+    },
+    {
+      "book_id": "yiyin",
+      "name": "易隱"
+    }
+  ],
+  "void_systems": [
+    {
+      "void_system_id": "liujia_kongwang",
+      "name": "六甲空亡"
+    },
+    {
+      "void_system_id": "tiandi_kongwang",
+      "name": "天地空亡"
+    },
+    {
+      "void_system_id": "sidakong_kongwang",
+      "name": "四大空亡"
+    },
+    {
+      "void_system_id": "jielu_kongwang",
+      "name": "截路空亡"
+    },
+    {
+      "void_system_id": "wu_kong",
+      "name": "五空"
+    }
+  ],
+  "rows": [
+    {
+      "book_id": "yimao",
+      "cells": [
+        {
+          "void_system_id": "liujia_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "tiandi_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "sidakong_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "jielu_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "wu_kong",
+          "status": "not_collected"
+        }
+      ]
+    },
+    {
+      "book_id": "zengshan",
+      "cells": [
+        {
+          "void_system_id": "liujia_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "tiandi_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "sidakong_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "jielu_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "wu_kong",
+          "status": "not_collected"
+        }
+      ]
+    },
+    {
+      "book_id": "buzhengzong",
+      "cells": [
+        {
+          "void_system_id": "liujia_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "tiandi_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "sidakong_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "jielu_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "wu_kong",
+          "status": "not_collected"
+        }
+      ]
+    },
+    {
+      "book_id": "huozhulin",
+      "cells": [
+        {
+          "void_system_id": "liujia_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "tiandi_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "sidakong_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "jielu_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "wu_kong",
+          "status": "not_collected"
+        }
+      ]
+    },
+    {
+      "book_id": "huangjin_ce",
+      "cells": [
+        {
+          "void_system_id": "liujia_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "tiandi_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "sidakong_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "jielu_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "wu_kong",
+          "status": "not_collected"
+        }
+      ]
+    },
+    {
+      "book_id": "buzhequanshu",
+      "cells": [
+        {
+          "void_system_id": "liujia_kongwang",
+          "status": "addressed"
+        },
+        {
+          "void_system_id": "tiandi_kongwang",
+          "status": "addressed"
+        },
+        {
+          "void_system_id": "sidakong_kongwang",
+          "status": "addressed"
+        },
+        {
+          "void_system_id": "jielu_kongwang",
+          "status": "addressed"
+        },
+        {
+          "void_system_id": "wu_kong",
+          "status": "addressed"
+        }
+      ]
+    },
+    {
+      "book_id": "jing_shi_yizhuan",
+      "cells": [
+        {
+          "void_system_id": "liujia_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "tiandi_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "sidakong_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "jielu_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "wu_kong",
+          "status": "not_collected"
+        }
+      ]
+    },
+    {
+      "book_id": "yiyin",
+      "cells": [
+        {
+          "void_system_id": "liujia_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "tiandi_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "sidakong_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "jielu_kongwang",
+          "status": "not_collected"
+        },
+        {
+          "void_system_id": "wu_kong",
+          "status": "not_collected"
+        }
+      ]
+    }
+  ]
+}

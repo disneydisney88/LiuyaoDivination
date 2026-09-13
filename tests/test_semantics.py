@@ -29,7 +29,7 @@ def test_framework_position_only_yimao_is_ranked():
 
 def test_uncollected_books_are_explicitly_distinct():
     tracks = semantic_for_condition(line=3, condition="休囚之爻遇日沖")["tracks"]
-    assert sum(track["status"] == "not_collected" for track in tracks.values()) == 5
+    assert sum(track["status"] == "not_collected" for track in tracks.values()) == 4
     assert all("verdict" not in track for track in tracks.values() if track["status"] == "not_collected")
 
 
