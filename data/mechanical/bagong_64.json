@@ -18,7 +18,7 @@
   },
   {
     "hexagram_id": 2,
-    "name": "天風",
+    "name": "天風姤",
     "lines": [
       0,
       1,
@@ -35,7 +35,7 @@
   },
   {
     "hexagram_id": 3,
-    "name": "天山",
+    "name": "天山遯",
     "lines": [
       0,
       0,
@@ -52,7 +52,7 @@
   },
   {
     "hexagram_id": 4,
-    "name": "天地",
+    "name": "天地否",
     "lines": [
       0,
       0,
@@ -69,7 +69,7 @@
   },
   {
     "hexagram_id": 5,
-    "name": "風地",
+    "name": "風地觀",
     "lines": [
       0,
       0,
@@ -86,7 +86,7 @@
   },
   {
     "hexagram_id": 6,
-    "name": "山地",
+    "name": "山地剝",
     "lines": [
       0,
       0,
@@ -103,7 +103,7 @@
   },
   {
     "hexagram_id": 7,
-    "name": "火地",
+    "name": "火地晉",
     "lines": [
       0,
       0,
@@ -120,7 +120,7 @@
   },
   {
     "hexagram_id": 8,
-    "name": "火天",
+    "name": "火天大有",
     "lines": [
       1,
       1,
@@ -154,7 +154,7 @@
   },
   {
     "hexagram_id": 10,
-    "name": "水澤",
+    "name": "水澤節",
     "lines": [
       1,
       1,
@@ -171,7 +171,7 @@
   },
   {
     "hexagram_id": 11,
-    "name": "水雷",
+    "name": "水雷屯",
     "lines": [
       1,
       0,
@@ -188,7 +188,7 @@
   },
   {
     "hexagram_id": 12,
-    "name": "水火",
+    "name": "水火既濟",
     "lines": [
       1,
       0,
@@ -205,7 +205,7 @@
   },
   {
     "hexagram_id": 13,
-    "name": "澤火",
+    "name": "澤火革",
     "lines": [
       1,
       0,
@@ -222,7 +222,7 @@
   },
   {
     "hexagram_id": 14,
-    "name": "雷火",
+    "name": "雷火豐",
     "lines": [
       1,
       0,
@@ -239,7 +239,7 @@
   },
   {
     "hexagram_id": 15,
-    "name": "地火",
+    "name": "地火明夷",
     "lines": [
       1,
       0,
@@ -256,7 +256,7 @@
   },
   {
     "hexagram_id": 16,
-    "name": "地水",
+    "name": "地水師",
     "lines": [
       0,
       1,
@@ -290,7 +290,7 @@
   },
   {
     "hexagram_id": 18,
-    "name": "山火",
+    "name": "山火賁",
     "lines": [
       1,
       0,
@@ -307,7 +307,7 @@
   },
   {
     "hexagram_id": 19,
-    "name": "山天",
+    "name": "山天大畜",
     "lines": [
       1,
       1,
@@ -324,7 +324,7 @@
   },
   {
     "hexagram_id": 20,
-    "name": "山澤",
+    "name": "山澤損",
     "lines": [
       1,
       1,
@@ -341,7 +341,7 @@
   },
   {
     "hexagram_id": 21,
-    "name": "火澤",
+    "name": "火澤睽",
     "lines": [
       1,
       1,
@@ -358,7 +358,7 @@
   },
   {
     "hexagram_id": 22,
-    "name": "天澤",
+    "name": "天澤履",
     "lines": [
       1,
       1,
@@ -375,7 +375,7 @@
   },
   {
     "hexagram_id": 23,
-    "name": "風澤",
+    "name": "風澤中孚",
     "lines": [
       1,
       1,
@@ -392,7 +392,7 @@
   },
   {
     "hexagram_id": 24,
-    "name": "風山",
+    "name": "風山漸",
     "lines": [
       0,
       0,
@@ -426,7 +426,7 @@
   },
   {
     "hexagram_id": 26,
-    "name": "雷地",
+    "name": "雷地豫",
     "lines": [
       0,
       0,
@@ -443,7 +443,7 @@
   },
   {
     "hexagram_id": 27,
-    "name": "雷水",
+    "name": "雷水解",
     "lines": [
       0,
       1,
@@ -460,7 +460,7 @@
   },
   {
     "hexagram_id": 28,
-    "name": "雷風",
+    "name": "雷風恆",
     "lines": [
       0,
       1,
@@ -477,7 +477,7 @@
   },
   {
     "hexagram_id": 29,
-    "name": "地風",
+    "name": "地風升",
     "lines": [
       0,
       1,
@@ -494,7 +494,7 @@
   },
   {
     "hexagram_id": 30,
-    "name": "水風",
+    "name": "水風井",
     "lines": [
       0,
       1,
@@ -511,7 +511,7 @@
   },
   {
     "hexagram_id": 31,
-    "name": "澤風",
+    "name": "澤風大過",
     "lines": [
       0,
       1,
@@ -528,7 +528,7 @@
   },
   {
     "hexagram_id": 32,
-    "name": "澤雷",
+    "name": "澤雷隨",
     "lines": [
       1,
       0,
@@ -562,7 +562,7 @@
   },
   {
     "hexagram_id": 34,
-    "name": "風天",
+    "name": "風天小畜",
     "lines": [
       1,
       1,
@@ -579,7 +579,7 @@
   },
   {
     "hexagram_id": 35,
-    "name": "風火",
+    "name": "風火家人",
     "lines": [
       1,
       0,
@@ -596,7 +596,7 @@
   },
   {
     "hexagram_id": 36,
-    "name": "風雷",
+    "name": "風雷益",
     "lines": [
       1,
       0,
@@ -613,7 +613,7 @@
   },
   {
     "hexagram_id": 37,
-    "name": "天雷",
+    "name": "天雷無妄",
     "lines": [
       1,
       0,
@@ -630,7 +630,7 @@
   },
   {
     "hexagram_id": 38,
-    "name": "火雷",
+    "name": "火雷噬嗑",
     "lines": [
       1,
       0,
@@ -647,7 +647,7 @@
   },
   {
     "hexagram_id": 39,
-    "name": "山雷",
+    "name": "山雷頤",
     "lines": [
       1,
       0,
@@ -664,7 +664,7 @@
   },
   {
     "hexagram_id": 40,
-    "name": "山風",
+    "name": "山風蠱",
     "lines": [
       0,
       1,
@@ -698,7 +698,7 @@
   },
   {
     "hexagram_id": 42,
-    "name": "火山",
+    "name": "火山旅",
     "lines": [
       0,
       0,
@@ -715,7 +715,7 @@
   },
   {
     "hexagram_id": 43,
-    "name": "火風",
+    "name": "火風鼎",
     "lines": [
       0,
       1,
@@ -732,7 +732,7 @@
   },
   {
     "hexagram_id": 44,
-    "name": "火水",
+    "name": "火水未濟",
     "lines": [
       0,
       1,
@@ -749,7 +749,7 @@
   },
   {
     "hexagram_id": 45,
-    "name": "山水",
+    "name": "山水蒙",
     "lines": [
       0,
       1,
@@ -766,7 +766,7 @@
   },
   {
     "hexagram_id": 46,
-    "name": "風水",
+    "name": "風水渙",
     "lines": [
       0,
       1,
@@ -783,7 +783,7 @@
   },
   {
     "hexagram_id": 47,
-    "name": "天水",
+    "name": "天水訟",
     "lines": [
       0,
       1,
@@ -800,7 +800,7 @@
   },
   {
     "hexagram_id": 48,
-    "name": "天火",
+    "name": "天火同人",
     "lines": [
       1,
       0,
@@ -834,7 +834,7 @@
   },
   {
     "hexagram_id": 50,
-    "name": "地雷",
+    "name": "地雷復",
     "lines": [
       1,
       0,
@@ -851,7 +851,7 @@
   },
   {
     "hexagram_id": 51,
-    "name": "地澤",
+    "name": "地澤臨",
     "lines": [
       1,
       1,
@@ -868,7 +868,7 @@
   },
   {
     "hexagram_id": 52,
-    "name": "地天",
+    "name": "地天泰",
     "lines": [
       1,
       1,
@@ -885,7 +885,7 @@
   },
   {
     "hexagram_id": 53,
-    "name": "雷天",
+    "name": "雷天大壯",
     "lines": [
       1,
       1,
@@ -902,7 +902,7 @@
   },
   {
     "hexagram_id": 54,
-    "name": "澤天",
+    "name": "澤天夬",
     "lines": [
       1,
       1,
@@ -919,7 +919,7 @@
   },
   {
     "hexagram_id": 55,
-    "name": "水天",
+    "name": "水天需",
     "lines": [
       1,
       1,
@@ -936,7 +936,7 @@
   },
   {
     "hexagram_id": 56,
-    "name": "水地",
+    "name": "水地比",
     "lines": [
       0,
       0,
@@ -970,7 +970,7 @@
   },
   {
     "hexagram_id": 58,
-    "name": "澤水",
+    "name": "澤水困",
     "lines": [
       0,
       1,
@@ -987,7 +987,7 @@
   },
   {
     "hexagram_id": 59,
-    "name": "澤地",
+    "name": "澤地萃",
     "lines": [
       0,
       0,
@@ -1004,7 +1004,7 @@
   },
   {
     "hexagram_id": 60,
-    "name": "澤山",
+    "name": "澤山咸",
     "lines": [
       0,
       0,
@@ -1021,7 +1021,7 @@
   },
   {
     "hexagram_id": 61,
-    "name": "水山",
+    "name": "水山蹇",
     "lines": [
       0,
       0,
@@ -1038,7 +1038,7 @@
   },
   {
     "hexagram_id": 62,
-    "name": "地山",
+    "name": "地山謙",
     "lines": [
       0,
       0,
@@ -1055,7 +1055,7 @@
   },
   {
     "hexagram_id": 63,
-    "name": "雷山",
+    "name": "雷山小過",
     "lines": [
       0,
       0,
@@ -1072,7 +1072,7 @@
   },
   {
     "hexagram_id": 64,
-    "name": "雷澤",
+    "name": "雷澤歸妹",
     "lines": [
       1,
       1,

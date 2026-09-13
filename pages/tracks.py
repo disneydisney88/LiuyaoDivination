@@ -65,6 +65,12 @@ if case:
     st.session_state.current_relation_state = relation_state
 
 candidate_positions = selected_line_positions(case, chart) if case and chart else []
+if case and chart and case.get("yongshen_candidate_selections"):
+    candidate_positions = []
+    for candidate_id in case["yongshen_candidate_selections"].values():
+        if isinstance(candidate_id, str) and candidate_id.startswith("visible:"):
+            candidate_positions.append(int(candidate_id.split(":", 1)[1]))
+    candidate_positions = sorted(set(candidate_positions))
 selected_choices = (case.get("yongshen_selected") or []) if case else []
 hidden_selected = bool(chart) and any(
     item["六親"] in selected_choices for item in chart["hidden"]
@@ -101,7 +107,10 @@ if automatic_condition in conditions:
         key="manual_condition_override_{}".format(decision_table["table_id"]),
     )
 else:
-    st.caption("現有機械狀態未能唯一定位此表格位；不補寫未核定條件或效果語義。")
+    if len(candidate_positions) == 1:
+        st.caption("此爻不觸發 C1／C15 任何條件")
+    else:
+        st.caption("現有機械狀態未能唯一定位此表格位；不補寫未核定條件或效果語義。")
 
 if automatic_condition in conditions and not manual_override:
     condition = automatic_condition

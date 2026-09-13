@@ -35,8 +35,9 @@ from engine.semantics import (  # noqa: E402
     load_decision_table,
     semantic_for_condition,
 )
+from engine.yongshen import analyze_yongshen, candidate_options  # noqa: E402
 from tools.generate_data import IMAGES, PALACE_ORDER, generate_bagong, trigram_name  # noqa: E402
-from ui_contracts import YONGSHEN_OPTIONS, selected_line_positions  # noqa: E402
+from ui_contracts import YONGSHEN_OPTIONS  # noqa: E402
 
 
 SWEEP_DIR = ROOT / "sweep"
@@ -69,6 +70,33 @@ GOLDEN_HEADER = """# 本 snapshot 產生於 commit 13eb522（125 tests）
 #
 # 修復 5–7 後須重新產生 snapshot 並更新本檔頭。
 """
+
+
+def _golden_header(commit: str, test_count: int) -> str:
+    if commit == BASELINE_COMMIT:
+        return GOLDEN_HEADER
+    return f"""# 本 snapshot 產生於 commit {commit}（{test_count} tests）
+# 此為修復後現況基準，非跨版本永恆正確性證明。
+#
+# 產生時之已知問題狀態：
+#   [已修] 1. 旬空、月破顯示佔位符（L2 未接通）
+#   [已修] 2. 逐爻推導全部「未有對應模板」
+#   [已修] 3. 多軌頁只顯示三本、標「三家共識」
+#   [部分修復] 4. 原文摺疊區主流程已接通；C1-R2／增刪卜易仍有一格原文 fallback 缺口
+#   [已修] 5. 卦名不完整（「水雷」缺「屯」）—— L1 運算層
+#   [未修] 6. 伏神 dump JSON、內部 TODO 標記洩漏
+#   [已修] 7. 用神選擇疑無實際作用（L3）
+#
+# 後續修復 4、6 後須重新產生 snapshot 並更新本檔頭。
+"""
+
+
+def _collected_test_count() -> int:
+    result = subprocess.run(
+        [sys.executable, "-m", "pytest", "--collect-only", "-q"],
+        cwd=ROOT, check=True, capture_output=True, text=True, encoding="utf-8",
+    )
+    return sum("::test_" in line for line in result.stdout.splitlines())
 
 TIER1_FIELDS = (
     "case_index", "hexagram_id", "hexagram_name", "lines", "moving_mask",
@@ -388,22 +416,20 @@ def _track_originals_nonempty(semantics: dict[str, Any], relations: dict[str, An
 
 
 def _tier3_projection(
-    *, chart: dict[str, Any], relations: dict[str, Any], choice: str,
+    *, state: dict[str, Any], choice: str, candidate_id: str | None,
     c1_table: dict[str, Any], c15_table: dict[str, Any],
 ) -> tuple[dict[str, Any], list[str], list[str]]:
-    """Observe the current L3/UI contract; do not synthesize missing L3 fields."""
-    case = {"yongshen_selected": [choice]}
-    visible = selected_line_positions(case, chart)
-    hidden = [item for item in chart.get("hidden", []) if item.get("六親") == choice]
-    selected_line = visible[0] if len(visible) == 1 else None
-    c1_condition = (
-        infer_condition(table_id="C1", relation_result=relations, line=selected_line)
-        if selected_line else None
-    )
-    c15_condition = (
-        infer_condition(table_id="C15", relation_result=relations, line=selected_line)
-        if selected_line else None
-    )
+    """Project the actual L3 result into stable sweep columns."""
+    chart, relations = state["chart"], state["relations"]
+    analysis = analyze_yongshen(state, choice, candidate_id)
+    options = candidate_options(chart, choice)
+    visible = [item["position"] for item in options if not item.get("hidden")]
+    hidden = [item for item in options if item.get("hidden")]
+    selected = analysis.get("selected") or {}
+    selected_line = selected.get("position") if selected and not selected.get("hidden") else None
+    decision = analysis.get("decision_table", {})
+    c1_condition = decision.get("C1")
+    c15_condition = decision.get("C15")
     c1_semantics = (
         semantic_for_condition(line=selected_line, condition=c1_condition, hidden=chart["hidden"], table=c1_table)
         if c1_condition else None
@@ -412,34 +438,41 @@ def _tier3_projection(
         semantic_for_condition(line=selected_line, condition=c15_condition, hidden=chart["hidden"], table=c15_table)
         if c15_condition else None
     )
-    is_yongshen = [line["position"] for line in relations.get("lines", []) if line.get("is_yongshen")]
+    is_yongshen = [line["position"] for line in analysis.get("lines", []) if line.get("is_yongshen")]
+    hidden_markers = [item for item in analysis.get("hidden", []) if item.get("is_yongshen")]
     projection = {
+        "yongshen_choice": choice,
+        "selected_candidate_id": candidate_id,
         "visible_candidates": visible,
         "hidden_candidate_count": len(hidden),
         "selected_line": selected_line,
         "is_yongshen_positions": is_yongshen,
-        "yuanshen_positions": relations.get("yuanshen_positions"),
-        "jishen_positions": relations.get("jishen_positions"),
-        "choushen_positions": relations.get("choushen_positions"),
+        "hidden_yongshen_marked": bool(hidden_markers),
+        "yuanshen_positions": [item["position"] for item in analysis.get("yuan_shen", [])],
+        "jishen_positions": [item["position"] for item in analysis.get("ji_shen", [])],
+        "choushen_positions": [item["position"] for item in analysis.get("chou_shen", [])],
         "c1_condition": c1_condition,
         "c15_condition": c15_condition,
         "c1_track_count": len(c1_semantics["tracks"]) if c1_semantics else 0,
         "c15_track_count": len(c15_semantics["tracks"]) if c15_semantics else 0,
         "c1_originals_nonempty": _track_originals_nonempty(c1_semantics, relations) if c1_semantics else None,
         "c15_originals_nonempty": _track_originals_nonempty(c15_semantics, relations) if c15_semantics else None,
+        "no_condition_status": decision.get("status"),
+        "target_element": analysis.get("target_element"),
+        "moving_interactions": analysis.get("moving_interactions", []),
     }
     failed: list[str] = []
     placeholders: list[str] = []
-    if not is_yongshen:
+    if not is_yongshen and not hidden_markers:
         failed.append("missing_is_yongshen_marker")
     for role in ("yuanshen_positions", "jishen_positions", "choushen_positions"):
         if projection[role] is None:
             failed.append(f"missing_{role}")
     if len(visible) > 1 and len(projection["visible_candidates"]) != len(visible):
         failed.append("duplicate_candidates_not_complete")
-    if not visible and hidden and projection["hidden_candidate_count"] == 0:
+    if not visible and hidden and not hidden_markers:
         failed.append("hidden_candidate_not_marked")
-    if selected_line and c1_condition is None and c15_condition is None:
+    if c1_condition is None and c15_condition is None and decision.get("status") != "此爻不觸發 C1／C15 任何條件":
         failed.append("no_explicit_no_condition_result")
     for table_id, condition, count in (
         ("C1", c1_condition, projection["c1_track_count"]),
@@ -467,6 +500,10 @@ def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
     case_index = 0
     for sample_id, source, moving in _tier3_samples():
         chart = build(source["lines"])
+        changed_bits = list(source["lines"])
+        for position in moving:
+            changed_bits[position - 1] ^= 1
+        changed_chart = build(changed_bits) if moving else None
         for month_branch, day_ganzhi in zip(BRANCHES, DAY_GANZHI[:12]):
             relations = build_relation_graph(
                 line_rows=chart["lines_detail"], hidden=chart["hidden"],
@@ -474,6 +511,7 @@ def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
                 day_stem=day_ganzhi[0], day_branch=day_ganzhi[1],
                 moving_positions=moving, changing_positions=moving,
             )
+            state = {"chart": chart, "changed_chart": changed_chart, "relations": relations}
             template_lines, template_contexts = _template_audit(relations, templates)
             group: list[dict[str, Any]] = []
             for choice in YONGSHEN_OPTIONS:
@@ -484,8 +522,10 @@ def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
                 placeholders: list[str] = []
                 projection: dict[str, Any] = {}
                 try:
+                    options = candidate_options(chart, choice)
+                    candidate_id = options[0]["candidate_id"] if options else None
                     projection, failed, placeholders = _tier3_projection(
-                        chart=chart, relations=relations, choice=choice,
+                        state=state, choice=choice, candidate_id=candidate_id,
                         c1_table=c1_table, c15_table=c15_table,
                     )
                     if template_lines:
@@ -866,14 +906,17 @@ def regenerate_golden() -> dict[int, dict[str, Any]]:
     stats = run_all()
     GOLDEN_DIR.mkdir(parents=True, exist_ok=True)
     names = ("tier1_L1.csv", "tier2_L2.csv", "tier3_yongshen.csv")
+    current_commit = _git("rev-parse", "--short", "HEAD").strip()
+    current_tests = _collected_test_count()
+    header = _golden_header(current_commit, current_tests)
     for name in names:
         body = (SWEEP_DIR / name).read_text(encoding="utf-8")
-        (GOLDEN_DIR / name).write_text(GOLDEN_HEADER + body, encoding="utf-8", newline="")
+        (GOLDEN_DIR / name).write_text(header + body, encoding="utf-8", newline="")
     checksum_lines = [
         "TASK_CODEX_20 golden snapshot",
-        "baseline_commit=13eb522",
-        "baseline_tests=125",
-        "status=current_state_not_correctness_baseline",
+        f"baseline_commit={current_commit}",
+        f"baseline_tests={current_tests}",
+        "status=current_post_fix_state_baseline",
         "",
     ]
     checksum_lines.extend(f"{file_sha256(GOLDEN_DIR / name)}  {name}" for name in names)

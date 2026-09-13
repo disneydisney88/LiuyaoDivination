@@ -3,7 +3,8 @@ from pathlib import Path
 from random import Random
 
 from engine.build import build
-from tools.generate_data import IMAGES, POSITIONS, SHI, TRIGRAMS, generate_bagong, generate_changsheng
+from engine.pipeline import build_case_state
+from tools.generate_data import IMAGES, POSITIONS, SHI, TRIGRAMS, generate_bagong, generate_changsheng, trigram_name
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -135,3 +136,29 @@ def test_changsheng_earth_has_two_tracks():
 def test_generated_files_have_expected_cardinality():
     assert len(json.loads((ROOT / "data" / "mechanical" / "bagong_64.json").read_text(encoding="utf-8"))) == 64
     assert len(json.loads((ROOT / "data" / "mechanical" / "najia.json").read_text(encoding="utf-8"))) == 48
+
+
+def test_all_hexagram_names_are_complete_and_not_trigram_pair_only():
+    rows = generate_bagong()
+    for row in rows:
+        assert len(row["name"]) >= 3
+        lower = trigram_name(tuple(row["lines"][:3]))
+        upper = trigram_name(tuple(row["lines"][3:]))
+        images = {"乾": "天", "兌": "澤", "離": "火", "震": "雷",
+                  "巽": "風", "坎": "水", "艮": "山", "坤": "地"}
+        assert row["name"] != images[upper] + images[lower]
+
+
+def test_moving_case_has_complete_changed_hexagram_lines():
+    state = build_case_state(
+        lines=[0, 1, 0, 0, 1, 0], cast_datetime="2026-09-13T15:49",
+        moving_positions=[1, 3, 6],
+    )
+    changed = state["changed_chart"]
+    assert changed is not None
+    assert len(changed["lines"]) == 6
+    assert len(changed["lines_detail"]) == 6
+    assert all(
+        line.get("branch") and line.get("element") and line.get("six_relative")
+        for line in changed["lines_detail"]
+    )

@@ -14,7 +14,15 @@ def build_case_state(*, lines: Iterable[int], cast_datetime: datetime | str,
     value = datetime.fromisoformat(cast_datetime) if isinstance(cast_datetime, str) else cast_datetime
     if not isinstance(value, datetime):
         raise TypeError("cast_datetime must be a datetime or ISO datetime string")
-    chart = build(lines)
+    line_bits = tuple(int(value) for value in lines)
+    moving = tuple(sorted(set(int(position) for position in moving_positions)))
+    chart = build(line_bits)
+    if any(position not in range(1, 7) for position in moving):
+        raise ValueError("moving positions must be integers from 1 to 6")
+    changed_bits = list(line_bits)
+    for position in moving:
+        changed_bits[position - 1] ^= 1
+    changed_chart = build(changed_bits) if moving else None
     calendar = sexagenary_for_datetime(value)
     relations = build_relation_graph(
         line_rows=chart["lines_detail"],
@@ -23,11 +31,14 @@ def build_case_state(*, lines: Iterable[int], cast_datetime: datetime | str,
         month_branch=calendar["month_branch"],
         day_stem=calendar["day_stem"],
         day_branch=calendar["day_branch"],
-        moving_positions=moving_positions,
+        moving_positions=moving,
     )
     relations.update({
         "year_ganzhi": calendar["year_ganzhi"],
         "month_ganzhi": calendar["month_ganzhi"],
         "day_ganzhi": calendar["day_ganzhi"],
     })
-    return {"chart": chart, "calendar": calendar, "relations": relations}
+    return {
+        "chart": chart, "changed_chart": changed_chart,
+        "calendar": calendar, "relations": relations,
+    }
