@@ -178,9 +178,11 @@ def cell(book_id: str, status: str, *, verdict: str | None = None, source: str |
          original: str | None = None, rule_id: str | None = None,
          framework_position: int | None = None, evidence_strength: str | None = None,
          negation_original: str | None = None, negation_source: str | None = None,
-         negation_category: str | None = None) -> dict:
+         negation_category: str | None = None, axis_note: str | None = None,
+         axis_original: str | None = None, axis_source: str | None = None,
+         cross_reference: str | None = None) -> dict:
     result = {"book_id": book_id, "status": status}
-    if status in {"addressed", "not_addressed", "category_negated"}:
+    if status in {"addressed", "not_addressed", "category_negated", "different_axis"}:
         result["verdict"] = verdict
     if source is not None:
         result["source"] = source
@@ -198,11 +200,27 @@ def cell(book_id: str, status: str, *, verdict: str | None = None, source: str |
         result["negation_source"] = negation_source
     if negation_category is not None:
         result["negation_category"] = negation_category
+    if axis_note is not None:
+        result["axis_note"] = axis_note
+    if axis_original is not None:
+        result["axis_original"] = axis_original
+    if axis_source is not None:
+        result["axis_source"] = axis_source
+    if cross_reference is not None:
+        result["cross_reference"] = cross_reference
     return result
 
 
+def different_axis_cell() -> dict:
+    return cell(
+        "huangjin_ce", "different_axis", verdict=None,
+        axis_note="本書明文以動靜軸判沖（行 40「別衰旺以明剋合，辨動靜以定刑沖」），本表五格全繫於衰旺軸。其立場見 C15 決策表",
+        axis_original="別衰旺以明剋合，辨動靜以定刑沖",
+        axis_source="千金賦 40", cross_reference="C15",
+    )
+
+
 def decision_table() -> dict:
-    not_collected = [item["book_id"] for item in BOOKS if item["book_id"] not in {"yimao", "zengshan", "buzhengzong"}]
     rows = [
         ("C1-R1", "旺相之爻遇沖", [
             cell("yimao", "addressed", verdict="不散（為動）", source="類總章 690", original="一旺一衰，则衰散而旺动", rule_id="R-YM-04-03"),
@@ -232,7 +250,11 @@ def decision_table() -> dict:
     ]
     output_rows = []
     for row_id, condition, cells in rows:
-        cells.extend(cell(book_id, "not_collected") for book_id in not_collected)
+        cells.extend(
+            different_axis_cell() if book["book_id"] == "huangjin_ce"
+            else cell(book["book_id"], "not_collected")
+            for book in BOOKS[3:]
+        )
         row = {"row_id": row_id, "condition": condition, "cells": cells}
         if row_id == "C1-R1":
             row["row_title"] = "三家判不散，一家判損"

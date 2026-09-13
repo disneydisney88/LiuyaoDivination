@@ -41,6 +41,30 @@
     "rule_id": null,
     "slots": []
   },
+  "T-TRACK-DIFFERENT-AXIS-01": {
+    "template_id": "T-TRACK-DIFFERENT-AXIS-01",
+    "pattern": "該書有相關立場，但採用另一軸向，不對應本表條件。",
+    "rule_id": null,
+    "slots": []
+  },
+  "T-TRACK-IMPLICATION-DIFFERENT-AXIS-01": {
+    "template_id": "T-TRACK-IMPLICATION-DIFFERENT-AXIS-01",
+    "pattern": "保留原軸向資料，不作跨軸換算。",
+    "rule_id": null,
+    "slots": []
+  },
+  "T-TRACK-DIFFERENT-AXIS-01": {
+    "template_id": "T-TRACK-DIFFERENT-AXIS-01",
+    "pattern": "該書有相關立場，但採用另一軸向，不對應本表條件。",
+    "rule_id": null,
+    "slots": []
+  },
+  "T-TRACK-IMPLICATION-DIFFERENT-AXIS-01": {
+    "template_id": "T-TRACK-IMPLICATION-DIFFERENT-AXIS-01",
+    "pattern": "保留原軸向資料，不作跨軸換算。",
+    "rule_id": null,
+    "slots": []
+  },
   "T-TRACK-NOT-COLLECTED-01": {
     "template_id": "T-TRACK-NOT-COLLECTED-01",
     "pattern": "未採集：此為採集缺口，非該書無立場。",

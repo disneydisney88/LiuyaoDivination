@@ -1,0 +1,202 @@
+{
+  "table_id": "C15",
+  "title": "沖之判定（動靜軸）",
+  "conflict_ids": [
+    "C15",
+    "C11",
+    "C12",
+    "C14"
+  ],
+  "books": [
+    {
+      "book_id": "yimao",
+      "name": "易冒"
+    },
+    {
+      "book_id": "zengshan",
+      "name": "增刪卜易"
+    },
+    {
+      "book_id": "buzhengzong",
+      "name": "卜筮正宗"
+    },
+    {
+      "book_id": "huozhulin",
+      "name": "火珠林"
+    },
+    {
+      "book_id": "huangjin_ce",
+      "name": "黃金策"
+    },
+    {
+      "book_id": "buzhequanshu",
+      "name": "卜筮全書"
+    },
+    {
+      "book_id": "jing_shi_yizhuan",
+      "name": "京氏易傳"
+    },
+    {
+      "book_id": "yiyin",
+      "name": "易隱"
+    }
+  ],
+  "rows": [
+    {
+      "row_id": "C15-R1",
+      "condition": "空爻遇沖",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "addressed",
+          "verdict": "有用",
+          "original": "空逢沖而有用",
+          "source": "千金賦 30",
+          "rule_id": "R-HJ-C15-R1"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 1,
+        "books_addressed": 1,
+        "books_not_addressed": 0,
+        "books_category_negated": 0,
+        "books_different_axis": 0,
+        "books_not_collected": 7
+      },
+      "coverage_label": "已採 1 本：1 本有表述；另 7 本未採"
+    },
+    {
+      "row_id": "C15-R2",
+      "condition": "靜爻遇沖",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "addressed",
+          "verdict": "暗興",
+          "original": "靜得沖而暗興",
+          "source": "千金賦 34",
+          "rule_id": "R-HJ-C15-R2"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 1,
+        "books_addressed": 1,
+        "books_not_addressed": 0,
+        "books_category_negated": 0,
+        "books_different_axis": 0,
+        "books_not_collected": 7
+      },
+      "coverage_label": "已採 1 本：1 本有表述；另 7 本未採"
+    },
+    {
+      "row_id": "C15-R3",
+      "condition": "動爻遇沖",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "addressed",
+          "verdict": "事散",
+          "original": "動逢沖而事散",
+          "source": "千金賦 76",
+          "rule_id": "R-HJ-C15-R3"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 1,
+        "books_addressed": 1,
+        "books_not_addressed": 0,
+        "books_category_negated": 0,
+        "books_different_axis": 0,
+        "books_not_collected": 7
+      },
+      "coverage_label": "已採 1 本：1 本有表述；另 7 本未採"
+    }
+  ]
+}

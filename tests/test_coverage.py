@@ -19,6 +19,7 @@ COVERAGE_KEYS = {
     "books_addressed",
     "books_not_addressed",
     "books_category_negated",
+    "books_different_axis",
     "books_not_collected",
 }
 FORBIDDEN_KEYS = {
@@ -60,6 +61,7 @@ def test_coverage_counts_sum_to_books_total():
                 coverage["books_addressed"]
                 + coverage["books_not_addressed"]
                 + coverage["books_category_negated"]
+                + coverage["books_different_axis"]
                 + coverage["books_not_collected"]
                 == coverage["books_total"]
             )
@@ -76,6 +78,9 @@ def test_addressed_and_category_negated_are_independent_counts():
             )
             assert coverage["books_category_negated"] == sum(
                 cell["status"] == "category_negated" for cell in row["cells"]
+            )
+            assert coverage["books_different_axis"] == sum(
+                cell["status"] == "different_axis" for cell in row["cells"]
             )
 
 

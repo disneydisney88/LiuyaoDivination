@@ -110,6 +110,7 @@
         "books_addressed": 1,
         "books_not_addressed": 3,
         "books_category_negated": 0,
+        "books_different_axis": 0,
         "books_not_collected": 4
       },
       "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採"
@@ -161,6 +162,7 @@
         "books_addressed": 1,
         "books_not_addressed": 3,
         "books_category_negated": 0,
+        "books_different_axis": 0,
         "books_not_collected": 4
       },
       "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採"
@@ -212,6 +214,7 @@
         "books_addressed": 1,
         "books_not_addressed": 3,
         "books_category_negated": 0,
+        "books_different_axis": 0,
         "books_not_collected": 4
       },
       "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採"
@@ -263,6 +266,7 @@
         "books_addressed": 1,
         "books_not_addressed": 3,
         "books_category_negated": 0,
+        "books_different_axis": 0,
         "books_not_collected": 4
       },
       "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採"
@@ -314,6 +318,7 @@
         "books_addressed": 1,
         "books_not_addressed": 3,
         "books_category_negated": 0,
+        "books_different_axis": 0,
         "books_not_collected": 4
       },
       "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採"

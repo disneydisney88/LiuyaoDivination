@@ -1,11 +1,21 @@
+from pathlib import Path
+
 import streamlit as st
 
 from engine.narrate import narrate
 from engine.semantics import (
     COLLECTION_GAP_TEMPLATE,
     COVERAGE_NOTE,
+    load_decision_table,
     semantic_for_condition,
 )
+
+
+ROOT = Path(__file__).resolve().parents[1]
+DECISION_TABLES = {
+    "C1：沖與散之判定": ROOT / "data" / "decision_tables" / "C1_chong_san.json",
+    "C15：沖之判定（動靜軸）": ROOT / "data" / "decision_tables" / "C15_dongjing_axis.json",
+}
 
 
 def show_track(track_narrative, track, *, original_collapsed=True):
@@ -16,6 +26,10 @@ def show_track(track_narrative, track, *, original_collapsed=True):
         st.caption("判語註記：{}".format(track_narrative["verdict_note"]))
     if track_narrative.get("search_note"):
         st.caption("檢索註記：{}".format(track_narrative["search_note"]))
+    if track_narrative.get("axis_note"):
+        st.caption("軸向註記：{}".format(track_narrative["axis_note"]))
+    if track_narrative.get("cross_reference"):
+        st.caption("交叉表：{}".format(track_narrative["cross_reference"]))
     st.caption("框架：{}".format(track.get("framework", "未提供")))
     if track.get("framework_position") is not None:
         st.caption("框架位置：{}".format(track["framework_position"]))
@@ -38,10 +52,13 @@ def show_track(track_narrative, track, *, original_collapsed=True):
 
 st.header("多軌")
 st.caption("按資料狀態分組；不作跨軌裁決、多數決或加權。")
-condition = st.selectbox("選擇 C1 決策表格位", [
-    "旺相之爻遇沖", "有氣之爻遇沖", "臨日月之爻遇沖", "休囚之爻遇日沖", "既判為散之後",
-])
-result = semantic_for_condition(line=3, condition=condition)
+table_label = st.selectbox("選擇決策表", list(DECISION_TABLES))
+decision_table = load_decision_table(DECISION_TABLES[table_label])
+condition = st.selectbox(
+    "選擇 {} 表格位".format(decision_table["table_id"]),
+    [row["condition"] for row in decision_table["rows"]],
+)
+result = semantic_for_condition(line=3, condition=condition, table=decision_table)
 st.subheader("{}　{}".format(result["row_id"], condition))
 st.caption(result["coverage_label"])
 if result["coverage"]["books_not_collected"] > 0:
@@ -58,6 +75,7 @@ for step in narrative["derivation"]:
 narrative_by_book = {item["book"]: item for item in narrative["tracks"]}
 tracks = result["tracks"]
 negated = [book for book, track in tracks.items() if track["status"] == "category_negated"]
+different_axis = [book for book, track in tracks.items() if track["status"] == "different_axis"]
 addressed = [book for book, track in tracks.items() if track["status"] == "addressed"]
 not_addressed = [book for book, track in tracks.items() if track["status"] == "not_addressed"]
 not_collected = [book for book, track in tracks.items() if track["status"] == "not_collected"]
@@ -76,6 +94,13 @@ elif addressed:
     for book in addressed:
         with st.expander(book, expanded=True):
             show_track(narrative_by_book[book], tracks[book], original_collapsed=False)
+
+if different_axis:
+    st.subheader("另一軸向")
+    for book in different_axis:
+        with st.container(border=True):
+            st.markdown("**{}**".format(book))
+            show_track(narrative_by_book[book], tracks[book])
 
 if negated:
     st.subheader("否定範疇")

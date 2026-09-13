@@ -262,6 +262,18 @@ def update_c1() -> None:
         if book["book_id"] == "bushi_quanshu":
             book["book_id"] = "buzhequanshu"
     for row in data["rows"]:
+        for cell in row["cells"]:
+            if cell["book_id"] == "huangjin_ce":
+                cell.clear()
+                cell.update({
+                    "book_id": "huangjin_ce",
+                    "status": "different_axis",
+                    "verdict": None,
+                    "axis_note": "本書明文以動靜軸判沖（行 40「別衰旺以明剋合，辨動靜以定刑沖」），本表五格全繫於衰旺軸。其立場見 C15 決策表",
+                    "axis_original": "別衰旺以明剋合，辨動靜以定刑沖",
+                    "axis_source": "千金賦 40",
+                    "cross_reference": "C15",
+                })
         if row["row_id"] == "C1-R1":
             row["row_title"] = "三家判不散，一家判損"
             row.pop("consensus", None)

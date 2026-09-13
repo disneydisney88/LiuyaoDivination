@@ -58,7 +58,7 @@ def test_decision_table_is_eight_books_by_five_rows():
     assert all(len(row["cells"]) == 8 for row in table["rows"])
 
 
-def test_four_status_values_are_exhaustive_and_validated():
+def test_five_status_values_are_exhaustive_and_validated():
     table = load_decision_table()
     statuses = {cell["status"] for row in table["rows"] for cell in row["cells"]}
     assert statuses == set(VALID_STATUSES)
@@ -76,7 +76,7 @@ def test_category_negated_has_null_verdict_and_negation_source():
 def test_not_collected_has_no_verdict_or_inferred_text():
     table = load_decision_table()
     cells = [cell for row in table["rows"] for cell in row["cells"] if cell["status"] == "not_collected"]
-    assert len(cells) == 20
+    assert len(cells) == 15
     assert all("verdict" not in cell for cell in cells)
     result = semantic_for_condition(line=3, condition="休囚之爻遇日沖")
     assert all("verdict" not in track for track in result["tracks"].values() if track["status"] == "not_collected")

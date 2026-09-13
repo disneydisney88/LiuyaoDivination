@@ -123,6 +123,16 @@
       "parties": ["卜筮全書五套空亡系統", "清代三家旬空專章"],
       "decision_table": "data/decision_tables/C13_kongwang_scope.json",
       "spec_section": "§8 C13"
+    },
+    {
+      "conflict_id": "C15",
+      "title": "沖之判定軸向分歧",
+      "conflict_type": ["framework_incommensurable"],
+      "resolved": false,
+      "parties": ["黃金策動靜軸", "清代三家衰旺軸"],
+      "decision_table": "data/decision_tables/C15_dongjing_axis.json",
+      "description": "各家以不同軸向判沖。《黃金策》明文以動靜軸（行 40「辨動靜以定刑沖」）；清代三家（易冒、增刪卜易、卜筮正宗）以衰旺軸。兩軸不可互換，亦不可對齊 —— 一個爻可以同時是「動」與「休囚」，兩軸對同一爻給出不同的判定路徑",
+      "spec_section": "§8 C15"
     }
   ]
 }

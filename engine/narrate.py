@@ -118,6 +118,10 @@ def _track_text(book: str, track: dict[str, Any], templates: dict[str, dict[str,
     if track.get("not_addressed"):
         text, template_id = _render("T-TRACK-NOT-ADDRESSED-01", {}, templates)
         return text, "", template_id
+    if track.get("different_axis"):
+        text, template_id = _render("T-TRACK-DIFFERENT-AXIS-01", {}, templates)
+        implication, _ = _render("T-TRACK-IMPLICATION-DIFFERENT-AXIS-01", {}, templates)
+        return text, implication, template_id
     if track.get("rule_id") == "R-YM-01-18":
         verdict, verdict_id = _render("T-TRACK-YM-18", {}, templates)
         implication, _ = _render("T-TRACK-IMPLICATION-YM", {}, templates)
@@ -136,6 +140,8 @@ def _source_fields(book: str, track: dict[str, Any], by_rule: dict[str, dict[str
         original = track.get("negation_original")
         if original:
             return original, track.get("negation_source")
+    if track.get("different_axis"):
+        return track.get("axis_original"), track.get("axis_source")
     return None, None
 
 
@@ -152,11 +158,12 @@ def narrate(*, semantics: dict[str, Any], relations: dict[str, Any]) -> dict[str
         verdict, implication, verdict_template = _track_text(book, track, templates)
         original, citation = _source_fields(book, track, by_rule, negated)
         entry = {
-            "book": book, "verdict_plain": verdict, "original": original,
+            "book": book, "status": track.get("status"), "verdict_plain": verdict, "original": original,
             "citation": citation, "source_locator": track.get("source"),
             "implication": implication, "rule_id": track.get("rule_id"),
         }
-        for key in ("verdict_note", "line", "related_material", "search_note"):
+        for key in ("verdict_note", "line", "related_material", "search_note",
+                    "axis_note", "axis_original", "axis_source", "cross_reference"):
             if key in track:
                 entry[key] = track[key]
         if verdict_template:

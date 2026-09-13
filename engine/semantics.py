@@ -8,7 +8,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_TABLE_PATH = ROOT / "data" / "decision_tables" / "C1_chong_san.json"
-VALID_STATUSES = frozenset({"addressed", "not_addressed", "category_negated", "not_collected"})
+VALID_STATUSES = frozenset({"addressed", "not_addressed", "category_negated", "different_axis", "not_collected"})
 NO_SEMANTIC_EFFECTS = "structured_only_no_effects_implemented"
 COLLECTION_GAP_TEMPLATE = "另有 {} 本在庫未採集。此為採集缺口，非該書無立場。"
 COVERAGE_NOTE = """**關於本表之切法**
@@ -43,6 +43,8 @@ def calculate_coverage(row: dict[str, Any], books_total: int | None = None) -> d
         parts.append(f"{counts['category_negated']} 本否定範疇")
     if counts["not_addressed"]:
         parts.append(f"{counts['not_addressed']} 本未表述")
+    if counts["different_axis"]:
+        parts.append(f"{counts['different_axis']} 本用另一軸")
     label = f"已採 {books_collected} 本"
     if parts:
         label += "：" + "、".join(parts)
@@ -55,6 +57,7 @@ def calculate_coverage(row: dict[str, Any], books_total: int | None = None) -> d
             "books_addressed": counts["addressed"],
             "books_not_addressed": counts["not_addressed"],
             "books_category_negated": counts["category_negated"],
+            "books_different_axis": counts["different_axis"],
             "books_not_collected": counts["not_collected"],
         },
         "coverage_label": label,
@@ -71,6 +74,12 @@ def _validate_cell(cell: dict[str, Any]) -> None:
         raise ValueError("addressed cells must have a non-null verdict")
     if status in {"not_addressed", "category_negated"} and cell.get("verdict") is not None:
         raise ValueError("non-addressed cells must have a null verdict")
+    if status == "different_axis":
+        if "verdict" not in cell or cell["verdict"] is not None:
+            raise ValueError("different_axis cells must have a null verdict")
+        for key in ("axis_note", "axis_original", "axis_source"):
+            if not cell.get(key):
+                raise ValueError("different_axis cells require axis fields")
     if status == "category_negated" and not cell.get("negation_original"):
         raise ValueError("category_negated cells require negation_original")
     if status == "category_negated" and not cell.get("negation_source"):
@@ -98,12 +107,17 @@ def _track(cell: dict[str, Any], book_name: str) -> dict[str, Any]:
                 "negation_original", "negation_source", "negation_category"):
         if key in cell:
             result[key] = cell[key]
+    for key in ("axis_note", "axis_original", "axis_source", "cross_reference"):
+        if key in cell:
+            result[key] = cell[key]
     if status == "category_negated":
         result["category_negated"] = True
     if status == "not_addressed":
         result["not_addressed"] = True
     if status == "not_collected":
         result["not_collected"] = True
+    if status == "different_axis":
+        result["different_axis"] = True
     return result
 
 
@@ -118,7 +132,12 @@ def semantic_for_condition(*, line: int, condition: str,
     for cell in row["cells"]:
         book_id = cell["book_id"]
         tracks[names.get(book_id, book_id)] = _track(cell, names.get(book_id, book_id))
-    result: dict[str, Any] = {"line": line, "condition": condition, "tracks": tracks}
+    result: dict[str, Any] = {
+        "table_id": decision_table.get("table_id"),
+        "line": line,
+        "condition": condition,
+        "tracks": tracks,
+    }
     result["row_id"] = row["row_id"]
     result.update(calculate_coverage(row, books_total=len(decision_table.get("books", []))))
     if row.get("row_title"):
