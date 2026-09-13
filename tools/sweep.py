@@ -95,8 +95,9 @@ def _collected_test_count() -> int:
     result = subprocess.run(
         [sys.executable, "-m", "pytest", "--collect-only", "-q"],
         cwd=ROOT, check=True, capture_output=True, text=True, encoding="utf-8",
+        errors="replace",
     )
-    return sum("::test_" in line for line in result.stdout.splitlines())
+    return sum("::test_" in line for line in (result.stdout or "").splitlines())
 
 TIER1_FIELDS = (
     "case_index", "hexagram_id", "hexagram_name", "lines", "moving_mask",
@@ -750,12 +751,14 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
     break_hits = sum(int(row["month_break_line_count"] or 0) for row in tier2)
     integration = _decision_table_integration_audit()
     template_count = len(_load_templates())
+    current_commit = _git("rev-parse", "--short", "HEAD").strip()
+    current_tests = _collected_test_count()
     elapsed = {tier: stats.get(tier, {}).get("elapsed_seconds") for tier in (1, 2, 3)}
 
     lines = [
         "# TASK_CODEX_20 — Sweep Report",
         "",
-        "基準：`13eb522`（原有 125 tests）。本報告量化現況，不修 TASK_CODEX_20 §0 所列問題 5–7。",
+        f"基準：`{current_commit}`（{current_tests} tests）。本報告為當前 code state 之量化結果；歷史 13eb522 現況基準及修復差異見 `sweep/REPAIR_DIFFS.md`。",
         "",
         "## A 部分 — 三層組合空間",
         "",
@@ -805,9 +808,9 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
         "",
         "## B4 — 用神差異驗證 ★★",
         "",
-        "目前不存在 `engine/yongshen.py`，`state_for_case()` 亦沒有把 `yongshen_selected` 傳入 engine；所以並無真正『以用神為中心重算』。現有差異只來自 UI contract 的可見候選爻位及在唯一候選時的 C1／C15 自動定位。",
+        "現已接通 `engine/yongshen.py`：用神類別及候選爻位由人手傳入，沒有自動揀用神；輸出以該候選為中心重算。",
         "",
-        "現時實際重算欄位：**無**。未產生 `is_yongshen`、元神、忌神、仇神或以用神為中心的 L2 狀態。",
+        "現時實際重算欄位：用神本身之旺衰／旬空／月破／日辰標記；元神、忌神、仇神之候選爻位及狀態；兩現／伏藏；動爻對用神之生剋及變爻回頭剋機械標記；C1／C15 格位；以及 `is_yongshen`。元神六況中未有足夠機械資料者保留 `not_computable`，不填效果語義。",
         "",
         "兩兩比較（每對 288 個同卦同時狀態；數值為 output projection 不同欄位數 min–max；完全相同列為基準數）：",
         "",
@@ -846,9 +849,14 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
         len(row["name"]) < 3 or row["name"] == _combined_trigram_name(row["lines"])
         for row in generate_bagong()
     )
+    name_summary = (
+        "64 卦全部通過；此前 56 個非本宮卦之上下卦象短名已補為完整卦名。"
+        if bad_names == 0 else
+        "模式為非本宮卦只保留上、下卦象，缺卦名末字；本包只量化，未修資料生成器。"
+    )
     lines.extend([
         "",
-        f"結果：64 卦中 **{bad_names}** 卦名不合檢查，8 個本宮卦通過；模式為非本宮卦只保留上、下卦象，缺卦名末字。此包只量化，未修資料生成器。",
+        f"結果：64 卦中 **{bad_names}** 卦名不合檢查；{name_summary}",
         "",
         "## 問題 1–4 修復覆核",
         "",
