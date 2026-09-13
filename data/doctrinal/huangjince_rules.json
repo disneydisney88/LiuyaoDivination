@@ -1,0 +1,134 @@
+{
+  "book_id": "huangjince",
+  "source_book": "黃金策",
+  "era": "明",
+  "author": "題劉基",
+  "attribution_status": "attributed",
+  "framework_type": "rhapsody_couplet",
+  "enumeration_style": "none",
+  "framework_note": "賦體，以對句立說，不立章目、不列條數。沖之判定繫於動靜軸（行 40「辨動靜以定刑沖」），與清代三家之衰旺軸不同",
+  "doctrinal_status": "single_school",
+  "conflicts_with": [
+    "C1",
+    "C11",
+    "C12",
+    "C14",
+    "C15"
+  ],
+  "corpus_path": "03_黃金策/黃金策_千金賦_古本.txt",
+  "corpus_note": "以古本為準。原檔含現代註釋 14 行（79–91、989），已分離。行 91「用世空動逢沖」等涉沖條件句屬今注，不得作賦文用",
+  "provenance_strength": "weak",
+  "provenance_note": "檔案第 6 行自述「本電子文按《卜筮正宗》本，全文載錄」，經 TASK_21 核對不成立：《卜筮正宗》所載《黃金策》賦文 1,844 字，本檔 21,124 字，比 0.087；三章逐句比對 105 行僅 2 行全同（墳墓章 42 行 0 行全同）；〈總斷千金賦〉13 句特徵語於《卜筮正宗》全檔 10 句 0 見。該檔另於行 724、734–735 自述整合自十四卷結構、來源為 guoxuedashi／quanxue 兩網站。實際底本不明，且自述與事實不符 —— 此為 provenance 鏈上第二弱一環（僅次於《增刪卜易》簡體本）",
+  "main_search_term": "空亡",
+  "search_term_note": "「空亡」37 次、「旬空」2 次。與《卜筮全書》同型。另：本檔用繁體「沖」112 次、簡體「冲」0 次，與《卜筮全書》相反",
+  "semantic_status": "structured_only_no_effects_implemented",
+  "sets": [
+    {
+      "set_id": "HJ_SET_01",
+      "set_name": "沖之三分法（空／靜／動）",
+      "chapter": "1、總斷千金賦",
+      "line": 30,
+      "count_declared": null,
+      "count_actual": 3,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "有傷須救，無故勿空；空逢沖而有用，合遭破以無功。\n動值合而絆住，靜得沖而暗興；\n刑害不宜臨用，死絕豈可持身。動逢沖而事散，絕逢生而事成。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 30,
+          "chapter": "1、總斷千金賦",
+          "definition_original": "有傷須救，無故勿空；空逢沖而有用，合遭破以無功。",
+          "rule_id": "R-HJ-01-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 34,
+          "chapter": "1、總斷千金賦",
+          "definition_original": "動值合而絆住，靜得沖而暗興；",
+          "rule_id": "R-HJ-01-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 76,
+          "chapter": "1、總斷千金賦",
+          "definition_original": "刑害不宜臨用，死絕豈可持身。動逢沖而事散，絕逢生而事成。",
+          "rule_id": "R-HJ-01-03",
+          "enumeration_source": "editorial"
+        }
+      ],
+      "is_tripartite_group": true
+    },
+    {
+      "set_id": "HJ_SET_02",
+      "set_name": "總斷千金賦之衰旺／動靜／神煞句",
+      "chapter": "1、總斷千金賦",
+      "line": 40,
+      "count_declared": null,
+      "count_actual": 3,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "別衰旺以明剋合，辨動靜以定刑沖。\n主象休囚，怕見刑沖剋害；用爻變動，忌遭死墓絕空。\n究父母推為體統，論官鬼斷作禍殃。\n\n財乃祿神，子為福德。\n\n兄弟交重，必至謀為多阻滯。卦身重疊，須知事體兩交關。\n\n虎興而遇吉神，不害其為吉。龍動而逢凶曜，難掩其為凶。\n\n玄武主盜賊之事，亦必官爻。朱雀本口舌之神，然須兄弟。\n\n疾病大宜天喜，若臨凶煞必生悲。出行最怕往亡，如系吉神終獲利。\n\n是故吉凶神煞之多端，何如生剋制化之一理。\n\n嗚呼！卜易者知前則易；求占者鑒後則靈。\n\n筮必誠心，何妨子日。\n",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 40,
+          "chapter": "1、總斷千金賦",
+          "definition_original": "別衰旺以明剋合，辨動靜以定刑沖。",
+          "rule_id": "R-HJ-02-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 56,
+          "chapter": "1、總斷千金賦",
+          "definition_original": "主象休囚，怕見刑沖剋害；用爻變動，忌遭死墓絕空。",
+          "rule_id": "R-HJ-02-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 111,
+          "chapter": "1、總斷千金賦",
+          "definition_original": "是故吉凶神煞之多端，何如生剋制化之一理。",
+          "rule_id": "R-HJ-02-03",
+          "enumeration_source": "editorial",
+          "context_line_start": 99,
+          "context_line_end": 116,
+          "context_original": "究父母推為體統，論官鬼斷作禍殃。\n\n財乃祿神，子為福德。\n\n兄弟交重，必至謀為多阻滯。卦身重疊，須知事體兩交關。\n\n虎興而遇吉神，不害其為吉。龍動而逢凶曜，難掩其為凶。\n\n玄武主盜賊之事，亦必官爻。朱雀本口舌之神，然須兄弟。\n\n疾病大宜天喜，若臨凶煞必生悲。出行最怕往亡，如系吉神終獲利。\n\n是故吉凶神煞之多端，何如生剋制化之一理。\n\n嗚呼！卜易者知前則易；求占者鑒後則靈。\n\n筮必誠心，何妨子日。\n"
+        }
+      ]
+    },
+    {
+      "set_id": "HJ_SET_03",
+      "set_name": "事類篇空亡／沖用例",
+      "chapter": "21、墳墓／25、避亂",
+      "line": 1219,
+      "count_declared": null,
+      "count_actual": 2,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "犯天地六空亡之煞，骸骨不明；穴遇三傳刑之空，屍首損傷。\n官化父沖，必有文書挨捕；日沖官散，必多親友維持。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 1219,
+          "chapter": "21、墳墓／25、避亂",
+          "definition_original": "犯天地六空亡之煞，骸骨不明；穴遇三傳刑之空，屍首損傷。",
+          "rule_id": "R-HJ-03-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 1425,
+          "chapter": "21、墳墓／25、避亂",
+          "definition_original": "官化父沖，必有文書挨捕；日沖官散，必多親友維持。",
+          "rule_id": "R-HJ-03-02",
+          "enumeration_source": "editorial"
+        }
+      ]
+    }
+  ]
+}
