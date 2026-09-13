@@ -1,0 +1,119 @@
+{
+  "semantic_status": "structured_only_no_effects_implemented",
+  "conflicts": [
+    {
+      "conflict_id": "C1",
+      "title": "沖與散之判定",
+      "conflict_type": ["differing_claim", "misattribution", "category_negation"],
+      "resolved": false,
+      "parties": ["易冒", "增刪卜易", "卜筮正宗"],
+      "decision_table": [
+        {"condition": "旺相之爻遇沖", "status": "三家共識"},
+        {"condition": "有氣之爻遇沖", "status": "一家表態"},
+        {"condition": "臨日月之爻遇沖", "status": "一家表態"},
+        {"condition": "休囚之爻遇日沖", "status": "兩家表態 + 一家否定範疇"},
+        {"condition": "既判為散之後", "status": "一家表態"}
+      ],
+      "spec_section": "§8 C1"
+    },
+    {
+      "conflict_id": "C2",
+      "title": "卜筮正宗成書年代／版本鏈",
+      "conflict_type": ["differing_claim"],
+      "resolved": false,
+      "parties": ["康熙說", "光緒甲辰 1904 版本鏈"],
+      "decision_table": null,
+      "spec_section": "§8 C2"
+    },
+    {
+      "conflict_id": "C3",
+      "title": "卜筮正宗對增刪卜易之文本依存",
+      "conflict_type": ["differing_claim"],
+      "resolved": false,
+      "parties": ["卜筮正宗", "增刪卜易"],
+      "decision_table": null,
+      "spec_section": "§8 C3"
+    },
+    {
+      "conflict_id": "C4",
+      "title": "京氏易傳底本分歧",
+      "conflict_type": ["differing_claim"],
+      "resolved": false,
+      "parties": ["四部叢刊景明天一閣本", "四庫本"],
+      "decision_table": null,
+      "spec_section": "§8 C4"
+    },
+    {
+      "conflict_id": "C5",
+      "title": "土之長生位置",
+      "conflict_type": ["differing_claim"],
+      "resolved": false,
+      "parties": ["申", "寅"],
+      "decision_table": null,
+      "spec_section": "§8 C5"
+    },
+    {
+      "conflict_id": "C6",
+      "title": "旬空吉凶取向",
+      "conflict_type": ["differing_claim"],
+      "resolved": false,
+      "parties": ["增刪卜易內部不同取向"],
+      "decision_table": null,
+      "spec_section": "§8 C6"
+    },
+    {
+      "conflict_id": "C7",
+      "title": "取用神",
+      "conflict_type": ["differing_claim"],
+      "resolved": false,
+      "parties": ["業內共識", "代占軌", "意念說"],
+      "decision_table": null,
+      "spec_section": "§8 C7"
+    },
+    {
+      "conflict_id": "C8",
+      "title": "伏神能否為用",
+      "conflict_type": ["differing_claim"],
+      "resolved": false,
+      "parties": ["各家分歧"],
+      "decision_table": null,
+      "spec_section": "§8 C8"
+    },
+    {
+      "conflict_id": "C9",
+      "title": "定卦宮口訣分歧",
+      "conflict_type": ["differing_claim"],
+      "resolved": false,
+      "parties": ["一二三六外卦宮", "初二六在外"],
+      "decision_table": null,
+      "spec_section": "§8 C9"
+    },
+    {
+      "conflict_id": "C10",
+      "title": "神煞權重",
+      "conflict_type": ["differing_claim"],
+      "resolved": false,
+      "parties": ["卜筮正宗反對神煞作中立底本", "其他取向"],
+      "decision_table": null,
+      "spec_section": "§8 C10"
+    },
+    {
+      "conflict_id": "C11",
+      "title": "嚴重度體系不可通約",
+      "conflict_type": ["framework_incommensurable"],
+      "resolved": false,
+      "parties": ["易冒十八級", "增刪卜易二值枚舉", "卜筮正宗真假二分"],
+      "decision_table": null,
+      "spec_section": "§8 C11"
+    },
+    {
+      "conflict_id": "C12",
+      "title": "衝突之四種類型",
+      "conflict_type": ["differing_claim", "misattribution", "framework_incommensurable", "category_negation"],
+      "resolved": false,
+      "parties": ["講法不同", "轉述失真", "框架不可通約", "否定範疇"],
+      "decision_table": null,
+      "spec_section": "§8 C12"
+    }
+  ]
+}
