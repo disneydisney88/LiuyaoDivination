@@ -106,11 +106,11 @@ def test_huangjince_corpus_path_is_ancient_copy_when_a_is_delivered():
     assert data["corpus_path"].endswith("03_黃金策/黃金策_千金賦_古本.txt")
 
 
-def test_huangjince_provenance_is_weak_when_a_is_delivered():
+def test_huangjince_provenance_is_compromised():
     if not HUANGJINCE_PATH.exists():
         pytest.skip("A 部分待黃金策_千金賦_古本.txt 交付")
     data = load_json(HUANGJINCE_PATH)
-    assert data["provenance_strength"] == "weak"
+    assert data["provenance_strength"] == "compromised"
     assert "不成立" in data["provenance_note"]
 
 

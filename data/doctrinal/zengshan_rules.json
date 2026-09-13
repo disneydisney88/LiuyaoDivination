@@ -16,7 +16,10 @@
   "corpus_path": "05_增刪卜易/增刪卜易_完整版_A.md",
   "corpus_variant": "simplified_full",
   "provenance_strength": "weak",
-  "provenance_note": "底本為簡體 .md，無 sidecar、無任何外部來源記錄（網址／repo／revision 皆無）。僅有檔內自述「古吳版／全書共 237 頁」及 237 個頁碼標記。取得途徑在本語料庫內無線索。此為目前 provenance 鏈上最弱一環，而該書為決策表三軌之一",
+  "provenance_note": "底本為簡體 `增刪卜易_完整版_A.md`。該檔本身無 `.source.json`，但 `CATALOG.md` 第 53 行已記錄來源：repo `gundamdarke398-ship-it/liuyao-divination`，授權 MIT。檔內另自述「增删卜易（古吴版）／全书共 237 页」及 237 個頁碼標記，該頁碼可由檔內自洽。\n\n**本項目 TASK_16 曾誤記此檔缺乏外部來源記錄，經 TASK_22 審計證實有誤** —— 成因為只查 `.source.json` 而未查 `CATALOG.md`。\n\n現存缺口：該 repo 所據之紙本底本不明；本地無影像可核（見 §12 全庫強度上限）。另有 606 行版面殘留未分離（見 P-032）。",
+  "corpus_cleaned": false,
+  "cleaning_status": "未分離。已知：606 行版面殘留（TASK_22 審計）",
+  "cleaning_pending_task": "P-032",
   "comparison_edition": {
     "path": "05_增刪卜易/（33 個繁體 .txt）",
     "variant": "traditional_partial",

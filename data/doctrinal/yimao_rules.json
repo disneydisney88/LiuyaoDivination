@@ -14,6 +14,11 @@
     "C12"
   ],
   "corpus_path": "07_易冒/易冒.txt",
+  "provenance_strength": "weak",
+  "provenance_note": "主檔無 .source.json；已知 11 處未宣告佔位及末 2 行《四庫全書總目提要》附綴。所據紙本底本不明，本地無影像可核（TASK_22 審計）。",
+  "corpus_cleaned": false,
+  "cleaning_status": "未分離。已知：11 處未宣告佔位（『（？）』『（魂？）』）、末 2 行四庫提要屬他書附綴",
+  "cleaning_pending_task": "P-036",
   "source_file": "07_易冒/易冒.txt",
   "extraction_task": "TASK_CODEX_07",
   "warning": "排序非全序，見 YM_SET_01 item_ordinal 17 之 exception_original",

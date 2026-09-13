@@ -137,6 +137,28 @@ def build(lines: list[str]) -> dict:
         ],
         full_lines=[1219, 1425],
     )
+    douzhen_original = "\n".join(lines[1534:1585])
+    douzhen = {
+        "set_id": "HJ_SET_DOUZHEN",
+        "set_name": "新增痘疹",
+        "line_range": "1535–1585",
+        "provenance_note": "夾於 27失脫 與 28出行 之間，不入篇次。《卜筮全書》無痘疹章，即此章來自第三個來源，來源不明",
+        "in_chapter_index": False,
+        "source_unknown": True,
+        "count_declared": None,
+        "count_actual": 1,
+        "count_mismatch": None,
+        "enumeration_source": "editorial",
+        "definition_original_full": douzhen_original,
+        "items": [{
+            "item_ordinal": 1,
+            "line": 1535,
+            "chapter": "新增痘疹",
+            "definition_original": douzhen_original,
+            "rule_id": "R-HJ-DOUZHEN-01",
+            "enumeration_source": "editorial",
+        }],
+    }
     return {
         "book_id": "huangjince",
         "source_book": "黃金策",
@@ -147,15 +169,25 @@ def build(lines: list[str]) -> dict:
         "enumeration_style": "none",
         "framework_note": "賦體，以對句立說，不立章目、不列條數。沖之判定繫於動靜軸（行 40「辨動靜以定刑沖」），與清代三家之衰旺軸不同",
         "doctrinal_status": "single_school",
-        "conflicts_with": ["C1", "C11", "C12", "C14", "C15"],
+        "conflicts_with": ["C1", "C11", "C12", "C14", "C15", "C16"],
         "corpus_path": "03_黃金策/黃金策_千金賦_古本.txt",
         "corpus_note": "以古本為準。原檔含現代註釋 14 行（79–91、989），已分離。行 91「用世空動逢沖」等涉沖條件句屬今注，不得作賦文用",
-        "provenance_strength": "weak",
-        "provenance_note": "檔案第 6 行自述「本電子文按《卜筮正宗》本，全文載錄」，經 TASK_21 核對不成立：《卜筮正宗》所載《黃金策》賦文 1,844 字，本檔 21,124 字，比 0.087；三章逐句比對 105 行僅 2 行全同（墳墓章 42 行 0 行全同）；〈總斷千金賦〉13 句特徵語於《卜筮正宗》全檔 10 句 0 見。該檔另於行 724、734–735 自述整合自十四卷結構、來源為 guoxuedashi／quanxue 兩網站。實際底本不明，且自述與事實不符 —— 此為 provenance 鏈上第二弱一環（僅次於《增刪卜易》簡體本）",
+        "provenance_strength": "compromised",
+        "provenance_note": "檔案第 6 行自述按《卜筮正宗》本全文載錄，經 TASK_21／TASK_22 核對不成立。繁簡正規化後 LCS 比對顯示，本檔 89.4% 字元見於《卜筮全書》古本行 5360–9703，2.6% 見於《卜筮正宗》，故本項目所用文本主要來自《卜筮全書》所載版本。所據紙本底本仍不明，本地無影像可核；因檔內自述已被推翻，provenance 標為 compromised。",
+        "corpus_cleaned": True,
+        "text_overlap": [{
+            "with_book_id": "buzhequanshu",
+            "overlap_ratio": 0.894,
+            "method": "繁簡正規化後 LCS 字元比對",
+            "overlap_range": "卜筮全書古本行 5360–9703",
+            "relation": "被收錄者與收錄者",
+            "source": "TASK_22 審計",
+            "warning": "二軌之一致不構成兩個獨立證據",
+        }],
         "main_search_term": "空亡",
         "search_term_note": "「空亡」37 次、「旬空」2 次。與《卜筮全書》同型。另：本檔用繁體「沖」112 次、簡體「冲」0 次，與《卜筮全書》相反",
         "semantic_status": "structured_only_no_effects_implemented",
-        "sets": [tripartite, general, applications],
+        "sets": [tripartite, general, applications, douzhen],
     }
 
 

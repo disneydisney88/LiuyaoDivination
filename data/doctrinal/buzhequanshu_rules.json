@@ -13,11 +13,25 @@
     "C1",
     "C11",
     "C12",
-    "C13"
+    "C13",
+    "C16"
   ],
   "corpus_path": "06_卜筮全書/卜筮全書_古本.txt",
-  "corpus_note": "以古本為準。原檔含現代編校者注解 164 行及《易經》增補 642 行，已分離，不得入庫",
-  "provenance_gap": "本檔取得網址／版次未曾記錄（待核項 P-015）",
+  "corpus_note": "以古本為準。原檔 A＋C 共 160 行整行移出、B＋B2 共 40 處行內剝離，另有《易經》增補 642 行；已分離，不得入庫",
+  "provenance_strength": "weak",
+  "provenance_note": "`CATALOG.md` 第 54 行已記錄來源。該檔 `.source.json` 自承「本檔取得網址／版次未曾記錄」，與 CATALOG 記載矛盾 —— 以 CATALOG 為準，sidecar 須更新（見 P-033）。現存缺口：所據紙本底本不明；本地無影像可核",
+  "corpus_cleaned": true,
+  "text_overlap": [
+    {
+      "with_book_id": "huangjince",
+      "overlap_ratio": 0.894,
+      "method": "繁簡正規化後 LCS 字元比對",
+      "overlap_range": "卜筮全書古本行 5360–9703",
+      "relation": "收錄者與被收錄者",
+      "source": "TASK_22 審計",
+      "warning": "二軌之一致不構成兩個獨立證據"
+    }
+  ],
   "sets": [
     {
       "set_id": "BQ_SET_VOID_MENTIONED",

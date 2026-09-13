@@ -15,6 +15,11 @@
     "C12"
   ],
   "corpus_path": "04_卜筮正宗/卜筮正宗_完整版_A.md",
+  "provenance_strength": "weak",
+  "provenance_note": "主檔無 .source.json；檔內自述為網站整合本，47 行『直解』為王洪緒原注大意之轉述。所據紙本底本不明，本地無影像可核（TASK_22 審計）。",
+  "corpus_cleaned": false,
+  "cleaning_status": "未分離。已知：兩套重疊層、卦例重複至 6 次、47 行『直解』為轉述式無署名注（自述為原注大意）",
+  "cleaning_pending_task": "P-035",
   "sets": [
     {
       "set_id": "BZ_SET_01_FALSE",

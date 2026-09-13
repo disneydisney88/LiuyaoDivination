@@ -11,6 +11,7 @@ DEFAULT_TABLE_PATH = ROOT / "data" / "decision_tables" / "C1_chong_san.json"
 VALID_STATUSES = frozenset({"addressed", "not_addressed", "category_negated", "different_axis", "not_collected"})
 NO_SEMANTIC_EFFECTS = "structured_only_no_effects_implemented"
 COLLECTION_GAP_TEMPLATE = "另有 {} 本在庫未採集。此為採集缺口，非該書無立場。"
+TEXT_OVERLAP_WARNING = "註：《黃金策》與《卜筮全書》文本重疊 89.4%（被收錄者與收錄者），二者之一致不構成兩個獨立證據。"
 COVERAGE_NOTE = """**關於本表之切法**
 
 R1–R5 五個條件係本項目從《易冒》十八法與野鶴之論述反推所得之切法，**非各書自身之設問方式**。
@@ -50,6 +51,13 @@ def calculate_coverage(row: dict[str, Any], books_total: int | None = None) -> d
         label += "：" + "、".join(parts)
     if counts["not_collected"]:
         label += f"；另 {counts['not_collected']} 本未採"
+    statuses = {cell.get("book_id"): cell.get("status") for cell in row.get("cells", [])}
+    overlap_pair = (statuses.get("huangjin_ce"), statuses.get("buzhequanshu"))
+    if (
+        "addressed" in overlap_pair
+        and all(status in {"addressed", "different_axis"} for status in overlap_pair)
+    ):
+        label += "\n\n" + TEXT_OVERLAP_WARNING
     return {
         "coverage": {
             "books_total": total,

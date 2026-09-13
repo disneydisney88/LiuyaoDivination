@@ -33,6 +33,11 @@ ENVELOPES = {
         "framework_note": "十八級序數排序，全吉 1–8／半吉 9–11／凶陷 12–18；帶明文遞增比較語；第 17 項有明文例外",
         "doctrinal_status": "single_school", "conflicts_with": ["C1", "C11", "C12"],
         "corpus_path": "07_易冒/易冒.txt",
+        "provenance_strength": "weak",
+        "provenance_note": "主檔無 .source.json；已知 11 處未宣告佔位及末 2 行《四庫全書總目提要》附綴。所據紙本底本不明，本地無影像可核（TASK_22 審計）。",
+        "corpus_cleaned": False,
+        "cleaning_status": "未分離。已知：11 處未宣告佔位（『（？）』『（魂？）』）、末 2 行四庫提要屬他書附綴",
+        "cleaning_pending_task": "P-036",
     },
     "zengshan": {
         "source_book": "增刪卜易", "era": "清", "author": "野鶴老人",
@@ -43,7 +48,10 @@ ENVELOPES = {
         "corpus_path": "05_增刪卜易/增刪卜易_完整版_A.md",
         "corpus_variant": "simplified_full",
         "provenance_strength": "weak",
-        "provenance_note": "底本為簡體 .md，無 sidecar、無任何外部來源記錄（網址／repo／revision 皆無）。僅有檔內自述「古吳版／全書共 237 頁」及 237 個頁碼標記。取得途徑在本語料庫內無線索。此為目前 provenance 鏈上最弱一環，而該書為決策表三軌之一",
+        "provenance_note": "底本為簡體 `增刪卜易_完整版_A.md`。該檔本身無 `.source.json`，但 `CATALOG.md` 第 53 行已記錄來源：repo `gundamdarke398-ship-it/liuyao-divination`，授權 MIT。檔內另自述「增删卜易（古吴版）／全书共 237 页」及 237 個頁碼標記，該頁碼可由檔內自洽。\n\n**本項目 TASK_16 曾誤記此檔缺乏外部來源記錄，經 TASK_22 審計證實有誤** —— 成因為只查 `.source.json` 而未查 `CATALOG.md`。\n\n現存缺口：該 repo 所據之紙本底本不明；本地無影像可核（見 §12 全庫強度上限）。另有 606 行版面殘留未分離（見 P-032）。",
+        "corpus_cleaned": False,
+        "cleaning_status": "未分離。已知：606 行版面殘留（TASK_22 審計）",
+        "cleaning_pending_task": "P-032",
         "comparison_edition": {
             "path": "05_增刪卜易/（33 個繁體 .txt）",
             "variant": "traditional_partial",
@@ -89,6 +97,11 @@ def buzhengzong() -> dict:
         "semantic_status": "structured_only_no_effects_implemented",
         "conflicts_with": ["C1", "C11", "C12"],
         "corpus_path": "04_卜筮正宗/卜筮正宗_完整版_A.md",
+        "provenance_strength": "weak",
+        "provenance_note": "主檔無 .source.json；檔內自述為網站整合本，47 行『直解』為王洪緒原注大意之轉述。所據紙本底本不明，本地無影像可核（TASK_22 審計）。",
+        "corpus_cleaned": False,
+        "cleaning_status": "未分離。已知：兩套重疊層、卦例重複至 6 次、47 行『直解』為轉述式無署名注（自述為原注大意）",
+        "cleaning_pending_task": "P-035",
         "sets": [
             {
                 "set_id": "BZ_SET_01_FALSE", "set_name": "月破論第九（假破）", "chapter": "月破論第九", "line": 2691,
