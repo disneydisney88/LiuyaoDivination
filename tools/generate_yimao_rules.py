@@ -91,7 +91,7 @@ def main() -> None:
     set10_lines = [400, 400, 400, 400, 400, 400, 400, 402, 402, 402, 402, 402, 402]
     sets.append({"set_id": "YM_SET_10", "set_name": "旬空十三法", "chapter": "旬空章第二十六", "line": 399, "declared_count": 13, "actual_count": 13, "count_mismatch": False, "items": [item("YM_SET_10", "旬空十三法", "旬空章第二十六", set10_lines[n - 1], n, name, definition) for n, (name, definition) in enumerate(set10_entries, 1)]})
 
-    sets.append({"set_id": "YM_SET_11", "set_name": "疾病七法", "chapter": "疾病章第五十五", "line": 1034, "declared_count": 7, "actual_count": 6, "count_declared": 7, "count_actual": 6, "count_mismatch": True, "note_original": "原文 1035 行夾註稱「以上七法系大凶」，而 1034 行實列六項：動散、月破、克空、日破、受傷無援、脫氣", "items": [item("YM_SET_11", "疾病七法", "疾病章第五十五", 1035, n, name, definition) for n, (name, definition) in enumerate([("动散", "动散"), ("月破", "月破"), ("克空", "克空"), ("日破", "日破"), ("受伤无援", "受伤无援"), ("脱气", "脱气")], 1)]})
+    sets.append({"set_id": "YM_SET_11", "set_name": "疾病七法", "chapter": "疾病章第五十五", "line": 1034, "count_declared": 7, "count_actual": 6, "count_mismatch": True, "note_original": "原文 1035 行夾註稱「以上七法系大凶」，而 1034 行實列六項：動散、月破、克空、日破、受傷無援、脫氣", "items": [item("YM_SET_11", "疾病七法", "疾病章第五十五", 1035, n, name, definition) for n, (name, definition) in enumerate([("动散", "动散"), ("月破", "月破"), ("克空", "克空"), ("日破", "日破"), ("受伤无援", "受伤无援"), ("脱气", "脱气")], 1)]})
 
     payload = {
         "source_book": "易冒",

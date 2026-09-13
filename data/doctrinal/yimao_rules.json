@@ -1262,8 +1262,6 @@
       "set_name": "疾病七法",
       "chapter": "疾病章第五十五",
       "line": 1034,
-      "declared_count": 7,
-      "actual_count": 6,
       "count_declared": 7,
       "count_actual": 6,
       "count_mismatch": true,
