@@ -1,0 +1,798 @@
+{
+  "source_book": "增刪卜易",
+  "author": "野鶴老人",
+  "doctrinal_status": "single_school",
+  "framework_type": "binary_enumeration",
+  "framework_note": "成對之能／不能列舉，無排序、無中間態、無嚴重度分級",
+  "semantic_status": "structured_only_no_effects_implemented",
+  "conflicts_with": [
+    "C1",
+    "C11",
+    "C12"
+  ],
+  "sets": [
+    {
+      "set_id": "ZS_SET_01",
+      "set_name": "元神能生用神者",
+      "chapter": "元神忌神衰旺章第十",
+      "line": 906,
+      "polarity": "positive",
+      "paired_with": "ZS_SET_02",
+      "count_declared": 5,
+      "count_actual": 5,
+      "count_mismatch": false,
+      "attribution": "own_claim",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "definition_original": "元神旺相，或临日月，或得日月动爻生扶者，一也。",
+          "rule_id": "R-ZS-01-01",
+          "line": 907
+        },
+        {
+          "item_ordinal": 2,
+          "definition_original": "元神长生、帝旺于日辰者，二也。",
+          "rule_id": "R-ZS-01-02",
+          "line": 908
+        },
+        {
+          "item_ordinal": 3,
+          "definition_original": "元神动化回头生及化进神者，三也。",
+          "rule_id": "R-ZS-01-03",
+          "line": 909
+        },
+        {
+          "item_ordinal": 4,
+          "definition_original": "元神与忌神同动者，四也。",
+          "rule_id": "R-ZS-01-04",
+          "line": 910
+        },
+        {
+          "item_ordinal": 5,
+          "definition_original": "元神旺动临空化空者，五也。",
+          "rule_id": "R-ZS-01-05",
+          "line": 911
+        }
+      ]
+    },
+    {
+      "set_id": "ZS_SET_02",
+      "set_name": "元神虽现又有不能生用神者",
+      "chapter": "元神忌神衰旺章第十",
+      "line": 925,
+      "polarity": "negative",
+      "paired_with": "ZS_SET_01",
+      "count_declared": 6,
+      "count_actual": 6,
+      "count_mismatch": false,
+      "attribution": "own_claim",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "definition_original": "元神休囚不动，或动而休囚又被伤克者一也。",
+          "rule_id": "R-ZS-02-01",
+          "line": 926
+        },
+        {
+          "item_ordinal": 2,
+          "definition_original": "元神休囚又逢旬空、月破二也。",
+          "rule_id": "R-ZS-02-02",
+          "line": 927
+        },
+        {
+          "item_ordinal": 3,
+          "definition_original": "元神休囚动化退神三也。",
+          "rule_id": "R-ZS-02-03",
+          "line": 928
+        },
+        {
+          "item_ordinal": 4,
+          "definition_original": "元神衰而又绝四也。",
+          "rule_id": "R-ZS-02-04",
+          "line": 929
+        },
+        {
+          "item_ordinal": 5,
+          "definition_original": "元神入三墓五也。",
+          "rule_id": "R-ZS-02-05",
+          "line": 930
+        },
+        {
+          "item_ordinal": 6,
+          "definition_original": "元神休囚动而化绝、化克、化破、化散六也。",
+          "rule_id": "R-ZS-02-06",
+          "line": 931
+        }
+      ]
+    },
+    {
+      "set_id": "ZS_SET_03",
+      "set_name": "忌神能克害用神者",
+      "chapter": "元神忌神衰旺章第十",
+      "line": 933,
+      "polarity": "positive",
+      "paired_with": "ZS_SET_04",
+      "count_declared": 5,
+      "count_actual": 5,
+      "count_mismatch": false,
+      "attribution": "own_claim",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "definition_original": "忌神旺相，或临日月，或遇日月动爻生扶者一也。",
+          "rule_id": "R-ZS-03-01",
+          "line": 934
+        },
+        {
+          "item_ordinal": 2,
+          "definition_original": "忌神动化回头生或化进神者二也。",
+          "rule_id": "R-ZS-03-02",
+          "line": 938
+        },
+        {
+          "item_ordinal": 3,
+          "definition_original": "忌神旺动临空化空三也。",
+          "rule_id": "R-ZS-03-03",
+          "line": 939
+        },
+        {
+          "item_ordinal": 4,
+          "definition_original": "忌神长生帝旺于日辰四也。",
+          "rule_id": "R-ZS-03-04",
+          "line": 940
+        },
+        {
+          "item_ordinal": 5,
+          "definition_original": "忌神与仇神同动五也。",
+          "rule_id": "R-ZS-03-05",
+          "line": 941
+        }
+      ]
+    },
+    {
+      "set_id": "ZS_SET_04",
+      "set_name": "忌神虽现不能克用神者",
+      "chapter": "元神忌神衰旺章第十",
+      "line": 943,
+      "polarity": "negative",
+      "paired_with": "ZS_SET_03",
+      "count_declared": 7,
+      "count_actual": 7,
+      "count_mismatch": false,
+      "attribution": "own_claim",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "definition_original": "忌神休囚不动，或动而休囚又被日月动爻克者一也。",
+          "rule_id": "R-ZS-04-01",
+          "line": 944
+        },
+        {
+          "item_ordinal": 2,
+          "definition_original": "忌神静临空破二也。",
+          "rule_id": "R-ZS-04-02",
+          "line": 945
+        },
+        {
+          "item_ordinal": 3,
+          "definition_original": "忌神入三墓三也。",
+          "rule_id": "R-ZS-04-03",
+          "line": 946
+        },
+        {
+          "item_ordinal": 4,
+          "definition_original": "忌神动化退神四也。",
+          "rule_id": "R-ZS-04-04",
+          "line": 947
+        },
+        {
+          "item_ordinal": 5,
+          "definition_original": "忌神衰而又绝五也。",
+          "rule_id": "R-ZS-04-05",
+          "line": 948
+        },
+        {
+          "item_ordinal": 6,
+          "definition_original": "忌神动化绝、化破、化克、化散六也。",
+          "rule_id": "R-ZS-04-06",
+          "line": 949
+        },
+        {
+          "item_ordinal": 7,
+          "definition_original": "忌神与元神同动七也。",
+          "rule_id": "R-ZS-04-07",
+          "line": 950
+        }
+      ]
+    },
+    {
+      "set_id": "ZS_SET_05",
+      "set_name": "成三合局者",
+      "chapter": "三合局相關段落",
+      "line": 1444,
+      "polarity": "neutral",
+      "paired_with": null,
+      "count_declared": 4,
+      "count_actual": 4,
+      "count_mismatch": false,
+      "attribution": "own_claim",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "definition_original": "一卦之内有三爻动而合局者一也。",
+          "rule_id": "R-ZS-05-01",
+          "line": 1445
+        },
+        {
+          "item_ordinal": 2,
+          "definition_original": "若两爻动一爻不动亦成合局者二也。",
+          "rule_id": "R-ZS-05-02",
+          "line": 1446
+        },
+        {
+          "item_ordinal": 3,
+          "definition_original": "有内卦初爻、三爻动与变爻合局者三也。",
+          "rule_id": "R-ZS-05-03",
+          "line": 1447
+        },
+        {
+          "item_ordinal": 4,
+          "definition_original": "有外卦四爻、六爻动与变爻合局者四也。",
+          "rule_id": "R-ZS-05-04",
+          "line": 1448
+        }
+      ]
+    },
+    {
+      "set_id": "ZS_SET_06",
+      "set_name": "相合之法",
+      "chapter": "六合章第十九",
+      "line": 1342,
+      "polarity": "neutral",
+      "paired_with": null,
+      "count_declared": 6,
+      "count_actual": 6,
+      "count_mismatch": false,
+      "attribution": "own_claim",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "definition_original": "日月合爻者一也。如丑月占得坎卦，世爻子水与月建作合是也。",
+          "rule_id": "R-ZS-06-01",
+          "line": 1343
+        },
+        {
+          "item_ordinal": 2,
+          "definition_original": "爻与爻合者二也。如占得天地否卦，世应俱动，卯与戌合是也。但有一爻不动，亦不为合。",
+          "rule_id": "R-ZS-06-02",
+          "line": 1344
+        },
+        {
+          "item_ordinal": 3,
+          "definition_original": "爻动化合者三也。如占得天风姤卦，世爻丑动，化出子水作合是也。",
+          "rule_id": "R-ZS-06-03",
+          "line": 1345
+        },
+        {
+          "item_ordinal": 4,
+          "definition_original": "卦逢六合者四也。如占得天地否卦，内外六爻自相和合者是也，不动亦是。",
+          "rule_id": "R-ZS-06-04",
+          "line": 1346
+        },
+        {
+          "item_ordinal": 5,
+          "definition_original": "六冲卦变六合者五也。如占得乾为天卦，乃八纯六冲之卦，若外卦三爻俱动，变为地天泰卦，谓之六冲而变六合是也。",
+          "rule_id": "R-ZS-06-05",
+          "line": 1347
+        },
+        {
+          "item_ordinal": 6,
+          "definition_original": "六合卦变六合者六也。如占得旅卦变贲卦是也。",
+          "rule_id": "R-ZS-06-06",
+          "line": 1349
+        }
+      ]
+    },
+    {
+      "set_id": "ZS_SET_07",
+      "set_name": "相冲之法",
+      "chapter": "六冲章第二十",
+      "line": 1514,
+      "polarity": "neutral",
+      "paired_with": null,
+      "count_declared": 6,
+      "count_actual": 6,
+      "count_mismatch": false,
+      "attribution": "own_claim",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "definition_original": "日月冲爻者，一也。",
+          "rule_id": "R-ZS-07-01",
+          "line": 1515
+        },
+        {
+          "item_ordinal": 2,
+          "definition_original": "动爻化冲者，二也。",
+          "rule_id": "R-ZS-07-02",
+          "line": 1516
+        },
+        {
+          "item_ordinal": 3,
+          "definition_original": "爻与爻冲者，三也。",
+          "rule_id": "R-ZS-07-03",
+          "line": 1517
+        },
+        {
+          "item_ordinal": 4,
+          "definition_original": "卦逢六冲者，四也。",
+          "rule_id": "R-ZS-07-04",
+          "line": 1518
+        },
+        {
+          "item_ordinal": 5,
+          "definition_original": "六合卦变六冲卦者，五也。",
+          "rule_id": "R-ZS-07-05",
+          "line": 1519
+        },
+        {
+          "item_ordinal": 6,
+          "definition_original": "六冲卦变六冲卦者，六也。",
+          "rule_id": "R-ZS-07-06",
+          "line": 1520
+        }
+      ]
+    },
+    {
+      "set_id": "ZS_SET_08",
+      "set_name": "爻冲",
+      "chapter": "六冲章第二十",
+      "line": 1523,
+      "polarity": "neutral",
+      "paired_with": null,
+      "count_declared": 5,
+      "count_actual": 5,
+      "count_mismatch": false,
+      "attribution": "own_claim",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "definition_original": "爻与月冲谓月破。",
+          "rule_id": "R-ZS-08-01",
+          "line": 1524
+        },
+        {
+          "item_ordinal": 2,
+          "definition_original": "爻遇日冲为暗动。",
+          "rule_id": "R-ZS-08-02",
+          "line": 1525
+        },
+        {
+          "item_ordinal": 3,
+          "definition_original": "休囚而遇日冲谓之日破。",
+          "rule_id": "R-ZS-08-03",
+          "line": 1526
+        },
+        {
+          "item_ordinal": 4,
+          "definition_original": "动爻化回头冲，如逢仇敌。",
+          "rule_id": "R-ZS-08-04",
+          "line": 1527
+        },
+        {
+          "item_ordinal": 5,
+          "definition_original": "爻遇爻冲，谓之相击。",
+          "rule_id": "R-ZS-08-05",
+          "line": 1528
+        }
+      ]
+    },
+    {
+      "set_id": "ZS_SET_09",
+      "set_name": "伏神有用者",
+      "chapter": "飞伏神章第二十八",
+      "line": 2168,
+      "polarity": "positive",
+      "paired_with": "ZS_SET_10",
+      "count_declared": 6,
+      "count_actual": 6,
+      "count_mismatch": false,
+      "attribution": "own_claim",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "definition_original": "伏神得日月生者一也；",
+          "rule_id": "R-ZS-09-01",
+          "line": 2169
+        },
+        {
+          "item_ordinal": 2,
+          "definition_original": "伏神旺相者二也；",
+          "rule_id": "R-ZS-09-02",
+          "line": 2170
+        },
+        {
+          "item_ordinal": 3,
+          "definition_original": "伏神得动爻生者三也；",
+          "rule_id": "R-ZS-09-03",
+          "line": 2171
+        },
+        {
+          "item_ordinal": 4,
+          "definition_original": "伏神得飞神生者四也；",
+          "rule_id": "R-ZS-09-04",
+          "line": 2175
+        },
+        {
+          "item_ordinal": 5,
+          "definition_original": "伏神得遇日月动爻冲克飞神者五也；",
+          "rule_id": "R-ZS-09-05",
+          "line": 2176
+        },
+        {
+          "item_ordinal": 6,
+          "definition_original": "伏神得遇飞神空破休囚墓绝者六也。",
+          "rule_id": "R-ZS-09-06",
+          "line": 2177
+        }
+      ]
+    },
+    {
+      "set_id": "ZS_SET_10",
+      "set_name": "伏神终不得出者",
+      "chapter": "飞伏神章第二十八",
+      "line": 2181,
+      "polarity": "negative",
+      "paired_with": "ZS_SET_09",
+      "count_declared": 5,
+      "count_actual": 5,
+      "count_mismatch": false,
+      "attribution": "own_claim",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "definition_original": "伏神休囚无气者一也；",
+          "rule_id": "R-ZS-10-01",
+          "line": 2182
+        },
+        {
+          "item_ordinal": 2,
+          "definition_original": "伏神被日月动爻冲克者二也；",
+          "rule_id": "R-ZS-10-02",
+          "line": 2183
+        },
+        {
+          "item_ordinal": 3,
+          "definition_original": "伏神被旺相之飞神克者三也；",
+          "rule_id": "R-ZS-10-03",
+          "line": 2184
+        },
+        {
+          "item_ordinal": 4,
+          "definition_original": "伏神墓绝于日月或飞爻者四也；",
+          "rule_id": "R-ZS-10-04",
+          "line": 2185
+        },
+        {
+          "item_ordinal": 5,
+          "definition_original": "伏神休囚值空临破者五也。",
+          "rule_id": "R-ZS-10-05",
+          "line": 2186
+        }
+      ]
+    },
+    {
+      "set_id": "ZS_SET_11",
+      "set_name": "进神之法",
+      "chapter": "进神退神章第二十九",
+      "line": 2542,
+      "polarity": "positive",
+      "paired_with": "ZS_SET_12",
+      "count_declared": 4,
+      "count_actual": 4,
+      "count_mismatch": false,
+      "attribution": "own_claim",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "definition_original": "动旺相而化旺相，乘势而进者，一也。",
+          "rule_id": "R-ZS-11-01",
+          "line": 2543
+        },
+        {
+          "item_ordinal": 2,
+          "definition_original": "动休囚而化休囚，待时而进者，二也。",
+          "rule_id": "R-ZS-11-02",
+          "line": 2544
+        },
+        {
+          "item_ordinal": 3,
+          "definition_original": "动爻变爻有一而值衰，待旺相之日而进者，三也。",
+          "rule_id": "R-ZS-11-03",
+          "line": 2545
+        },
+        {
+          "item_ordinal": 4,
+          "definition_original": "动爻变爻有一而值空破，待填实之日而进者，四也。",
+          "rule_id": "R-ZS-11-04",
+          "line": 2546
+        }
+      ]
+    },
+    {
+      "set_id": "ZS_SET_12",
+      "set_name": "退神之法",
+      "chapter": "进神退神章第二十九",
+      "line": 2547,
+      "polarity": "negative",
+      "paired_with": "ZS_SET_11",
+      "count_declared": 4,
+      "count_actual": 4,
+      "count_mismatch": false,
+      "attribution": "own_claim",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "definition_original": "动旺相而化旺相，或有日月动爻生扶，占近事得时而不退者，一也。",
+          "rule_id": "R-ZS-12-01",
+          "line": 2548
+        },
+        {
+          "item_ordinal": 2,
+          "definition_original": "动休囚而化休囚，及时而退者，二也。",
+          "rule_id": "R-ZS-12-02",
+          "line": 2549
+        },
+        {
+          "item_ordinal": 3,
+          "definition_original": "动爻变爻有一而旺相，待休囚之时而退者，三也。",
+          "rule_id": "R-ZS-12-03",
+          "line": 2550
+        },
+        {
+          "item_ordinal": 4,
+          "definition_original": "动爻变爻有一逢空破，待填实之日而退者，四也。",
+          "rule_id": "R-ZS-12-04",
+          "line": 2551
+        }
+      ]
+    },
+    {
+      "set_id": "ZS_SET_13",
+      "set_name": "化生旺兮祸福",
+      "chapter": "增删《黄金策千金赋》第三十四",
+      "line": 3196,
+      "polarity": "neutral",
+      "paired_with": null,
+      "count_declared": 3,
+      "count_actual": 3,
+      "count_mismatch": false,
+      "attribution": "own_claim",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "definition_original": "生者，动爻化长生也。如亥水动化出申金，既化长生又谓化回头之生；化酉金者，不曰化沐浴而曰化回头之生。此二者动爻有气化爻旺相，诸占皆吉。",
+          "rule_id": "R-ZS-13-01",
+          "line": 3197
+        },
+        {
+          "item_ordinal": 2,
+          "definition_original": "旺者，长生之第五位者是也。金木水火而化旺即是化进神，且如申金化酉金，亥水化子水，寅木化卯木，巳火化午火，诸占无不亨吉。",
+          "rule_id": "R-ZS-13-02",
+          "line": 3199
+        },
+        {
+          "item_ordinal": 3,
+          "definition_original": "惟土寄生于申，旺于子水为进神，辰未戌土动而化出子爻者，乃为化旺，丑土化出子爻者，即为化旺，又为化合，诸占皆吉。",
+          "rule_id": "R-ZS-13-03",
+          "line": 3201
+        }
+      ]
+    },
+    {
+      "set_id": "ZS_SET_14",
+      "set_name": "化官鬼兮吉凶",
+      "chapter": "增删《黄金策千金赋》第三十四",
+      "line": 3203,
+      "polarity": "neutral",
+      "paired_with": null,
+      "count_declared": 2,
+      "count_actual": 2,
+      "count_mismatch": false,
+      "attribution": "own_claim",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "definition_original": "动爻变出官鬼，吉凶有二，何也？占功名者，世爻旺相或临日月或日月动爻生扶，动而变出官鬼者，乃是化官星，又无破损，乃为得官之兆也。",
+          "rule_id": "R-ZS-14-01",
+          "line": 3204
+        },
+        {
+          "item_ordinal": 2,
+          "definition_original": "世若休囚受克，动而变出官鬼星者，乃为变鬼，不惟难食禄于王家，须忧梦沉黄梁。",
+          "rule_id": "R-ZS-14-02",
+          "line": 3205
+        }
+      ]
+    },
+    {
+      "set_id": "ZS_SET_15",
+      "set_name": "克",
+      "chapter": "元神忌神衰旺章第十",
+      "line": 1017,
+      "polarity": "neutral",
+      "paired_with": null,
+      "count_declared": 4,
+      "count_actual": 4,
+      "count_mismatch": false,
+      "attribution": "own_claim",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "definition_original": "月克",
+          "rule_id": "R-ZS-15-01",
+          "line": 1017
+        },
+        {
+          "item_ordinal": 2,
+          "definition_original": "日克",
+          "rule_id": "R-ZS-15-02",
+          "line": 1017
+        },
+        {
+          "item_ordinal": 3,
+          "definition_original": "动爻克",
+          "rule_id": "R-ZS-15-03",
+          "line": 1017
+        },
+        {
+          "item_ordinal": 4,
+          "definition_original": "化回头克",
+          "rule_id": "R-ZS-15-04",
+          "line": 1017
+        }
+      ]
+    },
+    {
+      "set_id": "ZS_SET_QUOTED_01",
+      "set_name": "旬空之法（諸書轉述）",
+      "chapter": "旬空章第二十六",
+      "line": 1842,
+      "attribution": "quoted_from_others",
+      "attribution_note": "1842 行『旬空之法，諸書之論太繁』—— 此為野鶴轉述他書之清單，非其主張。其主張見 1844 行『野鶴曰：動不為空，旺不為空……』",
+      "count_declared": null,
+      "count_actual": 14,
+      "count_mismatch": null,
+      "items": [
+        {
+          "item_ordinal": 1,
+          "definition_original": "真空",
+          "rule_id": "R-ZS-Q01-01",
+          "line": 1842
+        },
+        {
+          "item_ordinal": 2,
+          "definition_original": "假空",
+          "rule_id": "R-ZS-Q01-02",
+          "line": 1842
+        },
+        {
+          "item_ordinal": 3,
+          "definition_original": "动空",
+          "rule_id": "R-ZS-Q01-03",
+          "line": 1842
+        },
+        {
+          "item_ordinal": 4,
+          "definition_original": "冲空",
+          "rule_id": "R-ZS-Q01-04",
+          "line": 1842
+        },
+        {
+          "item_ordinal": 5,
+          "definition_original": "填空",
+          "rule_id": "R-ZS-Q01-05",
+          "line": 1842
+        },
+        {
+          "item_ordinal": 6,
+          "definition_original": "援空",
+          "rule_id": "R-ZS-Q01-06",
+          "line": 1842
+        },
+        {
+          "item_ordinal": 7,
+          "definition_original": "无故自空",
+          "rule_id": "R-ZS-Q01-07",
+          "line": 1842
+        },
+        {
+          "item_ordinal": 8,
+          "definition_original": "有故而空",
+          "rule_id": "R-ZS-Q01-08",
+          "line": 1842
+        },
+        {
+          "item_ordinal": 9,
+          "definition_original": "散空",
+          "rule_id": "R-ZS-Q01-09",
+          "line": 1842
+        },
+        {
+          "item_ordinal": 10,
+          "definition_original": "墓空",
+          "rule_id": "R-ZS-Q01-10",
+          "line": 1842
+        },
+        {
+          "item_ordinal": 11,
+          "definition_original": "绝空",
+          "rule_id": "R-ZS-Q01-11",
+          "line": 1842
+        },
+        {
+          "item_ordinal": 12,
+          "definition_original": "害空",
+          "rule_id": "R-ZS-Q01-12",
+          "line": 1842
+        },
+        {
+          "item_ordinal": 13,
+          "definition_original": "安空",
+          "rule_id": "R-ZS-Q01-13",
+          "line": 1842
+        },
+        {
+          "item_ordinal": 14,
+          "definition_original": "破空",
+          "rule_id": "R-ZS-Q01-14",
+          "line": 1842
+        }
+      ]
+    },
+    {
+      "set_id": "ZS_SET_OWN_01",
+      "set_name": "旬空法（野鶴自述）",
+      "chapter": "旬空章第二十六",
+      "line": 1844,
+      "attribution": "own_claim",
+      "count_declared": null,
+      "count_actual": 1,
+      "count_mismatch": null,
+      "items": [
+        {
+          "item_ordinal": 1,
+          "definition_original": "野鹤曰：动不为空，旺不为空。有日建动爻生扶者亦不为空。动而化空、伏而旺相皆不为空。月破为空，有气不动亦为空，伏而被克为空，真空为空。真空者，春土夏金秋之木，火逢三冬是真空。",
+          "rule_id": "R-ZS-OWN-01",
+          "line": 1844
+        }
+      ]
+    },
+    {
+      "set_id": "ZS_NEGATED_01",
+      "set_name": "野鶴所否定之範疇",
+      "conflict_type": "category_negation",
+      "attribution": "own_claim",
+      "items": [
+        {
+          "negated_category": "散",
+          "original": "余从来不言散",
+          "chapter": "元神忌神衰旺章第十",
+          "line": 922
+        },
+        {
+          "negated_category": "散",
+          "original": "此非卯动酉日冲之，何尝散也？",
+          "chapter": "动散章第二十三",
+          "line": 1683
+        },
+        {
+          "negated_category": "临空化空为无用",
+          "original": "古以临空化空为无用，非也",
+          "chapter": "元神忌神衰旺章第十",
+          "line": 912
+        }
+      ]
+    }
+  ]
+}
