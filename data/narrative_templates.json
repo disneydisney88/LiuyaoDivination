@@ -1,0 +1,70 @@
+{
+  "T-SEASONAL-01": {
+    "template_id": "T-SEASONAL-01",
+    "pattern": "{branch}{element}在{month}月為{state}（狀態標記）。",
+    "rule_id": "R-L2-01",
+    "slots": ["branch", "element", "month", "state"]
+  },
+  "T-DAY-RELATION-01": {
+    "template_id": "T-DAY-RELATION-01",
+    "pattern": "日辰{day_branch}與{branch}之機械關係標記為{relation}。",
+    "rule_id": "R-L2-03",
+    "slots": ["day_branch", "branch", "relation"]
+  },
+  "T-EMPTY-01": {
+    "template_id": "T-EMPTY-01",
+    "pattern": "此爻標記為旬空。",
+    "rule_id": "R-L2-02",
+    "slots": []
+  },
+  "T-MONTH-BREAK-01": {
+    "template_id": "T-MONTH-BREAK-01",
+    "pattern": "此爻標記為月破。",
+    "rule_id": "R-L2-03",
+    "slots": []
+  },
+  "T-MOTION-01": {
+    "template_id": "T-MOTION-01",
+    "pattern": "此爻之動靜分類標記為{motion}。",
+    "rule_id": "R-L2-09",
+    "slots": ["motion"]
+  },
+  "T-TRACK-VERDICT-01": {
+    "template_id": "T-TRACK-VERDICT-01",
+    "pattern": "原框架表述：{verdict}。",
+    "rule_id": null,
+    "slots": ["verdict"]
+  },
+  "T-TRACK-YM-18": {
+    "template_id": "T-TRACK-YM-18",
+    "pattern": "判為「散」。屬看用神十八法第 18 位，凶陷之末。",
+    "rule_id": "R-YM-01-18",
+    "slots": []
+  },
+  "T-TRACK-IMPLICATION-YM": {
+    "template_id": "T-TRACK-IMPLICATION-YM",
+    "pattern": "按此說，此爻縱得生扶亦不可救。",
+    "rule_id": "R-YM-01-18",
+    "slots": []
+  },
+  "T-TRACK-IMPLICATION-ZS": {
+    "template_id": "T-TRACK-IMPLICATION-ZS",
+    "pattern": "此格只保留《增刪卜易》之範疇表述。",
+    "rule_id": "ZS_NEGATED_01",
+    "slots": []
+  },
+  "T-TRACK-IMPLICATION-BZ": {
+    "template_id": "T-TRACK-IMPLICATION-BZ",
+    "pattern": "此格只保留《卜筮正宗》之原框架表述。",
+    "rule_id": null,
+    "slots": []
+  },
+  "T-NEGATED-01": {
+    "template_id": "T-NEGATED-01",
+    "verdict_plain": "此體系不處理此問題。",
+    "implication": "{author}不設「{category}」此範疇，故此格無判定 —— 並非判「不{category}」。",
+    "rule_id": "ZS_NEGATED_01",
+    "slots": ["author", "category"],
+    "locked": true
+  }
+}

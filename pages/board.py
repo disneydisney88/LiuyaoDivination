@@ -1,5 +1,6 @@
 import streamlit as st
 from engine.build import build
+from engine.narrate import narrate
 
 case = st.session_state.get("current_case")
 st.header("盤面")
@@ -20,4 +21,12 @@ else:
         st.json(derived["hidden"])
     else:
         st.caption("本卦六親俱現，沒有伏神記錄。")
+    st.subheader("逐爻推導")
+    for line_row in reversed(derived["lines_detail"]):
+        position = line_row["position"]
+        with st.expander("{}爻 {}{}".format(position, line_row["branch"], line_row["element"]), expanded=True):
+            narrative = narrate(semantics={"line": position, "tracks": {}},
+                                relations=st.session_state.get("current_relation_state", {}))
+            for step in narrative["derivation"]:
+                st.write("第 {} 步：{}".format(step["step"], step["text"]))
     st.info("六神未實作（R-L1-07 原典待核）；本頁不填入通行說法。")

@@ -1,0 +1,175 @@
+"""Deterministic, source-preserving narrative templates.
+
+This module only renders supplied mechanical relation state and semantic track
+records.  It does not calculate effects, choose a use-god, or converge tracks.
+"""
+from __future__ import annotations
+
+import json
+from pathlib import Path
+from typing import Any
+
+
+ROOT = Path(__file__).resolve().parent.parent
+TEMPLATES_PATH = ROOT / "data" / "narrative_templates.json"
+DOCTRINAL_PATH = ROOT / "data" / "doctrinal"
+MISSING_TEXT = "（此情況未有對應模板）"
+
+
+def _load_templates() -> dict[str, dict[str, Any]]:
+    return json.loads(TEMPLATES_PATH.read_text(encoding="utf-8"))
+
+
+def _load_sources() -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]:
+    by_rule: dict[str, dict[str, Any]] = {}
+    negated: dict[str, dict[str, Any]] = {}
+    for path in sorted(DOCTRINAL_PATH.glob("*.json")):
+        data = json.loads(path.read_text(encoding="utf-8"))
+        for source_set in data.get("sets", []):
+            for item in source_set.get("items", []):
+                rule_id = item.get("rule_id")
+                if rule_id:
+                    by_rule[rule_id] = item
+                original = item.get("original")
+                category = item.get("negated_category")
+                if original and category:
+                    negated[category] = item
+    return by_rule, negated
+
+
+def _render(template_id: str, slots: dict[str, Any], templates: dict[str, dict[str, Any]]) -> tuple[str, str | None]:
+    template = templates.get(template_id)
+    if template is None:
+        return MISSING_TEXT, None
+    try:
+        text = template["pattern"].format(**slots)
+    except (KeyError, ValueError):
+        return MISSING_TEXT, None
+    return text, template_id
+
+
+def _missing_step(step: int) -> dict[str, Any]:
+    return {"step": step, "text": MISSING_TEXT, "rule_id": None, "template_missing": True}
+
+
+def _derivation(relation_result: dict[str, Any], line: int, templates: dict[str, dict[str, Any]]) -> tuple[list[dict[str, Any]], bool]:
+    row = next((item for item in relation_result.get("lines", []) if item.get("position") == line), None)
+    if row is None:
+        return [_missing_step(1)], True
+    steps: list[dict[str, Any]] = []
+    template_missing = False
+    month = relation_result.get("month_branch")
+    seasonal = row.get("seasonal_state")
+    if month is None or seasonal is None:
+        steps.append(_missing_step(len(steps) + 1))
+        template_missing = True
+    else:
+        text, template_id = _render("T-SEASONAL-01", {
+            "branch": row.get("branch"), "element": row.get("element"),
+            "month": month, "state": seasonal,
+        }, templates)
+        steps.append({"step": len(steps) + 1, "text": text,
+                      "rule_id": templates[template_id]["rule_id"] if template_id else None,
+                      "template_id": template_id, "template_missing": template_id is None})
+        template_missing |= template_id is None
+    relations = row.get("day_relations")
+    day_branch = relation_result.get("day_branch")
+    if relations and day_branch:
+        for relation in relations:
+            if relation in {"沖", "合"}:
+                text, template_id = _render("T-DAY-RELATION-01", {
+                    "day_branch": day_branch, "branch": row.get("branch"), "relation": relation,
+                }, templates)
+                steps.append({"step": len(steps) + 1, "text": text,
+                              "rule_id": templates[template_id]["rule_id"] if template_id else None,
+                              "template_id": template_id, "template_missing": template_id is None})
+                template_missing |= template_id is None
+    elif row.get("day_relations") is None:
+        steps.append(_missing_step(len(steps) + 1))
+        template_missing = True
+    marker_specs = (("empty", "T-EMPTY-01"), ("month_break", "T-MONTH-BREAK-01"), ("motion", "T-MOTION-01"))
+    for field, template_id in marker_specs:
+        value = row.get(field)
+        if value is None:
+            steps.append(_missing_step(len(steps) + 1))
+            template_missing = True
+            continue
+        if field in {"empty", "month_break"} and not value:
+            continue
+        slots = {"motion": value} if field == "motion" else {}
+        text, rendered_id = _render(template_id, slots, templates)
+        steps.append({"step": len(steps) + 1, "text": text,
+                      "rule_id": templates[rendered_id]["rule_id"] if rendered_id else None,
+                      "template_id": rendered_id, "template_missing": rendered_id is None})
+        template_missing |= rendered_id is None
+    return steps, template_missing
+
+
+def _track_text(book: str, track: dict[str, Any], templates: dict[str, dict[str, Any]]) -> tuple[str, str, str | None]:
+    if track.get("category_negated"):
+        template_id = "T-NEGATED-01"
+        template = templates[template_id]
+        implication = template["implication"].format(
+            author="《增刪卜易》", category="散",
+        )
+        return template["verdict_plain"], implication, template_id
+    if track.get("not_addressed"):
+        text, template_id = _render("T-TRACK-VERDICT-01", {"verdict": "未表述"}, templates)
+        return text, "", template_id
+    if book == "易冒" and track.get("rule_id") == "R-YM-01-18":
+        verdict, verdict_id = _render("T-TRACK-YM-18", {}, templates)
+        implication, _ = _render("T-TRACK-IMPLICATION-YM", {}, templates)
+        return verdict, implication, verdict_id
+    verdict, verdict_id = _render("T-TRACK-VERDICT-01", {"verdict": track.get("verdict")}, templates)
+    implication_ids = {
+        "易冒": "T-TRACK-IMPLICATION-YM",
+        "增刪卜易": "T-TRACK-IMPLICATION-ZS",
+        "卜筮正宗": "T-TRACK-IMPLICATION-BZ",
+    }
+    implication_id = implication_ids.get(book, "T-TRACK-IMPLICATION-BZ")
+    implication, _ = _render(implication_id, {}, templates)
+    return verdict, implication, verdict_id
+
+
+def _source_fields(book: str, track: dict[str, Any], by_rule: dict[str, dict[str, Any]], negated: dict[str, dict[str, Any]]) -> tuple[str | None, str | None]:
+    item = by_rule.get(track.get("rule_id"))
+    if item:
+        original = item.get("definition_original")
+        return original, original
+    if track.get("category_negated"):
+        item = negated.get("散")
+        if item:
+            original = item.get("original")
+            return original, original
+    return None, None
+
+
+def narrate(*, semantics: dict[str, Any], relations: dict[str, Any]) -> dict[str, Any]:
+    """Render one semantic cell with only supplied relation state."""
+    templates = _load_templates()
+    by_rule, negated = _load_sources()
+    line = semantics.get("line")
+    relation_row = next((item for item in relations.get("lines", []) if item.get("position") == line), {})
+    header = "{}爻 {}{} {}".format(line, relation_row.get("branch", ""), relation_row.get("element", ""), relation_row.get("six_relative", ""))
+    derivation, missing = _derivation(relations, line, templates)
+    tracks: list[dict[str, Any]] = []
+    for book, track in semantics.get("tracks", {}).items():
+        verdict, implication, verdict_template = _track_text(book, track, templates)
+        original, citation = _source_fields(book, track, by_rule, negated)
+        entry = {
+            "book": book, "verdict_plain": verdict, "original": original,
+            "citation": citation, "source_locator": track.get("source"),
+            "implication": implication, "rule_id": track.get("rule_id"),
+        }
+        if verdict_template:
+            entry["template_id"] = verdict_template
+        if track.get("category_negated"):
+            entry["category_negated"] = True
+        if track.get("evidence_strength"):
+            entry["evidence_strength"] = track["evidence_strength"]
+        tracks.append(entry)
+    template_ids = [step["template_id"] for step in derivation if step.get("template_id")]
+    template_ids.extend(track["template_id"] for track in tracks if track.get("template_id"))
+    return {"line": line, "header": header, "derivation": derivation,
+            "tracks": tracks, "template_ids": template_ids,
+            "template_missing": missing}

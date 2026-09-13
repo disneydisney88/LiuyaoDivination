@@ -18,7 +18,7 @@ RECORD_FIELDS = [
     "xunkong", "month_break", "yongshen_selected", "yongshen_selected_by", "yongshen_candidates",
     "track_yimao_verdict", "track_yimao_framework_position", "track_zengshan_verdict",
     "track_buzhengzong_verdict", "yingqi_candidates", "actual_outcome", "actual_outcome_date",
-    "verified", "verification_note",
+    "verified", "verification_note", "narration_template_ids", "template_missing",
 ]
 FORBIDDEN_RECORD_FIELDS = {"conclusion", "final_verdict", "prediction"}
 YONGSHEN_OPTIONS = ("父母", "官鬼", "妻財", "子孫", "兄弟", "世應")
@@ -56,6 +56,7 @@ def make_case(*, coin_counts: Iterable[int], cast_datetime: datetime,
         "track_zengshan_verdict": None, "track_buzhengzong_verdict": None,
         "yingqi_candidates": [], "actual_outcome": None, "actual_outcome_date": None,
         "verified": False, "verification_note": None,
+        "narration_template_ids": [], "template_missing": False,
         "coin_counts": counts, "moving_positions": [i + 1 for i, value in enumerate(counts) if value in (0, 3)],
     }
 
