@@ -114,18 +114,27 @@ def generate_changsheng() -> dict:
         "木": {"track_A": {"長生": "亥", "墓": "未", "source": "spec §7 (single track)", "rule_id": "R-CS-木-A"}},
         "火": {"track_A": {"長生": "寅", "墓": "戌", "source": "spec §7 (single track)", "rule_id": "R-CS-火-A"}},
     }
-    return {**single, "土": {
+    rules = {**single, "土": {
         "track_A": {"長生": "申", "墓": "辰", "source": "卜筮正宗（通行說）", "rule_id": "R-CS-土-A"},
         "track_B": {"長生": "寅", "墓": "戌", "source": "火土同源說，散見卜筮全書／易冒", "rule_id": "R-CS-土-B"},
     }}
+    return rules
 
 
 def dump(name: str, value: object) -> None:
-    (DATA / name).write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    path = DATA / name
+    path.parent.mkdir(exist_ok=True)
+    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":
     DATA.mkdir(exist_ok=True)
-    dump("bagong_64.json", generate_bagong())
-    dump("najia.json", generate_najia())
-    dump("changsheng_12gong.json", generate_changsheng())
+    dump("mechanical/bagong_64.json", generate_bagong())
+    dump("mechanical/najia.json", generate_najia())
+    dump("doctrinal/changsheng_12gong.json", {
+        "source_book": "multiple",
+        "doctrinal_status": "multiple_schools",
+        "semantic_status": "structured_only_no_effects_implemented",
+        "conflicts_with": ["C5"],
+        "rules": generate_changsheng(),
+    })

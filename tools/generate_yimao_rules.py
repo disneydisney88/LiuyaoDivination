@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 SOURCE = Path(r"G:\我的雲端硬碟\BOOK\八字\文王掛\07_易冒\易冒.txt")
-OUTPUT = Path("data/yimao_rules.json")
+OUTPUT = Path("data/doctrinal/yimao_rules.json")
 
 
 def item(set_id, set_name, chapter, line, ordinal, name, definition, *, incomplete=False, rank=None, band=None, comparative=None, exception=None):

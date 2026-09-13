@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 
-DATA = Path(__file__).parents[1] / "data" / "yimao_rules.json"
+DATA = Path(__file__).parents[1] / "data" / "doctrinal" / "yimao_rules.json"
 
 
 def load_data():

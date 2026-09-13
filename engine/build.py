@@ -10,9 +10,9 @@ from tools.generate_data import (NAJIA_STARTS, YANG,
                                  trigram_name)
 
 ROOT = Path(__file__).resolve().parents[1]
-with (ROOT / "data" / "bagong_64.json").open(encoding="utf-8") as f:
+with (ROOT / "data" / "mechanical" / "bagong_64.json").open(encoding="utf-8") as f:
     BAGONG = json.load(f)
-with (ROOT / "data" / "najia.json").open(encoding="utf-8") as f:
+with (ROOT / "data" / "mechanical" / "najia.json").open(encoding="utf-8") as f:
     NAJIA = json.load(f)
 
 BRANCH_ELEMENT = {"子": "水", "亥": "水", "寅": "木", "卯": "木", "巳": "火", "午": "火",

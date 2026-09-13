@@ -89,5 +89,5 @@ def test_changsheng_earth_has_two_tracks():
 
 
 def test_generated_files_have_expected_cardinality():
-    assert len(json.loads((ROOT / "data" / "bagong_64.json").read_text(encoding="utf-8"))) == 64
-    assert len(json.loads((ROOT / "data" / "najia.json").read_text(encoding="utf-8"))) == 48
+    assert len(json.loads((ROOT / "data" / "mechanical" / "bagong_64.json").read_text(encoding="utf-8"))) == 64
+    assert len(json.loads((ROOT / "data" / "mechanical" / "najia.json").read_text(encoding="utf-8"))) == 48
