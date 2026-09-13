@@ -1,6 +1,6 @@
 from datetime import datetime
 import streamlit as st
-from ui_contracts import make_case, save_cases
+from ui_contracts import make_case, save_cases, state_for_case
 
 st.header("起卦")
 st.caption("由初爻起輸入背數；工具不代搖、不作時間起卦或報數起卦。")
@@ -17,6 +17,7 @@ if submitted:
     else:
         case = make_case(coin_counts=counts, cast_datetime=cast_datetime, question_text=question_text, background_text=background_text, is_proxy=is_proxy)
         st.session_state.current_case = case
+        st.session_state.current_relation_state = state_for_case(case)["relations"]
         st.session_state.cases.append(case)
         save_cases(st.session_state.cases)
         st.success(f"已建立卦例：{case['case_id']}")

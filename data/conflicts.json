@@ -6,13 +6,13 @@
       "title": "沖與散之判定",
       "conflict_type": ["differing_claim", "misattribution", "category_negation"],
       "resolved": false,
-      "parties": ["易冒", "增刪卜易", "卜筮正宗"],
+      "parties": ["易冒", "增刪卜易", "卜筮正宗", "黃金策", "卜筮全書"],
       "decision_table": [
-        {"condition": "旺相之爻遇沖", "status": "三家共識"},
-        {"condition": "有氣之爻遇沖", "status": "一家表態"},
-        {"condition": "臨日月之爻遇沖", "status": "一家表態"},
-        {"condition": "休囚之爻遇日沖", "status": "兩家表態 + 一家否定範疇"},
-        {"condition": "既判為散之後", "status": "一家表態"}
+        {"condition": "旺相之爻遇沖", "status": "三家判不散，一家判損；一家用另一軸"},
+        {"condition": "有氣之爻遇沖", "status": "一家表態；一家用另一軸"},
+        {"condition": "臨日月之爻遇沖", "status": "一家表態；一家用另一軸"},
+        {"condition": "休囚之爻遇日沖", "status": "兩家表態 + 一家否定範疇 + 一家用另一軸"},
+        {"condition": "既判為散之後", "status": "一家表態；一家用另一軸"}
       ],
       "spec_section": "§8 C1"
     },

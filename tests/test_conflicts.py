@@ -29,3 +29,13 @@ def test_conflict_types_are_c12_types():
     allowed = {"differing_claim", "misattribution", "framework_incommensurable", "category_negation", "parallel_systems"}
     for item in load_conflicts()["conflicts"]:
         assert set(item["conflict_type"]) <= allowed
+
+
+def test_c1_conflict_summary_is_not_the_obsolete_three_book_consensus():
+    conflict = next(item for item in load_conflicts()["conflicts"] if item["conflict_id"] == "C1")
+    first = conflict["decision_table"][0]
+    assert first == {
+        "condition": "旺相之爻遇沖",
+        "status": "三家判不散，一家判損；一家用另一軸",
+    }
+    assert {"易冒", "增刪卜易", "卜筮正宗", "黃金策", "卜筮全書"} == set(conflict["parties"])

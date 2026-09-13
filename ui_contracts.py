@@ -4,11 +4,13 @@ from __future__ import annotations
 import csv
 import json
 import uuid
-from datetime import date, datetime
+from datetime import date, datetime, time
 from pathlib import Path
 from typing import Any, Iterable
 
 from engine.build import build
+from engine.calendar import sexagenary_for_datetime
+from engine.pipeline import build_case_state
 from engine.semantics import load_decision_table
 
 ROOT = Path(__file__).resolve().parent
@@ -19,24 +21,56 @@ TRACK_RECORD_FIELDS = [
 ]
 RECORD_FIELDS = [
     "case_id", "cast_datetime", "lines", "question_text", "background_text", "is_proxy",
-    "hexagram_name", "palace", "palace_element", "shi", "ying", "month_branch", "day_branch",
-    "xunkong", "month_break", "hidden", "yongshen_selected", "yongshen_selected_by", "yongshen_candidates",
+    "hexagram_name", "palace", "palace_element", "shi", "ying",
+    "year_stem", "year_branch", "year_ganzhi", "month_stem", "month_branch", "month_ganzhi",
+    "day_stem", "day_branch", "day_ganzhi",
+    "xunkong", "month_break_branch", "month_break", "hidden",
+    "yongshen_selected", "yongshen_selected_by", "yongshen_candidates",
     *TRACK_RECORD_FIELDS, "yingqi_candidates", "actual_outcome", "actual_outcome_date",
     "verified", "verification_note", "narration_template_ids", "template_missing",
 ]
 FORBIDDEN_RECORD_FIELDS = {"conclusion", "final_verdict", "prediction"}
 YONGSHEN_OPTIONS = ("父母", "官鬼", "妻財", "子孫", "兄弟", "世應")
-BRANCHES = "子丑寅卯辰巳午未申酉戌亥"
-MONTH_BRANCHES = ("丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥", "子")
 
 
 def month_branch_for_date(value: date) -> str:
-    return MONTH_BRANCHES[value.month - 1]
+    return sexagenary_for_datetime(datetime.combine(value, time(hour=12)))["month_branch"]
 
 
 def day_branch_for_date(value: date) -> str:
-    reference = date(2000, 1, 7)
-    return BRANCHES[(value - reference).days % 12]
+    return sexagenary_for_datetime(datetime.combine(value, time(hour=12)))["day_branch"]
+
+
+def state_for_case(case: dict[str, Any]) -> dict[str, Any]:
+    state = build_case_state(
+        lines=case["lines"], cast_datetime=case["cast_datetime"],
+        moving_positions=case.get("moving_positions", []),
+    )
+    calendar, relations = state["calendar"], state["relations"]
+    for key in (
+        "year_stem", "year_branch", "year_ganzhi", "month_stem", "month_branch",
+        "month_ganzhi", "day_stem", "day_branch", "day_ganzhi",
+    ):
+        case[key] = calendar[key]
+    case["xunkong"] = relations["empty_branches"]
+    case["month_break_branch"] = relations["month_break_branch"]
+    case["month_break"] = relations["month_break_positions"]
+    return state
+
+
+def selected_line_positions(case: dict[str, Any], chart: dict[str, Any]) -> list[int]:
+    """Return visible-line candidates; never choose among duplicates or hidden lines."""
+    choices = case.get("yongshen_selected") or []
+    positions = set()
+    for choice in choices:
+        if choice == "世應":
+            positions.update((chart["shi"], chart["ying"]))
+            continue
+        positions.update(
+            row["position"] for row in chart["lines_detail"]
+            if row["six_relative"] == choice
+        )
+    return sorted(positions)
 
 
 def make_case(*, coin_counts: Iterable[int], cast_datetime: datetime,
@@ -45,22 +79,33 @@ def make_case(*, coin_counts: Iterable[int], cast_datetime: datetime,
     if len(counts) != 6 or any(value not in range(4) for value in counts):
         raise ValueError("coin_counts must contain six values from 0 to 3")
     lines = [1 if value in (1, 3) else 0 for value in counts]
-    derived = build(lines)
+    moving_positions = [i + 1 for i, value in enumerate(counts) if value in (0, 3)]
+    state = build_case_state(
+        lines=lines, cast_datetime=cast_datetime, moving_positions=moving_positions,
+    )
+    derived, calendar, relations = state["chart"], state["calendar"], state["relations"]
     hidden = derived["hidden"]
-    cast_date = cast_datetime.date()
     return {
         "case_id": str(uuid.uuid4()), "cast_datetime": cast_datetime.isoformat(timespec="minutes"),
         "lines": lines, "question_text": question_text, "background_text": background_text,
         "is_proxy": bool(is_proxy), "hexagram_name": derived["name"], "palace": derived["palace"],
         "palace_element": derived["palace_element"], "shi": derived["shi"], "ying": derived["ying"],
-        "month_branch": month_branch_for_date(cast_date), "day_branch": day_branch_for_date(cast_date),
-        "xunkong": [], "month_break": [], "hidden": hidden, "yongshen_selected": None,
+        "year_stem": calendar["year_stem"], "year_branch": calendar["year_branch"],
+        "year_ganzhi": calendar["year_ganzhi"],
+        "month_stem": calendar["month_stem"], "month_branch": calendar["month_branch"],
+        "month_ganzhi": calendar["month_ganzhi"],
+        "day_stem": calendar["day_stem"], "day_branch": calendar["day_branch"],
+        "day_ganzhi": calendar["day_ganzhi"],
+        "xunkong": relations["empty_branches"],
+        "month_break_branch": relations["month_break_branch"],
+        "month_break": relations["month_break_positions"],
+        "hidden": hidden, "yongshen_selected": None,
         "yongshen_selected_by": "human", "yongshen_candidates": list(hidden),
         **{field: None for field in TRACK_RECORD_FIELDS},
         "yingqi_candidates": [], "actual_outcome": None, "actual_outcome_date": None,
         "verified": False, "verification_note": None,
         "narration_template_ids": [], "template_missing": False,
-        "coin_counts": counts, "moving_positions": [i + 1 for i, value in enumerate(counts) if value in (0, 3)],
+        "coin_counts": counts, "moving_positions": moving_positions,
     }
 
 
@@ -69,6 +114,8 @@ def load_cases() -> list[dict[str, Any]]:
         return []
     cases = [json.loads(line) for line in RECORDS_PATH.read_text(encoding="utf-8").splitlines() if line.strip()]
     for case in cases:
+        if case.get("cast_datetime"):
+            state_for_case(case)
         hidden = case.get("hidden")
         if hidden is None:
             hidden = build(case["lines"])["hidden"]

@@ -69,6 +69,7 @@ def test_case_and_csv_schema_store_hidden_as_a_flat_list():
         question_text="", background_text="", is_proxy=False,
     )
     assert "hidden" in RECORD_FIELDS
+    assert {"year_ganzhi", "month_ganzhi", "day_ganzhi", "day_stem"} <= set(RECORD_FIELDS)
     assert isinstance(case["hidden"], list) and len(case["hidden"]) == 2
     assert case["yongshen_candidates"] == case["hidden"]
     csv_row = next(csv.DictReader(StringIO(csv_bytes([case]).decode("utf-8-sig"))))

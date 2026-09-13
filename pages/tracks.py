@@ -6,9 +6,11 @@ from engine.narrate import narrate
 from engine.semantics import (
     COLLECTION_GAP_TEMPLATE,
     COVERAGE_NOTE,
+    infer_condition,
     load_decision_table,
     semantic_for_condition,
 )
+from ui_contracts import selected_line_positions, state_for_case
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -54,16 +56,69 @@ st.header("多軌")
 st.caption("按資料狀態分組；不作跨軌裁決、多數決或加權。")
 table_label = st.selectbox("選擇決策表", list(DECISION_TABLES))
 decision_table = load_decision_table(DECISION_TABLES[table_label])
-condition = st.selectbox(
-    "選擇 {} 表格位".format(decision_table["table_id"]),
-    [row["condition"] for row in decision_table["rows"]],
+case = st.session_state.get("current_case")
+relation_state = {}
+chart = None
+if case:
+    state = state_for_case(case)
+    chart, relation_state = state["chart"], state["relations"]
+    st.session_state.current_relation_state = relation_state
+
+candidate_positions = selected_line_positions(case, chart) if case and chart else []
+selected_choices = (case.get("yongshen_selected") or []) if case else []
+hidden_selected = bool(chart) and any(
+    item["六親"] in selected_choices for item in chart["hidden"]
 )
-result = semantic_for_condition(line=3, condition=condition, table=decision_table)
+if len(candidate_positions) == 1:
+    line = candidate_positions[0]
+    st.caption("已由人手所選用神定位至第 {} 爻。".format(line))
+else:
+    if len(candidate_positions) > 1:
+        st.caption("所選用神對應多個候選爻位，須由使用者指定；未作自動取捨。")
+        line_options = candidate_positions
+    elif hidden_selected:
+        st.caption("所選用神為伏神；現有 L2 爻狀態只涵蓋飛神，格位不作自動映射。")
+        line_options = list(range(1, 7))
+    else:
+        st.caption("未有唯一用神爻位，格位自動判定暫不生效。")
+        line_options = list(range(1, 7))
+    line = st.selectbox(
+        "選擇分析爻位",
+        line_options,
+        index=0,
+        format_func=lambda value: "第 {} 爻".format(value),
+    )
+
+conditions = [row["condition"] for row in decision_table["rows"]]
+automatic_condition = infer_condition(
+    table_id=decision_table["table_id"], relation_result=relation_state, line=line,
+)
+manual_override = False
+if automatic_condition in conditions:
+    st.caption("按當前爻之機械狀態自動定位：{}。".format(automatic_condition))
+    manual_override = st.toggle(
+        "手動覆寫表格位", value=False,
+        key="manual_condition_override_{}".format(decision_table["table_id"]),
+    )
+else:
+    st.caption("現有機械狀態未能唯一定位此表格位；不補寫未核定條件或效果語義。")
+
+if automatic_condition in conditions and not manual_override:
+    condition = automatic_condition
+else:
+    condition = st.selectbox(
+        "選擇 {} 表格位（手動覆寫）".format(decision_table["table_id"]),
+        conditions,
+    )
+result = semantic_for_condition(
+    line=line, condition=condition,
+    hidden=chart["hidden"] if chart else [], table=decision_table,
+)
 st.subheader("{}　{}".format(result["row_id"], condition))
 st.caption(result["coverage_label"])
 if result["coverage"]["books_not_collected"] > 0:
     st.caption(COLLECTION_GAP_TEMPLATE.format(result["coverage"]["books_not_collected"]))
-narrative = narrate(semantics=result, relations=st.session_state.get("current_relation_state", {}))
+narrative = narrate(semantics=result, relations=relation_state)
 st.subheader(narrative["header"])
 for step in narrative["derivation"]:
     label = "推導第 {}".format(step["step"])

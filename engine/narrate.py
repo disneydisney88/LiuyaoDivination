@@ -148,14 +148,18 @@ def _track_text(book: str, track: dict[str, Any], templates: dict[str, dict[str,
 def _source_fields(book: str, track: dict[str, Any], by_rule: dict[str, dict[str, Any]], negated: dict[str, dict[str, Any]]) -> tuple[str | None, str | None]:
     item = by_rule.get(track.get("rule_id"))
     if item:
-        original = item.get("definition_original")
-        return original, original
+        original = item.get("definition_original") or item.get("original")
+        if original:
+            return original, original
     if track.get("category_negated"):
         original = track.get("negation_original")
         if original:
             return original, track.get("negation_source")
     if track.get("different_axis"):
         return track.get("axis_original"), track.get("axis_source")
+    original = track.get("original")
+    if original:
+        return original, original
     return None, None
 
 
@@ -177,7 +181,8 @@ def narrate(*, semantics: dict[str, Any], relations: dict[str, Any]) -> dict[str
         original, citation = _source_fields(book, track, by_rule, negated)
         entry = {
             "book": book, "status": track.get("status"), "verdict_plain": verdict, "original": original,
-            "citation": citation, "source_locator": track.get("source"),
+            "citation": citation,
+            "source_locator": track.get("source") or track.get("axis_source") or track.get("negation_source"),
             "implication": implication, "rule_id": track.get("rule_id"),
         }
         for key in ("verdict_note", "line", "related_material", "search_note",

@@ -4,6 +4,7 @@ from ui_contracts import load_cases
 
 st.set_page_config(page_title="LiuyaoDivination", page_icon="☯", layout="wide")
 st.session_state.setdefault("current_case", None)
+st.session_state.setdefault("current_relation_state", {})
 st.session_state.setdefault("cases", load_cases())
 st.session_state.setdefault("yongshen_selections", [])
 pages = [

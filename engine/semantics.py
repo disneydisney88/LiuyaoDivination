@@ -101,6 +101,40 @@ def _row_for_condition(table: dict[str, Any], condition: str) -> dict[str, Any]:
         raise ValueError("unsupported decision-table condition") from exc
 
 
+def infer_condition(*, table_id: str, relation_result: dict[str, Any], line: int) -> str | None:
+    """Infer only mechanically decidable decision-table rows.
+
+    C1's ``有氣`` and post-``散`` rows remain manual because the current engine
+    has no verified mechanical definition for the former and no effect
+    semantics for the latter.
+    """
+    row = next((item for item in relation_result.get("lines", [])
+                if item.get("position") == line), None)
+    if row is None:
+        return None
+    day_clash = "沖" in row.get("day_relations", [])
+    any_clash = day_clash or bool(row.get("month_break"))
+    if not any_clash:
+        return None
+    if table_id == "C1":
+        if row.get("branch") in {
+            relation_result.get("month_branch"), relation_result.get("day_branch"),
+        }:
+            return "臨日月之爻遇沖"
+        if row.get("seasonal_state") in {"旺", "相"}:
+            return "旺相之爻遇沖"
+        if day_clash and row.get("seasonal_state") in {"休", "囚"}:
+            return "休囚之爻遇日沖"
+        return None
+    if table_id == "C15":
+        if row.get("empty"):
+            return "空爻遇沖"
+        if row.get("motion") in {"動", "散", "全動"}:
+            return "動爻遇沖"
+        return "靜爻遇沖"
+    return None
+
+
 def _track(cell: dict[str, Any], book_name: str) -> dict[str, Any]:
     _validate_cell(cell)
     status = cell["status"]

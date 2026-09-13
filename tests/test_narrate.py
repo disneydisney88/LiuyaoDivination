@@ -71,6 +71,17 @@ def test_original_and_citation_match_doctrinal_definition():
     assert yimao["citation"] == yimao["original"]
 
 
+def test_decision_table_original_is_used_when_no_doctrinal_rule_matches():
+    semantics = semantic_for_condition(line=3, condition="旺相之爻遇沖")
+    output = narrate(semantics=semantics, relations=relation_state())
+    quanshu = next(item for item in output["tracks"] if item["book"] == "卜筮全書")
+    huangjince = next(item for item in output["tracks"] if item["book"] == "黃金策")
+    assert quanshu["original"].startswith("大凡旺处逢冲则损")
+    assert quanshu["source_locator"]
+    assert huangjince["original"] == "別衰旺以明剋合，辨動靜以定刑沖"
+    assert huangjince["source_locator"] == "千金賦 40"
+
+
 def test_no_cross_track_convergence_fields():
     semantics = semantic_for_condition(line=3, condition="休囚之爻遇日沖")
     output = narrate(semantics=semantics, relations=relation_state())
