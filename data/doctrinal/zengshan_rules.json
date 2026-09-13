@@ -5,6 +5,7 @@
   "author": "野鶴老人",
   "attribution_status": "attested",
   "framework_type": "binary_enumeration",
+  "enumeration_style": "authorial_count",
   "framework_note": "成對之能／不能列舉，無排序、無中間態、無嚴重度分級",
   "doctrinal_status": "single_school",
   "conflicts_with": [

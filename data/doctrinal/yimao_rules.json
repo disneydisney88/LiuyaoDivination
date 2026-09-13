@@ -5,6 +5,7 @@
   "author": "程良玉",
   "attribution_status": "attested",
   "framework_type": "ordinal_18",
+  "enumeration_style": "authorial_ordinal",
   "framework_note": "十八級序數排序，全吉 1–8／半吉 9–11／凶陷 12–18；帶明文遞增比較語；第 17 項有明文例外",
   "doctrinal_status": "single_school",
   "conflicts_with": [

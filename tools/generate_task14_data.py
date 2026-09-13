@@ -24,6 +24,7 @@ ENVELOPES = {
     "yimao": {
         "source_book": "易冒", "era": "清", "author": "程良玉",
         "attribution_status": "attested", "framework_type": "ordinal_18",
+        "enumeration_style": "authorial_ordinal",
         "framework_note": "十八級序數排序，全吉 1–8／半吉 9–11／凶陷 12–18；帶明文遞增比較語；第 17 項有明文例外",
         "doctrinal_status": "single_school", "conflicts_with": ["C1", "C11", "C12"],
         "corpus_path": "07_易冒/易冒.txt",
@@ -31,6 +32,7 @@ ENVELOPES = {
     "zengshan": {
         "source_book": "增刪卜易", "era": "清", "author": "野鶴老人",
         "attribution_status": "attested", "framework_type": "binary_enumeration",
+        "enumeration_style": "authorial_count",
         "framework_note": "成對之能／不能列舉，無排序、無中間態、無嚴重度分級",
         "doctrinal_status": "single_school", "conflicts_with": ["C1", "C11", "C12"],
         "corpus_path": "05_增刪卜易/增刪卜易_完整版_A.md",
@@ -63,6 +65,7 @@ def buzhengzong() -> dict:
         "author": "王洪緒",
         "attribution_status": "attested",
         "framework_type": "true_false_binary",
+        "enumeration_style": "none",
         "framework_note": "〈月破論第九〉分真破假破，〈旬空論第十〉分真空假空。真者到底無救，假者可解。無「散」之級別，無排序",
         "doctrinal_status": "single_school",
         "semantic_status": "structured_only_no_effects_implemented",
@@ -70,27 +73,81 @@ def buzhengzong() -> dict:
         "corpus_path": "04_卜筮正宗/卜筮正宗_完整版_A.md",
         "sets": [
             {
-                "set_id": "BZ_SET_01", "set_name": "月破論第九", "chapter": "月破論第九", "line": 2691,
+                "set_id": "BZ_SET_01_FALSE", "set_name": "月破論第九（假破）", "chapter": "月破論第九", "line": 2691,
+                "polarity": "positive", "paired_with": "BZ_SET_01_TRUE",
+                "count_declared": None, "count_actual": 5, "count_mismatch": None,
+                "definition_original_full": "凡卦中月破之爻，乃关因之所现也。动者亦能生克他爻，变者亦能生克本爻，目下虽破出月不破矣！今日虽破，值日不破矣！月破最喜逢合填实，远应年月，近应日时。如破而安静再值旬空衰弱，遇动爻月建日辰克害，此等月破谓之真破，到底破矣！",
+                "segmentation_note": "切分依據：『动者』、『变者』、『目下』、『今日』、『月破最喜逢合填实』。",
                 "items": [{
-                    "item_ordinal": 1,
-                    "definition_original": "凡卦中月破之爻，乃关因之所现也。动者亦能生克他爻，变者亦能生克本爻，目下虽破出月不破矣！今日虽破，值日不破矣！月破最喜逢合填实，远应年月，近应日时。如破而安静再值旬空衰弱，遇动爻月建日辰克害，此等月破谓之真破，到底破矣！",
-                    "rule_id": "R-BZ-01-01", "line": 2691,
+                    "item_ordinal": 1, "definition_original": "动者亦能生克他爻", "rule_id": "R-BZ-01-F-01", "line": 2691, "enumeration_source": "editorial",
+                }, {
+                    "item_ordinal": 2, "definition_original": "变者亦能生克本爻", "rule_id": "R-BZ-01-F-02", "line": 2691, "enumeration_source": "editorial",
+                }, {
+                    "item_ordinal": 3, "definition_original": "目下虽破出月不破矣！", "rule_id": "R-BZ-01-F-03", "line": 2691, "enumeration_source": "editorial",
+                }, {
+                    "item_ordinal": 4, "definition_original": "今日虽破，值日不破矣！", "rule_id": "R-BZ-01-F-04", "line": 2691, "enumeration_source": "editorial",
+                }, {
+                    "item_ordinal": 5, "definition_original": "月破最喜逢合填实，远应年月，近应日时。", "rule_id": "R-BZ-01-F-05", "line": 2691, "enumeration_source": "editorial",
                 }],
             },
             {
-                "set_id": "BZ_SET_02", "set_name": "旬空論第十", "chapter": "旬空論第十", "line": 2699,
+                "set_id": "BZ_SET_01_TRUE", "set_name": "月破論第九（真破）", "chapter": "月破論第九", "line": 2691,
+                "polarity": "negative", "paired_with": "BZ_SET_01_FALSE",
+                "count_declared": None, "count_actual": 2, "count_mismatch": None,
+                "definition_original_full": "凡卦中月破之爻，乃关因之所现也。动者亦能生克他爻，变者亦能生克本爻，目下虽破出月不破矣！今日虽破，值日不破矣！月破最喜逢合填实，远应年月，近应日时。如破而安静再值旬空衰弱，遇动爻月建日辰克害，此等月破谓之真破，到底破矣！",
+                "segmentation_note": "切分依據：『如』、『再』、『遇』、『此等月破谓之真破』。",
                 "items": [{
-                    "item_ordinal": 1,
-                    "definition_original": "凡卦中爻遇旬空，乃神机发现于此也。如旺相旬空，或休囚发动，日辰生扶、动爻生扶、动爻变空、伏而旺相，此等旬空到底有用，不过待其出旬、值日、有合空、冲起、冲实、填补之法，后卷占验注明。如：休囚安静或日辰克动，爻克伏而被克，静逢月破值此旬空者，谓之真空到底空矣！",
-                    "rule_id": "R-BZ-02-01", "line": 2699,
+                    "item_ordinal": 1, "definition_original": "如破而安静再值旬空衰弱", "rule_id": "R-BZ-01-T-01", "line": 2691, "enumeration_source": "editorial",
+                }, {
+                    "item_ordinal": 2, "definition_original": "遇动爻月建日辰克害，此等月破谓之真破，到底破矣！", "rule_id": "R-BZ-01-T-02", "line": 2691, "enumeration_source": "editorial",
+                }],
+            },
+            {
+                "set_id": "BZ_SET_02_POSITIVE", "set_name": "旬空論第十（到底有用）", "chapter": "旬空論第十", "line": 2699,
+                "polarity": "positive", "paired_with": "BZ_SET_02_NEGATIVE",
+                "count_declared": None, "count_actual": 6, "count_mismatch": None,
+                "definition_original_full": "凡卦中爻遇旬空，乃神机发现于此也。如旺相旬空，或休囚发动，日辰生扶、动爻生扶、动爻变空、伏而旺相，此等旬空到底有用，不过待其出旬、值日、有合空、冲起、冲实、填补之法，后卷占验注明。如：休囚安静或日辰克动，爻克伏而被克，静逢月破值此旬空者，谓之真空到底空矣！",
+                "segmentation_note": "切分依據：『如』、『或』、『、』、『此等旬空到底有用』。",
+                "items": [{
+                    "item_ordinal": 1, "definition_original": "旺相旬空", "rule_id": "R-BZ-02-P-01", "line": 2699, "enumeration_source": "editorial",
+                }, {
+                    "item_ordinal": 2, "definition_original": "休囚发动", "rule_id": "R-BZ-02-P-02", "line": 2699, "enumeration_source": "editorial",
+                }, {
+                    "item_ordinal": 3, "definition_original": "日辰生扶", "rule_id": "R-BZ-02-P-03", "line": 2699, "enumeration_source": "editorial",
+                }, {
+                    "item_ordinal": 4, "definition_original": "动爻生扶", "rule_id": "R-BZ-02-P-04", "line": 2699, "enumeration_source": "editorial",
+                }, {
+                    "item_ordinal": 5, "definition_original": "动爻变空", "rule_id": "R-BZ-02-P-05", "line": 2699, "enumeration_source": "editorial",
+                }, {
+                    "item_ordinal": 6, "definition_original": "伏而旺相", "rule_id": "R-BZ-02-P-06", "line": 2699, "enumeration_source": "editorial",
+                }],
+            },
+            {
+                "set_id": "BZ_SET_02_NEGATIVE", "set_name": "旬空論第十（真空到底空）", "chapter": "旬空論第十", "line": 2699,
+                "polarity": "negative", "paired_with": "BZ_SET_02_POSITIVE",
+                "count_declared": None, "count_actual": 4, "count_mismatch": None,
+                "definition_original_full": "凡卦中爻遇旬空，乃神机发现于此也。如旺相旬空，或休囚发动，日辰生扶、动爻生扶、动爻变空、伏而旺相，此等旬空到底有用，不过待其出旬、值日、有合空、冲起、冲实、填补之法，后卷占验注明。如：休囚安静或日辰克动，爻克伏而被克，静逢月破值此旬空者，谓之真空到底空矣！",
+                "segmentation_note": "切分依據：『如：』、『或』、『、』、『者』、『谓之真空到底空』。",
+                "items": [{
+                    "item_ordinal": 1, "definition_original": "休囚安静", "rule_id": "R-BZ-02-N-01", "line": 2699, "enumeration_source": "editorial",
+                }, {
+                    "item_ordinal": 2, "definition_original": "日辰克动", "rule_id": "R-BZ-02-N-02", "line": 2699, "enumeration_source": "editorial",
+                }, {
+                    "item_ordinal": 3, "definition_original": "爻克伏而被克", "rule_id": "R-BZ-02-N-03", "line": 2699, "enumeration_source": "editorial",
+                }, {
+                    "item_ordinal": 4, "definition_original": "静逢月破值此旬空者，谓之真空到底空矣！", "rule_id": "R-BZ-02-N-04", "line": 2699, "enumeration_source": "editorial",
                 }],
             },
             {
                 "set_id": "BZ_SET_03", "set_name": "辟增刪卜易之謬（暗動條）", "chapter": "辟增刪卜易之謬", "line": 436,
+                "count_declared": None, "count_actual": 1, "count_mismatch": None,
+                "definition_original_full": "暗动之法，必须旺相。旺相者，如人之身强力壮，虽遇冲而不散，故名为动；休囚者，如人之衰弱疲惫，遇冲则散，名为日破。岂可谓之暗动耶？《增删》不论旺相休囚，一概以日冲为暗动，此不知旺相休囚之辨，谬之甚也。",
+                "segmentation_note": "不拆分；原文為連續論戰段落，無作者序數或項數宣告。",
                 "items": [{
                     "item_ordinal": 1,
                     "definition_original": "暗动之法，必须旺相。旺相者，如人之身强力壮，虽遇冲而不散，故名为动；休囚者，如人之衰弱疲惫，遇冲则散，名为日破。岂可谓之暗动耶？《增删》不论旺相休囚，一概以日冲为暗动，此不知旺相休囚之辨，谬之甚也。",
                     "rule_id": "R-BZ-03-01", "line": 436,
+                    "enumeration_source": "editorial",
                     "evidence_strength": "weak",
                     "evidence_note": "出自論戰文字，非其體例章節；全書「日破」僅此一處",
                 }],

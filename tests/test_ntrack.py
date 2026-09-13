@@ -8,7 +8,7 @@ from engine.semantics import VALID_STATUSES, load_decision_table, semantic_for_c
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_ENVELOPE = {
     "book_id", "source_book", "era", "author", "attribution_status", "framework_type",
-    "framework_note", "doctrinal_status", "semantic_status", "conflicts_with", "corpus_path", "sets",
+    "enumeration_style", "framework_note", "doctrinal_status", "semantic_status", "conflicts_with", "corpus_path", "sets",
 }
 
 
@@ -17,20 +17,38 @@ def test_all_doctrinal_rule_files_have_uniform_envelope():
         data = json.loads(path.read_text(encoding="utf-8"))
         assert REQUIRED_ENVELOPE <= set(data)
         assert data["attribution_status"] in {"attested", "attributed", "compiled"}
+        assert data["enumeration_style"] in {"authorial_ordinal", "authorial_count", "none"}
         if data["attribution_status"] == "attributed":
             assert "題" in data["author"] or "託名" in data["author"]
 
 
 def test_buzhengzong_is_structured_from_task08_extract():
     data = json.loads((ROOT / "data" / "doctrinal" / "buzhengzong_rules.json").read_text(encoding="utf-8"))
-    assert len(data["sets"]) == 3
-    assert sum(len(source_set["items"]) for source_set in data["sets"]) == 3
-    weak = data["sets"][2]["items"][0]
+    assert len(data["sets"]) == 5
+    assert sum(len(source_set["items"]) for source_set in data["sets"]) == 18
+    weak_set = next(source_set for source_set in data["sets"] if source_set["set_id"] == "BZ_SET_03")
+    weak = weak_set["items"][0]
     assert weak["evidence_strength"] == "weak"
     assert "非其體例章節" in weak["evidence_note"]
-    assert data["sets"][0]["items"][0]["definition_original"].startswith("凡卦中月破之爻，乃关因之所现也")
-    assert data["sets"][1]["items"][0]["definition_original"].startswith("凡卦中爻遇旬空，乃神机发现于此也")
+    assert data["sets"][0]["definition_original_full"].startswith("凡卦中月破之爻，乃关因之所现也")
+    assert data["sets"][2]["definition_original_full"].startswith("凡卦中爻遇旬空，乃神机发现于此也")
     assert "虽遇冲而不散" in weak["definition_original"]
+    for source_set in data["sets"]:
+        assert source_set["count_declared"] is None
+        assert source_set["count_mismatch"] is None
+        assert source_set["count_actual"] == len(source_set["items"])
+        assert source_set["definition_original_full"]
+        assert source_set["segmentation_note"]
+        assert all(item["enumeration_source"] == "editorial" for item in source_set["items"])
+
+
+def test_none_enumeration_style_is_explicitly_editorial():
+    for path in (ROOT / "data" / "doctrinal").glob("*_rules.json"):
+        data = json.loads(path.read_text(encoding="utf-8"))
+        if data["enumeration_style"] == "none":
+            assert all(item.get("enumeration_source") == "editorial"
+                       for source_set in data["sets"] for item in source_set["items"])
+            assert all(source_set["count_declared"] is None for source_set in data["sets"])
 
 
 def test_decision_table_is_eight_books_by_five_rows():
