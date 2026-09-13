@@ -1,1 +1,1 @@
-"""Deterministic L1 Liuyao construction engine."""
+"""Deterministic Liuyao engine layers."""
