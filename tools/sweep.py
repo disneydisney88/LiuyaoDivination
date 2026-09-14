@@ -968,7 +968,7 @@ def regenerate_golden() -> dict[int, dict[str, Any]]:
         body = (SWEEP_DIR / name).read_text(encoding="utf-8")
         (GOLDEN_DIR / name).write_text(header + body, encoding="utf-8", newline="")
     checksum_lines = [
-        "TASK_CODEX_20 golden snapshot",
+        "TASK_CODEX_21 golden snapshot",
         f"baseline_commit={current_commit}",
         f"baseline_tests={current_tests}",
         "status=current_post_fix_state_baseline",

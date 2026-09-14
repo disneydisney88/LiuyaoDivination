@@ -1,4 +1,4 @@
-# 本 snapshot 產生於 commit 06167f7（133 tests）
+# 本 snapshot 產生於 commit cfa26f1（144 tests）
 # 此為修復後現況基準，非跨版本永恆正確性證明。
 #
 # 產生時之已知問題狀態：
@@ -7,10 +7,10 @@
 #   [已修] 3. 多軌頁只顯示三本、標「三家共識」
 #   [部分修復] 4. 原文摺疊區主流程已接通；C1-R2／增刪卜易仍有一格原文 fallback 缺口
 #   [已修] 5. 卦名不完整（「水雷」缺「屯」）—— L1 運算層
-#   [未修] 6. 伏神 dump JSON、內部 TODO 標記洩漏
+#   [已修] 6. 伏神 dump JSON、內部 TODO 標記洩漏
 #   [已修] 7. 用神選擇疑無實際作用（L3）
 #
-# 後續修復 4、6 後須重新產生 snapshot 並更新本檔頭。
+# 後續修復 4 後須重新產生 snapshot 並更新本檔頭。
 case_index,hexagram_id,hexagram_name,lines,moving_mask,moving_positions,moving_count_expected,moving_count_actual,changed_lines_complete,hidden_count,failed_checks,placeholder_checks,exception_type,exception_message,result_class
 1,1,乾為天,111111,0,,0,0,true,0,,,,,normal
 2,1,乾為天,111111,1,1,1,1,true,0,,,,,normal
