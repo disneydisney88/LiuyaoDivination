@@ -48,9 +48,9 @@ def test_tian_feng_gou_sourced_najia_case():
     assert [x["six_relative"] for x in result["lines_detail"]] == [
         "父母", "子孫", "兄弟", "官鬼", "兄弟", "父母"]
     assert result["hidden"] == [{
-        "六親": "妻財", "branch": "寅", "element": "木", "position": 2,
+        "six_relative": "妻財", "branch": "寅", "element": "木", "position": 2,
         "flying_branch": "亥", "flying_element": "水", "rule_id": "R-L1-08a",
-        "伏神能否為用": "TODO: pending R-L1-08b verification"}]
+        "can_be_yongshen_status": "各家未有定論（R-L1-08b 待核，現僅得《易冒》一方原文）"}]
 
 
 def test_build_all_64_static_and_random_moving_samples_do_not_raise():
@@ -84,14 +84,14 @@ def test_two_absent_six_relatives_each_have_hidden_and_flying_lines():
     result = build([0, 0, 1, 1, 1, 1])
     assert result["hidden"] == [
         {
-            "六親": "妻財", "branch": "寅", "element": "木", "position": 2,
+            "six_relative": "妻財", "branch": "寅", "element": "木", "position": 2,
             "flying_branch": "午", "flying_element": "火", "rule_id": "R-L1-08a",
-            "伏神能否為用": "TODO: pending R-L1-08b verification",
+            "can_be_yongshen_status": "各家未有定論（R-L1-08b 待核，現僅得《易冒》一方原文）",
         },
         {
-            "六親": "子孫", "branch": "子", "element": "水", "position": 1,
+            "six_relative": "子孫", "branch": "子", "element": "水", "position": 1,
             "flying_branch": "辰", "flying_element": "土", "rule_id": "R-L1-08a",
-            "伏神能否為用": "TODO: pending R-L1-08b verification",
+            "can_be_yongshen_status": "各家未有定論（R-L1-08b 待核，現僅得《易冒》一方原文）",
         },
     ]
 

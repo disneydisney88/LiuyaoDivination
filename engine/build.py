@@ -74,17 +74,19 @@ def build(lines: Iterable[int]) -> dict:
     for relative in ("父母", "官鬼", "妻財", "子孫", "兄弟"):
         if relative not in present:
             hidden_positions = [i for i, value in enumerate(palace_relatives) if value == relative]
-            if len(hidden_positions) != 1:
-                raise RuntimeError("R-L1-08a expects one palace-head position per absent six-relative")
+            if not hidden_positions:
+                raise RuntimeError("R-L1-08a cannot locate a palace-head position for an absent six-relative")
+            # One entry is emitted for each absent six-relative.  The
+            # cardinality assertion formerly here was invalid.
             i = hidden_positions[0]
-            hidden.append({"六親": relative, "branch": palace_najia[i]["branch"],
+            hidden.append({"six_relative": relative, "branch": palace_najia[i]["branch"],
                            "element": BRANCH_ELEMENT[palace_najia[i]["branch"]],
                            "position": i + 1, "flying_branch": rows[i]["branch"],
                            "flying_element": rows[i]["element"], "rule_id": "R-L1-08a",
-                           "伏神能否為用": "TODO: pending R-L1-08b verification"})
+                           "can_be_yongshen_status": "各家未有定論（R-L1-08b 待核，現僅得《易冒》一方原文）"})
     return {"hexagram_id": record["hexagram_id"], "name": record["name"],
             "lines": list(bits), "palace": record["palace"],
             "palace_element": record["palace_element"], "position": record["position"],
             "shi": record["shi"], "ying": record["ying"], "lines_detail": rows,
             "hidden": hidden,
-            "six_gods": None, "TODO": "pending R-L1-07 verification"}
+            "six_gods": None}

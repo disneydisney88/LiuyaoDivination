@@ -1,7 +1,9 @@
-"""Explicit, mechanical L3 recalculation after a human choice.
+"""Deterministic L3 recalculation after an explicit human choice.
 
-This module never chooses a six-relative category.  The caller must provide
-the category and, when there is more than one candidate, a candidate id.
+The module separates the five six-relative choices from direct line choices.
+It never recommends a candidate and never applies any school's doctrinal
+state judgement. A repeated relative or a hidden relative remains pending
+until the user explicitly chooses a candidate.
 """
 from __future__ import annotations
 
@@ -9,20 +11,26 @@ from typing import Any
 
 from engine.relations import (
     BRANCH_CLASH,
-    BRANCH_ELEMENT,
     CONTROLS,
     GENERATES,
     day_branch_relations,
+    element_relation,
     seasonal_state,
 )
 from engine.semantics import infer_condition
 
-YONGSHEN_OPTIONS = ("父母", "官鬼", "妻財", "子孫", "兄弟", "世應")
-SIX_RELATIVES = ("父母", "官鬼", "妻財", "子孫", "兄弟")
+SIX_RELATIVE_OPTIONS = ("父母", "官鬼", "妻財", "子孫", "兄弟")
+LINE_POSITION_OPTIONS = ("世爻", "應爻", "初爻", "二爻", "三爻", "四爻", "五爻", "上爻")
+# Kept as the legacy six-choice export for records and older callers.
+YONGSHEN_OPTIONS = SIX_RELATIVE_OPTIONS + ("世應",)
+ALL_CHOICES = SIX_RELATIVE_OPTIONS + LINE_POSITION_OPTIONS + ("世應",)
+LINE_LABEL_TO_POSITION = {
+    "初爻": 1, "二爻": 2, "三爻": 3, "四爻": 4, "五爻": 5, "上爻": 6,
+}
 
 
-def _hidden_value(item: dict[str, Any], chinese: str, english: str) -> Any:
-    return item.get(english, item.get(chinese))
+def _hidden_value(item: dict[str, Any], key: str, legacy: str | None = None) -> Any:
+    return item.get(key) if key in item else item.get(legacy) if legacy else None
 
 
 def _visible_candidate(row: dict[str, Any], choice: str) -> dict[str, Any]:
@@ -37,57 +45,66 @@ def _visible_candidate(row: dict[str, Any], choice: str) -> dict[str, Any]:
     }
 
 
+def _hidden_candidate(item: dict[str, Any], index: int, choice: str) -> dict[str, Any]:
+    return {
+        "candidate_id": f"hidden:{index}",
+        "position": int(_hidden_value(item, "position", "position")),
+        "branch": _hidden_value(item, "branch", "branch"),
+        "element": _hidden_value(item, "element", "element"),
+        "six_relative": _hidden_value(item, "six_relative", "六親"),
+        "choice": choice, "role": None, "hidden": True,
+        "flying_branch": _hidden_value(item, "flying_branch", "flying_branch"),
+        "flying_element": _hidden_value(item, "flying_element", "flying_element"),
+        "rule_id": _hidden_value(item, "rule_id", "rule_id") or "R-L1-08a",
+        "can_be_yongshen_status": _hidden_value(
+            item, "can_be_yongshen_status", "伏神能否為用",
+        ) or "各家未有定論（R-L1-08b 待核，現僅得《易冒》一方原文）",
+    }
+
+
 def candidate_options(chart: dict[str, Any], choice: str) -> list[dict[str, Any]]:
-    """Return every visible and hidden candidate for one human category."""
-    if choice not in YONGSHEN_OPTIONS:
+    """Return all candidates in line order; never rank or recommend them."""
+    if choice not in ALL_CHOICES:
         raise ValueError(f"unsupported yongshen choice: {choice}")
     visible = []
     for row in chart.get("lines_detail", []):
-        if choice == "世應":
-            if row.get("shi") or row.get("ying"):
-                visible.append(_visible_candidate(row, choice))
-        elif row.get("six_relative") == choice:
+        if choice == "世應" and (row.get("shi") or row.get("ying")):
+            visible.append(_visible_candidate(row, choice))
+        elif choice in LINE_LABEL_TO_POSITION and row["position"] == LINE_LABEL_TO_POSITION[choice]:
+            visible.append(_visible_candidate(row, choice))
+        elif choice in SIX_RELATIVE_OPTIONS and row.get("six_relative") == choice:
             visible.append(_visible_candidate(row, choice))
     hidden = []
-    if choice != "世應":
+    if choice in SIX_RELATIVE_OPTIONS:
         for index, item in enumerate(chart.get("hidden", [])):
-            relative = _hidden_value(item, "六親", "six_relative")
-            if relative != choice:
-                continue
-            hidden.append({
-                "candidate_id": f"hidden:{index}",
-                "position": int(_hidden_value(item, "position", "position")),
-                "branch": _hidden_value(item, "branch", "branch"),
-                "element": _hidden_value(item, "element", "element"),
-                "six_relative": relative, "choice": choice, "role": None,
-                "hidden": True,
-                "flying_branch": _hidden_value(item, "flying_branch", "flying_branch"),
-                "flying_element": _hidden_value(item, "flying_element", "flying_element"),
-                "rule_id": _hidden_value(item, "rule_id", "rule_id") or "R-L1-08a",
-            })
+            if _hidden_value(item, "six_relative", "六親") == choice:
+                hidden.append(_hidden_candidate(item, index, choice))
     return visible + hidden
 
 
 def _candidate_state(candidate: dict[str, Any], relations: dict[str, Any]) -> dict[str, Any]:
     branch = candidate["branch"]
-    state = {
-        "position": candidate["position"], "branch": branch,
+    position = candidate["position"]
+    visible_row = next(
+        (row for row in relations.get("lines", []) if row.get("position") == position),
+        {},
+    )
+    return {
+        "position": position, "branch": branch,
         "element": candidate["element"], "six_relative": candidate.get("six_relative"),
         "hidden": candidate.get("hidden", False), "is_yongshen": True,
         "seasonal_state": seasonal_state(candidate["element"], relations["month_element"]),
         "month_break": BRANCH_CLASH[relations["month_branch"]] == branch,
         "empty": branch in relations["empty_branches"],
         "day_relations": day_branch_relations(relations["day_branch"], branch),
-        "motion": "伏" if candidate.get("hidden") else next(
-            (row.get("motion") for row in relations.get("lines", [])
-             if row.get("position") == candidate["position"]), "靜"
-        ),
+        "motion": "伏" if candidate.get("hidden") else visible_row.get("motion", "靜"),
+        "state_fields": ["position", "branch", "element", "six_relative", "seasonal_state", "empty", "month_break", "motion"],
+        **({
+            "flying_branch": candidate.get("flying_branch"),
+            "flying_element": candidate.get("flying_element"),
+            "rule_id": candidate.get("rule_id", "R-L1-08a"),
+        } if candidate.get("hidden") else {}),
     }
-    if candidate.get("hidden"):
-        state["flying_branch"] = candidate.get("flying_branch")
-        state["flying_element"] = candidate.get("flying_element")
-        state["rule_id"] = candidate.get("rule_id", "R-L1-08a")
-    return state
 
 
 def _role_candidates(
@@ -96,40 +113,45 @@ def _role_candidates(
     yuan = [item for item in all_candidates if GENERATES[item["element"]] == target_element]
     ji = [item for item in all_candidates if CONTROLS[item["element"]] == target_element]
     yuan_elements = {item["element"] for item in yuan}
-    chou = [item for item in all_candidates if any(CONTROLS[item["element"]] == element for element in yuan_elements)]
+    chou = [
+        item for item in all_candidates
+        if any(CONTROLS[item["element"]] == element for element in yuan_elements)
+    ]
     return yuan, ji, chou
 
 
-def _with_role(items: list[dict[str, Any]], role: str, relations: dict[str, Any]) -> list[dict[str, Any]]:
+def _with_role(
+    items: list[dict[str, Any]], role: str, relations: dict[str, Any],
+    selected: dict[str, Any] | None,
+) -> list[dict[str, Any]]:
     result = []
     for item in items:
         value = dict(item)
         value["role"] = role
         value["state"] = _candidate_state(item, relations)
         value["state"]["is_yongshen"] = False
+        value["is_flying_of_yongshen"] = bool(
+            selected and selected.get("hidden") and item.get("position") == selected.get("position")
+            and not item.get("hidden")
+        )
         result.append(value)
     return result
 
 
-def _yuan_checks(yuan: list[dict[str, Any]], relations: dict[str, Any]) -> list[dict[str, Any]]:
-    checks = []
-    for item in yuan:
-        state = _candidate_state(item, relations)
-        seasonal_weak = state["seasonal_state"] in {"休", "囚"}
-        moving = state["motion"] not in {"靜", "伏"}
-        checks.append({
+def _deferred_checks(yuan: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Reserve R-L2-07 slots without importing a school's status judgement."""
+    return [
+        {
             "candidate_id": item["candidate_id"],
             "rule_id": "R-L2-07",
             "checks": [
-                {"id": "R-L2-07-1", "status": "confirmed" if seasonal_weak and not moving else "not_matched" if not seasonal_weak else "not_computable", "basis": "休囚不動"},
-                {"id": "R-L2-07-2", "status": "confirmed" if seasonal_weak and (state["empty"] or state["month_break"]) else "not_matched", "basis": "休囚又逢自空、月破"},
-                {"id": "R-L2-07-3", "status": "not_computable", "basis": "變化進退資料未另定"},
-                {"id": "R-L2-07-4", "status": "not_computable", "basis": "絕之機械表未接通"},
-                {"id": "R-L2-07-5", "status": "not_computable", "basis": "三墓軌資料未接通"},
-                {"id": "R-L2-07-6", "status": "not_computable", "basis": "化絕／化剋／化破／化散資料未另定"},
+                {"id": f"R-L2-07-{number}", "status": "deferred_to_multi_track",
+                 "basis": "四神狀態決策表尚未建立"}
+                for number in range(1, 7)
             ],
-        })
-    return checks
+        }
+        for item in yuan
+    ]
 
 
 def _moving_interactions(state: dict[str, Any], target_element: str) -> list[dict[str, Any]]:
@@ -159,56 +181,105 @@ def _moving_interactions(state: dict[str, Any], target_element: str) -> list[dic
     return result
 
 
+def _flying_hidden_relation(selected: dict[str, Any]) -> dict[str, Any] | None:
+    if not selected.get("hidden"):
+        return None
+    flying = selected["flying_element"]
+    hidden = selected["element"]
+    relation = element_relation(flying, hidden)
+    label = {
+        "剋": "飛克伏者滅", "生": "飛生伏者得", "被剋": "伏克飛者出",
+        "被生": "伏生飛者沒", "比和": "飛伏比和者拔",
+    }[relation]
+    return {
+        "flying_branch": selected["flying_branch"], "flying_element": flying,
+        "hidden_branch": selected["branch"], "hidden_element": hidden,
+        "relation": relation, "doctrinal_label": label,
+        "source_book": "易冒", "source_locator": "類總章第四十一 686",
+        "original": label, "rule_id": "R-L1-08b",
+        "doctrinal_status": "《易冒》一家之說，非通則",
+        "other_books_status": "not_collected",
+        "not_collected_books": ["增刪卜易", "卜筮正宗", "卜筮全書", "黃金策", "火珠林", "京氏易傳", "易隱"],
+    }
+
+
+def _pending_result(choice: str, options: list[dict[str, Any]], relations: dict[str, Any]) -> dict[str, Any]:
+    candidates = []
+    for item in options:
+        value = dict(item)
+        value["state"] = _candidate_state(item, relations)
+        value["is_yongshen"] = False
+        candidates.append(value)
+    result = {
+        "choice": choice, "status": "pending_selection",
+        "candidates": candidates,
+        "candidate_count": len(options),
+        "double_occurrence": len(options) > 1,
+        "hidden_available": any(item.get("hidden") for item in options),
+        "rule_ids": ["R-L1-08a", "R-L3-01"],
+    }
+    if result["hidden_available"]:
+        result["hidden_choice_options"] = ["use_hidden", "choose_other"]
+    return result
+
+
 def analyze_yongshen(state: dict[str, Any], choice: str, candidate_id: str | None = None) -> dict[str, Any]:
-    """Recalculate all available mechanical relations around one explicit candidate."""
-    if choice not in YONGSHEN_OPTIONS:
+    """Recalculate mechanical relations around one explicit candidate."""
+    if choice not in ALL_CHOICES:
         raise ValueError(f"unsupported yongshen choice: {choice}")
     chart, relations = state["chart"], state["relations"]
     options = candidate_options(chart, choice)
-    if candidate_id is None and len(options) == 1:
+    hidden_only = bool(options) and all(item.get("hidden") for item in options)
+    if candidate_id is None and len(options) == 1 and not hidden_only:
         candidate_id = options[0]["candidate_id"]
-    if candidate_id is not None and candidate_id not in {item["candidate_id"] for item in options}:
+    if candidate_id is None and (len(options) != 1 or hidden_only):
+        return _pending_result(choice, options, relations)
+    if candidate_id not in {item["candidate_id"] for item in options}:
         raise ValueError("candidate_id does not belong to the selected yongshen choice")
-    selected = next((dict(item) for item in options if item["candidate_id"] == candidate_id), None)
+    selected = next(dict(item) for item in options if item["candidate_id"] == candidate_id)
     all_candidates = []
-    for candidate in (
-        candidate_options(chart, relative) for relative in SIX_RELATIVES
-    ):
-        all_candidates.extend(candidate)
-    if choice == "世應":
-        all_candidates.extend(candidate_options(chart, choice))
-    target_element = selected["element"] if selected else None
-    yuan, ji, chou = _role_candidates(all_candidates, target_element) if target_element else ([], [], [])
+    for relative in SIX_RELATIVE_OPTIONS:
+        all_candidates.extend(candidate_options(chart, relative))
+    all_candidates.extend(candidate_options(chart, "世應"))
+    target_element = selected["element"]
+    yuan, ji, chou = _role_candidates(all_candidates, target_element)
     line_outputs = []
     for row in relations.get("lines", []):
         value = dict(row)
-        value["is_yongshen"] = bool(selected and not selected.get("hidden") and row["position"] == selected["position"])
+        value["is_yongshen"] = bool(not selected.get("hidden") and row["position"] == selected["position"])
         line_outputs.append(value)
     hidden_outputs = []
-    for item in chart.get("hidden", []):
+    for index, item in enumerate(chart.get("hidden", [])):
         value = dict(item)
-        item_id = f"hidden:{chart['hidden'].index(item)}"
-        value["is_yongshen"] = bool(selected and selected.get("candidate_id") == item_id)
+        value["is_yongshen"] = bool(selected.get("hidden") and selected["candidate_id"] == f"hidden:{index}")
         hidden_outputs.append(value)
-    own_state = _candidate_state(selected, relations) if selected else None
-    decision = {"C1": None, "C15": None}
-    if selected and not selected.get("hidden"):
+    own_state = _candidate_state(selected, relations)
+    decision = {"C1": None, "C15": None, "analysis_position": selected["position"]}
+    if not selected.get("hidden"):
         decision["C1"] = infer_condition(table_id="C1", relation_result=relations, line=selected["position"])
         decision["C15"] = infer_condition(table_id="C15", relation_result=relations, line=selected["position"])
     if decision["C1"] is None and decision["C15"] is None:
-        decision["status"] = "此爻不觸發 C1／C15 任何條件"
+        decision["status"] = "此爻不觸發任何條件"
+        decision["coverage_gap_note"] = "目前只有沖之決策表（C1、C15）；空亡／月破／墓絕／進退神／應期尚未有對應決策表。"
+    candidate_listing = []
+    for item in options:
+        value = dict(item)
+        value["state"] = _candidate_state(item, relations)
+        value["is_yongshen"] = item["candidate_id"] == selected["candidate_id"]
+        candidate_listing.append(value)
     return {
-        "choice": choice, "candidate_id": candidate_id,
-        "candidates": [dict(item) for item in options], "selected": selected,
+        "choice": choice, "status": "selected", "candidate_id": candidate_id,
+        "selected": selected, "candidates": candidate_listing,
         "target_element": target_element, "own_state": own_state,
         "lines": line_outputs, "hidden": hidden_outputs,
-        "yuan_shen": _with_role(yuan, "元神", relations),
-        "ji_shen": _with_role(ji, "忌神", relations),
-        "chou_shen": _with_role(chou, "仇神", relations),
-        "yuan_shen_checks": _yuan_checks(yuan, relations),
-        "moving_interactions": _moving_interactions(state, target_element) if target_element else [],
-        "double_occurrence": len([item for item in options if not item.get("hidden")]) > 1,
-        "hidden_selected": bool(selected and selected.get("hidden")),
+        "yuan_shen": _with_role(yuan, "元神", relations, selected),
+        "ji_shen": _with_role(ji, "忌神", relations, selected),
+        "chou_shen": _with_role(chou, "仇神", relations, selected),
+        "yuan_shen_checks": _deferred_checks(yuan),
+        "moving_interactions": _moving_interactions(state, target_element),
+        "double_occurrence": len(options) > 1,
+        "hidden_selected": bool(selected.get("hidden")),
+        "flying_hidden_relation": _flying_hidden_relation(selected),
         "decision_table": decision,
-        "rule_ids": ["R-L2-01", "R-L2-02", "R-L2-03", "R-L2-05", "R-L2-07", "R-L1-08a"],
+        "rule_ids": ["R-L1-08a", "R-L1-08b", "R-L2-01", "R-L2-02", "R-L2-03", "R-L2-05", "R-L3-01"],
     }

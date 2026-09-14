@@ -20,10 +20,12 @@ def narrate_hidden(hidden: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """Render every mechanical R-L1-08a entry without assigning an effect."""
     narratives = []
     for item in hidden:
+        relative = item.get("six_relative", item.get("六親", ""))
         entry = dict(item)
-        entry["text"] = "{}伏神在第{}爻：{}{}；飛神為{}{}。".format(
-            item.get("六親", ""), item.get("position", ""), item.get("branch", ""),
-            item.get("element", ""), item.get("flying_branch", ""),
+        entry["text"] = "{}{}{}，伏於第{}爻{}{}之下（飛神{}{}）。".format(
+            relative, item.get("branch", ""), item.get("element", ""),
+            item.get("position", ""), item.get("flying_branch", ""),
+            item.get("flying_element", ""), item.get("flying_branch", ""),
             item.get("flying_element", ""),
         )
         narratives.append(entry)

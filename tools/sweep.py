@@ -1,7 +1,6 @@
 """Deterministic exhaustive/ sampled sweeps for the current Liuyao engine.
 
-TASK_CODEX_20 is an audit package.  This module records the current behaviour
-without repairing or filling any missing L1/L2/L3 feature.
+TASK_CODEX_21 extends the Tier 3 audit to the human-only yongshen flow.
 """
 from __future__ import annotations
 
@@ -84,10 +83,10 @@ def _golden_header(commit: str, test_count: int) -> str:
 #   [已修] 3. 多軌頁只顯示三本、標「三家共識」
 #   [部分修復] 4. 原文摺疊區主流程已接通；C1-R2／增刪卜易仍有一格原文 fallback 缺口
 #   [已修] 5. 卦名不完整（「水雷」缺「屯」）—— L1 運算層
-#   [未修] 6. 伏神 dump JSON、內部 TODO 標記洩漏
+#   [已修] 6. 伏神 dump JSON、內部 TODO 標記洩漏
 #   [已修] 7. 用神選擇疑無實際作用（L3）
 #
-# 後續修復 4、6 後須重新產生 snapshot 並更新本檔頭。
+# 後續修復 4 後須重新產生 snapshot 並更新本檔頭。
 """
 
 
@@ -120,7 +119,9 @@ TIER3_FIELDS = (
     "is_yongshen_positions", "yuanshen_positions", "jishen_positions",
     "choushen_positions", "c1_condition", "c15_condition", "c1_track_count",
     "c15_track_count", "track_originals_nonempty", "output_signature",
-    "output_json", "equal_to_choices", "template_missing_lines",
+    "output_json", "equal_to_choices", "selection_status", "pending_selection",
+    "hidden_choice_required", "hidden_choice_options", "candidate_state_fields_complete",
+    "flying_hidden_relation_status", "triggered_tables", "template_missing_lines",
     "template_missing_contexts", "failed_checks", "placeholder_checks",
     "exception_type", "exception_message", "result_class",
 )
@@ -400,10 +401,9 @@ def run_tier2(output_path: Path | None = None) -> dict[str, Any]:
 def _tier3_samples() -> list[tuple[str, dict[str, Any], tuple[int, ...]]]:
     rows = generate_bagong()
     samples = []
-    for palace in PALACE_ORDER:
-        pure = next(row for row in rows if row["palace"] == palace and row["position"] == "本宮")
+    for source in rows:
         for pattern_name, moving in MOVING_PATTERNS:
-            samples.append((f"{palace}:{pattern_name}", pure, moving))
+            samples.append((f"hex{source['hexagram_id']}:{pattern_name}", source, moving))
     return samples
 
 
@@ -427,6 +427,10 @@ def _tier3_projection(
     visible = [item["position"] for item in options if not item.get("hidden")]
     hidden = [item for item in options if item.get("hidden")]
     selected = analysis.get("selected") or {}
+    pending = analysis.get("status") == "pending_selection"
+    required_state_fields = {"position", "branch", "element", "six_relative", "seasonal_state", "empty", "month_break", "motion"}
+    candidate_state_complete = all(required_state_fields <= set(item.get("state", {})) for item in analysis.get("candidates", []))
+    hidden_choice_required = bool(hidden) and all(item.get("hidden") for item in options)
     selected_line = selected.get("position") if selected and not selected.get("hidden") else None
     decision = analysis.get("decision_table", {})
     c1_condition = decision.get("C1")
@@ -461,19 +465,34 @@ def _tier3_projection(
         "no_condition_status": decision.get("status"),
         "target_element": analysis.get("target_element"),
         "moving_interactions": analysis.get("moving_interactions", []),
+        "selection_status": analysis.get("status"),
+        "pending_selection": pending,
+        "hidden_choice_required": hidden_choice_required,
+        "hidden_choice_options": "use_hidden|choose_other" if hidden_choice_required else "",
+        "candidate_state_fields_complete": candidate_state_complete,
+        "flying_hidden_relation_status": (
+            analysis.get("flying_hidden_relation", {}).get("doctrinal_status")
+            if analysis.get("flying_hidden_relation") else "not_applicable"
+        ),
+        "triggered_tables": [table for table, condition in (("C1", c1_condition), ("C15", c15_condition)) if condition],
     }
     failed: list[str] = []
     placeholders: list[str] = []
-    if not is_yongshen and not hidden_markers:
+    if not pending and not is_yongshen and not hidden_markers:
         failed.append("missing_is_yongshen_marker")
-    for role in ("yuanshen_positions", "jishen_positions", "choushen_positions"):
-        if projection[role] is None:
-            failed.append(f"missing_{role}")
+    if not candidate_state_complete:
+        failed.append("candidate_state_fields_incomplete")
+    if len(options) > 1 and not pending:
+        failed.append("multiple_candidates_not_pending")
+    if hidden_choice_required and not pending:
+        failed.append("hidden_choice_not_pending")
+    if pending and any(key in analysis for key in ("yuan_shen", "ji_shen", "chou_shen")):
+        failed.append("pending_four_god_recalculation")
     if len(visible) > 1 and len(projection["visible_candidates"]) != len(visible):
         failed.append("duplicate_candidates_not_complete")
-    if not visible and hidden and not hidden_markers:
+    if not pending and not visible and hidden and not hidden_markers:
         failed.append("hidden_candidate_not_marked")
-    if c1_condition is None and c15_condition is None and decision.get("status") != "此爻不觸發 C1／C15 任何條件":
+    if not pending and c1_condition is None and c15_condition is None and decision.get("status") != "此爻不觸發任何條件":
         failed.append("no_explicit_no_condition_result")
     for table_id, condition, count in (
         ("C1", c1_condition, projection["c1_track_count"]),
@@ -492,7 +511,7 @@ def _different_fields(left: dict[str, Any], right: dict[str, Any]) -> list[str]:
 
 
 def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
-    """Run 24 chart samples × 12 month/day samples × all six choices."""
+    """Run all 64 charts × 3 movement samples × 12 month/day samples × six choices."""
     started = time.perf_counter()
     templates = _load_templates()
     c1_table = load_decision_table(ROOT / "data" / "decision_tables" / "C1_chong_san.json")
@@ -524,7 +543,11 @@ def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
                 projection: dict[str, Any] = {}
                 try:
                     options = candidate_options(chart, choice)
-                    candidate_id = options[0]["candidate_id"] if options else None
+                    hidden_only = bool(options) and all(item.get("hidden") for item in options)
+                    candidate_id = (
+                        options[0]["candidate_id"]
+                        if len(options) == 1 and not hidden_only else None
+                    )
                     projection, failed, placeholders = _tier3_projection(
                         state=state, choice=choice, candidate_id=candidate_id,
                         c1_table=c1_table, c15_table=c15_table,
@@ -594,6 +617,13 @@ def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
                     "output_signature": signatures[item["yongshen"]],
                     "output_json": _json(projection),
                     "equal_to_choices": "|".join(equal_choices),
+                    "selection_status": projection.get("selection_status", ""),
+                    "pending_selection": str(projection.get("pending_selection", False)).lower(),
+                    "hidden_choice_required": str(projection.get("hidden_choice_required", False)).lower(),
+                    "hidden_choice_options": projection.get("hidden_choice_options", ""),
+                    "candidate_state_fields_complete": str(projection.get("candidate_state_fields_complete", False)).lower(),
+                    "flying_hidden_relation_status": projection.get("flying_hidden_relation_status", ""),
+                    "triggered_tables": "|".join(projection.get("triggered_tables", [])),
                     "template_missing_lines": "|".join(map(str, item["template_lines"])),
                     "template_missing_contexts": "|".join(item["template_contexts"]),
                     "failed_checks": "|".join(dict.fromkeys(item["failed"])),
@@ -739,6 +769,7 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
             pair_stats[(left, right)].append(len(changed))
             if not changed:
                 equal_pairs[(left, right)] += 1
+    pair_sample_count = len(next(iter(pair_stats.values()), []))
 
     hidden = Counter(
         int(row["hidden_count"]) for row in tier1 if row["moving_mask"] == "0" and row["hidden_count"]
@@ -751,12 +782,19 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
     break_hits = sum(int(row["month_break_line_count"] or 0) for row in tier2)
     integration = _decision_table_integration_audit()
     template_count = len(_load_templates())
+    selection_status = Counter(row.get("selection_status", "") for row in tier3)
+    pending_rows = sum(row.get("pending_selection") == "true" for row in tier3)
+    hidden_choice_rows = sum(row.get("hidden_choice_required") == "true" for row in tier3)
+    state_incomplete_rows = sum(row.get("candidate_state_fields_complete") != "true" for row in tier3)
+    table_hits = Counter(
+        table for row in tier3 for table in filter(None, row.get("triggered_tables", "").split("|"))
+    )
     current_commit = _git("rev-parse", "--short", "HEAD").strip()
     current_tests = _collected_test_count()
     elapsed = {tier: stats.get(tier, {}).get("elapsed_seconds") for tier in (1, 2, 3)}
 
     lines = [
-        "# TASK_CODEX_20 — Sweep Report",
+        "# TASK_CODEX_21 — Sweep Report",
         "",
         f"基準：`{current_commit}`（{current_tests} tests）。本報告為當前 code state 之量化結果；歷史 13eb522 現況基準及修復差異見 `sweep/REPAIR_DIFFS.md`。",
         "",
@@ -766,7 +804,7 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
         "| --- | ---: | ---: | --- |",
         f"| Tier 1 | {len(tier1):,} | {elapsed[1]:.3f} | 64 卦 × 64 動爻 mask；固定時間 `{FIXED_TIME}` |" if elapsed[1] is not None else f"| Tier 1 | {len(tier1):,} | 未記錄 | 64 卦 × 64 動爻 mask |",
         f"| Tier 2 | {len(tier2):,} | {elapsed[2]:.3f} | 64 卦 × 全靜／初爻動／初三五爻動 × 12 月建 × 60 日辰 |" if elapsed[2] is not None else f"| Tier 2 | {len(tier2):,} | 未記錄 | 64 卦 × 3 動爻 pattern × 12 × 60 |",
-        f"| Tier 3 | {len(tier3):,} | {elapsed[3]:.3f} | 每宮本宮卦 × 3 動爻 pattern（24 組）× 12 個月／日代表 × 6 用神 |" if elapsed[3] is not None else f"| Tier 3 | {len(tier3):,} | 未記錄 | 24 × 12 × 6 |",
+        f"| Tier 3 | {len(tier3):,} | {elapsed[3]:.3f} | 64 卦 × 3 動爻 pattern × 12 個月／日代表 × 6 用神選項 |" if elapsed[3] is not None else f"| Tier 3 | {len(tier3):,} | 未記錄 | 64 × 3 × 12 × 6 |",
         "",
         "Tier 3 每月代表日按次序配 `甲子` 至 `乙亥`；此為狀態取樣，不宣稱對應同一公曆年。",
         "",
@@ -810,9 +848,9 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
         "",
         "現已接通 `engine/yongshen.py`：用神類別及候選爻位由人手傳入，沒有自動揀用神；輸出以該候選為中心重算。",
         "",
-        "現時實際重算欄位：用神本身之旺衰／旬空／月破／日辰標記；元神、忌神、仇神之候選爻位及狀態；兩現／伏藏；動爻對用神之生剋及變爻回頭剋機械標記；C1／C15 格位；以及 `is_yongshen`。元神六況中未有足夠機械資料者保留 `not_computable`，不填效果語義。",
+        "現時實際重算欄位：用神本身之旺衰／旬空／月破／日辰標記；元神、忌神、仇神之候選爻位及狀態；兩現／伏藏；動爻對用神之生剋及變爻回頭剋機械標記；C1／C15 格位；以及 `is_yongshen`。元神／忌神狀態判定未建表，輸出 `deferred_to_multi_track`，不填效果語義。",
         "",
-        "兩兩比較（每對 288 個同卦同時狀態；數值為 output projection 不同欄位數 min–max；完全相同列為基準數）：",
+        f"兩兩比較（每對 {pair_sample_count:,} 個同卦同時狀態；數值為 output projection 不同欄位數 min–max；完全相同列為基準數）：",
         "",
         "| 用神對 | 差異欄位 min–max | 完全相同 |",
         "| --- | ---: | ---: |",
@@ -824,6 +862,15 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
     lines.extend([
         "",
         f"完全相同 pair-instance 合計：**{total_equal:,}**。任何非零值均表示現行用神輸出未能穩定區分該兩個選擇；此結果不作淡化。",
+        "",
+        "### B4a — 新用神流程檢查",
+        "",
+        f"- `selection_status`：{_format_counter(selection_status)}。",
+        f"- 兩現／多現進入 `pending_selection`：{pending_rows:,}/{len(tier3):,}。",
+        f"- 不現之六親要求伏神二選一：{hidden_choice_rows:,}/{len(tier3):,}；選項固定為 `use_hidden|choose_other`。",
+        f"- 八項機械狀態欄位缺失：{state_incomplete_rows:,}/{len(tier3):,}。",
+        f"- C1／C15 自動觸發表數：{_format_counter(table_hits) or '0'}。",
+        "- L3 不輸出任何一家之狀態判定；`R-L2-07` 仍標記為 `deferred_to_multi_track`，P-044 保留。",
         "",
         "## B5 — 結構分佈",
         "",

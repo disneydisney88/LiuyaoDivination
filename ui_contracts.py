@@ -31,7 +31,10 @@ RECORD_FIELDS = [
     "verified", "verification_note", "narration_template_ids", "template_missing",
 ]
 FORBIDDEN_RECORD_FIELDS = {"conclusion", "final_verdict", "prediction"}
-YONGSHEN_OPTIONS = ("父母", "官鬼", "妻財", "子孫", "兄弟", "世應")
+SIX_RELATIVE_OPTIONS = ("父母", "官鬼", "妻財", "子孫", "兄弟")
+LINE_POSITION_OPTIONS = ("世爻", "應爻", "初爻", "二爻", "三爻", "四爻", "五爻", "上爻")
+# Legacy record/API export; the UI renders the two groups separately.
+YONGSHEN_OPTIONS = SIX_RELATIVE_OPTIONS + ("世應",)
 
 
 def month_branch_for_date(value: date) -> str:
@@ -60,17 +63,20 @@ def state_for_case(case: dict[str, Any]) -> dict[str, Any]:
 
 
 def selected_line_positions(case: dict[str, Any], chart: dict[str, Any]) -> list[int]:
-    """Return visible-line candidates; never choose among duplicates or hidden lines."""
-    choices = case.get("yongshen_selected") or []
+    """Return only explicitly saved visible-line candidates."""
+    from engine.yongshen import candidate_options
     positions = set()
-    for choice in choices:
-        if choice == "世應":
-            positions.update((chart["shi"], chart["ying"]))
+    selections = case.get("yongshen_candidate_selections") or {}
+    for choice in case.get("yongshen_selected") or []:
+        candidate_id = selections.get(choice)
+        if not candidate_id:
             continue
-        positions.update(
-            row["position"] for row in chart["lines_detail"]
-            if row["six_relative"] == choice
+        candidate = next(
+            (item for item in candidate_options(chart, choice)
+             if item["candidate_id"] == candidate_id), None,
         )
+        if candidate and not candidate.get("hidden"):
+            positions.add(candidate["position"])
     return sorted(positions)
 
 
@@ -125,10 +131,29 @@ def load_cases() -> list[dict[str, Any]]:
             hidden = [hidden]
         elif len(hidden) == 1 and isinstance(hidden[0], list):
             hidden = hidden[0]
-        case["hidden"] = hidden
+        normalized_hidden = []
+        for item in hidden:
+            if not isinstance(item, dict):
+                continue
+            value = dict(item)
+            if "六親" in value:
+                value["six_relative"] = value.pop("六親")
+            if "伏神能否為用" in value:
+                value["can_be_yongshen_status"] = "各家未有定論（R-L1-08b 待核，現僅得《易冒》一方原文）"
+                value.pop("伏神能否為用")
+            normalized_hidden.append(value)
+        case["hidden"] = normalized_hidden
         candidates = case.get("yongshen_candidates")
         if candidates is None or (len(candidates) == 1 and isinstance(candidates[0], list)):
-            case["yongshen_candidates"] = list(hidden)
+            case["yongshen_candidates"] = list(normalized_hidden)
+        else:
+            case["yongshen_candidates"] = [
+                next((item for item in normalized_hidden
+                      if item.get("position") == value.get("position")
+                      and item.get("six_relative") == value.get("六親", value.get("six_relative"))), value)
+                if isinstance(value, dict) else value
+                for value in candidates
+            ]
     return cases
 
 

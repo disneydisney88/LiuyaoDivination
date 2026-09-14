@@ -113,5 +113,5 @@ def test_multiple_hidden_entries_are_each_rendered_in_plain_language():
     )
     assert output["hidden"] == hidden
     assert len(output["hidden_narratives"]) == 2
-    assert [item["六親"] for item in output["hidden_narratives"]] == ["妻財", "子孫"]
-    assert all("伏神" in item["text"] and "飛神" in item["text"] for item in output["hidden_narratives"])
+    assert [item["six_relative"] for item in output["hidden_narratives"]] == ["妻財", "子孫"]
+    assert all("伏於" in item["text"] and "飛神" in item["text"] for item in output["hidden_narratives"])

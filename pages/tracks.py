@@ -10,7 +10,8 @@ from engine.semantics import (
     load_decision_table,
     semantic_for_condition,
 )
-from ui_contracts import selected_line_positions, state_for_case
+from engine.yongshen import analyze_yongshen, candidate_options
+from ui_contracts import state_for_case
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -64,61 +65,69 @@ if case:
     chart, relation_state = state["chart"], state["relations"]
     st.session_state.current_relation_state = relation_state
 
-candidate_positions = selected_line_positions(case, chart) if case and chart else []
-if case and chart and case.get("yongshen_candidate_selections"):
-    candidate_positions = []
-    for candidate_id in case["yongshen_candidate_selections"].values():
-        if isinstance(candidate_id, str) and candidate_id.startswith("visible:"):
-            candidate_positions.append(int(candidate_id.split(":", 1)[1]))
-    candidate_positions = sorted(set(candidate_positions))
 selected_choices = (case.get("yongshen_selected") or []) if case else []
-hidden_selected = bool(chart) and any(
-    item["六親"] in selected_choices for item in chart["hidden"]
-)
+saved_ids = (case.get("yongshen_candidate_selections") or {}) if case else {}
+selected_candidates = []
+for choice in selected_choices:
+    candidate_id = saved_ids.get(choice)
+    if not candidate_id and chart:
+        options = candidate_options(chart, choice)
+        if len(options) == 1 and not options[0].get("hidden"):
+            candidate_id = options[0]["candidate_id"]
+    if not candidate_id or not chart:
+        continue
+    selected_candidates.extend(
+        item for item in candidate_options(chart, choice)
+        if item["candidate_id"] == candidate_id
+    )
+hidden_selected = any(item.get("hidden") for item in selected_candidates)
+candidate_positions = sorted({item["position"] for item in selected_candidates})
 if len(candidate_positions) == 1:
     line = candidate_positions[0]
     st.caption("已由人手所選用神定位至第 {} 爻。".format(line))
+    line_options = [line]
+elif len(candidate_positions) > 1:
+    st.caption("所選用神對應多個候選爻位，須由使用者指定；未作自動取捨。")
+    line_options = candidate_positions
 else:
-    if len(candidate_positions) > 1:
-        st.caption("所選用神對應多個候選爻位，須由使用者指定；未作自動取捨。")
-        line_options = candidate_positions
-    elif hidden_selected:
-        st.caption("所選用神為伏神；現有 L2 爻狀態只涵蓋飛神，格位不作自動映射。")
-        line_options = list(range(1, 7))
-    else:
-        st.caption("未有唯一用神爻位，格位自動判定暫不生效。")
-        line_options = list(range(1, 7))
-    line = st.selectbox(
-        "選擇分析爻位",
-        line_options,
-        index=0,
-        format_func=lambda value: "第 {} 爻".format(value),
-    )
+    st.caption("未選用神，格位自動判定暫不生效。")
+    line_options = list(range(1, 7))
+line = st.selectbox(
+    "選擇分析爻位（手動覆寫）", line_options,
+    index=0, format_func=lambda value: "第 {} 爻".format(value),
+)
 
 conditions = [row["condition"] for row in decision_table["rows"]]
-automatic_condition = infer_condition(
+automatic_condition = None if hidden_selected else infer_condition(
     table_id=decision_table["table_id"], relation_result=relation_state, line=line,
 )
 manual_override = False
+manual_override = st.toggle(
+    "手動覆寫表格位", value=False,
+    key="manual_condition_override_{}".format(decision_table["table_id"]),
+)
 if automatic_condition in conditions:
     st.caption("按當前爻之機械狀態自動定位：{}。".format(automatic_condition))
-    manual_override = st.toggle(
-        "手動覆寫表格位", value=False,
-        key="manual_condition_override_{}".format(decision_table["table_id"]),
-    )
 else:
-    if len(candidate_positions) == 1:
-        st.caption("此爻不觸發 C1／C15 任何條件")
-    else:
-        st.caption("現有機械狀態未能唯一定位此表格位；不補寫未核定條件或效果語義。")
+    if hidden_selected:
+        hidden_item = next(item for item in selected_candidates if item.get("hidden"))
+        st.caption("用神爻（第 {} 爻 {}{} {}，伏）".format(
+            hidden_item["position"], hidden_item["branch"], hidden_item["element"],
+            hidden_item.get("six_relative", ""),
+        ))
+    st.caption("此爻不觸發任何條件。這是目前決策表之覆蓋缺口，並非此爻無事可說。")
+    st.caption("目前只有沖之決策表（C1、C15）；空亡／月破／墓絕／進退神／應期尚未有對應決策表。")
 
 if automatic_condition in conditions and not manual_override:
     condition = automatic_condition
-else:
+elif manual_override:
     condition = st.selectbox(
         "選擇 {} 表格位（手動覆寫）".format(decision_table["table_id"]),
         conditions,
     )
+else:
+    st.caption("未選擇決策表格位；如需覆寫，請開啟「手動覆寫表格位」。")
+    st.stop()
 result = semantic_for_condition(
     line=line, condition=condition,
     hidden=chart["hidden"] if chart else [], table=decision_table,

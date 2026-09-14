@@ -89,5 +89,7 @@ def test_legacy_case_without_hidden_is_normalized_on_load(tmp_path, monkeypatch)
     }, ensure_ascii=False) + "\n", encoding="utf-8")
     monkeypatch.setattr(ui_contracts, "RECORDS_PATH", path)
     case = ui_contracts.load_cases()[0]
-    assert case["hidden"] == [old_hidden]
-    assert case["yongshen_candidates"] == [old_hidden]
+    assert case["hidden"][0]["six_relative"] == "妻財"
+    assert "六親" not in case["hidden"][0]
+    assert "can_be_yongshen_status" in case["hidden"][0]
+    assert case["yongshen_candidates"] == case["hidden"]
