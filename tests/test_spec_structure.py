@@ -1,4 +1,6 @@
 from pathlib import Path
+import json
+import re
 
 
 SPEC = Path(__file__).parents[1] / "SPEC_LIUYAO_v0.2.md"
@@ -35,3 +37,17 @@ def test_spec_ids_are_unique():
     closed = _table_rows(text, "### §11.2 已結案", "### §11.3 已記錄之事實")[1:]
     ids = [row[0].strip() for row in pending + closed]
     assert len(ids) == len(set(ids))
+
+
+def test_six_conditions_are_not_coattributed_to_yimao_in_live_rules():
+    """Historical-correction rows may quote the old attribution; live rules may not."""
+    live_spec = SPEC.read_text(encoding="utf-8").split("## 附錄：判斷修正史", 1)[0]
+    live_entries = re.split(r"(?m)^### ", live_spec)
+    assert all(not ("六況" in entry and "易冒" in entry) for entry in live_entries)
+
+    doctrinal_dir = SPEC.parent / "data" / "doctrinal"
+    for path in doctrinal_dir.glob("*_rules.json"):
+        data = json.loads(path.read_text(encoding="utf-8"))
+        for source_set in data["sets"]:
+            entry = json.dumps(source_set, ensure_ascii=False)
+            assert not ("六況" in entry and "易冒" in entry), path.name

@@ -47,3 +47,17 @@ def test_negated_set_type():
     data = load_data()
     negated = next(group for group in data["sets"] if group["set_id"] == "ZS_NEGATED_01")
     assert negated["conflict_type"] == "category_negation"
+
+
+def test_six_yuanshen_conditions_keep_their_verified_zengshan_source():
+    six_conditions = next(group for group in load_data()["sets"] if group["set_id"] == "ZS_SET_02")
+    assert six_conditions["chapter"] == "元神忌神衰旺章第十"
+    assert six_conditions["line"] == 925
+    assert [item["rule_id"] for item in six_conditions["items"]] == [
+        "R-ZS-02-01",
+        "R-ZS-02-02",
+        "R-ZS-02-03",
+        "R-ZS-02-04",
+        "R-ZS-02-05",
+        "R-ZS-02-06",
+    ]
