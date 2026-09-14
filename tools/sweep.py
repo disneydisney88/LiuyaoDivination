@@ -793,6 +793,11 @@ def _coverage_statistics(tier3: list[dict[str, str]]) -> dict[str, Any]:
     current_plus_month_break = current | month_break_hits
     current_plus_both = current | empty_hits | month_break_hits
     current_plus_resolved_state = current | resolved
+    locked_current = current & resolved
+    locked_current_plus_empty = (current | empty_hits) & resolved
+    locked_current_plus_month_break = (current | month_break_hits) & resolved
+    locked_current_plus_both = (current | empty_hits | month_break_hits) & resolved
+    locked_current_plus_state = (current | resolved) & resolved
     return {
         "total": total,
         "current_trigger": len(current),
@@ -808,6 +813,14 @@ def _coverage_statistics(tier3: list[dict[str, str]]) -> dict[str, Any]:
         "current_plus_month_break": len(current_plus_month_break),
         "current_plus_both": len(current_plus_both),
         "current_plus_resolved_state": len(current_plus_resolved_state),
+        "locked": len(resolved),
+        "locked_current_trigger": len(locked_current),
+        "locked_current_viewable": len(viewable & resolved),
+        "locked_current_plus_empty": len(locked_current_plus_empty),
+        "locked_current_plus_month_break": len(locked_current_plus_month_break),
+        "locked_current_plus_both": len(locked_current_plus_both),
+        "locked_current_plus_state": len(locked_current_plus_state),
+        "month_break_is_subset_of_current": month_break_hits <= current,
     }
 
 
@@ -958,6 +971,30 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
         "",
         f"加入三者並以 concrete 用神為前提之空手率：{coverage['total'] - coverage['current_plus_resolved_state']:,}/{coverage['total']:,}（{(coverage['total'] - coverage['current_plus_resolved_state']) / coverage['total']:.4%}）。",
         "題設若把『元神／忌神狀態表（恆觸發）』解作連尚未完成用神選擇的 pending 列也一律觸發，則理想化空手率為 0/13,824（0.0000%）；此不是目前 engine 可產生的狀態，故另列而不併入上面的保守可實現數字。",
+        "",
+        "### 以已鎖定用神爻為分母（補充）",
+        "",
+        f"已鎖定組合：{coverage['locked']:,}/{coverage['total']:,}；pending_selection：{coverage['pending']:,}。以下分母只計有 concrete `selected_line` 的組合，pending 不視為空手或缺陷。",
+        "",
+        f"- 觸發率：{coverage['locked_current_trigger']:,}/{coverage['locked']:,}（{coverage['locked_current_trigger'] / coverage['locked']:.4%}）。",
+        f"- 空手率：{coverage['locked'] - coverage['locked_current_trigger']:,}/{coverage['locked']:,}（{(coverage['locked'] - coverage['locked_current_trigger']) / coverage['locked']:.4%}）。",
+        "",
+        "| 格位 | 觸發組數 | 佔已鎖定分母 |",
+        "| --- | ---: | ---: |",
+    ])
+    for row_id in ("C1-R1", "C1-R2", "C1-R3", "C1-R4", "C1-R5", "C15-R1", "C15-R2", "C15-R3"):
+        hit_count = coverage["row_hits"].get(row_id, 0)
+        lines.append(f"| `{row_id}` | {hit_count:,} | {hit_count / coverage['locked']:.4%} |")
+    lines.extend([
+        "",
+        "| 假設新增表 | 原始命中 | 新增覆蓋 | 加入後空手組數 | 加入後空手率 | 改善（百分點） |",
+        "| --- | ---: | ---: | ---: | ---: | ---: |",
+        f"| 旬空表 | {coverage['empty_raw']:,} | {coverage['empty_new']:,} | {coverage['locked'] - coverage['locked_current_plus_empty']:,} | {(coverage['locked'] - coverage['locked_current_plus_empty']) / coverage['locked']:.4%} | {coverage['empty_new'] / coverage['locked']:.4%} |",
+        f"| 月破表 | {coverage['month_break_raw']:,} | {coverage['month_break_new']:,} | {coverage['locked'] - coverage['locked_current_plus_month_break']:,} | {(coverage['locked'] - coverage['locked_current_plus_month_break']) / coverage['locked']:.4%} | {coverage['month_break_new'] / coverage['locked']:.4%} |",
+        f"| 元神／忌神狀態表（concrete 列恆觸發） | {coverage['locked']:,} | {coverage['locked_current_plus_state'] - coverage['locked_current_trigger']:,} | {coverage['locked'] - coverage['locked_current_plus_state']:,} | {(coverage['locked'] - coverage['locked_current_plus_state']) / coverage['locked']:.4%} | {(coverage['locked_current_plus_state'] - coverage['locked_current_trigger']) / coverage['locked']:.4%} |",
+        f"| 三者合計 | — | — | {coverage['locked'] - coverage['locked_current_plus_state']:,} | {(coverage['locked'] - coverage['locked_current_plus_state']) / coverage['locked']:.4%} | {(coverage['locked_current_plus_state'] - coverage['locked_current_trigger']) / coverage['locked']:.4%} |",
+        "",
+        f"月破結構核對：`month_break_hits ⊆ current_trigger` = `{coverage['month_break_is_subset_of_current']}`；本次為 {coverage['month_break_raw']:,}/{coverage['month_break_raw']:,}，所以月破表新增覆蓋為 0，並非統計遺漏。月破由月建所沖之爻定義，而現有 C1／C15 的遇沖判定已涵蓋這批組合；此處記錄為現有模型的結構關係，不新增效果語義。",
         "",
         "R2（有氣）沒有已核機械定義，R5（既判為散之後）涉及未實作效果語義；兩者 0 命中是自動推導刻意不作判定，**不能據此判為冷門**。R3 有機械命中，可據實比較頻率，但本 sweep 不裁決其文獻權重。",
         "",
