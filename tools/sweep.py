@@ -726,6 +726,91 @@ def _decision_table_integration_audit() -> dict[str, Any]:
     return result
 
 
+def _coverage_statistics(tier3: list[dict[str, str]]) -> dict[str, Any]:
+    """Summarise current table coverage and bounded hypothetical coverage.
+
+    Tier 3 includes rows where a repeated or hidden relative is still awaiting
+    an explicit human choice.  Those rows have no selected yongshen line, so
+    hypothetical empty/month-break checks deliberately do not invent a hit.
+    """
+    c1_table = load_decision_table(ROOT / "data" / "decision_tables" / "C1_chong_san.json")
+    c15_table = load_decision_table(ROOT / "data" / "decision_tables" / "C15_dongjing_axis.json")
+    condition_to_row = {
+        **{row["condition"]: row["row_id"] for row in c1_table["rows"]},
+        **{row["condition"]: row["row_id"] for row in c15_table["rows"]},
+    }
+    addressed_by_row = {
+        row["row_id"]: sum(cell.get("status") == "addressed" for cell in row["cells"])
+        for row in c1_table["rows"] + c15_table["rows"]
+    }
+
+    row_hits: Counter[str] = Counter()
+    current: set[int] = set()
+    viewable: set[int] = set()
+    for index, row in enumerate(tier3):
+        conditions = [value for value in (row["c1_condition"], row["c15_condition"]) if value]
+        if not conditions:
+            continue
+        current.add(index)
+        for condition in conditions:
+            row_id = condition_to_row.get(condition, f"unknown:{condition}")
+            row_hits[row_id] += 1
+            if addressed_by_row.get(row_id, 0) > 0:
+                viewable.add(index)
+
+    sources = {str(source["hexagram_id"]): source for _, source, _ in _tier3_samples()}
+    moving_by_name = dict(MOVING_PATTERNS)
+    relation_cache: dict[tuple[str, str, str, str], tuple[dict[str, Any], dict[str, Any]]] = {}
+    empty_hits: set[int] = set()
+    month_break_hits: set[int] = set()
+    resolved: set[int] = set()
+    for index, row in enumerate(tier3):
+        if not row["selected_line"]:
+            continue
+        resolved.add(index)
+        cache_key = (row["hexagram_id"], row["moving_pattern"], row["month_branch"], row["day_ganzhi"])
+        if cache_key not in relation_cache:
+            source = sources[row["hexagram_id"]]
+            chart = build(source["lines"])
+            moving = moving_by_name[row["moving_pattern"]]
+            relations = build_relation_graph(
+                line_rows=chart["lines_detail"], hidden=chart["hidden"],
+                month_element=BRANCH_ELEMENT[row["month_branch"]],
+                month_branch=row["month_branch"],
+                day_stem=row["day_ganzhi"][0], day_branch=row["day_ganzhi"][1],
+                moving_positions=moving, changing_positions=moving,
+            )
+            relation_cache[cache_key] = chart, relations
+        chart, relations = relation_cache[cache_key]
+        selected = next(line for line in chart["lines_detail"] if line["position"] == int(row["selected_line"]))
+        if selected["branch"] in relations["empty_branches"]:
+            empty_hits.add(index)
+        if selected["branch"] == relations["month_break_branch"]:
+            month_break_hits.add(index)
+
+    total = len(tier3)
+    current_plus_empty = current | empty_hits
+    current_plus_month_break = current | month_break_hits
+    current_plus_both = current | empty_hits | month_break_hits
+    current_plus_resolved_state = current | resolved
+    return {
+        "total": total,
+        "current_trigger": len(current),
+        "current_viewable": len(viewable),
+        "row_hits": row_hits,
+        "resolved": len(resolved),
+        "pending": total - len(resolved),
+        "empty_raw": len(empty_hits),
+        "empty_new": len(empty_hits - current),
+        "month_break_raw": len(month_break_hits),
+        "month_break_new": len(month_break_hits - current),
+        "current_plus_empty": len(current_plus_empty),
+        "current_plus_month_break": len(current_plus_month_break),
+        "current_plus_both": len(current_plus_both),
+        "current_plus_resolved_state": len(current_plus_resolved_state),
+    }
+
+
 def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
     tier1 = _read_csv(SWEEP_DIR / "tier1_L1.csv")
     tier2 = _read_csv(SWEEP_DIR / "tier2_L2.csv")
@@ -756,6 +841,7 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
     c15_t2 = _count_hits(tier2, "c15_hits")
     c1_t3 = Counter(row["c1_condition"] for row in tier3 if row["c1_condition"])
     c15_t3 = Counter(row["c15_condition"] for row in tier3 if row["c15_condition"])
+    coverage = _coverage_statistics(tier3)
 
     pair_stats: dict[tuple[str, str], list[int]] = defaultdict(list)
     equal_pairs: Counter[tuple[str, str]] = Counter()
@@ -841,6 +927,37 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
         f"- C15 不觸發：{c15_none:,}（{c15_none / line_exposures:.4%}）。",
         "",
         f"Tier 3 目前可唯一定位者之 C1 命中：{_format_counter(c1_t3, c1_order)}；C15 命中：{_format_counter(c15_t3, c15_order)}。",
+        "",
+        "## B3a — 覆蓋率",
+        "",
+        "本節以 Tier 3 每一列作一組合，總數為 13,824。『觸發』定義為該列已有 `c1_condition` 或 `c15_condition`；『有嘢睇』只計決策表該格至少有一本書 `status=addressed`。`category_negated`、`different_axis`、`not_collected` 均不計作 `addressed`。",
+        "",
+        f"- 觸發率：{coverage['current_trigger']:,}/{coverage['total']:,}（{coverage['current_trigger'] / coverage['total']:.4%}）。",
+        f"- 有嘢睇率（在已觸發組合中）：{coverage['current_viewable']:,}/{coverage['current_trigger']:,}（{coverage['current_viewable'] / coverage['current_trigger']:.4%}）。",
+        f"- 空手率：{coverage['total'] - coverage['current_trigger']:,}/{coverage['total']:,}（{(coverage['total'] - coverage['current_trigger']) / coverage['total']:.4%}）。",
+        "",
+        "### 逐格觸發次數",
+        "",
+        "| 格位 | 觸發組數 |",
+        "| --- | ---: |",
+    ])
+    for row_id in ("C1-R1", "C1-R2", "C1-R3", "C1-R4", "C1-R5", "C15-R1", "C15-R2", "C15-R3"):
+        lines.append(f"| `{row_id}` | {coverage['row_hits'].get(row_id, 0):,} |")
+    lines.extend([
+        "",
+        "### 假設分析（不改 engine）",
+        "",
+        "以下只計算已有 concrete `selected_line` 之列；8,640 列因用神重複／伏藏等原因仍為 `pending_selection`，沒有已選用神爻，故不把它們虛構成旬空或月破命中。各數字以現有決策表觸發與假設新增表的聯集計算，避免重複計數。",
+        "",
+        "| 假設新增表 | 可觸發原始組數 | 新增覆蓋組數 | 加入後空手組數 | 加入後空手率 |",
+        "| --- | ---: | ---: | ---: | ---: |",
+        f"| 旬空表（選定用神爻落入旬空） | {coverage['empty_raw']:,} | {coverage['empty_new']:,} | {coverage['total'] - coverage['current_plus_empty']:,} | {(coverage['total'] - coverage['current_plus_empty']) / coverage['total']:.4%} |",
+        f"| 月破表（選定用神爻落入月破） | {coverage['month_break_raw']:,} | {coverage['month_break_new']:,} | {coverage['total'] - coverage['current_plus_month_break']:,} | {(coverage['total'] - coverage['current_plus_month_break']) / coverage['total']:.4%} |",
+        f"| 元神／忌神狀態表（對 concrete 用神列恆觸發） | {coverage['resolved']:,} | {coverage['current_plus_resolved_state'] - coverage['current_trigger']:,} | {coverage['total'] - coverage['current_plus_resolved_state']:,} | {(coverage['total'] - coverage['current_plus_resolved_state']) / coverage['total']:.4%} |",
+        f"| 三者合計（旬空＋月破＋concrete 元神／忌神） | — | — | {coverage['total'] - coverage['current_plus_resolved_state']:,} | {(coverage['total'] - coverage['current_plus_resolved_state']) / coverage['total']:.4%} |",
+        "",
+        f"加入三者並以 concrete 用神為前提之空手率：{coverage['total'] - coverage['current_plus_resolved_state']:,}/{coverage['total']:,}（{(coverage['total'] - coverage['current_plus_resolved_state']) / coverage['total']:.4%}）。",
+        "題設若把『元神／忌神狀態表（恆觸發）』解作連尚未完成用神選擇的 pending 列也一律觸發，則理想化空手率為 0/13,824（0.0000%）；此不是目前 engine 可產生的狀態，故另列而不併入上面的保守可實現數字。",
         "",
         "R2（有氣）沒有已核機械定義，R5（既判為散之後）涉及未實作效果語義；兩者 0 命中是自動推導刻意不作判定，**不能據此判為冷門**。R3 有機械命中，可據實比較頻率，但本 sweep 不裁決其文獻權重。",
         "",
