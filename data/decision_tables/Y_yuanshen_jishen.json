@@ -1,0 +1,746 @@
+{
+  "table_id": "Y",
+  "title": "元神忌神之狀態材料",
+  "axis_note": "保留各書的結果、傾向及主輔結構，不將其互譯。",
+  "books": [
+    {
+      "book_id": "yimao",
+      "name": "易冒"
+    },
+    {
+      "book_id": "zengshan",
+      "name": "增刪卜易"
+    },
+    {
+      "book_id": "buzhengzong",
+      "name": "卜筮正宗"
+    },
+    {
+      "book_id": "huozhulin",
+      "name": "火珠林"
+    },
+    {
+      "book_id": "huangjin_ce",
+      "name": "黃金策"
+    },
+    {
+      "book_id": "buzhequanshu",
+      "name": "卜筮全書"
+    },
+    {
+      "book_id": "jing_shi_yizhuan",
+      "name": "京氏易傳"
+    },
+    {
+      "book_id": "yiyin",
+      "name": "易隱"
+    }
+  ],
+  "rows": [
+    {
+      "row_id": "Y-R1",
+      "condition": "元神旺相",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書以『喜／忌』表述元神、忌神之傾向（喜動／旺／生，喜靜／衰／制），非『能／不能』結果切分；Y2 傾向表未建（P-049）。",
+          "axis_original": "有用神则必有忌神，忌则喜静、喜衰、喜制；有用神必有元神，元则喜动、喜旺、喜生。",
+          "axis_source": "類總章第四十一 682",
+          "cross_reference": "Y2（未建）"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "能生",
+          "source": "元神忌神衰旺章第十 907",
+          "original": "元神旺相，或临日月，或得日月动爻生扶者，一也。",
+          "rule_id": "R-ZS-01-01"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 已搜原神、旺相、生扶、有力；未定位『原神旺相』的直接條件。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書為主／輔二位結構，取用先按事類定身份，再按旺衰定效力；不把『輔』對齊為『元神』。",
+          "axis_original": "用官鬼以父母辅之，用妻财以子孙辅之；值旺相为有气，休囚为无气。",
+          "axis_source": "〈3·財官輔助〉 59",
+          "cross_reference": null
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 已搜原神、旺相、生扶、扶；未定位原神旺相條件。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed",
+          "verdict": "須要生扶兼旺相",
+          "source": "元辰訣 3355",
+          "original": "元辰出现志扬扬，用伏藏兮也不妨。须要生扶兼旺相，最嫌冲克及刑伤。",
+          "rule_id": "R-BQ-Y-02",
+          "term_note": "本書用「元辰」，清代三家用「元神」。二者概念對應係編者判定，非原文明言。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 2,
+        "books_not_addressed": 2,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 2,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：2 本有表述、2 本未表述、2 本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "Y-R2",
+      "condition": "元神休囚",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書以『喜／忌』表述元神、忌神之傾向（喜動／旺／生，喜靜／衰／制），非『能／不能』結果切分；Y2 傾向表未建（P-049）。",
+          "axis_original": "有用神则必有忌神，忌则喜静、喜衰、喜制；有用神必有元神，元则喜动、喜旺、喜生。",
+          "axis_source": "類總章第四十一 682",
+          "cross_reference": "Y2（未建）"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "不能生",
+          "source": "元神忌神衰旺章第十 926",
+          "original": "元神休囚不动，或动而休囚又被伤克者一也。",
+          "rule_id": "R-ZS-02-01"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "不能生用",
+          "source": "原忌仇神論第四 2627／3294",
+          "original": "如用神旺相，原神休囚不动……皆不能生用。",
+          "rule_id": "R-BZ-Y-01"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書為主／輔二位結構，取用先按事類定身份，再按旺衰定效力；不把『輔』對齊為『元神』。",
+          "axis_original": "用官鬼以父母辅之，用妻财以子孙辅之；值旺相为有气，休囚为无气。",
+          "axis_source": "〈3·財官輔助〉 59",
+          "cross_reference": null
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 已搜原神、休囚、衰；未定位直接條件。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 已搜元辰、休囚、衰、無力；未定位元辰休囚的直接條件。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 2,
+        "books_not_addressed": 2,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 2,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：2 本有表述、2 本未表述、2 本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "Y-R3",
+      "condition": "元神旬空",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書以『喜／忌』表述元神、忌神之傾向（喜動／旺／生，喜靜／衰／制），非『能／不能』結果切分；Y2 傾向表未建（P-049）。",
+          "axis_original": "有用神则必有忌神，忌则喜静、喜衰、喜制；有用神必有元神，元则喜动、喜旺、喜生。",
+          "axis_source": "類總章第四十一 682",
+          "cross_reference": "Y2（未建）"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "不能生",
+          "source": "元神忌神衰旺章第十 927",
+          "original": "元神休囚又逢旬空、月破二也。",
+          "rule_id": "R-ZS-02-02"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 已搜原神、旬空、空；未定位原神旬空的直接條件。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書為主／輔二位結構，取用先按事類定身份，再按旺衰定效力；不把『輔』對齊為『元神』。",
+          "axis_original": "用官鬼以父母辅之，用妻财以子孙辅之；值旺相为有气，休囚为无气。",
+          "axis_source": "〈3·財官輔助〉 59",
+          "cross_reference": null
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 已搜原神、空、旬空；未定位直接條件。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 有『用與元辰不可空』，但未限定旬空；不按近義補填。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 1,
+        "books_not_addressed": 3,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 2,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：1 本有表述、3 本未表述、2 本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "Y-R4",
+      "condition": "元神月破",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書以『喜／忌』表述元神、忌神之傾向（喜動／旺／生，喜靜／衰／制），非『能／不能』結果切分；Y2 傾向表未建（P-049）。",
+          "axis_original": "有用神则必有忌神，忌则喜静、喜衰、喜制；有用神必有元神，元则喜动、喜旺、喜生。",
+          "axis_source": "類總章第四十一 682",
+          "cross_reference": "Y2（未建）"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "不能生",
+          "source": "元神忌神衰旺章第十 927",
+          "original": "元神休囚又逢旬空、月破二也。",
+          "rule_id": "R-ZS-02-02"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "不能生用",
+          "source": "原忌仇神論第四 2627／3294",
+          "original": "如用神旬空、月破、衰弱……",
+          "rule_id": "R-BZ-Y-03",
+          "cell_note": "TASK_24 採集報告列為本格材料，保留原句主詞『用神』。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "concept_absent",
+          "absence_note": "TASK_27 全檔『月破』『日破』均 0 見；『破』9 見皆非月破義，無明文排除語。"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 已搜原神、月破、破；未定位直接條件。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 已搜元辰、月破、破；未定位元辰月破的直接條件。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 2,
+        "books_not_addressed": 2,
+        "books_category_negated": 0,
+        "books_concept_absent": 1,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：2 本有表述、1 本無此概念、2 本未表述、1 本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "Y-R5",
+      "condition": "元神動而化退神",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書以『喜／忌』表述元神、忌神之傾向（喜動／旺／生，喜靜／衰／制），非『能／不能』結果切分；Y2 傾向表未建（P-049）。",
+          "axis_original": "有用神则必有忌神，忌则喜静、喜衰、喜制；有用神必有元神，元则喜动、喜旺、喜生。",
+          "axis_source": "類總章第四十一 682",
+          "cross_reference": "Y2（未建）"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "不能生",
+          "source": "元神忌神衰旺章第十 928",
+          "original": "元神休囚动化退神三也。",
+          "rule_id": "R-ZS-02-03"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "不能生用",
+          "source": "原忌仇神論第四 2627／3294",
+          "original": "或动而变墓变绝、变克、变破、变退……皆不能生用。",
+          "rule_id": "R-BZ-Y-02"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "concept_absent",
+          "absence_note": "TASK_27 全檔『退神』『進神』均 0 見；『進』『退』字不構成進神／退神術語，無明文排除語。"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 已搜原神、退神、動、化；未定位直接條件。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 已搜元辰、退神、動、化；未定位元辰動化退神條件。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 2,
+        "books_not_addressed": 2,
+        "books_category_negated": 0,
+        "books_concept_absent": 1,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：2 本有表述、1 本無此概念、2 本未表述、1 本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "Y-R6",
+      "condition": "元神入墓",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書以『喜／忌』表述元神、忌神之傾向（喜動／旺／生，喜靜／衰／制），非『能／不能』結果切分；Y2 傾向表未建（P-049）。",
+          "axis_original": "有用神则必有忌神，忌则喜静、喜衰、喜制；有用神必有元神，元则喜动、喜旺、喜生。",
+          "axis_source": "類總章第四十一 682",
+          "cross_reference": "Y2（未建）"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "不能生",
+          "source": "元神忌神衰旺章第十 930",
+          "original": "元神入三墓五也。",
+          "rule_id": "R-ZS-02-05"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "不能生用",
+          "source": "原忌仇神論第四 2627／3294",
+          "original": "或动而变墓变绝、变克、变破、变退……皆不能生用。",
+          "rule_id": "R-BZ-Y-02"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書為主／輔二位結構，取用先按事類定身份，再按旺衰定效力；不把『輔』對齊為『元神』。",
+          "axis_original": "用官鬼以父母辅之，用妻财以子孙辅之；值旺相为有气，休囚为无气。",
+          "axis_source": "〈3·財官輔助〉 59",
+          "cross_reference": null
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 已搜原神、入墓、墓；未定位直接條件。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 已搜元辰、入墓、墓；未定位元辰入墓的直接條件。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 2,
+        "books_not_addressed": 2,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 2,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：2 本有表述、2 本未表述、2 本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "Y-R7",
+      "condition": "忌神旺相",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書以『喜／忌』表述元神、忌神之傾向（喜動／旺／生，喜靜／衰／制），非『能／不能』結果切分；Y2 傾向表未建（P-049）。",
+          "axis_original": "有用神则必有忌神，忌则喜静、喜衰、喜制；有用神必有元神，元则喜动、喜旺、喜生。",
+          "axis_source": "類總章第四十一 682",
+          "cross_reference": "Y2（未建）"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "能克害",
+          "source": "元神忌神衰旺章第十 934",
+          "original": "忌神旺相，或临日月，或遇日月动爻生扶者一也。",
+          "rule_id": "R-ZS-03-01"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 保留日月生扶忌神材料，但未直列『旺相』，不作對齊。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "explicit_exclusion",
+          "cell_note": "① 排除者是兄弟，非忌神；不作等同。② 限財官二用語境。③ 兄弟在他篇仍論及（280／399／445），排除的是位次不是爻。④ 仇神為 concept_absent。",
+          "exclusion_original": "兄弟是破财之人，不为主、不为辅，何必看也？",
+          "exclusion_source": "〈6·公私用事〉 125–129（拒絕語 126）"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 痘疹段有『鬼旺忌興』，未按本格的忌神旺相直接立說。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 保留忌神生扶材料，但未直列『忌神旺相』，不作對齊。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 1,
+        "books_not_addressed": 3,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 1,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：1 本有表述、1 本明文排除角色、3 本未表述、1 本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "Y-R8",
+      "condition": "忌神休囚",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書以『喜／忌』表述元神、忌神之傾向（喜動／旺／生，喜靜／衰／制），非『能／不能』結果切分；Y2 傾向表未建（P-049）。",
+          "axis_original": "有用神则必有忌神，忌则喜静、喜衰、喜制；有用神必有元神，元则喜动、喜旺、喜生。",
+          "axis_source": "類總章第四十一 682",
+          "cross_reference": "Y2（未建）"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "不能克",
+          "source": "元神忌神衰旺章第十 944",
+          "original": "忌神休囚不动，或动而休囚又被日月动爻克者一也。",
+          "rule_id": "R-ZS-04-01"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 已搜忌神、休囚、衰；未定位忌神休囚的直接條件。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "explicit_exclusion",
+          "cell_note": "① 排除者是兄弟，非忌神；不作等同。② 限財官二用語境。③ 兄弟在他篇仍論及（280／399／445），排除的是位次不是爻。④ 仇神為 concept_absent。",
+          "exclusion_original": "兄弟是破财之人，不为主、不为辅，何必看也？",
+          "exclusion_source": "〈6·公私用事〉 125–129（拒絕語 126）"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 已搜忌神、休囚、衰；未定位直接條件。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 有『忌神宜靜不宜興』，未直列休囚；不作對齊。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 1,
+        "books_not_addressed": 3,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 1,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：1 本有表述、1 本明文排除角色、3 本未表述、1 本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "Y-R9",
+      "condition": "忌神旬空",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書以『喜／忌』表述元神、忌神之傾向（喜動／旺／生，喜靜／衰／制），非『能／不能』結果切分；Y2 傾向表未建（P-049）。",
+          "axis_original": "有用神则必有忌神，忌则喜静、喜衰、喜制；有用神必有元神，元则喜动、喜旺、喜生。",
+          "axis_source": "類總章第四十一 682",
+          "cross_reference": "Y2（未建）"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "不能克",
+          "source": "元神忌神衰旺章第十 945",
+          "original": "忌神静临空破二也。",
+          "rule_id": "R-ZS-04-02"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 已搜忌神、旬空、空；未定位直接條件。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "explicit_exclusion",
+          "cell_note": "① 排除者是兄弟，非忌神；不作等同。② 限財官二用語境。③ 兄弟在他篇仍論及（280／399／445），排除的是位次不是爻。④ 仇神為 concept_absent。",
+          "exclusion_original": "兄弟是破财之人，不为主、不为辅，何必看也？",
+          "exclusion_source": "〈6·公私用事〉 125–129（拒絕語 126）"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 已搜忌神、旬空、空；未定位直接條件。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed",
+          "verdict": "喜逢空",
+          "source": "用爻空亡訣 3398",
+          "original": "忌神最喜逢空吉，用与元辰不可空。",
+          "rule_id": "R-BQ-Y-03",
+          "term_note": "本書用「元辰」，清代三家用「元神」。二者概念對應係編者判定，非原文明言。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 2,
+        "books_not_addressed": 2,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 1,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：2 本有表述、1 本明文排除角色、2 本未表述、1 本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "Y-R10",
+      "condition": "忌神動而剋用神",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書以『喜／忌』表述元神、忌神之傾向（喜動／旺／生，喜靜／衰／制），非『能／不能』結果切分；Y2 傾向表未建（P-049）。",
+          "axis_original": "有用神则必有忌神，忌则喜静、喜衰、喜制；有用神必有元神，元则喜动、喜旺、喜生。",
+          "axis_source": "類總章第四十一 682",
+          "cross_reference": "Y2（未建）"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書以『能克害／不能克』成對列舉，條件為忌神之旺衰、空破、墓、化、同動，未以動靜切分。941『忌神與仇神同動』、950『忌神與元神同動』之『同動』為兩爻關係，非單爻動作",
+          "axis_original": "忌神旺相，或临日月，或遇日月动爻生扶者一也。",
+          "axis_source": "元神忌神衰旺章第十 933–950",
+          "cross_reference": null
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "受克",
+          "source": "原忌仇神論第四 2629",
+          "original": "如忌神动来克用，而用爻出现不空则受克也。",
+          "rule_id": "R-BZ-Y-04"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "explicit_exclusion",
+          "cell_note": "① 排除者是兄弟，非忌神；不作等同。② 限財官二用語境。③ 兄弟在他篇仍論及（280／399／445），排除的是位次不是爻。④ 仇神為 concept_absent。",
+          "exclusion_original": "兄弟是破财之人，不为主、不为辅，何必看也？",
+          "exclusion_source": "〈6·公私用事〉 125–129（拒絕語 126）"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_24 痘疹段僅稱『次究忌神動靜』，未直列動而剋用神。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed",
+          "verdict": "用受刑",
+          "source": "用忌神訣 3350",
+          "original": "看卦先须看忌神，忌神宜静不宜兴；忌神急要逢冲克，若遇生扶用受刑。",
+          "rule_id": "R-BQ-Y-01",
+          "term_note": "本書用「元辰」，清代三家用「元神」。二者概念對應係編者判定，非原文明言。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 2,
+        "books_not_addressed": 1,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 1,
+        "books_different_axis": 2,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：2 本有表述、1 本明文排除角色、1 本未表述、2 本用另一軸；另 2 本未採"
+    }
+  ]
+}

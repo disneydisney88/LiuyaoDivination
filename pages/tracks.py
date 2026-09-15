@@ -18,6 +18,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DECISION_TABLES = {
     "C1：沖與散之判定": ROOT / "data" / "decision_tables" / "C1_chong_san.json",
     "C15：沖之判定（動靜軸）": ROOT / "data" / "decision_tables" / "C15_dongjing_axis.json",
+    "K：空亡之狀態材料": ROOT / "data" / "decision_tables" / "K_kongwang_effect.json",
+    "Y：元神／忌神狀態材料": ROOT / "data" / "decision_tables" / "Y_yuanshen_jishen.json",
 }
 
 
@@ -33,18 +35,23 @@ def show_track(track_narrative, track, *, original_collapsed=True):
         st.caption("軸向註記：{}".format(track_narrative["axis_note"]))
     if track_narrative.get("cross_reference"):
         st.caption("交叉表：{}".format(track_narrative["cross_reference"]))
+    if track_narrative.get("term_note"):
+        st.caption("術語註記：{}".format(track_narrative["term_note"]))
     st.caption("框架：{}".format(track.get("framework", "未提供")))
     if track.get("framework_position") is not None:
         st.caption("框架位置：{}".format(track["framework_position"]))
     if track.get("evidence_strength"):
         st.caption("證據強度：{}".format(track["evidence_strength"]))
     st.caption("出處：{}".format(track_narrative.get("source_locator") or track.get("source", "未表述")))
-    original = track_narrative.get("original") or "現有 doctrinal 資料未提供逐字原文。"
-    if original_collapsed:
-        with st.expander("原文（預設摺疊）"):
-            st.write(original)
+    if track.get("concept_absent"):
+        st.caption("概念缺席註記：{}".format(track.get("absence_note", "未提供")))
     else:
-        st.write(original)
+        original = track_narrative.get("original") or "現有 doctrinal 資料未提供逐字原文。"
+        if original_collapsed:
+            with st.expander("原文（預設摺疊）"):
+                st.write(original)
+        else:
+            st.write(original)
     related_material = track_narrative.get("related_material")
     if related_material:
         with st.expander("相關材料（保留原文）"):
@@ -115,8 +122,11 @@ else:
             hidden_item["position"], hidden_item["branch"], hidden_item["element"],
             hidden_item.get("six_relative", ""),
         ))
-    st.caption("此爻不觸發任何條件。這是目前決策表之覆蓋缺口，並非此爻無事可說。")
-    st.caption("目前只有沖之決策表（C1、C15）；空亡／月破／墓絕／進退神／應期尚未有對應決策表。")
+    st.caption("此爻不觸發任何可機械定位的條件。這是目前決策表之覆蓋缺口，並非此爻無事可說。")
+    if decision_table["table_id"] == "Y":
+        st.caption("Y 表記錄元神／忌神狀態材料；現有引擎不以它輸出效果語義，請以手動覆寫查看指定格位。")
+    else:
+        st.caption("可查表包括 C1、C15、K；Y 為元神／忌神狀態材料，不作效果判定。")
 
 if automatic_condition in conditions and not manual_override:
     condition = automatic_condition
@@ -152,6 +162,8 @@ different_axis = [book for book, track in tracks.items() if track["status"] == "
 addressed = [book for book, track in tracks.items() if track["status"] == "addressed"]
 not_addressed = [book for book, track in tracks.items() if track["status"] == "not_addressed"]
 not_collected = [book for book, track in tracks.items() if track["status"] == "not_collected"]
+concept_absent = [book for book, track in tracks.items() if track["status"] == "concept_absent"]
+explicit_exclusion = [book for book, track in tracks.items() if track["status"] == "explicit_exclusion"]
 
 if result.get("row_title") and addressed:
     st.subheader(result["row_title"])
@@ -178,6 +190,20 @@ if different_axis:
 if negated:
     st.subheader("否定範疇")
     for book in negated:
+        with st.container(border=True):
+            st.markdown("**{}**".format(book))
+            show_track(narrative_by_book[book], tracks[book])
+
+if concept_absent:
+    st.subheader("概念缺席")
+    for book in concept_absent:
+        with st.container(border=True):
+            st.markdown("**{}**".format(book))
+            show_track(narrative_by_book[book], tracks[book])
+
+if explicit_exclusion:
+    st.subheader("明文排除角色")
+    for book in explicit_exclusion:
         with st.container(border=True):
             st.markdown("**{}**".format(book))
             show_track(narrative_by_book[book], tracks[book])

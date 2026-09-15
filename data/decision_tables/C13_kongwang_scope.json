@@ -85,7 +85,8 @@
         },
         {
           "book_id": "huozhulin",
-          "status": "not_collected"
+          "status": "concept_absent",
+          "absence_note": "TASK_27 全檔檢索『六甲空亡』『天地空亡』『四大空亡』『截路空亡』『五空』均 0 見；8 處『空亡』均未建立分系統概念，且無明文排除語。"
         },
         {
           "book_id": "huangjin_ce",
@@ -93,7 +94,11 @@
         },
         {
           "book_id": "buzhequanshu",
-          "status": "addressed"
+          "status": "addressed",
+          "verdict": "立目",
+          "source": "卷十四 10430",
+          "original": "用爻恶空，忌爻喜空。",
+          "rule_id": "R-BQ-VOID-01-01"
         },
         {
           "book_id": "jing_shi_yizhuan",
@@ -106,14 +111,16 @@
       ],
       "coverage": {
         "books_total": 8,
-        "books_collected": 4,
+        "books_collected": 5,
         "books_addressed": 1,
         "books_not_addressed": 3,
         "books_category_negated": 0,
+        "books_concept_absent": 1,
+        "books_explicit_exclusion": 0,
         "books_different_axis": 0,
-        "books_not_collected": 4
+        "books_not_collected": 3
       },
-      "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採"
+      "coverage_label": "已採 5 本：1 本有表述、1 本無此概念、3 本未表述；另 3 本未採"
     },
     {
       "row_id": "C13-tiandi_kongwang",
@@ -137,7 +144,8 @@
         },
         {
           "book_id": "huozhulin",
-          "status": "not_collected"
+          "status": "concept_absent",
+          "absence_note": "TASK_27 全檔檢索『六甲空亡』『天地空亡』『四大空亡』『截路空亡』『五空』均 0 見；8 處『空亡』均未建立分系統概念，且無明文排除語。"
         },
         {
           "book_id": "huangjin_ce",
@@ -145,7 +153,11 @@
         },
         {
           "book_id": "buzhequanshu",
-          "status": "addressed"
+          "status": "addressed",
+          "verdict": "立目",
+          "source": "卷十一·墳墓 8417",
+          "original": "甲午乙丑，甲申乙亥，甲戌乙酉，壬子癸丑，壬寅癸未，壬辰癸巳，以上乃天地空亡。子午旬无水，寅甲不见金。",
+          "rule_id": "R-BQ-VOID-02-01"
         },
         {
           "book_id": "jing_shi_yizhuan",
@@ -158,14 +170,16 @@
       ],
       "coverage": {
         "books_total": 8,
-        "books_collected": 4,
+        "books_collected": 5,
         "books_addressed": 1,
         "books_not_addressed": 3,
         "books_category_negated": 0,
+        "books_concept_absent": 1,
+        "books_explicit_exclusion": 0,
         "books_different_axis": 0,
-        "books_not_collected": 4
+        "books_not_collected": 3
       },
-      "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採"
+      "coverage_label": "已採 5 本：1 本有表述、1 本無此概念、3 本未表述；另 3 本未採"
     },
     {
       "row_id": "C13-sidakong_kongwang",
@@ -189,7 +203,8 @@
         },
         {
           "book_id": "huozhulin",
-          "status": "not_collected"
+          "status": "concept_absent",
+          "absence_note": "TASK_27 全檔檢索『六甲空亡』『天地空亡』『四大空亡』『截路空亡』『五空』均 0 見；8 處『空亡』均未建立分系統概念，且無明文排除語。"
         },
         {
           "book_id": "huangjin_ce",
@@ -197,7 +212,11 @@
         },
         {
           "book_id": "buzhequanshu",
-          "status": "addressed"
+          "status": "addressed",
+          "verdict": "立目",
+          "source": "卷十一·墳墓 8416",
+          "original": "犯天地四大空亡之煞，骸骨不明：穴遇三传刑刃之空，尸首有损。",
+          "rule_id": "R-BQ-VOID-03-01"
         },
         {
           "book_id": "jing_shi_yizhuan",
@@ -210,14 +229,16 @@
       ],
       "coverage": {
         "books_total": 8,
-        "books_collected": 4,
+        "books_collected": 5,
         "books_addressed": 1,
         "books_not_addressed": 3,
         "books_category_negated": 0,
+        "books_concept_absent": 1,
+        "books_explicit_exclusion": 0,
         "books_different_axis": 0,
-        "books_not_collected": 4
+        "books_not_collected": 3
       },
-      "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採"
+      "coverage_label": "已採 5 本：1 本有表述、1 本無此概念、3 本未表述；另 3 本未採"
     },
     {
       "row_id": "C13-jielu_kongwang",
@@ -241,7 +262,8 @@
         },
         {
           "book_id": "huozhulin",
-          "status": "not_collected"
+          "status": "concept_absent",
+          "absence_note": "TASK_27 全檔檢索『六甲空亡』『天地空亡』『四大空亡』『截路空亡』『五空』均 0 見；8 處『空亡』均未建立分系統概念，且無明文排除語。"
         },
         {
           "book_id": "huangjin_ce",
@@ -249,7 +271,11 @@
         },
         {
           "book_id": "buzhequanshu",
-          "status": "addressed"
+          "status": "addressed",
+          "verdict": "立目",
+          "source": "卷十四 10434",
+          "original": "出行大忌。",
+          "rule_id": "R-BQ-VOID-04-01"
         },
         {
           "book_id": "jing_shi_yizhuan",
@@ -262,14 +288,16 @@
       ],
       "coverage": {
         "books_total": 8,
-        "books_collected": 4,
+        "books_collected": 5,
         "books_addressed": 1,
         "books_not_addressed": 3,
         "books_category_negated": 0,
+        "books_concept_absent": 1,
+        "books_explicit_exclusion": 0,
         "books_different_axis": 0,
-        "books_not_collected": 4
+        "books_not_collected": 3
       },
-      "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採"
+      "coverage_label": "已採 5 本：1 本有表述、1 本無此概念、3 本未表述；另 3 本未採"
     },
     {
       "row_id": "C13-wu_kong",
@@ -293,7 +321,8 @@
         },
         {
           "book_id": "huozhulin",
-          "status": "not_collected"
+          "status": "concept_absent",
+          "absence_note": "TASK_27 全檔檢索『六甲空亡』『天地空亡』『四大空亡』『截路空亡』『五空』均 0 見；8 處『空亡』均未建立分系統概念，且無明文排除語。"
         },
         {
           "book_id": "huangjin_ce",
@@ -301,7 +330,11 @@
         },
         {
           "book_id": "buzhequanshu",
-          "status": "addressed"
+          "status": "addressed",
+          "verdict": "立目",
+          "source": "卷十一·墳墓 8423",
+          "original": "乾：壬申，戌亥；兑：丁酉；艮：丙丑，寅；离：巳午；坎：戊子；坤：乙未，申；震：寅卯；巽：辰巳。",
+          "rule_id": "R-BQ-VOID-05-01"
         },
         {
           "book_id": "jing_shi_yizhuan",
@@ -314,14 +347,16 @@
       ],
       "coverage": {
         "books_total": 8,
-        "books_collected": 4,
+        "books_collected": 5,
         "books_addressed": 1,
         "books_not_addressed": 3,
         "books_category_negated": 0,
+        "books_concept_absent": 1,
+        "books_explicit_exclusion": 0,
         "books_different_axis": 0,
-        "books_not_collected": 4
+        "books_not_collected": 3
       },
-      "coverage_label": "已採 4 本：1 本有表述、3 本未表述；另 4 本未採"
+      "coverage_label": "已採 5 本：1 本有表述、1 本無此概念、3 本未表述；另 3 本未採"
     }
   ],
   "own_systems": {

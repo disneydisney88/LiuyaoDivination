@@ -72,7 +72,12 @@
         },
         {
           "book_id": "huozhulin",
-          "status": "not_collected"
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "散由獨發與世動生，非由沖生。",
+          "axis_original": "子孙独发，为退为散；",
+          "axis_source": "火珠林 262；752",
+          "cross_reference": "C1／C15"
         },
         {
           "book_id": "huangjin_ce",
@@ -109,14 +114,16 @@
       "row_title": "三家判不散，一家判損",
       "coverage": {
         "books_total": 8,
-        "books_collected": 5,
+        "books_collected": 6,
         "books_addressed": 4,
         "books_not_addressed": 0,
         "books_category_negated": 0,
-        "books_different_axis": 1,
-        "books_not_collected": 3
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 2,
+        "books_not_collected": 2
       },
-      "coverage_label": "已採 5 本：4 本有表述、1 本用另一軸；另 3 本未採\n\n註：《黃金策》與《卜筮全書》文本重疊 89.4%（被收錄者與收錄者），二者之一致不構成兩個獨立證據。"
+      "coverage_label": "已採 6 本：4 本有表述、2 本用另一軸；另 2 本未採\n\n註：《黃金策》與《卜筮全書》文本重疊 89.4%（被收錄者與收錄者），二者之一致不構成兩個獨立證據。"
     },
     {
       "row_id": "C1-R2",
@@ -125,22 +132,14 @@
         {
           "book_id": "yimao",
           "status": "not_addressed",
-          "verdict": null
-        },
-        {
-          "book_id": "zengshan",
-          "status": "addressed",
-          "verdict": "不散",
-          "source": "動散章 1673"
+          "verdict": null,
+          "search_note": "既有採集材料未定位本格之直接條件；此狀態保留原有『已讀但未表述』判定。"
         },
         {
           "book_id": "buzhengzong",
           "status": "not_addressed",
-          "verdict": null
-        },
-        {
-          "book_id": "huozhulin",
-          "status": "not_collected"
+          "verdict": null,
+          "search_note": "既有採集材料未定位本格之直接條件；此狀態保留原有『已讀但未表述』判定。"
         },
         {
           "book_id": "huangjin_ce",
@@ -150,6 +149,15 @@
           "axis_original": "別衰旺以明剋合，辨動靜以定刑沖",
           "axis_source": "千金賦 40",
           "cross_reference": "C15"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "散由獨發與世動生，非由沖生。",
+          "axis_original": "子孙独发，为退为散；",
+          "axis_source": "火珠林 262；752",
+          "cross_reference": "C1／C15"
         },
         {
           "book_id": "buzhequanshu",
@@ -164,18 +172,28 @@
         {
           "book_id": "yiyin",
           "status": "not_collected"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "不散（休囚者間有沖散）",
+          "source": "《增刪卜易》〈動散章第二十三〉1673–1674",
+          "original": "予屢試之，旺相者，沖之不散；有氣者，沖之不散；休囚者，間有沖散，亦千百中之一二也。",
+          "cell_note": "原文同時記錄旺相、有氣與休囚三種情況；本格保留其完整條件。"
         }
       ],
       "coverage": {
         "books_total": 8,
-        "books_collected": 5,
+        "books_collected": 6,
         "books_addressed": 1,
         "books_not_addressed": 3,
         "books_category_negated": 0,
-        "books_different_axis": 1,
-        "books_not_collected": 3
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 2,
+        "books_not_collected": 2
       },
-      "coverage_label": "已採 5 本：1 本有表述、3 本未表述、1 本用另一軸；另 3 本未採"
+      "coverage_label": "已採 6 本：1 本有表述、3 本未表述、2 本用另一軸；另 2 本未採"
     },
     {
       "row_id": "C1-R3",
@@ -192,16 +210,23 @@
         {
           "book_id": "zengshan",
           "status": "not_addressed",
-          "verdict": null
+          "verdict": null,
+          "search_note": "既有採集材料未定位本格之直接條件；此狀態保留原有『已讀但未表述』判定。"
         },
         {
           "book_id": "buzhengzong",
           "status": "not_addressed",
-          "verdict": null
+          "verdict": null,
+          "search_note": "既有採集材料未定位本格之直接條件；此狀態保留原有『已讀但未表述』判定。"
         },
         {
           "book_id": "huozhulin",
-          "status": "not_collected"
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "散由獨發與世動生，非由沖生。",
+          "axis_original": "子孙独发，为退为散；",
+          "axis_source": "火珠林 262；752",
+          "cross_reference": "C1／C15"
         },
         {
           "book_id": "huangjin_ce",
@@ -251,14 +276,16 @@
       ],
       "coverage": {
         "books_total": 8,
-        "books_collected": 5,
+        "books_collected": 6,
         "books_addressed": 1,
         "books_not_addressed": 3,
         "books_category_negated": 0,
-        "books_different_axis": 1,
-        "books_not_collected": 3
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 2,
+        "books_not_collected": 2
       },
-      "coverage_label": "已採 5 本：1 本有表述、3 本未表述、1 本用另一軸；另 3 本未採"
+      "coverage_label": "已採 6 本：1 本有表述、3 本未表述、2 本用另一軸；另 2 本未採"
     },
     {
       "row_id": "C1-R4",
@@ -292,7 +319,12 @@
         },
         {
           "book_id": "huozhulin",
-          "status": "not_collected"
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "散由獨發與世動生，非由沖生。",
+          "axis_original": "子孙独发，为退为散；",
+          "axis_source": "火珠林 262；752",
+          "cross_reference": "C1／C15"
         },
         {
           "book_id": "huangjin_ce",
@@ -348,14 +380,16 @@
       ],
       "coverage": {
         "books_total": 8,
-        "books_collected": 5,
+        "books_collected": 6,
         "books_addressed": 2,
         "books_not_addressed": 1,
         "books_category_negated": 1,
-        "books_different_axis": 1,
-        "books_not_collected": 3
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 2,
+        "books_not_collected": 2
       },
-      "coverage_label": "已採 5 本：2 本有表述、1 本否定範疇、1 本未表述、1 本用另一軸；另 3 本未採"
+      "coverage_label": "已採 6 本：2 本有表述、1 本否定範疇、1 本未表述、2 本用另一軸；另 2 本未採"
     },
     {
       "row_id": "C1-R5",
@@ -373,16 +407,23 @@
         {
           "book_id": "zengshan",
           "status": "not_addressed",
-          "verdict": null
+          "verdict": null,
+          "search_note": "既有採集材料未定位本格之直接條件；此狀態保留原有『已讀但未表述』判定。"
         },
         {
           "book_id": "buzhengzong",
           "status": "not_addressed",
-          "verdict": null
+          "verdict": null,
+          "search_note": "既有採集材料未定位本格之直接條件；此狀態保留原有『已讀但未表述』判定。"
         },
         {
           "book_id": "huozhulin",
-          "status": "not_collected"
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "散由獨發與世動生，非由沖生。",
+          "axis_original": "子孙独发，为退为散；",
+          "axis_source": "火珠林 262；752",
+          "cross_reference": "C1／C15"
         },
         {
           "book_id": "huangjin_ce",
@@ -410,14 +451,16 @@
       ],
       "coverage": {
         "books_total": 8,
-        "books_collected": 5,
+        "books_collected": 6,
         "books_addressed": 1,
         "books_not_addressed": 3,
         "books_category_negated": 0,
-        "books_different_axis": 1,
-        "books_not_collected": 3
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 2,
+        "books_not_collected": 2
       },
-      "coverage_label": "已採 5 本：1 本有表述、3 本未表述、1 本用另一軸；另 3 本未採"
+      "coverage_label": "已採 6 本：1 本有表述、3 本未表述、2 本用另一軸；另 2 本未採"
     }
   ]
 }

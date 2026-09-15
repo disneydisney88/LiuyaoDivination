@@ -68,6 +68,8 @@ def _render_analysis(analysis: dict) -> None:
     st.subheader("格位判定")
     st.write("C1（衰旺軸）：{}".format(decision.get("C1") or "不觸發任何條件"))
     st.write("C15（動靜軸）：{}".format(decision.get("C15") or "不觸發任何條件"))
+    st.write("K（空亡狀態）：{}".format(decision.get("K") or "不觸發任何條件"))
+    st.write("Y（元神／忌神狀態）：{}".format(decision.get("Y") or "待選定用神爻"))
     if decision.get("coverage_gap_note"):
         st.caption("覆蓋缺口：" + decision["coverage_gap_note"])
 

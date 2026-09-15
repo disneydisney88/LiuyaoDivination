@@ -26,17 +26,25 @@ def nested_keys(value):
             yield from nested_keys(child)
 
 
-def test_five_status_values_are_mutually_exclusive_and_complete():
-    c1 = load_json(C1_PATH)
-    statuses = {cell["status"] for row in c1["rows"] for cell in row["cells"]}
+def test_status_values_are_mutually_exclusive_and_globally_complete():
+    statuses = {
+        cell["status"]
+        for path in (
+            C1_PATH, C15_PATH,
+            ROOT / "data" / "decision_tables" / "K_kongwang_effect.json",
+            ROOT / "data" / "decision_tables" / "Y_yuanshen_jishen.json",
+        )
+        for row in load_json(path)["rows"]
+        for cell in row["cells"]
+    }
     assert statuses == set(VALID_STATUSES)
-    assert all(isinstance(cell["status"], str) for row in c1["rows"] for cell in row["cells"])
+    assert all(isinstance(status, str) for status in statuses)
 
 
 def test_different_axis_cells_require_axis_evidence_and_null_verdict():
     c1 = load_json(C1_PATH)
     cells = [cell for row in c1["rows"] for cell in row["cells"] if cell["status"] == "different_axis"]
-    assert len(cells) == 5
+    assert len(cells) == 10
     for cell in cells:
         assert cell["verdict"] is None
         assert cell["axis_note"]
@@ -52,6 +60,8 @@ def test_c1_coverage_counts_include_different_axis():
             coverage["books_addressed"]
             + coverage["books_not_addressed"]
             + coverage["books_category_negated"]
+            + coverage["books_concept_absent"]
+            + coverage["books_explicit_exclusion"]
             + coverage["books_different_axis"]
             + coverage["books_not_collected"]
             == coverage["books_total"]
@@ -62,7 +72,7 @@ def test_different_axis_has_its_own_coverage_count():
     c1 = load_json(C1_PATH)
     for row in c1["rows"]:
         coverage = row["coverage"]
-        assert coverage["books_different_axis"] == 1
+        assert coverage["books_different_axis"] == 2
         assert "books_addressed_or_different_axis" not in coverage
         assert coverage["books_addressed"] == sum(
             cell["status"] == "addressed" for cell in row["cells"]

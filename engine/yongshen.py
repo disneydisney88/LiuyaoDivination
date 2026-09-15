@@ -254,13 +254,22 @@ def analyze_yongshen(state: dict[str, Any], choice: str, candidate_id: str | Non
         value["is_yongshen"] = bool(selected.get("hidden") and selected["candidate_id"] == f"hidden:{index}")
         hidden_outputs.append(value)
     own_state = _candidate_state(selected, relations)
-    decision = {"C1": None, "C15": None, "analysis_position": selected["position"]}
+    decision = {
+        "C1": None,
+        "C15": None,
+        "K": None,
+        # Y is available whenever a concrete use-god was selected: it is a
+        # source table for recomputed yuan/ji roles, not an effect rule.
+        "Y": "元神／忌神狀態（表可查）",
+        "analysis_position": selected["position"],
+    }
     if not selected.get("hidden"):
         decision["C1"] = infer_condition(table_id="C1", relation_result=relations, line=selected["position"])
         decision["C15"] = infer_condition(table_id="C15", relation_result=relations, line=selected["position"])
-    if decision["C1"] is None and decision["C15"] is None:
+        decision["K"] = infer_condition(table_id="K", relation_result=relations, line=selected["position"])
+    if decision["C1"] is None and decision["C15"] is None and decision["K"] is None:
         decision["status"] = "此爻不觸發任何條件"
-        decision["coverage_gap_note"] = "目前只有沖之決策表（C1、C15）；空亡／月破／墓絕／進退神／應期尚未有對應決策表。"
+        decision["coverage_gap_note"] = "目前沖與空亡狀態表未觸發；元神／忌神狀態表仍可查，但不輸出效果語義。"
     candidate_listing = []
     for item in options:
         value = dict(item)

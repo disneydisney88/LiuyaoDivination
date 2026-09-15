@@ -221,6 +221,55 @@
           "evidence_note": "出自論戰文字，非其體例章節；全書「日破」僅此一處"
         }
       ]
+    },
+    {
+      "set_id": "BZ_SET_YUAN_JI_01",
+      "set_name": "原忌仇神論第四",
+      "chapter": "原忌仇神論第四",
+      "line": 2625,
+      "count_declared": null,
+      "count_actual": 5,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "凡占卦要知原神，先看用神何爻，生用神之爻即是原神也，如用神旬空、月破、衰弱，或伏藏不现，得原神动来生之，或日辰月建作原神生之，必待用爻出旬出破，得令值日，所求必遂矣。如用神旺相，原神休囚不动，或动而变墓变绝、变克、变破、变退，或被日辰月建克制，皆不能生用是用神根蒂被伤矣。\n\n凡占卦要知忌神，亦先看用神。克用神之爻即是忌神也，如忌神动来克用，而用爻出现不空则受克也……如日辰月建生扶忌神，或忌神叠叠克用，即使用神避空伏藏者，至出空出透时，便受其毒难免其究也。",
+      "segmentation_note": "按原文中原神與忌神狀態連帶條件分項；不改寫原用語『原神』。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 2627,
+          "definition_original": "原神休囚不动",
+          "rule_id": "R-BZ-Y-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 2627,
+          "definition_original": "或动而变墓变绝、变克、变破、变退",
+          "rule_id": "R-BZ-Y-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 2627,
+          "definition_original": "或被日辰月建克制",
+          "rule_id": "R-BZ-Y-03",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 4,
+          "line": 2629,
+          "definition_original": "如忌神动来克用，而用爻出现不空则受克也",
+          "rule_id": "R-BZ-Y-04",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 5,
+          "line": 2629,
+          "definition_original": "如日辰月建生扶忌神，或忌神叠叠克用",
+          "rule_id": "R-BZ-Y-05",
+          "enumeration_source": "editorial"
+        }
+      ]
     }
   ]
 }

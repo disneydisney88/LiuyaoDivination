@@ -30,6 +30,7 @@ from engine.relations import (  # noqa: E402
     build_relation_graph,
 )
 from engine.semantics import (  # noqa: E402
+    VALID_STATUSES,
     infer_condition,
     load_decision_table,
     semantic_for_condition,
@@ -76,17 +77,18 @@ def _golden_header(commit: str, test_count: int) -> str:
         return GOLDEN_HEADER
     return f"""# 本 snapshot 產生於 commit {commit}（{test_count} tests）
 # 此為修復後現況基準，非跨版本永恆正確性證明。
+# 產生時 §11.1 待決項為 53 項。
 #
 # 產生時之已知問題狀態：
 #   [已修] 1. 旬空、月破顯示佔位符（L2 未接通）
 #   [已修] 2. 逐爻推導全部「未有對應模板」
 #   [已修] 3. 多軌頁只顯示三本、標「三家共識」
-#   [部分修復] 4. 原文摺疊區主流程已接通；C1-R2／增刪卜易仍有一格原文 fallback 缺口
+#   [已修] 4. 原文摺疊區「未提供逐字原文」
 #   [已修] 5. 卦名不完整（「水雷」缺「屯」）—— L1 運算層
 #   [已修] 6. 伏神 dump JSON、內部 TODO 標記洩漏
 #   [已修] 7. 用神選擇疑無實際作用（L3）
 #
-# 後續修復 4 後須重新產生 snapshot 並更新本檔頭。
+# K／Y 僅呈現多軌材料，未把空亡、沖散或四神判語應用為效果語義。
 """
 
 
@@ -118,7 +120,8 @@ TIER3_FIELDS = (
     "yongshen", "visible_candidates", "hidden_candidate_count", "selected_line",
     "is_yongshen_positions", "yuanshen_positions", "jishen_positions",
     "choushen_positions", "c1_condition", "c15_condition", "c1_track_count",
-    "c15_track_count", "track_originals_nonempty", "output_signature",
+    "c15_track_count", "k_condition", "k_track_count", "y_table_available",
+    "y_track_count", "track_originals_nonempty", "table_status_counts", "output_signature",
     "output_json", "equal_to_choices", "selection_status", "pending_selection",
     "hidden_choice_required", "hidden_choice_options", "candidate_state_fields_complete",
     "flying_hidden_relation_status", "triggered_tables", "template_missing_lines",
@@ -418,7 +421,8 @@ def _track_originals_nonempty(semantics: dict[str, Any], relations: dict[str, An
 
 def _tier3_projection(
     *, state: dict[str, Any], choice: str, candidate_id: str | None,
-    c1_table: dict[str, Any], c15_table: dict[str, Any],
+    c1_table: dict[str, Any], c15_table: dict[str, Any], k_table: dict[str, Any],
+    y_table: dict[str, Any],
 ) -> tuple[dict[str, Any], list[str], list[str]]:
     """Project the actual L3 result into stable sweep columns."""
     chart, relations = state["chart"], state["relations"]
@@ -435,6 +439,8 @@ def _tier3_projection(
     decision = analysis.get("decision_table", {})
     c1_condition = decision.get("C1")
     c15_condition = decision.get("C15")
+    k_condition = decision.get("K")
+    y_available = bool(decision.get("Y"))
     c1_semantics = (
         semantic_for_condition(line=selected_line, condition=c1_condition, hidden=chart["hidden"], table=c1_table)
         if c1_condition else None
@@ -443,6 +449,24 @@ def _tier3_projection(
         semantic_for_condition(line=selected_line, condition=c15_condition, hidden=chart["hidden"], table=c15_table)
         if c15_condition else None
     )
+    k_semantics = (
+        semantic_for_condition(line=selected_line, condition=k_condition, hidden=chart["hidden"], table=k_table)
+        if k_condition else None
+    )
+    # Y is deliberately a state-material table, not a single mutually
+    # exclusive outcome.  A selected use-god makes all ten source rows
+    # available for inspection; it does not fabricate a one-row match.
+    y_status_counts = Counter(
+        cell["status"] for row in y_table["rows"] for cell in row["cells"]
+    ) if y_available else Counter()
+    table_status_counts: dict[str, dict[str, int]] = {}
+    for table_id, semantics in (("C1", c1_semantics), ("C15", c15_semantics), ("K", k_semantics)):
+        if semantics:
+            table_status_counts[table_id] = dict(Counter(
+                track["status"] for track in semantics["tracks"].values()
+            ))
+    if y_available:
+        table_status_counts["Y"] = dict(y_status_counts)
     is_yongshen = [line["position"] for line in analysis.get("lines", []) if line.get("is_yongshen")]
     hidden_markers = [item for item in analysis.get("hidden", []) if item.get("is_yongshen")]
     projection = {
@@ -458,10 +482,16 @@ def _tier3_projection(
         "choushen_positions": [item["position"] for item in analysis.get("chou_shen", [])],
         "c1_condition": c1_condition,
         "c15_condition": c15_condition,
+        "k_condition": k_condition,
+        "y_table_available": y_available,
         "c1_track_count": len(c1_semantics["tracks"]) if c1_semantics else 0,
         "c15_track_count": len(c15_semantics["tracks"]) if c15_semantics else 0,
+        "k_track_count": len(k_semantics["tracks"]) if k_semantics else 0,
+        "y_track_count": len(y_table["books"]) if y_available else 0,
         "c1_originals_nonempty": _track_originals_nonempty(c1_semantics, relations) if c1_semantics else None,
         "c15_originals_nonempty": _track_originals_nonempty(c15_semantics, relations) if c15_semantics else None,
+        "k_originals_nonempty": _track_originals_nonempty(k_semantics, relations) if k_semantics else None,
+        "table_status_counts": table_status_counts,
         "no_condition_status": decision.get("status"),
         "target_element": analysis.get("target_element"),
         "moving_interactions": analysis.get("moving_interactions", []),
@@ -474,7 +504,10 @@ def _tier3_projection(
             analysis.get("flying_hidden_relation", {}).get("doctrinal_status")
             if analysis.get("flying_hidden_relation") else "not_applicable"
         ),
-        "triggered_tables": [table for table, condition in (("C1", c1_condition), ("C15", c15_condition)) if condition],
+        "triggered_tables": [
+            table for table, condition in (("C1", c1_condition), ("C15", c15_condition), ("K", k_condition), ("Y", y_available))
+            if condition
+        ],
     }
     failed: list[str] = []
     placeholders: list[str] = []
@@ -492,15 +525,17 @@ def _tier3_projection(
         failed.append("duplicate_candidates_not_complete")
     if not pending and not visible and hidden and not hidden_markers:
         failed.append("hidden_candidate_not_marked")
-    if not pending and c1_condition is None and c15_condition is None and decision.get("status") != "此爻不觸發任何條件":
+    if not pending and c1_condition is None and c15_condition is None and k_condition is None and decision.get("status") != "此爻不觸發任何條件":
         failed.append("no_explicit_no_condition_result")
     for table_id, condition, count in (
         ("C1", c1_condition, projection["c1_track_count"]),
         ("C15", c15_condition, projection["c15_track_count"]),
+        ("K", k_condition, projection["k_track_count"]),
+        ("Y", y_available, projection["y_track_count"]),
     ):
         if condition and count != 8:
             failed.append(f"{table_id}_track_count_not_8")
-    for flag in ("c1_originals_nonempty", "c15_originals_nonempty"):
+    for flag in ("c1_originals_nonempty", "c15_originals_nonempty", "k_originals_nonempty"):
         if projection[flag] is False:
             placeholders.append(f"{flag}_false")
     return projection, failed, placeholders
@@ -516,6 +551,8 @@ def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
     templates = _load_templates()
     c1_table = load_decision_table(ROOT / "data" / "decision_tables" / "C1_chong_san.json")
     c15_table = load_decision_table(ROOT / "data" / "decision_tables" / "C15_dongjing_axis.json")
+    k_table = load_decision_table(ROOT / "data" / "decision_tables" / "K_kongwang_effect.json")
+    y_table = load_decision_table(ROOT / "data" / "decision_tables" / "Y_yuanshen_jishen.json")
     rows: list[dict[str, Any]] = []
     case_index = 0
     for sample_id, source, moving in _tier3_samples():
@@ -551,6 +588,7 @@ def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
                     projection, failed, placeholders = _tier3_projection(
                         state=state, choice=choice, candidate_id=candidate_id,
                         c1_table=c1_table, c15_table=c15_table,
+                        k_table=k_table, y_table=y_table,
                     )
                     if template_lines:
                         placeholders.append("narrative_template_missing")
@@ -610,10 +648,16 @@ def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
                     "c15_condition": projection.get("c15_condition") or "",
                     "c1_track_count": projection.get("c1_track_count", ""),
                     "c15_track_count": projection.get("c15_track_count", ""),
+                    "k_condition": projection.get("k_condition") or "",
+                    "k_track_count": projection.get("k_track_count", ""),
+                    "y_table_available": str(projection.get("y_table_available", False)).lower(),
+                    "y_track_count": projection.get("y_track_count", ""),
                     "track_originals_nonempty": _json({
                         "C1": projection.get("c1_originals_nonempty"),
                         "C15": projection.get("c15_originals_nonempty"),
+                        "K": projection.get("k_originals_nonempty"),
                     }),
+                    "table_status_counts": _json(projection.get("table_status_counts", {})),
                     "output_signature": signatures[item["yongshen"]],
                     "output_json": _json(projection),
                     "equal_to_choices": "|".join(equal_choices),
@@ -706,7 +750,10 @@ def _decision_table_integration_audit() -> dict[str, Any]:
         "rows": 0, "all_tracks_eight": True, "all_relevant_originals": True,
         "missing_originals": [],
     }
-    for filename in ("C1_chong_san.json", "C15_dongjing_axis.json"):
+    for filename in (
+        "C1_chong_san.json", "C15_dongjing_axis.json",
+        "K_kongwang_effect.json", "Y_yuanshen_jishen.json",
+    ):
         table = load_decision_table(ROOT / "data" / "decision_tables" / filename)
         for row in table["rows"]:
             result["rows"] += 1
@@ -727,100 +774,91 @@ def _decision_table_integration_audit() -> dict[str, Any]:
 
 
 def _coverage_statistics(tier3: list[dict[str, str]]) -> dict[str, Any]:
-    """Summarise current table coverage and bounded hypothetical coverage.
+    """Report actual C1/C15/K/Y material availability, without effects.
 
-    Tier 3 includes rows where a repeated or hidden relative is still awaiting
-    an explicit human choice.  Those rows have no selected yongshen line, so
-    hypothetical empty/month-break checks deliberately do not invent a hit.
+    C1, C15 and K have a mechanically selected row.  Y is a ten-row material
+    inventory: once a concrete use-god is selected it is available as a whole,
+    rather than pretending that the engine has judged one of its states true.
     """
-    c1_table = load_decision_table(ROOT / "data" / "decision_tables" / "C1_chong_san.json")
-    c15_table = load_decision_table(ROOT / "data" / "decision_tables" / "C15_dongjing_axis.json")
-    condition_to_row = {
-        **{row["condition"]: row["row_id"] for row in c1_table["rows"]},
-        **{row["condition"]: row["row_id"] for row in c15_table["rows"]},
+    tables = {
+        "C1": load_decision_table(ROOT / "data" / "decision_tables" / "C1_chong_san.json"),
+        "C15": load_decision_table(ROOT / "data" / "decision_tables" / "C15_dongjing_axis.json"),
+        "K": load_decision_table(ROOT / "data" / "decision_tables" / "K_kongwang_effect.json"),
+        "Y": load_decision_table(ROOT / "data" / "decision_tables" / "Y_yuanshen_jishen.json"),
     }
-    addressed_by_row = {
-        row["row_id"]: sum(cell.get("status") == "addressed" for cell in row["cells"])
-        for row in c1_table["rows"] + c15_table["rows"]
+    rows_by_condition = {
+        table_id: {item["condition"]: item for item in table["rows"]}
+        for table_id, table in tables.items()
     }
-
     row_hits: Counter[str] = Counter()
+    table_hits: Counter[str] = Counter()
+    status_distribution: Counter[str] = Counter()
     current: set[int] = set()
     viewable: set[int] = set()
-    for index, row in enumerate(tier3):
-        conditions = [value for value in (row["c1_condition"], row["c15_condition"]) if value]
-        if not conditions:
+    resolved: set[int] = set()
+
+    for index, result in enumerate(tier3):
+        selected = bool(result.get("selected_line"))
+        if selected:
+            resolved.add(index)
+        triggered: list[tuple[str, dict[str, Any]]] = []
+        for table_id, column in (("C1", "c1_condition"), ("C15", "c15_condition"), ("K", "k_condition")):
+            condition = result.get(column, "")
+            if condition:
+                table_row = rows_by_condition[table_id][condition]
+                triggered.append((table_id, table_row))
+        if result.get("y_table_available") == "true":
+            # Keep Y's ten conditions distinct; this is not an inferred match.
+            for table_row in tables["Y"]["rows"]:
+                triggered.append(("Y", table_row))
+        if not triggered:
             continue
         current.add(index)
-        for condition in conditions:
-            row_id = condition_to_row.get(condition, f"unknown:{condition}")
-            row_hits[row_id] += 1
-            if addressed_by_row.get(row_id, 0) > 0:
+        for table_id, table_row in triggered:
+            table_hits[table_id] += 1
+            row_hits[table_row["row_id"]] += 1
+            statuses = [cell["status"] for cell in table_row["cells"]]
+            status_distribution.update(statuses)
+            if "addressed" in statuses:
                 viewable.add(index)
 
-    sources = {str(source["hexagram_id"]): source for _, source, _ in _tier3_samples()}
-    moving_by_name = dict(MOVING_PATTERNS)
-    relation_cache: dict[tuple[str, str, str, str], tuple[dict[str, Any], dict[str, Any]]] = {}
-    empty_hits: set[int] = set()
-    month_break_hits: set[int] = set()
-    resolved: set[int] = set()
-    for index, row in enumerate(tier3):
-        if not row["selected_line"]:
-            continue
-        resolved.add(index)
-        cache_key = (row["hexagram_id"], row["moving_pattern"], row["month_branch"], row["day_ganzhi"])
-        if cache_key not in relation_cache:
-            source = sources[row["hexagram_id"]]
-            chart = build(source["lines"])
-            moving = moving_by_name[row["moving_pattern"]]
-            relations = build_relation_graph(
-                line_rows=chart["lines_detail"], hidden=chart["hidden"],
-                month_element=BRANCH_ELEMENT[row["month_branch"]],
-                month_branch=row["month_branch"],
-                day_stem=row["day_ganzhi"][0], day_branch=row["day_ganzhi"][1],
-                moving_positions=moving, changing_positions=moving,
-            )
-            relation_cache[cache_key] = chart, relations
-        chart, relations = relation_cache[cache_key]
-        selected = next(line for line in chart["lines_detail"] if line["position"] == int(row["selected_line"]))
-        if selected["branch"] in relations["empty_branches"]:
-            empty_hits.add(index)
-        if selected["branch"] == relations["month_break_branch"]:
-            month_break_hits.add(index)
-
     total = len(tier3)
-    current_plus_empty = current | empty_hits
-    current_plus_month_break = current | month_break_hits
-    current_plus_both = current | empty_hits | month_break_hits
-    current_plus_resolved_state = current | resolved
-    locked_current = current & resolved
-    locked_current_plus_empty = (current | empty_hits) & resolved
-    locked_current_plus_month_break = (current | month_break_hits) & resolved
-    locked_current_plus_both = (current | empty_hits | month_break_hits) & resolved
-    locked_current_plus_state = (current | resolved) & resolved
+    k_hits = {
+        index for index, result in enumerate(tier3)
+        if result.get("k_condition")
+    }
+    k_month_break_hits = {
+        index for index, result in enumerate(tier3)
+        if result.get("k_condition") == "空而逢月破"
+    }
     return {
         "total": total,
         "current_trigger": len(current),
         "current_viewable": len(viewable),
         "row_hits": row_hits,
+        "table_hits": table_hits,
+        "status_distribution": {status: status_distribution[status] for status in sorted(VALID_STATUSES)},
         "resolved": len(resolved),
         "pending": total - len(resolved),
-        "empty_raw": len(empty_hits),
-        "empty_new": len(empty_hits - current),
-        "month_break_raw": len(month_break_hits),
-        "month_break_new": len(month_break_hits - current),
-        "current_plus_empty": len(current_plus_empty),
-        "current_plus_month_break": len(current_plus_month_break),
-        "current_plus_both": len(current_plus_both),
-        "current_plus_resolved_state": len(current_plus_resolved_state),
         "locked": len(resolved),
-        "locked_current_trigger": len(locked_current),
+        "locked_current_trigger": len(current & resolved),
         "locked_current_viewable": len(viewable & resolved),
-        "locked_current_plus_empty": len(locked_current_plus_empty),
-        "locked_current_plus_month_break": len(locked_current_plus_month_break),
-        "locked_current_plus_both": len(locked_current_plus_both),
-        "locked_current_plus_state": len(locked_current_plus_state),
-        "month_break_is_subset_of_current": month_break_hits <= current,
+        # Kept for the historical TASK_21 report subsection below.  K and Y
+        # are now actual tables, hence adding either set to ``current`` adds
+        # no further coverage; the values are explicitly labelled as such.
+        "empty_raw": len(k_hits),
+        "empty_new": len(k_hits - current),
+        "month_break_raw": len(k_month_break_hits),
+        "month_break_new": len(k_month_break_hits - current),
+        "current_plus_empty": len(current | k_hits),
+        "current_plus_month_break": len(current | k_month_break_hits),
+        "current_plus_both": len(current | k_hits | k_month_break_hits),
+        "current_plus_resolved_state": len(current | resolved),
+        "locked_current_plus_empty": len((current | k_hits) & resolved),
+        "locked_current_plus_month_break": len((current | k_month_break_hits) & resolved),
+        "locked_current_plus_both": len((current | k_hits | k_month_break_hits) & resolved),
+        "locked_current_plus_state": len((current | resolved) & resolved),
+        "month_break_is_subset_of_current": k_month_break_hits <= current,
     }
 
 
@@ -943,7 +981,7 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
         "",
         "## B3a — 覆蓋率",
         "",
-        "本節以 Tier 3 每一列作一組合，總數為 13,824。『觸發』定義為該列已有 `c1_condition` 或 `c15_condition`；『有嘢睇』只計決策表該格至少有一本書 `status=addressed`。`category_negated`、`different_axis`、`not_collected` 均不計作 `addressed`。",
+        "本節保留 TASK_21 的比較欄位，並以本包後 C1／C15／K／Y 實際觸發重算；詳細七種狀態統計見 B3b。『有嘢睇』只計所觸發材料至少一本 `status=addressed`，其餘狀態不併入 addressed。",
         "",
         f"- 觸發率：{coverage['current_trigger']:,}/{coverage['total']:,}（{coverage['current_trigger'] / coverage['total']:.4%}）。",
         f"- 有嘢睇率（在已觸發組合中）：{coverage['current_viewable']:,}/{coverage['current_trigger']:,}（{coverage['current_viewable'] / coverage['current_trigger']:.4%}）。",
@@ -958,15 +996,15 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
         lines.append(f"| `{row_id}` | {coverage['row_hits'].get(row_id, 0):,} |")
     lines.extend([
         "",
-        "### 假設分析（不改 engine）",
+        "### K／Y 入庫後之對照（不改效果語義）",
         "",
-        "以下只計算已有 concrete `selected_line` 之列；8,640 列因用神重複／伏藏等原因仍為 `pending_selection`，沒有已選用神爻，故不把它們虛構成旬空或月破命中。各數字以現有決策表觸發與假設新增表的聯集計算，避免重複計數。",
+        "以下只計算已有 concrete `selected_line` 之列；pending_selection 沒有已選用神爻，故不虛構格位命中。K 與 Y 現已入庫，故它們與現況聯集不再額外增加覆蓋；此表保留為與 TASK_21 基準的可追溯對照。",
         "",
-        "| 假設新增表 | 可觸發原始組數 | 新增覆蓋組數 | 加入後空手組數 | 加入後空手率 |",
+        "| 實際可查材料 | 可觸發組數 | 相對現況新增 | 加入後空手組數 | 加入後空手率 |",
         "| --- | ---: | ---: | ---: | ---: |",
-        f"| 旬空表（選定用神爻落入旬空） | {coverage['empty_raw']:,} | {coverage['empty_new']:,} | {coverage['total'] - coverage['current_plus_empty']:,} | {(coverage['total'] - coverage['current_plus_empty']) / coverage['total']:.4%} |",
-        f"| 月破表（選定用神爻落入月破） | {coverage['month_break_raw']:,} | {coverage['month_break_new']:,} | {coverage['total'] - coverage['current_plus_month_break']:,} | {(coverage['total'] - coverage['current_plus_month_break']) / coverage['total']:.4%} |",
-        f"| 元神／忌神狀態表（對 concrete 用神列恆觸發） | {coverage['resolved']:,} | {coverage['current_plus_resolved_state'] - coverage['current_trigger']:,} | {coverage['total'] - coverage['current_plus_resolved_state']:,} | {(coverage['total'] - coverage['current_plus_resolved_state']) / coverage['total']:.4%} |",
+        f"| K（空亡狀態，機械 row） | {coverage['empty_raw']:,} | {coverage['empty_new']:,} | {coverage['total'] - coverage['current_plus_empty']:,} | {(coverage['total'] - coverage['current_plus_empty']) / coverage['total']:.4%} |",
+        f"| K-R9（月破交集） | {coverage['month_break_raw']:,} | {coverage['month_break_new']:,} | {coverage['total'] - coverage['current_plus_month_break']:,} | {(coverage['total'] - coverage['current_plus_month_break']) / coverage['total']:.4%} |",
+        f"| Y（concrete 用神時整表可查） | {coverage['resolved']:,} | {coverage['current_plus_resolved_state'] - coverage['current_trigger']:,} | {coverage['total'] - coverage['current_plus_resolved_state']:,} | {(coverage['total'] - coverage['current_plus_resolved_state']) / coverage['total']:.4%} |",
         f"| 三者合計（旬空＋月破＋concrete 元神／忌神） | — | — | {coverage['total'] - coverage['current_plus_resolved_state']:,} | {(coverage['total'] - coverage['current_plus_resolved_state']) / coverage['total']:.4%} |",
         "",
         f"加入三者並以 concrete 用神為前提之空手率：{coverage['total'] - coverage['current_plus_resolved_state']:,}/{coverage['total']:,}（{(coverage['total'] - coverage['current_plus_resolved_state']) / coverage['total']:.4%}）。",
@@ -998,11 +1036,31 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
         "",
         "R2（有氣）沒有已核機械定義，R5（既判為散之後）涉及未實作效果語義；兩者 0 命中是自動推導刻意不作判定，**不能據此判為冷門**。R3 有機械命中，可據實比較頻率，但本 sweep 不裁決其文獻權重。",
         "",
+        "## B3b — K／Y 實際覆蓋與七種狀態",
+        "",
+        "本節是本包後的現況統計。C1、C15、K 只在可機械定位 row 時列入；Y 在 concrete 用神選定後以十個材料 row 整體可查，並不表示引擎已判定其中任一狀態的效果。",
+        "",
+        "| 表 | 觸發次數 |",
+        "| --- | ---: |",
+        f"| C1 | {coverage['table_hits'].get('C1', 0):,} |",
+        f"| C15 | {coverage['table_hits'].get('C15', 0):,} |",
+        f"| K | {coverage['table_hits'].get('K', 0):,} |",
+        f"| Y（十 row 整體可查） | {coverage['table_hits'].get('Y', 0) // 10:,} |",
+        "",
+        "| status | 觸發材料 cells |",
+        "| --- | ---: |",
+    ])
+    for status in ("addressed", "not_addressed", "not_collected", "category_negated", "concept_absent", "explicit_exclusion", "different_axis"):
+        lines.append(f"| `{status}` | {coverage['status_distribution'][status]:,} |")
+    lines.extend([
+        "",
+        f"全部 13,824 組：觸發 {coverage['current_trigger']:,}，空手 {coverage['total'] - coverage['current_trigger']:,}。已鎖定用神爻 {coverage['locked']:,} 組：觸發 {coverage['locked_current_trigger']:,}，空手 {coverage['locked'] - coverage['locked_current_trigger']:,}。pending_selection {coverage['pending']:,} 組按設計不進入 concrete 用神爻判定，不視為空手。",
+        "",
         "## B4 — 用神差異驗證 ★★",
         "",
         "現已接通 `engine/yongshen.py`：用神類別及候選爻位由人手傳入，沒有自動揀用神；輸出以該候選為中心重算。",
         "",
-        "現時實際重算欄位：用神本身之旺衰／旬空／月破／日辰標記；元神、忌神、仇神之候選爻位及狀態；兩現／伏藏；動爻對用神之生剋及變爻回頭剋機械標記；C1／C15 格位；以及 `is_yongshen`。元神／忌神狀態判定未建表，輸出 `deferred_to_multi_track`，不填效果語義。",
+        "現時實際重算欄位：用神本身之旺衰／旬空／月破／日辰標記；元神、忌神、仇神之候選爻位及狀態；兩現／伏藏；動爻對用神之生剋及變爻回頭剋機械標記；C1／C15／K 格位；以及 `is_yongshen`。Y 表在 concrete 用神選定後可查，但不把任何書的材料判語應用為效果語義。",
         "",
         f"兩兩比較（每對 {pair_sample_count:,} 個同卦同時狀態；數值為 output projection 不同欄位數 min–max；完全相同列為基準數）：",
         "",
@@ -1023,8 +1081,8 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
         f"- 兩現／多現進入 `pending_selection`：{pending_rows:,}/{len(tier3):,}。",
         f"- 不現之六親要求伏神二選一：{hidden_choice_rows:,}/{len(tier3):,}；選項固定為 `use_hidden|choose_other`。",
         f"- 八項機械狀態欄位缺失：{state_incomplete_rows:,}/{len(tier3):,}。",
-        f"- C1／C15 自動觸發表數：{_format_counter(table_hits) or '0'}。",
-        "- L3 不輸出任何一家之狀態判定；`R-L2-07` 仍標記為 `deferred_to_multi_track`，P-044 保留。",
+        f"- C1／C15／K／Y 觸發表數：{_format_counter(table_hits) or '0'}。",
+        "- L3 不輸出任何一家之狀態效果判定；Y 僅以多軌材料表呈現，P-049、P-050、P-055 保留。",
         "",
         "## B5 — 結構分佈",
         "",
@@ -1063,7 +1121,7 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
         "",
         f"- 問題 1（旬空／月破）：Tier 2 無效或佔位檢查 {failure_types[2]['invalid_or_placeholder_xunkong'] + failure_types[2]['invalid_or_placeholder_month_break']:,} 次。",
         f"- 問題 2（逐爻模板）：Tier 2 缺失 {len(missing_t2):,} 次。",
-        f"- 問題 3（N 軌）：C1 + C15 共 {integration['rows']} rows，全部 8 tracks：{str(integration['all_tracks_eight']).lower()}。",
+        f"- 問題 3（N 軌）：C1 + C15 + K + Y 共 {integration['rows']} rows，全部 8 tracks：{str(integration['all_tracks_eight']).lower()}。",
         f"- 問題 4（原文）：上述 rows 之 addressed／different_axis／category_negated 原文全部非空：{str(integration['all_relevant_originals']).lower()}。",
         "",
     ])

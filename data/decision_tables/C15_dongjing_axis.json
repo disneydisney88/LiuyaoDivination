@@ -60,7 +60,12 @@
         },
         {
           "book_id": "huozhulin",
-          "status": "not_collected"
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "散由獨發與世動生，非由沖生。",
+          "axis_original": "子孙独发，为退为散；",
+          "axis_source": "火珠林 262；752",
+          "cross_reference": "C1／C15"
         },
         {
           "book_id": "huangjin_ce",
@@ -85,14 +90,16 @@
       ],
       "coverage": {
         "books_total": 8,
-        "books_collected": 1,
+        "books_collected": 2,
         "books_addressed": 1,
         "books_not_addressed": 0,
         "books_category_negated": 0,
-        "books_different_axis": 0,
-        "books_not_collected": 7
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 6
       },
-      "coverage_label": "已採 1 本：1 本有表述；另 7 本未採"
+      "coverage_label": "已採 2 本：1 本有表述、1 本用另一軸；另 6 本未採"
     },
     {
       "row_id": "C15-R2",
@@ -112,7 +119,12 @@
         },
         {
           "book_id": "huozhulin",
-          "status": "not_collected"
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "散由獨發與世動生，非由沖生。",
+          "axis_original": "子孙独发，为退为散；",
+          "axis_source": "火珠林 262；752",
+          "cross_reference": "C1／C15"
         },
         {
           "book_id": "huangjin_ce",
@@ -137,14 +149,16 @@
       ],
       "coverage": {
         "books_total": 8,
-        "books_collected": 1,
+        "books_collected": 2,
         "books_addressed": 1,
         "books_not_addressed": 0,
         "books_category_negated": 0,
-        "books_different_axis": 0,
-        "books_not_collected": 7
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 6
       },
-      "coverage_label": "已採 1 本：1 本有表述；另 7 本未採"
+      "coverage_label": "已採 2 本：1 本有表述、1 本用另一軸；另 6 本未採"
     },
     {
       "row_id": "C15-R3",
@@ -164,7 +178,12 @@
         },
         {
           "book_id": "huozhulin",
-          "status": "not_collected"
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "散由獨發與世動生，非由沖生。",
+          "axis_original": "子孙独发，为退为散；",
+          "axis_source": "火珠林 262；752",
+          "cross_reference": "C1／C15"
         },
         {
           "book_id": "huangjin_ce",
@@ -189,14 +208,16 @@
       ],
       "coverage": {
         "books_total": 8,
-        "books_collected": 1,
+        "books_collected": 2,
         "books_addressed": 1,
         "books_not_addressed": 0,
         "books_category_negated": 0,
-        "books_different_axis": 0,
-        "books_not_collected": 7
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 6
       },
-      "coverage_label": "已採 1 本：1 本有表述；另 7 本未採"
+      "coverage_label": "已採 2 本：1 本有表述、1 本用另一軸；另 6 本未採"
     }
   ]
 }

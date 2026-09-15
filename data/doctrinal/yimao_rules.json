@@ -795,7 +795,8 @@
           "exception_original": null,
           "rule_id": "R-YM-06-08"
         }
-      ]
+      ],
+      "source": "易冒"
     },
     {
       "set_id": "YM_SET_07",
@@ -1092,7 +1093,8 @@
           "severity_band": null,
           "comparative_original": null,
           "exception_original": null,
-          "rule_id": "R-YM-10-01"
+          "rule_id": "R-YM-10-01",
+          "valence": "useful"
         },
         {
           "set_id": "YM_SET_10",
@@ -1107,7 +1109,8 @@
           "severity_band": null,
           "comparative_original": null,
           "exception_original": null,
-          "rule_id": "R-YM-10-02"
+          "rule_id": "R-YM-10-02",
+          "valence": "useful"
         },
         {
           "set_id": "YM_SET_10",
@@ -1122,7 +1125,8 @@
           "severity_band": null,
           "comparative_original": null,
           "exception_original": null,
-          "rule_id": "R-YM-10-03"
+          "rule_id": "R-YM-10-03",
+          "valence": "useful"
         },
         {
           "set_id": "YM_SET_10",
@@ -1137,7 +1141,8 @@
           "severity_band": null,
           "comparative_original": null,
           "exception_original": null,
-          "rule_id": "R-YM-10-04"
+          "rule_id": "R-YM-10-04",
+          "valence": "useful"
         },
         {
           "set_id": "YM_SET_10",
@@ -1152,7 +1157,8 @@
           "severity_band": null,
           "comparative_original": null,
           "exception_original": null,
-          "rule_id": "R-YM-10-05"
+          "rule_id": "R-YM-10-05",
+          "valence": "useful"
         },
         {
           "set_id": "YM_SET_10",
@@ -1167,7 +1173,8 @@
           "severity_band": null,
           "comparative_original": null,
           "exception_original": null,
-          "rule_id": "R-YM-10-06"
+          "rule_id": "R-YM-10-06",
+          "valence": "useful"
         },
         {
           "set_id": "YM_SET_10",
@@ -1182,7 +1189,8 @@
           "severity_band": null,
           "comparative_original": null,
           "exception_original": null,
-          "rule_id": "R-YM-10-07"
+          "rule_id": "R-YM-10-07",
+          "valence": "not_dead"
         },
         {
           "set_id": "YM_SET_10",
@@ -1197,7 +1205,8 @@
           "severity_band": null,
           "comparative_original": null,
           "exception_original": null,
-          "rule_id": "R-YM-10-08"
+          "rule_id": "R-YM-10-08",
+          "valence": "not_dead"
         },
         {
           "set_id": "YM_SET_10",
@@ -1212,7 +1221,8 @@
           "severity_band": null,
           "comparative_original": null,
           "exception_original": null,
-          "rule_id": "R-YM-10-09"
+          "rule_id": "R-YM-10-09",
+          "valence": "guarded_against"
         },
         {
           "set_id": "YM_SET_10",
@@ -1227,7 +1237,8 @@
           "severity_band": null,
           "comparative_original": null,
           "exception_original": null,
-          "rule_id": "R-YM-10-10"
+          "rule_id": "R-YM-10-10",
+          "valence": "guarded_against"
         },
         {
           "set_id": "YM_SET_10",
@@ -1242,7 +1253,8 @@
           "severity_band": null,
           "comparative_original": null,
           "exception_original": null,
-          "rule_id": "R-YM-10-11"
+          "rule_id": "R-YM-10-11",
+          "valence": "guarded_against"
         },
         {
           "set_id": "YM_SET_10",
@@ -1257,7 +1269,8 @@
           "severity_band": null,
           "comparative_original": null,
           "exception_original": null,
-          "rule_id": "R-YM-10-12"
+          "rule_id": "R-YM-10-12",
+          "valence": "guarded_against"
         },
         {
           "set_id": "YM_SET_10",
@@ -1272,9 +1285,11 @@
           "severity_band": null,
           "comparative_original": null,
           "exception_original": null,
-          "rule_id": "R-YM-10-13"
+          "rule_id": "R-YM-10-13",
+          "valence": "guarded_against"
         }
-      ]
+      ],
+      "source": "易冒"
     },
     {
       "set_id": "YM_SET_11",
@@ -1375,6 +1390,103 @@
           "comparative_original": null,
           "exception_original": null,
           "rule_id": "R-YM-11-06"
+        }
+      ]
+    },
+    {
+      "set_id": "YM_SET_12",
+      "set_name": "元忌喜忌",
+      "source": "易冒",
+      "chapter": "類總章第四十一",
+      "line": 682,
+      "count_declared": null,
+      "count_actual": 2,
+      "count_mismatch": null,
+      "topic": "元神忌神傾向",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "item_name": "忌",
+          "definition_original": "有用神则必有忌神，忌则喜静、喜衰、喜制。",
+          "rule_id": "R-YM-Y-01",
+          "line": 682
+        },
+        {
+          "item_ordinal": 2,
+          "item_name": "元",
+          "definition_original": "有用神必有元神，元则喜动、喜旺、喜生。",
+          "rule_id": "R-YM-Y-02",
+          "line": 682
+        }
+      ]
+    },
+    {
+      "set_id": "YM_SET_13",
+      "set_name": "絕生之法",
+      "source": "易冒",
+      "chapter": "絕生章第三十三",
+      "line": 498,
+      "count_declared": null,
+      "count_actual": 8,
+      "count_mismatch": null,
+      "topic": "絕處逢生",
+      "note_original": "原文分『絕生之法有五』與『其不能生者有三』，兩組分立保存，未併入 Y 表。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "group": "絕生之法有五",
+          "definition_original": "用神受日月之克，遇动爻之生，一也。",
+          "rule_id": "R-YM-ABSOLUTE-01",
+          "line": 500
+        },
+        {
+          "item_ordinal": 2,
+          "group": "絕生之法有五",
+          "definition_original": "受动爻之克，遇变爻之生，一也。",
+          "rule_id": "R-YM-ABSOLUTE-02",
+          "line": 500
+        },
+        {
+          "item_ordinal": 3,
+          "group": "絕生之法有五",
+          "definition_original": "受变爻之克，遇动爻之生，一也。",
+          "rule_id": "R-YM-ABSOLUTE-03",
+          "line": 500
+        },
+        {
+          "item_ordinal": 4,
+          "group": "絕生之法有五",
+          "definition_original": "伏用受日月之克，遇飞爻动爻之生，一也。",
+          "rule_id": "R-YM-ABSOLUTE-04",
+          "line": 500
+        },
+        {
+          "item_ordinal": 5,
+          "group": "絕生之法有五",
+          "definition_original": "伏用受飞爻动爻之克，遇日月之生，一也。",
+          "rule_id": "R-YM-ABSOLUTE-05",
+          "line": 500
+        },
+        {
+          "item_ordinal": 6,
+          "group": "其不能生者有三",
+          "definition_original": "用神自受破散，不能生者一。",
+          "rule_id": "R-YM-ABSOLUTE-06",
+          "line": 501
+        },
+        {
+          "item_ordinal": 7,
+          "group": "其不能生者有三",
+          "definition_original": "飞爻动爻生我者受破散，不能生者二。",
+          "rule_id": "R-YM-ABSOLUTE-07",
+          "line": 501
+        },
+        {
+          "item_ordinal": 8,
+          "group": "其不能生者有三",
+          "definition_original": "变爻生我者受破绝，不能生者三。",
+          "rule_id": "R-YM-ABSOLUTE-08",
+          "line": 501
         }
       ]
     }

@@ -20,7 +20,7 @@ def load(path: Path) -> dict:
 
 
 def test_all_rule_envelopes_have_cleaning_and_provenance_fields():
-    assert len(RULE_PATHS) == 5
+    assert len(RULE_PATHS) == 6
     for path in RULE_PATHS:
         data = load(path)
         assert "corpus_cleaned" in data

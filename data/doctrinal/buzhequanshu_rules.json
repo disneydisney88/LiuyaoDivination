@@ -1499,6 +1499,44 @@
           "enumeration_source": "editorial"
         }
       ]
+    },
+    {
+      "set_id": "BQ_SET_YUANCHEN_01",
+      "set_name": "元辰與忌神材料",
+      "chapter": "碎金賦／用爻空亡訣",
+      "line": 3350,
+      "count_declared": null,
+      "count_actual": 3,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "term_note": "本書用「元辰」，清代三家用「元神」。二者概念對應係編者判定，非原文明言。",
+      "definition_original_full": "看卦先须看忌神，忌神宜静不宜兴；忌神急要逢冲克，若遇生扶用受刑。（忌爻若遇生扶，用爻便受刑克。）\n\n元辰出现志扬扬，用伏藏兮也不妨。须要生扶兼旺相，最嫌冲克及刑伤。\n\n空在旁宫不断空，（即伏藏不论空亡也。）空如出现却为空；忌神最喜逢空吉，用与元辰不可空。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 3350,
+          "definition_original": "看卦先须看忌神，忌神宜静不宜兴；忌神急要逢冲克，若遇生扶用受刑。",
+          "rule_id": "R-BQ-Y-01",
+          "enumeration_source": "editorial",
+          "chapter": "卷四·用忌神訣"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 3355,
+          "definition_original": "元辰出现志扬扬，用伏藏兮也不妨。须要生扶兼旺相，最嫌冲克及刑伤。",
+          "rule_id": "R-BQ-Y-02",
+          "enumeration_source": "editorial",
+          "chapter": "卷四·元辰訣"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 3398,
+          "definition_original": "忌神最喜逢空吉，用与元辰不可空。",
+          "rule_id": "R-BQ-Y-03",
+          "enumeration_source": "editorial",
+          "chapter": "卷四·用爻空亡訣"
+        }
+      ]
     }
   ]
 }

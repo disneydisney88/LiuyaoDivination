@@ -1,0 +1,543 @@
+{
+  "book_id": "huozhulin",
+  "source_book": "火珠林",
+  "era": "宋",
+  "author": "託名麻衣道者",
+  "attribution_status": "attributed",
+  "framework_type": "two_role_category_then_strength",
+  "framework_note": "主／輔二位，明文排除第三位（行 126）。取用兩步：事類定身份（官用父輔、財用子輔），旺衰定效力（值旺相為有氣，休囚為無氣）。散由獨發與世動生，非由沖生。空之判準為爻位（世／應／官／財），非爻之狀態",
+  "enumeration_style": "none",
+  "doctrinal_status": "single_school",
+  "conflicts_with": [
+    "C1",
+    "C13",
+    "C15",
+    "K",
+    "Y"
+  ],
+  "semantic_status": "structured_only_no_effects_implemented",
+  "corpus_path": "02_火珠林/火珠林_古本.txt",
+  "corpus_cleaned": true,
+  "cleaning_status": null,
+  "provenance_strength": "weak",
+  "provenance_note": "三方來源矛盾（P-037）：sidecar 稱衍生自維基文庫、CATALOG 稱出自 GitHub repo、檔內自稱 divinehere.com／mingtianji.com。三者互不相符，本項目禁止上網故未判定。主檔為 火珠林.txt（三檔中文字最完整：19 處多出、0 處脫文，且唯一有 sidecar）。已分離維基樣板 19 行",
+  "variant_editions": {
+    "note": "本書為八本中唯一有三個獨立版本可互校者",
+    "cross_check": "三檔正文 90.3% 逐字相同，190 個差異區間。差異集中於〈占鬼神〉一篇（19 處多出中之 15 處）",
+    "known_variants": "33 處用字相異已記入 sidecar，正文不動、不校補"
+  },
+  "sets": [
+    {
+      "set_id": "FHL_SET_01",
+      "set_name": "主輔二位",
+      "source": "火珠林",
+      "chapter": "〈3·財官輔助〉",
+      "line": 52,
+      "count_declared": null,
+      "count_actual": 6,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "财官辅助\n\n\n\n财官异路，可辨五乡；\n\n\n\n用有辅助，类可忖量。\n\n\n\n〈\n\n注云：财者，妻财；官者，官鬼。是故至柔者财，至刚者鬼。而有辅体，辅体者，用官鬼以父母辅之，用妻财以子孙辅之；值旺相为有气，休囚为无气，得生扶为吉，克破为凶。\n\n〉\n\n\n\n春，寅卯木旺，巳午火相，亥子水休，申酉金囚，辰戌丑未土死。\n\n\n\n夏，巳午火旺，辰戌丑未土相，寅卯木休，亥子水囚，申酉金死。\n\n\n\n秋，申酉金旺，亥子水相，辰戌丑未土休，巳午火囚，寅卯木死。\n\n\n\n冬，亥子水旺，寅卯木相，申酉金休，辰戌丑未土囚，巳午火死。\n\n",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 56,
+          "chapter": "〈3·財官輔助〉",
+          "definition_original": "用有辅助，类可忖量。",
+          "rule_id": "R-FHL-01-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 59,
+          "chapter": "〈3·財官輔助〉",
+          "definition_original": "注云：财者，妻财；官者，官鬼。是故至柔者财，至刚者鬼。而有辅体，辅体者，用官鬼以父母辅之，用妻财以子孙辅之；值旺相为有气，休囚为无气，得生扶为吉，克破为凶。",
+          "rule_id": "R-FHL-01-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 62,
+          "chapter": "〈3·財官輔助〉",
+          "definition_original": "春，寅卯木旺，巳午火相，亥子水休，申酉金囚，辰戌丑未土死。",
+          "rule_id": "R-FHL-01-03",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 4,
+          "line": 64,
+          "chapter": "〈3·財官輔助〉",
+          "definition_original": "夏，巳午火旺，辰戌丑未土相，寅卯木休，亥子水囚，申酉金死。",
+          "rule_id": "R-FHL-01-04",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 5,
+          "line": 66,
+          "chapter": "〈3·財官輔助〉",
+          "definition_original": "秋，申酉金旺，亥子水相，辰戌丑未土休，巳午火囚，寅卯木死。",
+          "rule_id": "R-FHL-01-05",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 6,
+          "line": 68,
+          "chapter": "〈3·財官輔助〉",
+          "definition_original": "冬，亥子水旺，寅卯木相，申酉金休，辰戌丑未土囚，巳午火死。",
+          "rule_id": "R-FHL-01-06",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "FHL_SET_02",
+      "set_name": "明文排除第三位",
+      "source": "火珠林",
+      "chapter": "〈6·公私用事〉",
+      "line": 115,
+      "count_declared": null,
+      "count_actual": 4,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "公私用事\n\n\n\n阴阳男女，次策推排；\n\n\n\n官用取官，私用取财。\n\n\n\n占病鬼祟，占失看贼，占求官事，占官词讼，占婚问夫，以上皆看官爻。\n\n\n\n占买卖财，占家事，占婚婢事，占求财事，占婚姻事，以上皆看财爻。\n\n\n\n或问：言公私用事，只言财官，而不及父子兄弟，何也？\n\n答曰：天下之事，散而言之，纷若物色；总而言之，不出财官二字。占官必用父母，占财必用子孙。兄弟是破财之人，不为主、不为辅，何必看也？\n\n\n\n凡卜筮者，但用心于财官，则括天下之理，此法简而最捷，若分支劈脉、琐碎求之，则万物纷然，无以折衷，用心多，功力少《元龟》“六神”之类是也。\n\n故吾捷法，惟以财官伏五乡而定吉凶，自然神妙。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 125,
+          "chapter": "〈6·公私用事〉",
+          "definition_original": "或问：言公私用事，只言财官，而不及父子兄弟，何也？",
+          "rule_id": "R-FHL-02-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 126,
+          "chapter": "〈6·公私用事〉",
+          "definition_original": "答曰：天下之事，散而言之，纷若物色；总而言之，不出财官二字。占官必用父母，占财必用子孙。兄弟是破财之人，不为主、不为辅，何必看也？",
+          "rule_id": "R-FHL-02-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 128,
+          "chapter": "〈6·公私用事〉",
+          "definition_original": "凡卜筮者，但用心于财官，则括天下之理，此法简而最捷，若分支劈脉、琐碎求之，则万物纷然，无以折衷，用心多，功力少《元龟》“六神”之类是也。",
+          "rule_id": "R-FHL-02-03",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 4,
+          "line": 129,
+          "chapter": "〈6·公私用事〉",
+          "definition_original": "故吾捷法，惟以财官伏五乡而定吉凶，自然神妙。",
+          "rule_id": "R-FHL-02-04",
+          "enumeration_source": "editorial"
+        }
+      ],
+      "note": "設問、拒絕及方法界限三要件的完整章段依原行保留。"
+    },
+    {
+      "set_id": "FHL_SET_03",
+      "set_name": "亂動取旺爻",
+      "source": "火珠林",
+      "chapter": "〈4·獨發亂動〉",
+      "line": 94,
+      "count_declared": null,
+      "count_actual": 1,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "曰：乱动之卦只取旺爻，旺爻即用神也。生克吉凶皆在此爻。若伏藏安静要旺相，若发动，却要生世之爻为用神，又不专泥旺相爻也。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 94,
+          "chapter": "〈4·獨發亂動〉",
+          "definition_original": "曰：乱动之卦只取旺爻，旺爻即用神也。生克吉凶皆在此爻。若伏藏安静要旺相，若发动，却要生世之爻为用神，又不专泥旺相爻也。",
+          "rule_id": "R-FHL-03-01",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "FHL_SET_04",
+      "set_name": "官用取官、私用取私",
+      "source": "火珠林",
+      "chapter": "〈4·獨發亂動〉",
+      "line": 97,
+      "count_declared": null,
+      "count_actual": 1,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "曰：用此已发明，人自不察耳。伏爻要旺相、动爻要生世、官用取官、私用取私，如上篇却要辅助之爻发动，时人并作一句读之，所以失其义也。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 97,
+          "chapter": "〈4·獨發亂動〉",
+          "definition_original": "曰：用此已发明，人自不察耳。伏爻要旺相、动爻要生世、官用取官、私用取私，如上篇却要辅助之爻发动，时人并作一句读之，所以失其义也。",
+          "rule_id": "R-FHL-04-01",
+          "enumeration_source": "editorial"
+        }
+      ],
+      "note": "行 97 以『上篇』回指；其與〈3·財官輔助〉的文本連接仍為 P-052。"
+    },
+    {
+      "set_id": "FHL_SET_05",
+      "set_name": "散由獨發與世動",
+      "source": "火珠林",
+      "chapter": "散憂相關段",
+      "line": 262,
+      "count_declared": null,
+      "count_actual": 2,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "子孙独发，为退为散；\n\n凡占脱事散忧，要子孙旺相出现，或子孙独发，世爻动亦自散。忌应爻克世，鬼爻旺相，独发凶。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 262,
+          "chapter": "散憂相關段",
+          "definition_original": "子孙独发，为退为散；",
+          "rule_id": "R-FHL-05-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 752,
+          "chapter": "散憂相關段",
+          "definition_original": "凡占脱事散忧，要子孙旺相出现，或子孙独发，世爻动亦自散。忌应爻克世，鬼爻旺相，独发凶。",
+          "rule_id": "R-FHL-05-02",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "FHL_SET_06",
+      "set_name": "空之爻位判準",
+      "source": "火珠林",
+      "chapter": "各占例",
+      "line": 523,
+      "count_declared": null,
+      "count_actual": 4,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "将本求利，须要财爻持世，应旺相，有气，乃大吉。财爻无气，虽有亦无多。财爻空亡。其财决无，尤防破失。财爻生旺可倍加，休囚减半。逢冲，将入手有阻。\n\n假令有人占推役与人，要世空，子托独发，旺相，又要官鬼空，或官入墓绝，应持鬼好。若世生官凶，难脱破财，官鬼动化出，同。\n\n金鬼旱蝗，火鬼大旱，水鬼水灾，木鬼耗损。一卦两鬼，两家合种。年丰必须官鬼空亡，大抵财爻宜旺，不宜落空则吉。金财旺相，早禾倍收。土财旺相，晚禾丰稔。金土二爻虽不临财，但遇吉神，亦准可论吉。\n\n世应空亡，主和；世空我军弱；应空征兵退；世爻被鬼冲克，我军不利；兄弟独发凶。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 523,
+          "chapter": "各占例",
+          "definition_original": "将本求利，须要财爻持世，应旺相，有气，乃大吉。财爻无气，虽有亦无多。财爻空亡。其财决无，尤防破失。财爻生旺可倍加，休囚减半。逢冲，将入手有阻。",
+          "rule_id": "R-FHL-06-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 759,
+          "chapter": "各占例",
+          "definition_original": "假令有人占推役与人，要世空，子托独发，旺相，又要官鬼空，或官入墓绝，应持鬼好。若世生官凶，难脱破财，官鬼动化出，同。",
+          "rule_id": "R-FHL-06-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 914,
+          "chapter": "各占例",
+          "definition_original": "金鬼旱蝗，火鬼大旱，水鬼水灾，木鬼耗损。一卦两鬼，两家合种。年丰必须官鬼空亡，大抵财爻宜旺，不宜落空则吉。金财旺相，早禾倍收。土财旺相，晚禾丰稔。金土二爻虽不临财，但遇吉神，亦准可论吉。",
+          "rule_id": "R-FHL-06-03",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 4,
+          "line": 991,
+          "chapter": "各占例",
+          "definition_original": "世应空亡，主和；世空我军弱；应空征兵退；世爻被鬼冲克，我军不利；兄弟独发凶。",
+          "rule_id": "R-FHL-06-04",
+          "enumeration_source": "editorial"
+        }
+      ],
+      "note": "同書以世／應／官／財等爻位論空，非以空爻之旺衰動靜分格。"
+    },
+    {
+      "set_id": "FHL_SET_07",
+      "set_name": "卦有三墓",
+      "source": "火珠林",
+      "chapter": "墓例",
+      "line": 768,
+      "count_declared": null,
+      "count_actual": 3,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "封有三墓：宫基、鬼墓，以世为身，忌生鬼爻。本宫墓鬼得之者，主自身合灾，暴病未可，久病必死。\n\n或问：卦有三墓，何谓三墓？\n\n答曰：\n\n如天风姤卦，旁爻丑持世，乾宫属金墓在丑，此是宫墓。\n\n如中孚封，世持辛未，艮官属土，以寅木为鬼，木墓在未，此是鬼墓。\n\n如泰卦，甲辰持世，坤宫属土，以亥水为财，水墓在辰，此是财墓。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 775,
+          "chapter": "墓例",
+          "definition_original": "如天风姤卦，旁爻丑持世，乾宫属金墓在丑，此是宫墓。",
+          "rule_id": "R-FHL-07-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 777,
+          "chapter": "墓例",
+          "definition_original": "如中孚封，世持辛未，艮官属土，以寅木为鬼，木墓在未，此是鬼墓。",
+          "rule_id": "R-FHL-07-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 779,
+          "chapter": "墓例",
+          "definition_original": "如泰卦，甲辰持世，坤宫属土，以亥水为财，水墓在辰，此是财墓。",
+          "rule_id": "R-FHL-07-03",
+          "enumeration_source": "editorial"
+        }
+      ],
+      "note": "行 768 主檔異文作『封有三墓：宫基、鬼墓』；三項依 772–779 問答保存，不校補正文。"
+    },
+    {
+      "set_id": "FHL_SET_08",
+      "set_name": "八宗",
+      "source": "火珠林",
+      "chapter": "〈63·易道心性〉",
+      "line": 1315,
+      "count_declared": null,
+      "count_actual": 8,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "又曰：麻衣六亲，各有为主，以世、应、日、月、飞、伏、动、静，晓此道理，刻期而应。复以克、合、刑、害、墓、旺、空、冲，知此八宗，与神奥通。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 1315,
+          "chapter": "〈63·易道心性〉",
+          "definition_original": "又曰：麻衣六亲，各有为主，以世、应、日、月、飞、伏、动、静，晓此道理，刻期而应。复以克、合、刑、害、墓、旺、空、冲，知此八宗，与神奥通。",
+          "rule_id": "R-FHL-08-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 1315,
+          "chapter": "〈63·易道心性〉",
+          "definition_original": "又曰：麻衣六亲，各有为主，以世、应、日、月、飞、伏、动、静，晓此道理，刻期而应。复以克、合、刑、害、墓、旺、空、冲，知此八宗，与神奥通。",
+          "rule_id": "R-FHL-08-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 1315,
+          "chapter": "〈63·易道心性〉",
+          "definition_original": "又曰：麻衣六亲，各有为主，以世、应、日、月、飞、伏、动、静，晓此道理，刻期而应。复以克、合、刑、害、墓、旺、空、冲，知此八宗，与神奥通。",
+          "rule_id": "R-FHL-08-03",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 4,
+          "line": 1315,
+          "chapter": "〈63·易道心性〉",
+          "definition_original": "又曰：麻衣六亲，各有为主，以世、应、日、月、飞、伏、动、静，晓此道理，刻期而应。复以克、合、刑、害、墓、旺、空、冲，知此八宗，与神奥通。",
+          "rule_id": "R-FHL-08-04",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 5,
+          "line": 1315,
+          "chapter": "〈63·易道心性〉",
+          "definition_original": "又曰：麻衣六亲，各有为主，以世、应、日、月、飞、伏、动、静，晓此道理，刻期而应。复以克、合、刑、害、墓、旺、空、冲，知此八宗，与神奥通。",
+          "rule_id": "R-FHL-08-05",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 6,
+          "line": 1315,
+          "chapter": "〈63·易道心性〉",
+          "definition_original": "又曰：麻衣六亲，各有为主，以世、应、日、月、飞、伏、动、静，晓此道理，刻期而应。复以克、合、刑、害、墓、旺、空、冲，知此八宗，与神奥通。",
+          "rule_id": "R-FHL-08-06",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 7,
+          "line": 1315,
+          "chapter": "〈63·易道心性〉",
+          "definition_original": "又曰：麻衣六亲，各有为主，以世、应、日、月、飞、伏、动、静，晓此道理，刻期而应。复以克、合、刑、害、墓、旺、空、冲，知此八宗，与神奥通。",
+          "rule_id": "R-FHL-08-07",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 8,
+          "line": 1315,
+          "chapter": "〈63·易道心性〉",
+          "definition_original": "又曰：麻衣六亲，各有为主，以世、应、日、月、飞、伏、动、静，晓此道理，刻期而应。复以克、合、刑、害、墓、旺、空、冲，知此八宗，与神奥通。",
+          "rule_id": "R-FHL-08-08",
+          "enumeration_source": "editorial"
+        }
+      ],
+      "note": "『克、合、刑、害、墓、旺、空、沖』為全書收束語；空與沖在此並列同級。",
+      "is_closing_summary": true
+    },
+    {
+      "set_id": "FHL_SET_09",
+      "set_name": "凡祭賽有三",
+      "source": "火珠林",
+      "chapter": "〈40·占祭賽〉",
+      "line": 715,
+      "count_declared": null,
+      "count_actual": 3,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "凡祭赛有三，如祀上帝，即取藏爻中鬼神祗，当用月建；神堂家庙，当用日辰。皆要生合卦身，不宜刑冲，亦不要动爻克害刑冲。如合生，福利而吉；若带刑冲，反招祸。卦爻中鬼自化入墓，必有不了再牵之患。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 715,
+          "chapter": "〈40·占祭賽〉",
+          "definition_original": "凡祭赛有三，如祀上帝，即取藏爻中鬼神祗，当用月建；神堂家庙，当用日辰。皆要生合卦身，不宜刑冲，亦不要动爻克害刑冲。如合生，福利而吉；若带刑冲，反招祸。卦爻中鬼自化入墓，必有不了再牵之患。",
+          "rule_id": "R-FHL-09-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 715,
+          "chapter": "〈40·占祭賽〉",
+          "definition_original": "凡祭赛有三，如祀上帝，即取藏爻中鬼神祗，当用月建；神堂家庙，当用日辰。皆要生合卦身，不宜刑冲，亦不要动爻克害刑冲。如合生，福利而吉；若带刑冲，反招祸。卦爻中鬼自化入墓，必有不了再牵之患。",
+          "rule_id": "R-FHL-09-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 715,
+          "chapter": "〈40·占祭賽〉",
+          "definition_original": "凡祭赛有三，如祀上帝，即取藏爻中鬼神祗，当用月建；神堂家庙，当用日辰。皆要生合卦身，不宜刑冲，亦不要动爻克害刑冲。如合生，福利而吉；若带刑冲，反招祸。卦爻中鬼自化入墓，必有不了再牵之患。",
+          "rule_id": "R-FHL-09-03",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "FHL_SET_10",
+      "set_name": "六親五件加卦身",
+      "source": "火珠林",
+      "chapter": "〈2·六親根源〉",
+      "line": 38,
+      "count_declared": null,
+      "count_actual": 6,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "或问：六亲为主，父母、兄弟、妻财、子孙、官鬼，只有五件，而曰六亲何也？\n\n答曰：卦身当一亲。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 38,
+          "chapter": "〈2·六親根源〉",
+          "definition_original": "或问：六亲为主，父母、兄弟、妻财、子孙、官鬼，只有五件，而曰六亲何也？",
+          "rule_id": "R-FHL-10-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 38,
+          "chapter": "〈2·六親根源〉",
+          "definition_original": "或问：六亲为主，父母、兄弟、妻财、子孙、官鬼，只有五件，而曰六亲何也？",
+          "rule_id": "R-FHL-10-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 38,
+          "chapter": "〈2·六親根源〉",
+          "definition_original": "或问：六亲为主，父母、兄弟、妻财、子孙、官鬼，只有五件，而曰六亲何也？",
+          "rule_id": "R-FHL-10-03",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 4,
+          "line": 38,
+          "chapter": "〈2·六親根源〉",
+          "definition_original": "或问：六亲为主，父母、兄弟、妻财、子孙、官鬼，只有五件，而曰六亲何也？",
+          "rule_id": "R-FHL-10-04",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 5,
+          "line": 38,
+          "chapter": "〈2·六親根源〉",
+          "definition_original": "或问：六亲为主，父母、兄弟、妻财、子孙、官鬼，只有五件，而曰六亲何也？",
+          "rule_id": "R-FHL-10-05",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 6,
+          "line": 39,
+          "chapter": "〈2·六親根源〉",
+          "definition_original": "答曰：卦身当一亲。",
+          "rule_id": "R-FHL-10-06",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "FHL_SET_11",
+      "set_name": "書有三而異用",
+      "source": "火珠林",
+      "chapter": "古注",
+      "line": 14,
+      "count_declared": null,
+      "count_actual": 3,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "注云：书有三而异用，卦皆八以为经。一曰《连山》，二曰《归藏》，三曰《周易》。自秦焚书坑儒，《连山》、《归藏》不传于世矣。又云：一曰治天下，二曰论长生，三曰卜吉凶。夫三才者，天干为上，能占九天之外，日月星辰，风雷云雨明晴之事；地支为中，能占九地之上，山川草木，人伦吉凶，否泰存亡之事；纳四象，四象生八卦，所谓四营成易也。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 14,
+          "chapter": "古注",
+          "definition_original": "注云：书有三而异用，卦皆八以为经。一曰《连山》，二曰《归藏》，三曰《周易》。自秦焚书坑儒，《连山》、《归藏》不传于世矣。又云：一曰治天下，二曰论长生，三曰卜吉凶。夫三才者，天干为上，能占九天之外，日月星辰，风雷云雨明晴之事；地支为中，能占九地之上，山川草木，人伦吉凶，否泰存亡之事；纳四象，四象生八卦，所谓四营成易也。",
+          "rule_id": "R-FHL-11-01",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 2,
+          "line": 14,
+          "chapter": "古注",
+          "definition_original": "注云：书有三而异用，卦皆八以为经。一曰《连山》，二曰《归藏》，三曰《周易》。自秦焚书坑儒，《连山》、《归藏》不传于世矣。又云：一曰治天下，二曰论长生，三曰卜吉凶。夫三才者，天干为上，能占九天之外，日月星辰，风雷云雨明晴之事；地支为中，能占九地之上，山川草木，人伦吉凶，否泰存亡之事；纳四象，四象生八卦，所谓四营成易也。",
+          "rule_id": "R-FHL-11-02",
+          "enumeration_source": "editorial"
+        },
+        {
+          "item_ordinal": 3,
+          "line": 14,
+          "chapter": "古注",
+          "definition_original": "注云：书有三而异用，卦皆八以为经。一曰《连山》，二曰《归藏》，三曰《周易》。自秦焚书坑儒，《连山》、《归藏》不传于世矣。又云：一曰治天下，二曰论长生，三曰卜吉凶。夫三才者，天干为上，能占九天之外，日月星辰，风雷云雨明晴之事；地支为中，能占九地之上，山川草木，人伦吉凶，否泰存亡之事；纳四象，四象生八卦，所谓四营成易也。",
+          "rule_id": "R-FHL-11-03",
+          "enumeration_source": "editorial"
+        }
+      ]
+    },
+    {
+      "set_id": "FHL_SET_12",
+      "set_name": "排除《元龜》卦身起法",
+      "source": "火珠林",
+      "chapter": "〈2·六親根源〉",
+      "line": 41,
+      "count_declared": null,
+      "count_actual": 1,
+      "count_mismatch": null,
+      "enumeration_source": "editorial",
+      "definition_original_full": "问曰：如何为卦身？\n\n曰：阳世则从子月起，阴世还当午月生，此即卦身也。而《\n\n元龟\n\n》以月卦言之，所以吉凶不应。",
+      "items": [
+        {
+          "item_ordinal": 1,
+          "line": 42,
+          "chapter": "〈2·六親根源〉",
+          "definition_original": "曰：阳世则从子月起，阴世还当午月生，此即卦身也。而《",
+          "rule_id": "R-FHL-12-01",
+          "enumeration_source": "editorial"
+        }
+      ],
+      "note": "此為卦身起法之明文排除，不屬本包各決策表格位。",
+      "explicit_exclusion": true
+    }
+  ]
+}

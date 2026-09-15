@@ -9,16 +9,15 @@ from engine.semantics import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
-TABLE_PATHS = (
-    ROOT / "data" / "decision_tables" / "C1_chong_san.json",
-    ROOT / "data" / "decision_tables" / "C13_kongwang_scope.json",
-)
+TABLE_PATHS = tuple(sorted((ROOT / "data" / "decision_tables").glob("*.json")))
 COVERAGE_KEYS = {
     "books_total",
     "books_collected",
     "books_addressed",
     "books_not_addressed",
     "books_category_negated",
+    "books_concept_absent",
+    "books_explicit_exclusion",
     "books_different_axis",
     "books_not_collected",
 }
@@ -61,13 +60,15 @@ def test_coverage_counts_sum_to_books_total():
                 coverage["books_addressed"]
                 + coverage["books_not_addressed"]
                 + coverage["books_category_negated"]
+                + coverage["books_concept_absent"]
+                + coverage["books_explicit_exclusion"]
                 + coverage["books_different_axis"]
                 + coverage["books_not_collected"]
                 == coverage["books_total"]
             )
 
 
-def test_addressed_and_category_negated_are_independent_counts():
+def test_seven_status_counts_are_independent():
     for path in TABLE_PATHS:
         data = load_json(path)
         for row in data["rows"]:
@@ -78,6 +79,12 @@ def test_addressed_and_category_negated_are_independent_counts():
             )
             assert coverage["books_category_negated"] == sum(
                 cell["status"] == "category_negated" for cell in row["cells"]
+            )
+            assert coverage["books_concept_absent"] == sum(
+                cell["status"] == "concept_absent" for cell in row["cells"]
+            )
+            assert coverage["books_explicit_exclusion"] == sum(
+                cell["status"] == "explicit_exclusion" for cell in row["cells"]
             )
             assert coverage["books_different_axis"] == sum(
                 cell["status"] == "different_axis" for cell in row["cells"]
@@ -142,7 +149,7 @@ R1–R5 五個條件係本項目從《易冒》十八法與野鶴之論述反推
 
 其他書並無義務按此五格立說。《卜筮全書》按事類編排、全書無專章體例，其「未表述」部分反映的是本表提問方式偏向《易冒》，而非該書材料貧乏。
 
-**覆蓋率為材料厚度指標，不是可信度指標，更不是票數。** 三家有表述不等於該說較可信；一家否定範疇不等於該家是少數派 —— 否定範疇是拒絕進入此提問框架，不是投了反對票。"""
+**覆蓋率只記錄已採集材料之範圍，不是可信度指標，更不是票數。** 三家有表述不等於該說較可信；一家否定範疇不等於該家是少數派 —— 否定範疇是拒絕進入此提問框架，不是投了反對票。"""
     assert COVERAGE_NOTE == expected
     assert "不是可信度指標" in COVERAGE_NOTE
     assert "不是票數" in COVERAGE_NOTE

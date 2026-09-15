@@ -1,0 +1,771 @@
+{
+  "table_id": "K",
+  "title": "空亡之狀態材料",
+  "axis_note": "單表：各家同以空之狀態為材料，但粒度不同；不作跨書效果裁決。",
+  "books": [
+    {
+      "book_id": "yimao",
+      "name": "易冒"
+    },
+    {
+      "book_id": "zengshan",
+      "name": "增刪卜易"
+    },
+    {
+      "book_id": "buzhengzong",
+      "name": "卜筮正宗"
+    },
+    {
+      "book_id": "huozhulin",
+      "name": "火珠林"
+    },
+    {
+      "book_id": "huangjin_ce",
+      "name": "黃金策"
+    },
+    {
+      "book_id": "buzhequanshu",
+      "name": "卜筮全書"
+    },
+    {
+      "book_id": "jing_shi_yizhuan",
+      "name": "京氏易傳"
+    },
+    {
+      "book_id": "yiyin",
+      "name": "易隱"
+    }
+  ],
+  "rows": [
+    {
+      "row_id": "K-R1",
+      "condition": "旺相之爻值旬空",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "有用",
+          "source": "旬空章第二十六 400（十三法）",
+          "original": "旺相之爻值空，为旺相空。",
+          "rule_id": "R-YM-10-04"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "不為空",
+          "source": "旬空章第二十六 1844",
+          "original": "旺不为空。",
+          "rule_id": "R-ZS-VOID-01"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "到底有用",
+          "source": "旬空論第十 2699",
+          "original": "如旺相旬空……此等旬空到底有用。",
+          "rule_id": "R-BZ-02-P-01"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書判空看世／應／官／財等爻位，非空爻之旺相、休囚、動靜等狀態；爻位軸空亡表未建（P-050）。",
+          "axis_original": "世应空亡，主和；世空我军弱；应空征兵退。",
+          "axis_source": "火珠林 991",
+          "cross_reference": "P-050"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "addressed",
+          "verdict": "不空",
+          "source": "千金賦 36",
+          "original": "带旺匪空。",
+          "rule_id": "R-HJ-K-01"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed",
+          "verdict": "可用",
+          "source": "總斷千金賦 5558",
+          "original": "空中不受伤克，反有可成之机。",
+          "rule_id": "R-BQ-02-01",
+          "cell_note": "原文不單列旺相為條件，保留其與本格範圍不同。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 5,
+        "books_not_addressed": 0,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：5 本有表述、1 本用另一軸；另 2 本未採\n\n註：《黃金策》與《卜筮全書》文本重疊 89.4%（被收錄者與收錄者），二者之一致不構成兩個獨立證據。"
+    },
+    {
+      "row_id": "K-R2",
+      "condition": "休囚之爻值旬空",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "不全填實",
+          "source": "旬空章第二十六 400（十三法）",
+          "original": "若遇休囚伤克，乃谓不全填实也。",
+          "rule_id": "R-YM-10-03"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "空",
+          "source": "旬空章第二十六 1845",
+          "original": "有气不动亦为空。",
+          "rule_id": "R-ZS-VOID-02",
+          "cell_note": "原文以有氣／不動連帶切分，非單列休囚。"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "真空到底空",
+          "source": "旬空論第十 2699",
+          "original": "休囚安静……谓之真空到底空矣！",
+          "rule_id": "R-BZ-02-N-01",
+          "cell_note": "原文連帶安靜條件。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書判空看世／應／官／財等爻位，非空爻之旺相、休囚、動靜等狀態；爻位軸空亡表未建（P-050）。",
+          "axis_original": "世应空亡，主和；世空我军弱；应空征兵退。",
+          "axis_source": "火珠林 991",
+          "cross_reference": "P-050"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "addressed",
+          "verdict": "可吉",
+          "source": "千金賦 38",
+          "original": "有助有扶，衰弱休囚亦吉。",
+          "rule_id": "R-HJ-K-02",
+          "cell_note": "原文連帶有助有扶。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_23 已以休囚、空亡、旬空交叉檢索；未定位以休囚為本格直接條件之原文。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 4,
+        "books_not_addressed": 1,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：4 本有表述、1 本未表述、1 本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "K-R3",
+      "condition": "動爻值旬空",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "反為動",
+          "source": "旬空章第二十六 400（十三法）",
+          "original": "动爻值空，谓动空，不惟不空，反为动也。",
+          "rule_id": "R-YM-10-02"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "不為空",
+          "source": "旬空章第二十六 1844",
+          "original": "动不为空。",
+          "rule_id": "R-ZS-VOID-03"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "到底有用",
+          "source": "旬空論第十 2699",
+          "original": "或休囚发动……此等旬空到底有用。",
+          "rule_id": "R-BZ-02-P-02"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書判空看世／應／官／財等爻位，非空爻之旺相、休囚、動靜等狀態；爻位軸空亡表未建（P-050）。",
+          "axis_original": "世应空亡，主和；世空我军弱；应空征兵退。",
+          "axis_source": "火珠林 991",
+          "cross_reference": "P-050"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "addressed",
+          "verdict": "凶咎",
+          "source": "千金賦 32",
+          "original": "自空化空，必成凶咎。",
+          "rule_id": "R-HJ-K-03",
+          "cell_note": "原文為自空化空，保留其比本格多出『化』的條件。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_23 已檢索動、空亡、旬空；未定位單以動爻值旬空為條件的直接原文。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 4,
+        "books_not_addressed": 1,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：4 本有表述、1 本未表述、1 本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "K-R4",
+      "condition": "靜爻值旬空",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_23 於旬空章、類總章、日沖章交叉檢索動、靜、旬空，未定位直接條件。"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "空",
+          "source": "旬空章第二十六 1845",
+          "original": "有气不动亦为空。",
+          "rule_id": "R-ZS-VOID-04"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "真空到底空",
+          "source": "旬空論第十 2699",
+          "original": "休囚安静……谓之真空到底空矣！",
+          "rule_id": "R-BZ-02-N-01"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書判空看世／應／官／財等爻位，非空爻之旺相、休囚、動靜等狀態；爻位軸空亡表未建（P-050）。",
+          "axis_original": "世应空亡，主和；世空我军弱；应空征兵退。",
+          "axis_source": "火珠林 991",
+          "cross_reference": "P-050"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_23 全文交叉檢索動、靜、空亡、旬空，未定位直接條件。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_23 定位六爻空亡歌按爻位列空亡，未另立靜爻分類。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "row_note": "本格保留為本項目提問，但各書多連帶其他條件：《增刪卜易》為『有氣不動』；《卜筮正宗》為『休囚安靜』；《卜筮全書》按爻位論空亡；《易冒》與《黃金策》未定位單列靜爻。『靜』本身可能非各家之切分維度。",
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 2,
+        "books_not_addressed": 3,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：2 本有表述、3 本未表述、1 本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "K-R5",
+      "condition": "空爻遇日辰沖",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "實",
+          "source": "日沖章第二十七 415；旬空十三法 400",
+          "original": "空爻遇冲谓之实。",
+          "rule_id": "R-YM-09-03"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "沖空則實",
+          "source": "日辰章 1246–1247",
+          "original": "爻遇旬空，日辰冲起而有用，谓之冲空则实。",
+          "rule_id": "R-ZS-VOID-05"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_23 檢索出旬、空爻遇沖、沖空、日辰沖，未定位直接對應原文。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書判空看世／應／官／財等爻位，非空爻之旺相、休囚、動靜等狀態；爻位軸空亡表未建（P-050）。",
+          "axis_original": "世应空亡，主和；世空我军弱；应空征兵退。",
+          "axis_source": "火珠林 991",
+          "cross_reference": "P-050"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "addressed",
+          "verdict": "有用",
+          "source": "千金賦 30",
+          "original": "空逢冲而有用。",
+          "rule_id": "R-HJ-K-05"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed",
+          "verdict": "不空",
+          "source": "總斷千金賦 5461–5463",
+          "original": "空亡……被日辰冲动，定有雨。",
+          "rule_id": "R-BQ-05-02"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 4,
+        "books_not_addressed": 1,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：4 本有表述、1 本未表述、1 本用另一軸；另 2 本未採\n\n註：《黃金策》與《卜筮全書》文本重疊 89.4%（被收錄者與收錄者），二者之一致不構成兩個獨立證據。"
+    },
+    {
+      "row_id": "K-R6",
+      "condition": "空爻得日月動爻生扶",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "有用／不死",
+          "source": "旬空章第二十六 400（十三法）",
+          "original": "动爻日辰来生空爻，乃谓援空；日月动爻皆不来克空爻，乃谓安空。",
+          "rule_id": "R-YM-10-07",
+          "cell_note": "同書十三法之建空、援空、安空均與本格相關。"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "不為空",
+          "source": "旬空章第二十六 1844",
+          "original": "有日建动爻生扶者亦不为空。",
+          "rule_id": "R-ZS-VOID-06"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "到底有用",
+          "source": "旬空論第十 2699",
+          "original": "日辰生扶、动爻生扶……此等旬空到底有用。",
+          "rule_id": "R-BZ-02-P-03"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書判空看世／應／官／財等爻位，非空爻之旺相、休囚、動靜等狀態；爻位軸空亡表未建（P-050）。",
+          "axis_original": "世应空亡，主和；世空我军弱；应空征兵退。",
+          "axis_source": "火珠林 991",
+          "cross_reference": "P-050"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "addressed",
+          "verdict": "亦吉",
+          "source": "千金賦 38",
+          "original": "有助有扶，衰弱休囚亦吉。",
+          "rule_id": "R-HJ-K-06"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_23 保留日月動爻傷克與避凶空材料，未定位日月動爻生扶空爻的直接條件。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 4,
+        "books_not_addressed": 1,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：4 本有表述、1 本未表述、1 本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "K-R7",
+      "condition": "伏神值旬空",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "不現",
+          "source": "旬空章第二十六 407–408",
+          "original": "空在伏爻则不现。",
+          "rule_id": "R-YM-VOID-07"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "出空之日則出",
+          "source": "伏神章 2181–2188",
+          "original": "凡伏神旺相而遇旬空，出空之日则出矣。",
+          "rule_id": "R-ZS-VOID-07"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "到底有用／真空到底空",
+          "source": "旬空論第十 2699",
+          "original": "伏而旺相……此等旬空到底有用；爻克伏而被克……谓之真空到底空。",
+          "rule_id": "R-BZ-02-P-06"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書判空看世／應／官／財等爻位，非空爻之旺相、休囚、動靜等狀態；爻位軸空亡表未建（P-050）。",
+          "axis_original": "世应空亡，主和；世空我军弱；应空征兵退。",
+          "axis_source": "火珠林 991",
+          "cross_reference": "P-050"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "addressed",
+          "verdict": "事與願違／易於引拔",
+          "source": "千金賦 44–48",
+          "original": "伏居空地，事与愿违……空下伏神易于引拔。",
+          "rule_id": "R-HJ-K-07",
+          "cell_note": "同段對伏居空地與空下伏神有不同句式，並列保留。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed",
+          "verdict": "伏藏不論空亡",
+          "source": "用爻空亡訣 3398",
+          "original": "空在旁宫不断空，（即伏藏不论空亡也。）",
+          "rule_id": "R-BQ-VOID-07"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 5,
+        "books_not_addressed": 0,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：5 本有表述、1 本用另一軸；另 2 本未採\n\n註：《黃金策》與《卜筮全書》文本重疊 89.4%（被收錄者與收錄者），二者之一致不構成兩個獨立證據。"
+    },
+    {
+      "row_id": "K-R8",
+      "condition": "出旬之後",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "旬外實",
+          "source": "類總章第四十一 692（八法）",
+          "original": "日月生扶，谓之旺相空，旬内空而旬外实。",
+          "rule_id": "R-YM-06-06"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "出旬而不空／到底之空",
+          "source": "旬空章第二十六 1846–1847",
+          "original": "卦吉者，许之出旬而不空；卦凶者，许之空矣。",
+          "rule_id": "R-ZS-VOID-08"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "待出旬",
+          "source": "旬空論第十 2699",
+          "original": "此等旬空到底有用，不过待其出旬……",
+          "rule_id": "R-BZ-02-P-01"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書判空看世／應／官／財等爻位，非空爻之旺相、休囚、動靜等狀態；爻位軸空亡表未建（P-050）。",
+          "axis_original": "世应空亡，主和；世空我军弱；应空征兵退。",
+          "axis_source": "火珠林 991",
+          "cross_reference": "P-050"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_23 搜尋出旬、出空、旬外及全文空亡材料，未定位直接原文。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed",
+          "verdict": "過旬即成",
+          "source": "總斷千金賦 5560",
+          "original": "即是不坏，但目下略阻，过旬即成。",
+          "rule_id": "R-BQ-02-04"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 4,
+        "books_not_addressed": 1,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：4 本有表述、1 本未表述、1 本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "K-R9",
+      "condition": "空而逢月破",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "所戒",
+          "source": "旬空章第二十六 402（十三法）",
+          "original": "月破值空，谓破空。",
+          "rule_id": "R-YM-10-09"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "空",
+          "source": "旬空章第二十六 1845",
+          "original": "月破为空。",
+          "rule_id": "R-ZS-VOID-09"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "真空到底空",
+          "source": "旬空論第十 2699",
+          "original": "静逢月破值此旬空者，谓之真空到底空矣！",
+          "rule_id": "R-BZ-02-N-04"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書判空看世／應／官／財等爻位，非空爻之旺相、休囚、動靜等狀態；爻位軸空亡表未建（P-050）。",
+          "axis_original": "世应空亡，主和；世空我军弱；应空征兵退。",
+          "axis_source": "火珠林 991",
+          "cross_reference": "P-050"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_23 未定位空而逢月破的直接條件。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_23 搜尋月破、空亡與旬空，未定位本格直接原文。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 3,
+        "books_not_addressed": 2,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：3 本有表述、2 本未表述、1 本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "K-R10",
+      "condition": "空而逢絕",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "所戒",
+          "source": "旬空章第二十六 402（十三法）",
+          "original": "绝于月为绝空。",
+          "rule_id": "R-YM-10-10"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_23 未定位空而逢絕的直接條件；不以伏神墓絕材料頂替。"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_23 未定位空而逢絕的直接條件。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書判空看世／應／官／財等爻位，非空爻之旺相、休囚、動靜等狀態；爻位軸空亡表未建（P-050）。",
+          "axis_original": "世应空亡，主和；世空我军弱；应空征兵退。",
+          "axis_source": "火珠林 991",
+          "cross_reference": "P-050"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_23 未定位空而逢絕的直接條件。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_23 未定位空而逢絕的直接條件。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 1,
+        "books_not_addressed": 4,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：1 本有表述、4 本未表述、1 本用另一軸；另 2 本未採"
+    }
+  ]
+}

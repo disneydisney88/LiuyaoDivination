@@ -134,6 +134,10 @@ def _track_text(book: str, track: dict[str, Any], templates: dict[str, dict[str,
     if track.get("not_addressed"):
         text, template_id = _render("T-TRACK-NOT-ADDRESSED-01", {}, templates)
         return text, "", template_id
+    if track.get("concept_absent"):
+        return "此書體系中未見此概念。", "", None
+    if track.get("explicit_exclusion"):
+        return "此書明文排除此角色。", "", None
     if track.get("different_axis"):
         text, template_id = _render("T-TRACK-DIFFERENT-AXIS-01", {}, templates)
         implication, _ = _render("T-TRACK-IMPLICATION-DIFFERENT-AXIS-01", {}, templates)
@@ -157,6 +161,12 @@ def _source_fields(book: str, track: dict[str, Any], by_rule: dict[str, dict[str
         original = track.get("negation_original")
         if original:
             return original, track.get("negation_source")
+    if track.get("explicit_exclusion"):
+        original = track.get("exclusion_original")
+        if original:
+            return original, track.get("exclusion_source")
+    if track.get("concept_absent"):
+        return track.get("absence_note"), None
     if track.get("different_axis"):
         return track.get("axis_original"), track.get("axis_source")
     original = track.get("original")
@@ -184,17 +194,24 @@ def narrate(*, semantics: dict[str, Any], relations: dict[str, Any]) -> dict[str
         entry = {
             "book": book, "status": track.get("status"), "verdict_plain": verdict, "original": original,
             "citation": citation,
-            "source_locator": track.get("source") or track.get("axis_source") or track.get("negation_source"),
+            "source_locator": (
+                track.get("source") or track.get("axis_source")
+                or track.get("negation_source") or track.get("exclusion_source")
+            ),
             "implication": implication, "rule_id": track.get("rule_id"),
         }
         for key in ("verdict_note", "line", "related_material", "search_note",
-                    "axis_note", "axis_original", "axis_source", "cross_reference"):
+                    "axis_note", "axis_original", "axis_source", "cross_reference", "term_note"):
             if key in track:
                 entry[key] = track[key]
         if verdict_template:
             entry["template_id"] = verdict_template
         if track.get("category_negated"):
             entry["category_negated"] = True
+        if track.get("concept_absent"):
+            entry["concept_absent"] = True
+        if track.get("explicit_exclusion"):
+            entry["explicit_exclusion"] = True
         if track.get("evidence_strength"):
             entry["evidence_strength"] = track["evidence_strength"]
         tracks.append(entry)

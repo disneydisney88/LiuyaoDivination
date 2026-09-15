@@ -24,8 +24,8 @@ def test_all_doctrinal_rule_files_have_uniform_envelope():
 
 def test_buzhengzong_is_structured_from_task08_extract():
     data = json.loads((ROOT / "data" / "doctrinal" / "buzhengzong_rules.json").read_text(encoding="utf-8"))
-    assert len(data["sets"]) == 5
-    assert sum(len(source_set["items"]) for source_set in data["sets"]) == 18
+    assert len(data["sets"]) == 6
+    assert sum(len(source_set["items"]) for source_set in data["sets"]) == 23
     weak_set = next(source_set for source_set in data["sets"] if source_set["set_id"] == "BZ_SET_03")
     weak = weak_set["items"][0]
     assert weak["evidence_strength"] == "weak"
@@ -33,6 +33,8 @@ def test_buzhengzong_is_structured_from_task08_extract():
     assert data["sets"][0]["definition_original_full"].startswith("凡卦中月破之爻，乃关因之所现也")
     assert data["sets"][2]["definition_original_full"].startswith("凡卦中爻遇旬空，乃神机发现于此也")
     assert "虽遇冲而不散" in weak["definition_original"]
+    yuan_ji = next(source_set for source_set in data["sets"] if source_set["set_id"] == "BZ_SET_YUAN_JI_01")
+    assert "原神休囚不动" in yuan_ji["definition_original_full"]
     for source_set in data["sets"]:
         assert source_set["count_declared"] is None
         assert source_set["count_mismatch"] is None
@@ -58,9 +60,14 @@ def test_decision_table_is_eight_books_by_five_rows():
     assert all(len(row["cells"]) == 8 for row in table["rows"])
 
 
-def test_five_status_values_are_exhaustive_and_validated():
+def test_seven_status_values_are_exhaustive_and_validated():
     table = load_decision_table()
-    statuses = {cell["status"] for row in table["rows"] for cell in row["cells"]}
+    statuses = {
+        cell["status"]
+        for path in (ROOT / "data" / "decision_tables").glob("*.json")
+        for row in json.loads(path.read_text(encoding="utf-8"))["rows"]
+        for cell in row["cells"]
+    }
     assert statuses == set(VALID_STATUSES)
     for row in table["rows"]:
         assert {cell["book_id"] for cell in row["cells"]} == {book["book_id"] for book in table["books"]}
@@ -76,7 +83,7 @@ def test_category_negated_has_null_verdict_and_negation_source():
 def test_not_collected_has_no_verdict_or_inferred_text():
     table = load_decision_table()
     cells = [cell for row in table["rows"] for cell in row["cells"] if cell["status"] == "not_collected"]
-    assert len(cells) == 15
+    assert len(cells) == 10
     assert all("verdict" not in cell for cell in cells)
     result = semantic_for_condition(line=3, condition="休囚之爻遇日沖")
     assert all("verdict" not in track for track in result["tracks"].values() if track["status"] == "not_collected")

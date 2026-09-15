@@ -59,7 +59,7 @@ def test_complete_case_connects_calendar_relations_narrative_and_five_tracks():
     ]
     assert semantics["row_title"] == "三家判不散，一家判損"
     assert {item["book"] for item in expressed} == {
-        "易冒", "增刪卜易", "卜筮正宗", "黃金策", "卜筮全書",
+        "易冒", "增刪卜易", "卜筮正宗", "火珠林", "黃金策", "卜筮全書",
     }
     assert all(item["original"] and item["source_locator"] for item in expressed)
 
