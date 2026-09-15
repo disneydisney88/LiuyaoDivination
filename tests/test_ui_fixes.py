@@ -124,7 +124,7 @@ def test_tracks_switches_note_and_labels_task23_month_source():
     assert "本爻之沖來自月建酉，非日辰" in text
     assert "辨動靜以定刑沖" in text
     assert "未就本表之問題採集：易冒、增刪卜易、卜筮正宗、卜筮全書" in text
-    assert "（4本已入庫，但未針對動靜軸檢索）" in text
+    assert "（四本已入庫，但未針對動靜軸檢索）" in text
     assert "該書尚未入庫：京氏易傳、易隱" in text
 
 

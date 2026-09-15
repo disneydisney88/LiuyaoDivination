@@ -26,6 +26,7 @@ TABLE_AXIS_LABELS = {
     "K": "空亡狀態",
     "Y": "元神／忌神狀態",
 }
+CHINESE_COUNTS = {0: "零", 1: "一", 2: "二", 3: "三", 4: "四", 5: "五", 6: "六", 7: "七", 8: "八"}
 
 
 def chong_source_caption(cell_context: dict[str, str], relations: dict) -> str:
@@ -250,7 +251,8 @@ if not_collected:
     axis_label = TABLE_AXIS_LABELS.get(decision_table["table_id"], "本表問題")
     if ingested_not_surveyed:
         with st.expander("未就本表之問題採集：{}".format("、".join(ingested_not_surveyed)), expanded=False):
-            st.caption("（{}本已入庫，但未針對{}檢索）".format(len(ingested_not_surveyed), axis_label))
+            count = CHINESE_COUNTS.get(len(ingested_not_surveyed), str(len(ingested_not_surveyed)))
+            st.caption("（{}本已入庫，但未針對{}檢索）".format(count, axis_label))
             st.write("此為採集缺口，非該書無立場。")
     if not_ingested:
         with st.expander("該書尚未入庫：{}".format("、".join(not_ingested)), expanded=False):
