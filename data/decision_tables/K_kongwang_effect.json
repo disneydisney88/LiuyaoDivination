@@ -93,11 +93,13 @@
         },
         {
           "book_id": "jing_shi_yizhuan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         },
         {
           "book_id": "yiyin",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         }
       ],
       "coverage": {
@@ -169,11 +171,13 @@
         },
         {
           "book_id": "jing_shi_yizhuan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         },
         {
           "book_id": "yiyin",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         }
       ],
       "coverage": {
@@ -243,11 +247,13 @@
         },
         {
           "book_id": "jing_shi_yizhuan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         },
         {
           "book_id": "yiyin",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         }
       ],
       "coverage": {
@@ -312,11 +318,13 @@
         },
         {
           "book_id": "jing_shi_yizhuan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         },
         {
           "book_id": "yiyin",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         }
       ],
       "row_note": "本格保留為本項目提問，但各書多連帶其他條件：《增刪卜易》為『有氣不動』；《卜筮正宗》為『休囚安靜』；《卜筮全書》按爻位論空亡；《易冒》與《黃金策》未定位單列靜爻。『靜』本身可能非各家之切分維度。",
@@ -386,11 +394,13 @@
         },
         {
           "book_id": "jing_shi_yizhuan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         },
         {
           "book_id": "yiyin",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         }
       ],
       "coverage": {
@@ -460,11 +470,13 @@
         },
         {
           "book_id": "jing_shi_yizhuan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         },
         {
           "book_id": "yiyin",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         }
       ],
       "coverage": {
@@ -536,11 +548,13 @@
         },
         {
           "book_id": "jing_shi_yizhuan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         },
         {
           "book_id": "yiyin",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         }
       ],
       "coverage": {
@@ -609,11 +623,13 @@
         },
         {
           "book_id": "jing_shi_yizhuan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         },
         {
           "book_id": "yiyin",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         }
       ],
       "coverage": {
@@ -680,11 +696,13 @@
         },
         {
           "book_id": "jing_shi_yizhuan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         },
         {
           "book_id": "yiyin",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         }
       ],
       "coverage": {
@@ -747,11 +765,13 @@
         },
         {
           "book_id": "jing_shi_yizhuan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         },
         {
           "book_id": "yiyin",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         }
       ],
       "coverage": {
@@ -767,5 +787,6 @@
       },
       "coverage_label": "已採 6 本：1 本有表述、4 本未表述、1 本用另一軸；另 2 本未採"
     }
-  ]
+  ],
+  "table_note": "K-R1 至 K-R10 十格係本項目依各家空亡材料所擬之切法，**繫於空爻之狀態**（旺相／休囚／動／靜／遇沖／得生扶／伏／出旬／逢月破／逢絕）。\n\n**《火珠林》不依此軸**：該書判空看的是**哪個爻空**（世／應／官／財），行 991 一句之內世空、應空、世應俱空三結論各異，而全句無一字涉旺衰動靜。故其在本表標「另一軸向」。\n\n**《易冒》有兩套旬空分類**：〈旬空章第二十六〉十三法、〈類總章第四十一〉八法，名目部分重疊但不相同。本表二者並列，不合併、不擇一。\n\nK-R4（靜爻值旬空）之對應較弱 —— 各家論「靜」時多連帶其他條件（休囚安靜、有氣不動），少有單講「靜」。「靜」本身可能非各家之切分維度，本格保留但須知此事。"
 }

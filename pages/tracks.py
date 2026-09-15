@@ -4,8 +4,7 @@ import streamlit as st
 
 from engine.narrate import narrate
 from engine.semantics import (
-    COLLECTION_GAP_TEMPLATE,
-    COVERAGE_NOTE,
+    chong_source_for_line,
     infer_condition,
     load_decision_table,
     semantic_for_condition,
@@ -21,6 +20,26 @@ DECISION_TABLES = {
     "K：空亡之狀態材料": ROOT / "data" / "decision_tables" / "K_kongwang_effect.json",
     "Y：元神／忌神狀態材料": ROOT / "data" / "decision_tables" / "Y_yuanshen_jishen.json",
 }
+TABLE_AXIS_LABELS = {
+    "C1": "衰旺軸",
+    "C15": "動靜軸",
+    "K": "空亡狀態",
+    "Y": "元神／忌神狀態",
+}
+
+
+def chong_source_caption(cell_context: dict[str, str], relations: dict) -> str:
+    """Render only mechanical clash provenance; never a doctrinal conclusion."""
+    source = cell_context["chong_source"]
+    month = relations.get("month_branch", "未標明")
+    day = relations.get("day_branch", "未標明")
+    if source == "month":
+        return f"（本爻之沖來自月建{month}，非日辰）"
+    if source == "day":
+        return f"（本爻之沖來自日辰{day}，非月建）"
+    if source == "moving_line":
+        return "（本爻之沖來自動爻，非日辰或月建）"
+    return f"（本爻之沖同時來自月建{month}、日辰{day}或動爻，不是單一來源）"
 
 
 def show_track(track_narrative, track, *, original_collapsed=True):
@@ -137,15 +156,22 @@ elif manual_override:
     )
 else:
     st.caption("未選擇決策表格位；如需覆寫，請開啟「手動覆寫表格位」。")
+    st.markdown(decision_table.get("table_note", ""))
     st.stop()
+cell_context = None
+if automatic_condition in conditions and not manual_override and decision_table["table_id"] in {"C1", "C15"}:
+    source = chong_source_for_line(relation_state, line)
+    if source:
+        cell_context = {"chong_source": source}
 result = semantic_for_condition(
     line=line, condition=condition,
     hidden=chart["hidden"] if chart else [], table=decision_table,
+    cell_context=cell_context,
 )
 st.subheader("{}　{}".format(result["row_id"], condition))
+if result.get("cell_context"):
+    st.caption(chong_source_caption(result["cell_context"], relation_state))
 st.caption(result["coverage_label"])
-if result["coverage"]["books_not_collected"] > 0:
-    st.caption(COLLECTION_GAP_TEMPLATE.format(result["coverage"]["books_not_collected"]))
 narrative = narrate(semantics=result, relations=relation_state)
 st.subheader(narrative["header"])
 for step in narrative["derivation"]:
@@ -213,7 +239,21 @@ if not_addressed:
         st.write("已讀取之材料未表述此問題；不等於未採集。")
 
 if not_collected:
-    with st.expander("未採集：{}".format("、".join(not_collected)), expanded=False):
-        st.write("此為採集缺口，非該書無立場。")
+    ingested_not_surveyed = [
+        book for book in not_collected
+        if tracks[book].get("collection_status") == "ingested_not_surveyed"
+    ]
+    not_ingested = [
+        book for book in not_collected
+        if tracks[book].get("collection_status") == "not_ingested"
+    ]
+    axis_label = TABLE_AXIS_LABELS.get(decision_table["table_id"], "本表問題")
+    if ingested_not_surveyed:
+        with st.expander("未就本表之問題採集：{}".format("、".join(ingested_not_surveyed)), expanded=False):
+            st.caption("（{}本已入庫，但未針對{}檢索）".format(len(ingested_not_surveyed), axis_label))
+            st.write("此為採集缺口，非該書無立場。")
+    if not_ingested:
+        with st.expander("該書尚未入庫：{}".format("、".join(not_ingested)), expanded=False):
+            st.write("此為採集缺口，非該書無立場。")
 
-st.markdown(COVERAGE_NOTE)
+st.markdown(result.get("table_note", ""))

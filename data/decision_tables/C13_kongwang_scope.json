@@ -91,7 +91,8 @@
         },
         {
           "book_id": "huangjin_ce",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
         },
         {
           "book_id": "buzhequanshu",
@@ -103,11 +104,13 @@
         },
         {
           "book_id": "jing_shi_yizhuan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         },
         {
           "book_id": "yiyin",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         }
       ],
       "coverage": {
@@ -151,7 +154,8 @@
         },
         {
           "book_id": "huangjin_ce",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
         },
         {
           "book_id": "buzhequanshu",
@@ -163,11 +167,13 @@
         },
         {
           "book_id": "jing_shi_yizhuan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         },
         {
           "book_id": "yiyin",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         }
       ],
       "coverage": {
@@ -211,7 +217,8 @@
         },
         {
           "book_id": "huangjin_ce",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
         },
         {
           "book_id": "buzhequanshu",
@@ -223,11 +230,13 @@
         },
         {
           "book_id": "jing_shi_yizhuan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         },
         {
           "book_id": "yiyin",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         }
       ],
       "coverage": {
@@ -271,7 +280,8 @@
         },
         {
           "book_id": "huangjin_ce",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
         },
         {
           "book_id": "buzhequanshu",
@@ -283,11 +293,13 @@
         },
         {
           "book_id": "jing_shi_yizhuan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         },
         {
           "book_id": "yiyin",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         }
       ],
       "coverage": {
@@ -331,7 +343,8 @@
         },
         {
           "book_id": "huangjin_ce",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
         },
         {
           "book_id": "buzhequanshu",
@@ -343,11 +356,13 @@
         },
         {
           "book_id": "jing_shi_yizhuan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         },
         {
           "book_id": "yiyin",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         }
       ],
       "coverage": {

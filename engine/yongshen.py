@@ -17,7 +17,7 @@ from engine.relations import (
     element_relation,
     seasonal_state,
 )
-from engine.semantics import infer_condition
+from engine.semantics import chong_source_for_line, infer_condition
 
 SIX_RELATIVE_OPTIONS = ("父母", "官鬼", "妻財", "子孫", "兄弟")
 LINE_POSITION_OPTIONS = ("世爻", "應爻", "初爻", "二爻", "三爻", "四爻", "五爻", "上爻")
@@ -35,7 +35,7 @@ def _hidden_value(item: dict[str, Any], key: str, legacy: str | None = None) -> 
 
 def _visible_candidate(row: dict[str, Any], choice: str) -> dict[str, Any]:
     role = None
-    if choice == "世應":
+    if choice in {"世應", "世爻", "應爻"}:
         role = "世" if row.get("shi") else "應" if row.get("ying") else None
     return {
         "candidate_id": f"visible:{row['position']}",
@@ -69,6 +69,10 @@ def candidate_options(chart: dict[str, Any], choice: str) -> list[dict[str, Any]
     visible = []
     for row in chart.get("lines_detail", []):
         if choice == "世應" and (row.get("shi") or row.get("ying")):
+            visible.append(_visible_candidate(row, choice))
+        elif choice == "世爻" and row.get("shi"):
+            visible.append(_visible_candidate(row, choice))
+        elif choice == "應爻" and row.get("ying"):
             visible.append(_visible_candidate(row, choice))
         elif choice in LINE_LABEL_TO_POSITION and row["position"] == LINE_LABEL_TO_POSITION[choice]:
             visible.append(_visible_candidate(row, choice))
@@ -267,6 +271,10 @@ def analyze_yongshen(state: dict[str, Any], choice: str, candidate_id: str | Non
         decision["C1"] = infer_condition(table_id="C1", relation_result=relations, line=selected["position"])
         decision["C15"] = infer_condition(table_id="C15", relation_result=relations, line=selected["position"])
         decision["K"] = infer_condition(table_id="K", relation_result=relations, line=selected["position"])
+        if decision["C1"] or decision["C15"]:
+            source = chong_source_for_line(relations, selected["position"])
+            if source:
+                decision["cell_context"] = {"chong_source": source}
     if decision["C1"] is None and decision["C15"] is None and decision["K"] is None:
         decision["status"] = "此爻不觸發任何條件"
         decision["coverage_gap_note"] = "目前沖與空亡狀態表未觸發；元神／忌神狀態表仍可查，但不輸出效果語義。"

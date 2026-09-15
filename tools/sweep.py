@@ -31,11 +31,16 @@ from engine.relations import (  # noqa: E402
 )
 from engine.semantics import (  # noqa: E402
     VALID_STATUSES,
+    chong_source_for_line,
     infer_condition,
     load_decision_table,
     semantic_for_condition,
 )
-from engine.yongshen import analyze_yongshen, candidate_options  # noqa: E402
+from engine.yongshen import (  # noqa: E402
+    LINE_POSITION_OPTIONS,
+    analyze_yongshen,
+    candidate_options,
+)
 from tools.generate_data import IMAGES, PALACE_ORDER, generate_bagong, trigram_name  # noqa: E402
 from ui_contracts import YONGSHEN_OPTIONS  # noqa: E402
 
@@ -77,7 +82,7 @@ def _golden_header(commit: str, test_count: int) -> str:
         return GOLDEN_HEADER
     return f"""# 本 snapshot 產生於 commit {commit}（{test_count} tests）
 # 此為修復後現況基準，非跨版本永恆正確性證明。
-# 產生時 §11.1 待決項為 53 項。
+# 產生時 §11.1 待決項為 54 項。
 #
 # 產生時之已知問題狀態：
 #   [已修] 1. 旬空、月破顯示佔位符（L2 未接通）
@@ -122,6 +127,8 @@ TIER3_FIELDS = (
     "choushen_positions", "c1_condition", "c15_condition", "c1_track_count",
     "c15_track_count", "k_condition", "k_track_count", "y_table_available",
     "y_track_count", "track_originals_nonempty", "table_status_counts", "output_signature",
+    "c1_chong_source", "c15_chong_source", "collection_status_counts",
+    "line_position_choice_statuses", "line_position_choices_all_locked",
     "output_json", "equal_to_choices", "selection_status", "pending_selection",
     "hidden_choice_required", "hidden_choice_options", "candidate_state_fields_complete",
     "flying_hidden_relation_status", "triggered_tables", "template_missing_lines",
@@ -422,7 +429,7 @@ def _track_originals_nonempty(semantics: dict[str, Any], relations: dict[str, An
 def _tier3_projection(
     *, state: dict[str, Any], choice: str, candidate_id: str | None,
     c1_table: dict[str, Any], c15_table: dict[str, Any], k_table: dict[str, Any],
-    y_table: dict[str, Any],
+    y_table: dict[str, Any], line_position_choice_statuses: dict[str, str],
 ) -> tuple[dict[str, Any], list[str], list[str]]:
     """Project the actual L3 result into stable sweep columns."""
     chart, relations = state["chart"], state["relations"]
@@ -441,6 +448,7 @@ def _tier3_projection(
     c15_condition = decision.get("C15")
     k_condition = decision.get("K")
     y_available = bool(decision.get("Y"))
+    chong_source = chong_source_for_line(relations, selected_line) if selected_line else None
     c1_semantics = (
         semantic_for_condition(line=selected_line, condition=c1_condition, hidden=chart["hidden"], table=c1_table)
         if c1_condition else None
@@ -460,13 +468,23 @@ def _tier3_projection(
         cell["status"] for row in y_table["rows"] for cell in row["cells"]
     ) if y_available else Counter()
     table_status_counts: dict[str, dict[str, int]] = {}
+    collection_status_counts: dict[str, dict[str, int]] = {}
     for table_id, semantics in (("C1", c1_semantics), ("C15", c15_semantics), ("K", k_semantics)):
         if semantics:
             table_status_counts[table_id] = dict(Counter(
                 track["status"] for track in semantics["tracks"].values()
             ))
+            collection_status_counts[table_id] = dict(Counter(
+                track.get("collection_status") for track in semantics["tracks"].values()
+                if track.get("collection_status")
+            ))
     if y_available:
         table_status_counts["Y"] = dict(y_status_counts)
+        collection_status_counts["Y"] = dict(Counter(
+            cell.get("collection_status")
+            for row in y_table["rows"] for cell in row["cells"]
+            if cell.get("collection_status")
+        ))
     is_yongshen = [line["position"] for line in analysis.get("lines", []) if line.get("is_yongshen")]
     hidden_markers = [item for item in analysis.get("hidden", []) if item.get("is_yongshen")]
     projection = {
@@ -482,6 +500,8 @@ def _tier3_projection(
         "choushen_positions": [item["position"] for item in analysis.get("chou_shen", [])],
         "c1_condition": c1_condition,
         "c15_condition": c15_condition,
+        "c1_chong_source": chong_source if c1_condition else None,
+        "c15_chong_source": chong_source if c15_condition else None,
         "k_condition": k_condition,
         "y_table_available": y_available,
         "c1_track_count": len(c1_semantics["tracks"]) if c1_semantics else 0,
@@ -492,6 +512,11 @@ def _tier3_projection(
         "c15_originals_nonempty": _track_originals_nonempty(c15_semantics, relations) if c15_semantics else None,
         "k_originals_nonempty": _track_originals_nonempty(k_semantics, relations) if k_semantics else None,
         "table_status_counts": table_status_counts,
+        "collection_status_counts": collection_status_counts,
+        "line_position_choice_statuses": line_position_choice_statuses,
+        "line_position_choices_all_locked": all(
+            status != "pending_selection" for status in line_position_choice_statuses.values()
+        ),
         "no_condition_status": decision.get("status"),
         "target_element": analysis.get("target_element"),
         "moving_interactions": analysis.get("moving_interactions", []),
@@ -527,6 +552,8 @@ def _tier3_projection(
         failed.append("hidden_candidate_not_marked")
     if not pending and c1_condition is None and c15_condition is None and k_condition is None and decision.get("status") != "此爻不觸發任何條件":
         failed.append("no_explicit_no_condition_result")
+    if not projection["line_position_choices_all_locked"]:
+        failed.append("line_position_choice_pending_selection")
     for table_id, condition, count in (
         ("C1", c1_condition, projection["c1_track_count"]),
         ("C15", c15_condition, projection["c15_track_count"]),
@@ -570,6 +597,10 @@ def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
             )
             state = {"chart": chart, "changed_chart": changed_chart, "relations": relations}
             template_lines, template_contexts = _template_audit(relations, templates)
+            line_position_choice_statuses = {
+                line_choice: analyze_yongshen(state, line_choice).get("status")
+                for line_choice in LINE_POSITION_OPTIONS
+            }
             group: list[dict[str, Any]] = []
             for choice in YONGSHEN_OPTIONS:
                 case_index += 1
@@ -589,6 +620,7 @@ def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
                         state=state, choice=choice, candidate_id=candidate_id,
                         c1_table=c1_table, c15_table=c15_table,
                         k_table=k_table, y_table=y_table,
+                        line_position_choice_statuses=line_position_choice_statuses,
                     )
                     if template_lines:
                         placeholders.append("narrative_template_missing")
@@ -646,6 +678,8 @@ def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
                     "choushen_positions": _json(projection.get("choushen_positions")),
                     "c1_condition": projection.get("c1_condition") or "",
                     "c15_condition": projection.get("c15_condition") or "",
+                    "c1_chong_source": projection.get("c1_chong_source") or "",
+                    "c15_chong_source": projection.get("c15_chong_source") or "",
                     "c1_track_count": projection.get("c1_track_count", ""),
                     "c15_track_count": projection.get("c15_track_count", ""),
                     "k_condition": projection.get("k_condition") or "",
@@ -658,6 +692,9 @@ def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
                         "K": projection.get("k_originals_nonempty"),
                     }),
                     "table_status_counts": _json(projection.get("table_status_counts", {})),
+                    "collection_status_counts": _json(projection.get("collection_status_counts", {})),
+                    "line_position_choice_statuses": _json(projection.get("line_position_choice_statuses", {})),
+                    "line_position_choices_all_locked": str(projection.get("line_position_choices_all_locked", False)).lower(),
                     "output_signature": signatures[item["yongshen"]],
                     "output_json": _json(projection),
                     "equal_to_choices": "|".join(equal_choices),
@@ -793,6 +830,7 @@ def _coverage_statistics(tier3: list[dict[str, str]]) -> dict[str, Any]:
     row_hits: Counter[str] = Counter()
     table_hits: Counter[str] = Counter()
     status_distribution: Counter[str] = Counter()
+    collection_status_distribution: Counter[str] = Counter()
     current: set[int] = set()
     viewable: set[int] = set()
     resolved: set[int] = set()
@@ -819,6 +857,11 @@ def _coverage_statistics(tier3: list[dict[str, str]]) -> dict[str, Any]:
             row_hits[table_row["row_id"]] += 1
             statuses = [cell["status"] for cell in table_row["cells"]]
             status_distribution.update(statuses)
+            collection_status_distribution.update(
+                cell["collection_status"]
+                for cell in table_row["cells"]
+                if cell.get("status") == "not_collected"
+            )
             if "addressed" in statuses:
                 viewable.add(index)
 
@@ -838,6 +881,10 @@ def _coverage_statistics(tier3: list[dict[str, str]]) -> dict[str, Any]:
         "row_hits": row_hits,
         "table_hits": table_hits,
         "status_distribution": {status: status_distribution[status] for status in sorted(VALID_STATUSES)},
+        "collection_status_distribution": {
+            "ingested_not_surveyed": collection_status_distribution["ingested_not_surveyed"],
+            "not_ingested": collection_status_distribution["not_ingested"],
+        },
         "resolved": len(resolved),
         "pending": total - len(resolved),
         "locked": len(resolved),
@@ -892,6 +939,11 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
     c15_t2 = _count_hits(tier2, "c15_hits")
     c1_t3 = Counter(row["c1_condition"] for row in tier3 if row["c1_condition"])
     c15_t3 = Counter(row["c15_condition"] for row in tier3 if row["c15_condition"])
+    c1_chong_sources = Counter(row["c1_chong_source"] for row in tier3 if row["c1_chong_source"])
+    c15_chong_sources = Counter(row["c15_chong_source"] for row in tier3 if row["c15_chong_source"])
+    line_position_pending = sum(
+        row.get("line_position_choices_all_locked") != "true" for row in tier3
+    )
     coverage = _coverage_statistics(tier3)
 
     pair_stats: dict[tuple[str, str], list[int]] = defaultdict(list)
@@ -931,7 +983,7 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
     elapsed = {tier: stats.get(tier, {}).get("elapsed_seconds") for tier in (1, 2, 3)}
 
     lines = [
-        "# TASK_CODEX_21 — Sweep Report",
+        "# TASK_CODEX_23 — Sweep Report",
         "",
         f"基準：`{current_commit}`（{current_tests} tests）。本報告為當前 code state 之量化結果；歷史 13eb522 現況基準及修復差異見 `sweep/REPAIR_DIFFS.md`。",
         "",
@@ -978,6 +1030,8 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
         f"- C15 不觸發：{c15_none:,}（{c15_none / line_exposures:.4%}）。",
         "",
         f"Tier 3 目前可唯一定位者之 C1 命中：{_format_counter(c1_t3, c1_order)}；C15 命中：{_format_counter(c15_t3, c15_order)}。",
+        f"Tier 3 C1 沖來源：{_format_counter(c1_chong_sources, ('month', 'day', 'moving_line', 'multiple'))}；C15 沖來源：{_format_counter(c15_chong_sources, ('month', 'day', 'moving_line', 'multiple'))}。",
+        f"按爻位選八項皆直接鎖定、無 pending_selection：{len(tier3) - line_position_pending:,}/{len(tier3):,}。",
         "",
         "## B3a — 覆蓋率",
         "",
@@ -1053,6 +1107,11 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
     for status in ("addressed", "not_addressed", "not_collected", "category_negated", "concept_absent", "explicit_exclusion", "different_axis"):
         lines.append(f"| `{status}` | {coverage['status_distribution'][status]:,} |")
     lines.extend([
+        "",
+        "| not_collected 細分 | 觸發材料 cells |",
+        "| --- | ---: |",
+        f"| `ingested_not_surveyed` | {coverage['collection_status_distribution']['ingested_not_surveyed']:,} |",
+        f"| `not_ingested` | {coverage['collection_status_distribution']['not_ingested']:,} |",
         "",
         f"全部 13,824 組：觸發 {coverage['current_trigger']:,}，空手 {coverage['total'] - coverage['current_trigger']:,}。已鎖定用神爻 {coverage['locked']:,} 組：觸發 {coverage['locked_current_trigger']:,}，空手 {coverage['locked'] - coverage['locked_current_trigger']:,}。pending_selection {coverage['pending']:,} 組按設計不進入 concrete 用神爻判定，不視為空手。",
         "",
@@ -1180,7 +1239,7 @@ def regenerate_golden() -> dict[int, dict[str, Any]]:
         body = (SWEEP_DIR / name).read_text(encoding="utf-8")
         (GOLDEN_DIR / name).write_text(header + body, encoding="utf-8", newline="")
     checksum_lines = [
-        "TASK_CODEX_21 golden snapshot",
+        "TASK_CODEX_23 golden snapshot",
         f"baseline_commit={current_commit}",
         f"baseline_tests={current_tests}",
         "status=current_post_fix_state_baseline",

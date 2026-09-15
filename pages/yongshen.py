@@ -107,7 +107,10 @@ else:
             candidate_id = saved_id
         elif len(options) == 1 and not options[0].get("hidden"):
             candidate_id = options[0]["candidate_id"]
-            st.caption(f"{choice}：卦中僅此一爻，依機械結果鎖定；非工具建議。")
+            if choice in LINE_POSITION_OPTIONS:
+                st.caption(f"{choice}：直接按爻位鎖定；非工具建議。")
+            else:
+                st.caption(f"{choice}：卦中僅此一爻，依機械結果鎖定；非工具建議。")
         elif options and all(item.get("hidden") for item in options):
             st.write(f"{choice} → 卦中不現")
             hidden_choice = st.radio(

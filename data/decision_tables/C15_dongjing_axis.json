@@ -48,15 +48,18 @@
       "cells": [
         {
           "book_id": "yimao",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
         },
         {
           "book_id": "zengshan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
         },
         {
           "book_id": "buzhengzong",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
         },
         {
           "book_id": "huozhulin",
@@ -77,15 +80,18 @@
         },
         {
           "book_id": "buzhequanshu",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
         },
         {
           "book_id": "jing_shi_yizhuan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         },
         {
           "book_id": "yiyin",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         }
       ],
       "coverage": {
@@ -107,15 +113,18 @@
       "cells": [
         {
           "book_id": "yimao",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
         },
         {
           "book_id": "zengshan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
         },
         {
           "book_id": "buzhengzong",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
         },
         {
           "book_id": "huozhulin",
@@ -136,15 +145,18 @@
         },
         {
           "book_id": "buzhequanshu",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
         },
         {
           "book_id": "jing_shi_yizhuan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         },
         {
           "book_id": "yiyin",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         }
       ],
       "coverage": {
@@ -166,15 +178,18 @@
       "cells": [
         {
           "book_id": "yimao",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
         },
         {
           "book_id": "zengshan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
         },
         {
           "book_id": "buzhengzong",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
         },
         {
           "book_id": "huozhulin",
@@ -195,15 +210,18 @@
         },
         {
           "book_id": "buzhequanshu",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
         },
         {
           "book_id": "jing_shi_yizhuan",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         },
         {
           "book_id": "yiyin",
-          "status": "not_collected"
+          "status": "not_collected",
+          "collection_status": "not_ingested"
         }
       ],
       "coverage": {
@@ -219,5 +237,6 @@
       },
       "coverage_label": "已採 2 本：1 本有表述、1 本用另一軸；另 6 本未採"
     }
-  ]
+  ],
+  "table_note": "R1–R3 三個條件源自《黃金策》千金賦行 30、34、76 之三分法（空逢沖而有用／靜得沖而暗興／動逢沖而事散），其軸向由該書行 40 明文宣告：「別衰旺以明剋合，**辨動靜以定刑沖**」。\n\n**此軸與 C1（衰旺軸）不可互譯。** 一個爻可以同時是「動」與「休囚」，兩軸對同一爻給出不同的判定路徑，各家未曾提供換算方式。\n\n**本表之提問方式偏向《黃金策》。** 清代三家皆以衰旺軸論沖，故其在本表多為「未就本表之問題採集」—— 此為採集缺口，非該書無立場。\n\n**本表格位未區分月沖、日沖。** 而《易冒》〈類總章〉688 明文分判：「月沖破，日沖散」「日有隨墓助傷，而月則無也，故日尤親」。故本表之「遇沖」係本項目之合併，非各家原有。詳見待決項 P-056。"
 }

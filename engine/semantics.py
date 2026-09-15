@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from typing import Any, Iterable
 
+from engine.relations import BRANCH_CLASH
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_TABLE_PATH = ROOT / "data" / "decision_tables" / "C1_chong_san.json"
@@ -23,6 +24,72 @@ R1–R5 五個條件係本項目從《易冒》十八法與野鶴之論述反推
 
 **覆蓋率只記錄已採集材料之範圍，不是可信度指標，更不是票數。** 三家有表述不等於該說較可信；一家否定範疇不等於該家是少數派 —— 否定範疇是拒絕進入此提問框架，不是投了反對票。"""
 
+COLLECTION_STATUSES = frozenset({"ingested_not_surveyed", "not_ingested"})
+
+
+def _canonical_book_id(book_id: str) -> str:
+    """Compare book ids while preserving the data files as their source of truth."""
+    return book_id.replace("_", "").lower()
+
+
+def _ingested_book_ids() -> set[str]:
+    """Read actual doctrinal envelopes; do not maintain a hand-written book list."""
+    book_ids = set()
+    for path in (ROOT / "data" / "doctrinal").glob("*_rules.json"):
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if payload.get("book_id"):
+            book_ids.add(_canonical_book_id(payload["book_id"]))
+    return book_ids
+
+
+def collection_status_for_book_id(book_id: str) -> str:
+    """Classify a collection gap from the actual doctrinal data inventory."""
+    return (
+        "ingested_not_surveyed"
+        if _canonical_book_id(book_id) in _ingested_book_ids()
+        else "not_ingested"
+    )
+
+
+def _normalise_collection_status(cell: dict[str, Any]) -> dict[str, Any]:
+    """Supply fixture defaults and reject raw-data statuses that drift from disk."""
+    result = dict(cell)
+    if result.get("status") != "not_collected":
+        return result
+    actual = collection_status_for_book_id(result["book_id"])
+    declared = result.get("collection_status")
+    if declared is None:
+        result["collection_status"] = actual
+    elif declared != actual:
+        raise ValueError("collection_status must match data/doctrinal inventory")
+    return result
+
+
+def chong_source_for_line(relation_result: dict[str, Any], line: int) -> str | None:
+    """Return mechanical clash provenance without assigning any effect meaning."""
+    row = next(
+        (item for item in relation_result.get("lines", []) if item.get("position") == line),
+        None,
+    )
+    if row is None:
+        return None
+    sources = []
+    if row.get("month_break"):
+        sources.append("month")
+    if "沖" in row.get("day_relations", []):
+        sources.append("day")
+    moving_clash = any(
+        other.get("position") != line
+        and other.get("motion") in {"動", "散", "全動"}
+        and BRANCH_CLASH.get(other.get("branch")) == row.get("branch")
+        for other in relation_result.get("lines", [])
+    )
+    if moving_clash:
+        sources.append("moving_line")
+    if not sources:
+        return None
+    return sources[0] if len(sources) == 1 else "multiple"
+
 
 def load_decision_table(path: str | Path = DEFAULT_TABLE_PATH) -> dict[str, Any]:
     return json.loads(Path(path).read_text(encoding="utf-8"))
@@ -31,11 +98,15 @@ def load_decision_table(path: str | Path = DEFAULT_TABLE_PATH) -> dict[str, Any]
 def calculate_coverage(row: dict[str, Any], books_total: int | None = None) -> dict[str, Any]:
     """Calculate material coverage only; never infer agreement or credibility."""
     counts = {status: 0 for status in VALID_STATUSES}
-    for cell in row.get("cells", []):
+    collection_counts = {status: 0 for status in COLLECTION_STATUSES}
+    for raw_cell in row.get("cells", []):
+        cell = _normalise_collection_status(raw_cell)
         status = cell.get("status")
         if status not in VALID_STATUSES:
             raise ValueError("invalid decision-table status")
         counts[status] += 1
+        if status == "not_collected":
+            collection_counts[cell["collection_status"]] += 1
     total = len(row.get("cells", [])) if books_total is None else books_total
     if total != sum(counts.values()):
         raise ValueError("books_total must equal the number of row cells")
@@ -78,6 +149,7 @@ def calculate_coverage(row: dict[str, Any], books_total: int | None = None) -> d
             "books_not_collected": counts["not_collected"],
         },
         "coverage_label": label,
+        "collection_status_counts": collection_counts,
     }
 
 
@@ -87,6 +159,8 @@ def _validate_cell(cell: dict[str, Any]) -> None:
         raise ValueError("invalid decision-table status")
     if status == "not_collected" and "verdict" in cell:
         raise ValueError("not_collected cells must not contain verdict")
+    if status == "not_collected" and cell.get("collection_status") not in COLLECTION_STATUSES:
+        raise ValueError("not_collected cells require a collection_status")
     if status == "addressed":
         if cell.get("verdict") is None:
             raise ValueError("addressed cells must have a non-null verdict")
@@ -178,6 +252,7 @@ def infer_condition(*, table_id: str, relation_result: dict[str, Any], line: int
 
 
 def _track(cell: dict[str, Any], book_name: str) -> dict[str, Any]:
+    cell = _normalise_collection_status(cell)
     _validate_cell(cell)
     status = cell["status"]
     result: dict[str, Any] = {
@@ -202,6 +277,7 @@ def _track(cell: dict[str, Any], book_name: str) -> dict[str, Any]:
         result["not_addressed"] = True
     if status == "not_collected":
         result["not_collected"] = True
+        result["collection_status"] = cell["collection_status"]
     if status == "different_axis":
         result["different_axis"] = True
     if status == "concept_absent":
@@ -214,7 +290,8 @@ def _track(cell: dict[str, Any], book_name: str) -> dict[str, Any]:
 def semantic_for_condition(*, line: int, condition: str,
                            hidden: Iterable[dict] = (),
                            table: dict[str, Any] | None = None,
-                           table_path: str | Path = DEFAULT_TABLE_PATH) -> dict[str, Any]:
+                           table_path: str | Path = DEFAULT_TABLE_PATH,
+                           cell_context: dict[str, str] | None = None) -> dict[str, Any]:
     """Return every table cell as a separate track; never infer missing books."""
     decision_table = table if table is not None else load_decision_table(table_path)
     row = _row_for_condition(decision_table, condition)
@@ -230,6 +307,13 @@ def semantic_for_condition(*, line: int, condition: str,
         "hidden": [dict(item) for item in hidden],
         "tracks": tracks,
     }
+    if cell_context:
+        source = cell_context.get("chong_source")
+        if source not in {"month", "day", "moving_line", "multiple"}:
+            raise ValueError("invalid chong_source")
+        result["cell_context"] = {"chong_source": source}
+    if decision_table.get("table_note"):
+        result["table_note"] = decision_table["table_note"]
     result["row_id"] = row["row_id"]
     result.update(calculate_coverage(row, books_total=len(decision_table.get("books", []))))
     if row.get("row_title"):
@@ -251,8 +335,15 @@ def semantics_from_relations(relation_result: dict[str, Any], *, line: int, cond
                              table_path: str | Path = DEFAULT_TABLE_PATH) -> dict[str, Any]:
     if "lines" not in relation_result or "edges" not in relation_result:
         raise ValueError("relation_result must be an engine.relations output")
+    decision_table = table if table is not None else load_decision_table(table_path)
+    cell_context = None
+    if decision_table.get("table_id") in {"C1", "C15"}:
+        source = chong_source_for_line(relation_result, line)
+        if source:
+            cell_context = {"chong_source": source}
     result = semantic_for_condition(line=line, condition=condition,
                                     hidden=relation_result.get("hidden", []),
-                                    table=table, table_path=table_path)
+                                    table=decision_table, table_path=table_path,
+                                    cell_context=cell_context)
     result["relation_scope"] = relation_result.get("rule_scope", [])
     return result
