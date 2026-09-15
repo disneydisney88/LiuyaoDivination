@@ -2,7 +2,7 @@ import difflib
 import csv
 from collections import Counter
 
-from tools.sweep import GOLDEN_DIR, run_tier1, strip_golden_header
+from tools.sweep import GOLDEN_DIR, _read_text, _write_csv, run_tier1, strip_golden_header
 
 
 def test_tier1_matches_current_state_golden_snapshot(tmp_path):
@@ -11,10 +11,10 @@ def test_tier1_matches_current_state_golden_snapshot(tmp_path):
     run_tier1(actual_path)
     actual = actual_path.read_text(encoding="utf-8").splitlines(keepends=True)
     expected = strip_golden_header(
-        (GOLDEN_DIR / "tier1_L1.csv").read_text(encoding="utf-8")
+        _read_text(GOLDEN_DIR / "tier1_L1.csv.gz")
     ).splitlines(keepends=True)
     if actual != expected:
-        golden_text = (GOLDEN_DIR / "tier1_L1.csv").read_text(encoding="utf-8")
+        golden_text = _read_text(GOLDEN_DIR / "tier1_L1.csv.gz")
         if "commit 13eb522（125 tests）" in golden_text:
             expected_rows = list(csv.DictReader(expected))
             actual_rows = list(csv.DictReader(actual))
@@ -36,9 +36,19 @@ def test_tier1_matches_current_state_golden_snapshot(tmp_path):
             assert all(not row["failed_checks"] and row["result_class"] == "normal" for row in actual_rows)
             return
         first_twenty = list(difflib.unified_diff(
-            expected, actual, fromfile="golden/tier1_L1.csv", tofile="actual/tier1_L1.csv",
+            expected, actual, fromfile="golden/tier1_L1.csv.gz", tofile="actual/tier1_L1.csv",
         ))[:20]
         raise AssertionError(
             "Tier 1 與現況 golden snapshot 不同。差異可能是修復，亦可能是回歸，須人手判斷。\n"
             + "".join(first_twenty)
         )
+
+
+def test_gzip_sweep_csv_is_byte_deterministic(tmp_path):
+    fields = ("id", "value")
+    rows = [{"id": "first", "value": "甲"}, {"id": "second", "value": "乙"}]
+    first = tmp_path / "first.csv.gz"
+    second = tmp_path / "second.csv.gz"
+    _write_csv(first, fields, rows)
+    _write_csv(second, fields, rows)
+    assert first.read_bytes() == second.read_bytes()

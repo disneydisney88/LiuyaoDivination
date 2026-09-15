@@ -4,3 +4,4 @@
 .env
 .streamlit/secrets.toml
 records/
+sweep/*.csv

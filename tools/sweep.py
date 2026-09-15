@@ -6,7 +6,9 @@ from __future__ import annotations
 
 import argparse
 import csv
+import gzip
 import hashlib
+import io
 import json
 import subprocess
 import sys
@@ -153,7 +155,24 @@ def file_sha256(path: Path) -> str:
 
 
 def _write_csv(path: Path, fields: Iterable[str], rows: Iterable[dict[str, Any]]) -> None:
+    """Write plain CSV or byte-reproducible gzip-compressed CSV.
+
+    ``gzip.open(..., 'wt')`` embeds the current time in its header.  Full
+    sweep artifacts are golden-comparison inputs, so compressed output fixes
+    both that timestamp and the optional embedded filename.
+    """
     path.parent.mkdir(parents=True, exist_ok=True)
+    if path.suffix == ".gz":
+        with path.open("wb") as binary_handle:
+            with gzip.GzipFile(
+                filename="", mode="wb", fileobj=binary_handle,
+                compresslevel=9, mtime=0,
+            ) as gzip_handle:
+                with io.TextIOWrapper(gzip_handle, encoding="utf-8", newline="") as handle:
+                    writer = csv.DictWriter(handle, fieldnames=list(fields), extrasaction="ignore")
+                    writer.writeheader()
+                    writer.writerows(rows)
+        return
     with path.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=list(fields), extrasaction="ignore")
         writer.writeheader()
@@ -161,8 +180,32 @@ def _write_csv(path: Path, fields: Iterable[str], rows: Iterable[dict[str, Any]]
 
 
 def _read_csv(path: Path) -> list[dict[str, str]]:
+    if path.suffix == ".gz":
+        with gzip.open(path, "rt", encoding="utf-8", newline="") as handle:
+            return list(csv.DictReader(line for line in handle if not line.startswith("#")))
     with path.open(encoding="utf-8", newline="") as handle:
         return list(csv.DictReader(line for line in handle if not line.startswith("#")))
+
+
+def _read_text(path: Path) -> str:
+    if path.suffix == ".gz":
+        with gzip.open(path, "rt", encoding="utf-8", newline="") as handle:
+            return handle.read()
+    return path.read_text(encoding="utf-8")
+
+
+def _write_text(path: Path, text: str) -> None:
+    """Write text as plain UTF-8 or as byte-reproducible gzip."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.suffix == ".gz":
+        with path.open("wb") as binary_handle:
+            with gzip.GzipFile(
+                filename="", mode="wb", fileobj=binary_handle,
+                compresslevel=9, mtime=0,
+            ) as gzip_handle:
+                gzip_handle.write(text.encode("utf-8"))
+        return
+    path.write_text(text, encoding="utf-8", newline="")
 
 
 def strip_golden_header(text: str) -> str:
@@ -268,7 +311,7 @@ def run_tier1(output_path: Path | None = None) -> dict[str, Any]:
                 "exception_message": exception_message,
                 "result_class": _classify(exception_type, failed, placeholders),
             })
-    destination = output_path or SWEEP_DIR / "tier1_L1.csv"
+    destination = output_path or SWEEP_DIR / "tier1_L1.csv.gz"
     _write_csv(destination, TIER1_FIELDS, rows)
     return {
         "tier": 1, "combinations": len(rows),
@@ -423,7 +466,7 @@ def run_tier2(output_path: Path | None = None) -> dict[str, Any]:
                         "exception_message": exception_message,
                         "result_class": _classify(exception_type, failed, placeholders),
                     })
-    destination = output_path or SWEEP_DIR / "tier2_L2.csv"
+    destination = output_path or SWEEP_DIR / "tier2_L2.csv.gz"
     _write_csv(destination, TIER2_FIELDS, rows)
     sources = _count_hits(rows, "all_chong_sources")
     if set(CHONG_SOURCE_VALUES) - set(sources):
@@ -770,7 +813,7 @@ def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
                     "exception_message": item["exception_message"],
                     "result_class": _classify(item["exception_type"], item["failed"], item["placeholders"]),
                 })
-    destination = output_path or SWEEP_DIR / "tier3_yongshen.csv"
+    destination = output_path or SWEEP_DIR / "tier3_yongshen.csv.gz"
     _write_csv(destination, TIER3_FIELDS, rows)
     sources = _count_hits(rows, "all_chong_sources")
     if set(CHONG_SOURCE_VALUES) - set(sources):
@@ -970,9 +1013,9 @@ def _coverage_statistics(tier3: list[dict[str, str]]) -> dict[str, Any]:
 
 
 def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
-    tier1 = _read_csv(SWEEP_DIR / "tier1_L1.csv")
-    tier2 = _read_csv(SWEEP_DIR / "tier2_L2.csv")
-    tier3 = _read_csv(SWEEP_DIR / "tier3_yongshen.csv")
+    tier1 = _read_csv(SWEEP_DIR / "tier1_L1.csv.gz")
+    tier2 = _read_csv(SWEEP_DIR / "tier2_L2.csv.gz")
+    tier3 = _read_csv(SWEEP_DIR / "tier3_yongshen.csv.gz")
     stats = stats or {}
     class_counts = {
         tier: Counter(row["result_class"] for row in rows)
@@ -1297,13 +1340,13 @@ def regenerate_golden() -> dict[int, dict[str, Any]]:
         raise SystemExit("Golden regeneration cancelled: confirmation did not match.")
     stats = run_all()
     GOLDEN_DIR.mkdir(parents=True, exist_ok=True)
-    names = ("tier1_L1.csv", "tier2_L2.csv", "tier3_yongshen.csv")
+    names = ("tier1_L1.csv.gz", "tier2_L2.csv.gz", "tier3_yongshen.csv.gz")
     current_commit = _git("rev-parse", "--short", "HEAD").strip()
     current_tests = _collected_test_count()
     header = _golden_header(current_commit, current_tests)
     for name in names:
-        body = (SWEEP_DIR / name).read_text(encoding="utf-8")
-        (GOLDEN_DIR / name).write_text(header + body, encoding="utf-8", newline="")
+        body = _read_text(SWEEP_DIR / name)
+        _write_text(GOLDEN_DIR / name, header + body)
     checksum_lines = [
         "TASK_CODEX_23 golden snapshot",
         f"baseline_commit={current_commit}",
@@ -1332,7 +1375,7 @@ def main() -> None:
         runner = {"1": run_tier1, "2": run_tier2, "3": run_tier3}[args.tier]
         item = runner()
         stats = {int(args.tier): item}
-        if all((SWEEP_DIR / name).exists() for name in ("tier1_L1.csv", "tier2_L2.csv", "tier3_yongshen.csv")):
+        if all((SWEEP_DIR / name).exists() for name in ("tier1_L1.csv.gz", "tier2_L2.csv.gz", "tier3_yongshen.csv.gz")):
             write_report(stats)
     for tier, item in stats.items():
         print(

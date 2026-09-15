@@ -57,8 +57,13 @@
           "book_id": "zengshan",
           "status": "addressed",
           "verdict": "不散",
-          "source": "六沖章第二十 1525",
-          "original": "爻遇日沖為暗動。",
+          "source": "〈動散章第二十三〉1673",
+          "original": "予屢試之，旺相者，沖之不散；有氣者，沖之不散；休囚者，間有沖散，亦千百中之一二也。",
+          "supporting_source": {
+            "source": "六沖章第二十 1525",
+            "original": "爻遇日沖為暗動。",
+            "note": "經『暗動』間接推得，未提旺相。"
+          },
           "rule_id": "R-ZS-08-02"
         },
         {

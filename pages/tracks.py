@@ -72,6 +72,14 @@ def show_track(track_narrative, track, *, original_collapsed=True):
                 st.write(original)
         else:
             st.write(original)
+    supporting_source = track.get("supporting_source")
+    if supporting_source:
+        st.caption("輔助出處：{}。{}".format(
+            supporting_source.get("source", "來源未標明"),
+            supporting_source.get("note", ""),
+        ))
+        with st.expander("輔助原文（預設摺疊）"):
+            st.write(supporting_source.get("original", ""))
     related_material = track_narrative.get("related_material")
     if related_material:
         with st.expander("相關材料（保留原文）"):

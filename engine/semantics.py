@@ -323,7 +323,7 @@ def _track(cell: dict[str, Any], book_name: str) -> dict[str, Any]:
     }
     if status != "not_collected":
         result["verdict"] = cell.get("verdict")
-    for key in ("source", "original", "rule_id", "evidence_strength", "evidence_note",
+    for key in ("source", "original", "supporting_source", "rule_id", "evidence_strength", "evidence_note",
                 "verdict_note", "line", "related_material", "search_note",
                 "negation_original", "negation_source", "negation_category",
                 "absence_note", "exclusion_original", "exclusion_source", "cell_note",
