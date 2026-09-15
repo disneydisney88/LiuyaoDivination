@@ -1,16 +1,17 @@
-# 本 snapshot 產生於 commit cfa26f1（144 tests）
+# 本 snapshot 產生於 commit 242a61f（161 tests）
 # 此為修復後現況基準，非跨版本永恆正確性證明。
+# 產生時 §11.1 待決項為 53 項。
 #
 # 產生時之已知問題狀態：
 #   [已修] 1. 旬空、月破顯示佔位符（L2 未接通）
 #   [已修] 2. 逐爻推導全部「未有對應模板」
 #   [已修] 3. 多軌頁只顯示三本、標「三家共識」
-#   [部分修復] 4. 原文摺疊區主流程已接通；C1-R2／增刪卜易仍有一格原文 fallback 缺口
+#   [已修] 4. 原文摺疊區「未提供逐字原文」
 #   [已修] 5. 卦名不完整（「水雷」缺「屯」）—— L1 運算層
 #   [已修] 6. 伏神 dump JSON、內部 TODO 標記洩漏
 #   [已修] 7. 用神選擇疑無實際作用（L3）
 #
-# 後續修復 4 後須重新產生 snapshot 並更新本檔頭。
+# K／Y 僅呈現多軌材料，未把空亡、沖散或四神判語應用為效果語義。
 case_index,hexagram_id,hexagram_name,moving_pattern,moving_positions,month_branch,day_ganzhi,xunkong,month_break_branch,seasonal_states,empty_line_count,month_break_line_count,template_missing_lines,template_missing_contexts,c1_hits,c15_hits,failed_checks,placeholder_checks,exception_type,exception_message,result_class
 1,1,乾為天,static,,子,甲子,戌|亥,午,旺|相|囚|死|休|囚,1,1,,,,4:靜爻遇沖,,,,,normal
 2,1,乾為天,static,,子,乙丑,戌|亥,午,旺|相|囚|死|休|囚,1,1,,,,4:靜爻遇沖,,,,,normal
