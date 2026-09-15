@@ -31,7 +31,14 @@ def _candidate_label(item: dict) -> str:
 
 def _role_line(item: dict) -> str:
     state = item.get("state", {})
-    suffix = "　← 此爻即用神之飛神" if item.get("is_flying_of_yongshen") else ""
+    annotations = []
+    if item.get("is_flying_of_yongshen"):
+        annotations.append("此爻即用神之飛神")
+    if item.get("is_shi"):
+        annotations.append("此爻為世爻")
+    if item.get("is_ying"):
+        annotations.append("此爻為應爻")
+    suffix = "　← " + "；".join(annotations) if annotations else ""
     return "第 {} 爻 {}{} {}　{}{}".format(
         item["position"], item["branch"], item["element"],
         item.get("six_relative", ""), _state_text(state), suffix,
@@ -69,7 +76,29 @@ def _render_analysis(analysis: dict) -> None:
     st.write("C1（衰旺軸）：{}".format(decision.get("C1") or "不觸發任何條件"))
     st.write("C15（動靜軸）：{}".format(decision.get("C15") or "不觸發任何條件"))
     st.write("K（空亡狀態）：{}".format(decision.get("K") or "不觸發任何條件"))
-    st.write("Y（元神／忌神狀態）：{}".format(decision.get("Y") or "待選定用神爻"))
+    y_locator = decision.get("Y") or {}
+    if y_locator.get("located"):
+        st.write("Y（元神／忌神狀態）")
+        for item in y_locator.get("locations", []):
+            state = "、".join(filter(None, [
+                item.get("seasonal_state"),
+                "伏" if item.get("hidden") else "",
+            ]))
+            matches = "、".join(item.get("matches", [])) or "未命中現有機械格位"
+            st.write(
+                "{}　第 {} 爻 {}{} {}（{}）→ {}".format(
+                    item["role"], item["position"], item["branch"], item["element"],
+                    item.get("six_relative", ""), state, matches,
+                )
+            )
+            if item.get("unmodelled_rows"):
+                st.caption("{} 尚無已接通的化退／入墓機械輸入，未補造匹配。".format(
+                    "、".join(item["unmodelled_rows"])
+                ))
+        st.write(y_locator["chou_shen_note"])
+        st.caption("Y 表已定位至上列格位。各家說法見多軌頁。本項目不輸出效果判定 —— 各家說法並列，判斷由你作。")
+    else:
+        st.write("Y（元神／忌神狀態）：待選定用神爻")
     if decision.get("coverage_gap_note"):
         st.caption("覆蓋缺口：" + decision["coverage_gap_note"])
 
@@ -89,14 +118,16 @@ else:
         key="yongshen_line_choices",
     ) or []
     widget_choices = list(relative_choices) + list(line_choices)
-    saved_choices = list(case.get("yongshen_selected") or [])
+    session_by_case = st.session_state.get("active_yongshen_by_case", {})
+    session_selection = session_by_case.get(case["case_id"], {})
+    saved_choices = list(session_selection.get("choices") or case.get("yongshen_selected") or [])
     active_choices = widget_choices or saved_choices
     if len(active_choices) > 2:
         st.warning("最多同時展開兩個不同用神；請取消其中一項。")
         active_choices = active_choices[:2]
 
     state = state_for_case(case)
-    saved_ids = case.get("yongshen_candidate_selections") or {}
+    saved_ids = session_selection.get("candidate_selections") or case.get("yongshen_candidate_selections") or {}
     candidate_selections = {}
     analyses = {}
     for choice in active_choices:
@@ -136,6 +167,16 @@ else:
             candidate_selections[choice] = candidate_id
         analysis = analyze_yongshen(state, choice, candidate_id) if candidate_id else analyze_yongshen(state, choice)
         analyses[choice] = analysis
+
+    # Keep an in-session lock immediately available to other pages.  Persisting
+    # it to records remains an explicit user action below.
+    if candidate_selections:
+        updated_by_case = dict(st.session_state.get("active_yongshen_by_case", {}))
+        updated_by_case[case["case_id"]] = {
+            "choices": list(candidate_selections),
+            "candidate_selections": dict(candidate_selections),
+        }
+        st.session_state.active_yongshen_by_case = updated_by_case
 
     if active_choices and st.button("保存人手選擇"):
         case["yongshen_selected"] = active_choices

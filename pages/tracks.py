@@ -92,9 +92,12 @@ if case:
     chart, relation_state = state["chart"], state["relations"]
     st.session_state.current_relation_state = relation_state
 
-selected_choices = (case.get("yongshen_selected") or []) if case else []
-saved_ids = (case.get("yongshen_candidate_selections") or {}) if case else {}
+session_by_case = st.session_state.get("active_yongshen_by_case", {})
+session_selection = session_by_case.get(case.get("case_id"), {}) if case else {}
+selected_choices = (session_selection.get("choices") or case.get("yongshen_selected") or []) if case else []
+saved_ids = (session_selection.get("candidate_selections") or case.get("yongshen_candidate_selections") or {}) if case else {}
 selected_candidates = []
+selected_analyses = []
 for choice in selected_choices:
     candidate_id = saved_ids.get(choice)
     if not candidate_id and chart:
@@ -107,6 +110,7 @@ for choice in selected_choices:
         item for item in candidate_options(chart, choice)
         if item["candidate_id"] == candidate_id
     )
+    selected_analyses.append(analyze_yongshen(state, choice, candidate_id))
 hidden_selected = any(item.get("hidden") for item in selected_candidates)
 candidate_positions = sorted({item["position"] for item in selected_candidates})
 if len(candidate_positions) == 1:
@@ -125,13 +129,44 @@ line = st.selectbox(
 )
 
 conditions = [row["condition"] for row in decision_table["rows"]]
-automatic_condition = None if hidden_selected else infer_condition(
-    table_id=decision_table["table_id"], relation_result=relation_state, line=line,
-)
-manual_override = False
 manual_override = st.toggle(
     "手動覆寫表格位", value=False,
     key="manual_condition_override_{}".format(decision_table["table_id"]),
+)
+
+if decision_table["table_id"] == "Y" and selected_analyses and not manual_override:
+    locations = [
+        item for analysis in selected_analyses
+        for item in analysis.get("decision_table", {}).get("Y", {}).get("locations", [])
+    ]
+    if locations:
+        st.caption("Y 表已按所選用神的元神／忌神逐爻定位；以下只並列原有材料，不輸出效果判定。")
+        conditions_by_id = {row["row_id"]: row["condition"] for row in decision_table["rows"]}
+        for location in locations:
+            if not location.get("matches"):
+                st.caption("{} 第 {} 爻 {}{}：未命中現有機械格位。".format(
+                    location["role"], location["position"], location["branch"], location["element"],
+                ))
+            for row_id in location.get("matches", []):
+                condition = conditions_by_id[row_id]
+                result = semantic_for_condition(
+                    line=location["position"], condition=condition,
+                    hidden=chart["hidden"] if chart else [], table=decision_table,
+                )
+                st.subheader("{}　{}：第 {} 爻 {}{}".format(
+                    row_id, condition, location["position"], location["branch"], location["element"],
+                ))
+                st.caption(result["coverage_label"])
+                narrative = narrate(semantics=result, relations=relation_state)
+                narrative_by_book = {item["book"]: item for item in narrative["tracks"]}
+                for book, track in result["tracks"].items():
+                    with st.expander(book, expanded=False):
+                        show_track(narrative_by_book[book], track)
+        st.write("Y 表無仇神格位（P-057）")
+        st.markdown(decision_table.get("table_note", ""))
+        st.stop()
+automatic_condition = None if hidden_selected else infer_condition(
+    table_id=decision_table["table_id"], relation_result=relation_state, line=line,
 )
 if automatic_condition in conditions:
     st.caption("按當前爻之機械狀態自動定位：{}。".format(automatic_condition))
@@ -144,7 +179,7 @@ else:
         ))
     st.caption("此爻不觸發任何可機械定位的條件。這是目前決策表之覆蓋缺口，並非此爻無事可說。")
     if decision_table["table_id"] == "Y":
-        st.caption("Y 表記錄元神／忌神狀態材料；現有引擎不以它輸出效果語義，請以手動覆寫查看指定格位。")
+        st.caption("Y 表已按元神／忌神的可見機械狀態逐爻比對；沒有命中時不補造格位。")
     else:
         st.caption("可查表包括 C1、C15、K；Y 為元神／忌神狀態材料，不作效果判定。")
 

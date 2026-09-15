@@ -17,7 +17,7 @@ from engine.relations import (
     element_relation,
     seasonal_state,
 )
-from engine.semantics import chong_source_for_line, infer_condition
+from engine.semantics import chong_source_for_line, infer_condition, y_conditions_for_role
 
 SIX_RELATIVE_OPTIONS = ("父母", "官鬼", "妻財", "子孫", "兄弟")
 LINE_POSITION_OPTIONS = ("世爻", "應爻", "初爻", "二爻", "三爻", "四爻", "五爻", "上爻")
@@ -102,6 +102,8 @@ def _candidate_state(candidate: dict[str, Any], relations: dict[str, Any]) -> di
         "empty": branch in relations["empty_branches"],
         "day_relations": day_branch_relations(relations["day_branch"], branch),
         "motion": "伏" if candidate.get("hidden") else visible_row.get("motion", "靜"),
+        "is_shi": bool(visible_row.get("shi")),
+        "is_ying": bool(visible_row.get("ying")),
         "state_fields": ["position", "branch", "element", "six_relative", "seasonal_state", "empty", "month_break", "motion"],
         **({
             "flying_branch": candidate.get("flying_branch"),
@@ -124,6 +126,14 @@ def _role_candidates(
     return yuan, ji, chou
 
 
+def _unique_candidates(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Keep one entry per candidate while retaining its line-role metadata."""
+    unique: dict[str, dict[str, Any]] = {}
+    for item in items:
+        unique.setdefault(item["candidate_id"], item)
+    return list(unique.values())
+
+
 def _with_role(
     items: list[dict[str, Any]], role: str, relations: dict[str, Any],
     selected: dict[str, Any] | None,
@@ -134,6 +144,8 @@ def _with_role(
         value["role"] = role
         value["state"] = _candidate_state(item, relations)
         value["state"]["is_yongshen"] = False
+        value["is_shi"] = value["state"]["is_shi"]
+        value["is_ying"] = value["state"]["is_ying"]
         value["is_flying_of_yongshen"] = bool(
             selected and selected.get("hidden") and item.get("position") == selected.get("position")
             and not item.get("hidden")
@@ -244,7 +256,9 @@ def analyze_yongshen(state: dict[str, Any], choice: str, candidate_id: str | Non
     all_candidates = []
     for relative in SIX_RELATIVE_OPTIONS:
         all_candidates.extend(candidate_options(chart, relative))
-    all_candidates.extend(candidate_options(chart, "世應"))
+    # Every visible line already occurs once under its six-relative.  世／應
+    # are annotations on that candidate, not extra four-god candidates.
+    all_candidates = _unique_candidates(all_candidates)
     target_element = selected["element"]
     yuan, ji, chou = _role_candidates(all_candidates, target_element)
     line_outputs = []
@@ -262,9 +276,9 @@ def analyze_yongshen(state: dict[str, Any], choice: str, candidate_id: str | Non
         "C1": None,
         "C15": None,
         "K": None,
-        # Y is available whenever a concrete use-god was selected: it is a
-        # source table for recomputed yuan/ji roles, not an effect rule.
-        "Y": "元神／忌神狀態（表可查）",
+        # Y locates source rows for each mechanical four-god state.  It never
+        # applies a row's effect language.
+        "Y": None,
         "analysis_position": selected["position"],
     }
     if not selected.get("hidden"):
@@ -277,22 +291,45 @@ def analyze_yongshen(state: dict[str, Any], choice: str, candidate_id: str | Non
                 decision["cell_context"] = {"chong_source": source}
     if decision["C1"] is None and decision["C15"] is None and decision["K"] is None:
         decision["status"] = "此爻不觸發任何條件"
-        decision["coverage_gap_note"] = "目前沖與空亡狀態表未觸發；元神／忌神狀態表仍可查，但不輸出效果語義。"
+        decision["coverage_gap_note"] = "目前沖與空亡狀態表未觸發；Y 表已按元神／忌神逐爻定位，僅不輸出效果判定。"
     candidate_listing = []
     for item in options:
         value = dict(item)
         value["state"] = _candidate_state(item, relations)
         value["is_yongshen"] = item["candidate_id"] == selected["candidate_id"]
         candidate_listing.append(value)
+    yuan_output = _with_role(yuan, "元神", relations, selected)
+    ji_output = _with_role(ji, "忌神", relations, selected)
+    chou_output = _with_role(chou, "仇神", relations, selected)
+    y_locations = []
+    for role, items in (("元神", yuan_output), ("忌神", ji_output)):
+        for item in items:
+            located = y_conditions_for_role(role, item["state"])
+            y_locations.append({
+                "role": role,
+                "position": item["position"],
+                "branch": item["branch"],
+                "element": item["element"],
+                "six_relative": item.get("six_relative"),
+                "hidden": item.get("hidden", False),
+                "seasonal_state": item["state"]["seasonal_state"],
+                "matches": located["matches"],
+                "unmodelled_rows": located["unmodelled_rows"],
+            })
+    decision["Y"] = {
+        "located": True,
+        "locations": y_locations,
+        "chou_shen_note": "Y 表無仇神格位（P-057）",
+    }
     return {
         "choice": choice, "status": "selected", "candidate_id": candidate_id,
         "selected": selected, "candidates": candidate_listing,
         "target_element": target_element, "own_state": own_state,
         "lines": line_outputs, "hidden": hidden_outputs,
-        "yuan_shen": _with_role(yuan, "元神", relations, selected),
-        "ji_shen": _with_role(ji, "忌神", relations, selected),
-        "chou_shen": _with_role(chou, "仇神", relations, selected),
-        "yuan_shen_checks": _deferred_checks(yuan),
+        "yuan_shen": yuan_output,
+        "ji_shen": ji_output,
+        "chou_shen": chou_output,
+        "yuan_shen_checks": _deferred_checks(yuan_output),
         "moving_interactions": _moving_interactions(state, target_element),
         "double_occurrence": len(options) > 1,
         "hidden_selected": bool(selected.get("hidden")),

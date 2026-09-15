@@ -52,6 +52,7 @@ BASELINE_TESTS = 125
 FIXED_TIME = "2026-09-13T15:49"
 CONFIRMATION = "REGENERATE CURRENT STATE BASELINE"
 RESULT_CLASSES = ("exception", "check_failed", "placeholder", "normal")
+CHONG_SOURCE_VALUES = ("month", "day", "moving_line", "multiple")
 DAY_GANZHI = tuple(
     "甲乙丙丁戊己庚辛壬癸"[index % 10] + BRANCHES[index % 12]
     for index in range(60)
@@ -82,7 +83,7 @@ def _golden_header(commit: str, test_count: int) -> str:
         return GOLDEN_HEADER
     return f"""# 本 snapshot 產生於 commit {commit}（{test_count} tests）
 # 此為修復後現況基準，非跨版本永恆正確性證明。
-# 產生時 §11.1 待決項為 54 項。
+# 產生時 §11.1 待決項為 55 項。
 #
 # 產生時之已知問題狀態：
 #   [已修] 1. 旬空、月破顯示佔位符（L2 未接通）
@@ -116,7 +117,8 @@ TIER2_FIELDS = (
     "moving_positions", "month_branch", "day_ganzhi", "xunkong",
     "month_break_branch", "seasonal_states", "empty_line_count",
     "month_break_line_count", "template_missing_lines", "template_missing_contexts",
-    "c1_hits", "c15_hits", "failed_checks", "placeholder_checks",
+    "c1_hits", "c15_hits", "c1_chong_sources", "c15_chong_sources", "all_chong_sources",
+    "failed_checks", "placeholder_checks",
     "exception_type", "exception_message", "result_class",
 )
 TIER3_FIELDS = (
@@ -131,7 +133,8 @@ TIER3_FIELDS = (
     "line_position_choice_statuses", "line_position_choices_all_locked",
     "output_json", "equal_to_choices", "selection_status", "pending_selection",
     "hidden_choice_required", "hidden_choice_options", "candidate_state_fields_complete",
-    "flying_hidden_relation_status", "triggered_tables", "template_missing_lines",
+    "flying_hidden_relation_status", "y_locations", "y_located",
+    "four_god_positions_unique", "all_chong_sources", "triggered_tables", "template_missing_lines",
     "template_missing_contexts", "failed_checks", "placeholder_checks",
     "exception_type", "exception_message", "result_class",
 )
@@ -291,13 +294,27 @@ def _template_audit(relations: dict[str, Any], templates: dict[str, dict[str, An
     return missing_lines, contexts
 
 
-def _condition_hits(relations: dict[str, Any], table_id: str) -> str:
+def _condition_hits(relations: dict[str, Any], table_id: str) -> tuple[str, str]:
     hits = []
+    sources = []
     for position in range(1, 7):
         condition = infer_condition(table_id=table_id, relation_result=relations, line=position)
         if condition:
             hits.append(f"{position}:{condition}")
-    return "|".join(hits)
+            if table_id in {"C1", "C15"}:
+                source = chong_source_for_line(relations, position)
+                if source:
+                    sources.append(f"{position}:{source}")
+    return "|".join(hits), "|".join(sources)
+
+
+def _all_chong_sources(relations: dict[str, Any]) -> str:
+    """Record mechanical clash provenance without assigning it a table row."""
+    return "|".join(
+        f"{row['position']}:{source}"
+        for row in relations.get("lines", [])
+        if (source := chong_source_for_line(relations, row["position"]))
+    )
 
 
 def run_tier2(output_path: Path | None = None) -> dict[str, Any]:
@@ -325,6 +342,9 @@ def run_tier2(output_path: Path | None = None) -> dict[str, Any]:
                     missing_contexts: list[str] = []
                     c1_hits = ""
                     c15_hits = ""
+                    c1_chong_sources = ""
+                    c15_chong_sources = ""
+                    all_chong_sources = ""
                     try:
                         relations = build_relation_graph(
                             line_rows=chart["lines_detail"], hidden=chart["hidden"],
@@ -369,8 +389,9 @@ def run_tier2(output_path: Path | None = None) -> dict[str, Any]:
                         missing_lines, missing_contexts = _template_audit(relations, templates)
                         if missing_lines:
                             placeholders.append("narrative_template_missing")
-                        c1_hits = _condition_hits(relations, "C1")
-                        c15_hits = _condition_hits(relations, "C15")
+                        c1_hits, c1_chong_sources = _condition_hits(relations, "C1")
+                        c15_hits, c15_chong_sources = _condition_hits(relations, "C15")
+                        all_chong_sources = _all_chong_sources(relations)
                         empty_count = sum(bool(line.get("empty")) for line in states)
                         break_count = sum(bool(line.get("month_break")) for line in states)
                     except Exception as exc:
@@ -393,6 +414,9 @@ def run_tier2(output_path: Path | None = None) -> dict[str, Any]:
                         "template_missing_contexts": "|".join(missing_contexts),
                         "c1_hits": c1_hits,
                         "c15_hits": c15_hits,
+                        "c1_chong_sources": c1_chong_sources,
+                        "c15_chong_sources": c15_chong_sources,
+                        "all_chong_sources": all_chong_sources,
                         "failed_checks": "|".join(dict.fromkeys(failed)),
                         "placeholder_checks": "|".join(placeholders),
                         "exception_type": exception_type,
@@ -401,6 +425,9 @@ def run_tier2(output_path: Path | None = None) -> dict[str, Any]:
                     })
     destination = output_path or SWEEP_DIR / "tier2_L2.csv"
     _write_csv(destination, TIER2_FIELDS, rows)
+    sources = _count_hits(rows, "all_chong_sources")
+    if set(CHONG_SOURCE_VALUES) - set(sources):
+        raise AssertionError("Tier 2 sampling did not cover every mechanical chong source")
     return {
         "tier": 2, "combinations": len(rows),
         "elapsed_seconds": time.perf_counter() - started,
@@ -415,6 +442,20 @@ def _tier3_samples() -> list[tuple[str, dict[str, Any], tuple[int, ...]]]:
         for pattern_name, moving in MOVING_PATTERNS:
             samples.append((f"hex{source['hexagram_id']}:{pattern_name}", source, moving))
     return samples
+
+
+def _tier3_time_samples() -> list[tuple[str, str]]:
+    """Use independently varied day branches for every sampled month branch."""
+    # Same-branch and opposite-branch days jointly expose month-only,
+    # day-only, simultaneous, and no date-driven clash states while keeping
+    # the tracked audit CSV below GitHub's per-file size limit.
+    offsets = (0, 6)
+    day_for_branch = {ganzhi[1]: ganzhi for ganzhi in DAY_GANZHI[:12]}
+    return [
+        (month, day_for_branch[BRANCHES[(index + offset) % len(BRANCHES)]])
+        for index, month in enumerate(BRANCHES)
+        for offset in offsets
+    ]
 
 
 def _track_originals_nonempty(semantics: dict[str, Any], relations: dict[str, Any]) -> bool:
@@ -448,6 +489,7 @@ def _tier3_projection(
     c15_condition = decision.get("C15")
     k_condition = decision.get("K")
     y_available = bool(decision.get("Y"))
+    y_locator = decision.get("Y") or {}
     chong_source = chong_source_for_line(relations, selected_line) if selected_line else None
     c1_semantics = (
         semantic_for_condition(line=selected_line, condition=c1_condition, hidden=chart["hidden"], table=c1_table)
@@ -504,6 +546,8 @@ def _tier3_projection(
         "c15_chong_source": chong_source if c15_condition else None,
         "k_condition": k_condition,
         "y_table_available": y_available,
+        "y_locations": y_locator.get("locations", []),
+        "y_located": bool(y_locator.get("located")),
         "c1_track_count": len(c1_semantics["tracks"]) if c1_semantics else 0,
         "c15_track_count": len(c15_semantics["tracks"]) if c15_semantics else 0,
         "k_track_count": len(k_semantics["tracks"]) if k_semantics else 0,
@@ -529,6 +573,11 @@ def _tier3_projection(
             analysis.get("flying_hidden_relation", {}).get("doctrinal_status")
             if analysis.get("flying_hidden_relation") else "not_applicable"
         ),
+        "four_god_positions_unique": all(
+            len({item["position"] for item in analysis.get(role, [])}) == len(analysis.get(role, []))
+            for role in ("yuan_shen", "ji_shen", "chou_shen")
+        ),
+        "all_chong_sources": _all_chong_sources(relations),
         "triggered_tables": [
             table for table, condition in (("C1", c1_condition), ("C15", c15_condition), ("K", k_condition), ("Y", y_available))
             if condition
@@ -552,6 +601,10 @@ def _tier3_projection(
         failed.append("hidden_candidate_not_marked")
     if not pending and c1_condition is None and c15_condition is None and k_condition is None and decision.get("status") != "此爻不觸發任何條件":
         failed.append("no_explicit_no_condition_result")
+    if not pending and not projection["y_located"]:
+        failed.append("y_table_not_located")
+    if not projection["four_god_positions_unique"]:
+        failed.append("four_god_duplicate_position")
     if not projection["line_position_choices_all_locked"]:
         failed.append("line_position_choice_pending_selection")
     for table_id, condition, count in (
@@ -573,7 +626,7 @@ def _different_fields(left: dict[str, Any], right: dict[str, Any]) -> list[str]:
 
 
 def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
-    """Run all 64 charts × 3 movement samples × 12 month/day samples × six choices."""
+    """Run 64 charts × 3 movements × 24 independent time samples × six."""
     started = time.perf_counter()
     templates = _load_templates()
     c1_table = load_decision_table(ROOT / "data" / "decision_tables" / "C1_chong_san.json")
@@ -588,7 +641,7 @@ def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
         for position in moving:
             changed_bits[position - 1] ^= 1
         changed_chart = build(changed_bits) if moving else None
-        for month_branch, day_ganzhi in zip(BRANCHES, DAY_GANZHI[:12]):
+        for month_branch, day_ganzhi in _tier3_time_samples():
             relations = build_relation_graph(
                 line_rows=chart["lines_detail"], hidden=chart["hidden"],
                 month_element=BRANCH_ELEMENT[month_branch], month_branch=month_branch,
@@ -704,6 +757,10 @@ def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
                     "hidden_choice_options": projection.get("hidden_choice_options", ""),
                     "candidate_state_fields_complete": str(projection.get("candidate_state_fields_complete", False)).lower(),
                     "flying_hidden_relation_status": projection.get("flying_hidden_relation_status", ""),
+                    "y_locations": _json(projection.get("y_locations", [])),
+                    "y_located": str(projection.get("y_located", False)).lower(),
+                    "four_god_positions_unique": str(projection.get("four_god_positions_unique", False)).lower(),
+                    "all_chong_sources": projection.get("all_chong_sources", ""),
                     "triggered_tables": "|".join(projection.get("triggered_tables", [])),
                     "template_missing_lines": "|".join(map(str, item["template_lines"])),
                     "template_missing_contexts": "|".join(item["template_contexts"]),
@@ -715,6 +772,9 @@ def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
                 })
     destination = output_path or SWEEP_DIR / "tier3_yongshen.csv"
     _write_csv(destination, TIER3_FIELDS, rows)
+    sources = _count_hits(rows, "all_chong_sources")
+    if set(CHONG_SOURCE_VALUES) - set(sources):
+        raise AssertionError("Tier 3 sampling did not cover every mechanical chong source")
     return {
         "tier": 3, "combinations": len(rows),
         "elapsed_seconds": time.perf_counter() - started,
@@ -937,6 +997,10 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
     c15_order = ("靜爻遇沖", "動爻遇沖", "空爻遇沖")
     c1_t2 = _count_hits(tier2, "c1_hits")
     c15_t2 = _count_hits(tier2, "c15_hits")
+    c1_t2_chong_sources = _count_hits(tier2, "c1_chong_sources")
+    c15_t2_chong_sources = _count_hits(tier2, "c15_chong_sources")
+    all_t2_chong_sources = _count_hits(tier2, "all_chong_sources")
+    all_t3_chong_sources = _count_hits(tier3, "all_chong_sources")
     c1_t3 = Counter(row["c1_condition"] for row in tier3 if row["c1_condition"])
     c15_t3 = Counter(row["c15_condition"] for row in tier3 if row["c15_condition"])
     c1_chong_sources = Counter(row["c1_chong_source"] for row in tier3 if row["c1_chong_source"])
@@ -993,9 +1057,9 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
         "| --- | ---: | ---: | --- |",
         f"| Tier 1 | {len(tier1):,} | {elapsed[1]:.3f} | 64 卦 × 64 動爻 mask；固定時間 `{FIXED_TIME}` |" if elapsed[1] is not None else f"| Tier 1 | {len(tier1):,} | 未記錄 | 64 卦 × 64 動爻 mask |",
         f"| Tier 2 | {len(tier2):,} | {elapsed[2]:.3f} | 64 卦 × 全靜／初爻動／初三五爻動 × 12 月建 × 60 日辰 |" if elapsed[2] is not None else f"| Tier 2 | {len(tier2):,} | 未記錄 | 64 卦 × 3 動爻 pattern × 12 × 60 |",
-        f"| Tier 3 | {len(tier3):,} | {elapsed[3]:.3f} | 64 卦 × 3 動爻 pattern × 12 個月／日代表 × 6 用神選項 |" if elapsed[3] is not None else f"| Tier 3 | {len(tier3):,} | 未記錄 | 64 × 3 × 12 × 6 |",
+        f"| Tier 3 | {len(tier3):,} | {elapsed[3]:.3f} | 64 卦 × 3 動爻 pattern × 12 月支 × 2 獨立日支 × 6 用神選項 |" if elapsed[3] is not None else f"| Tier 3 | {len(tier3):,} | 未記錄 | 64 × 3 × 12 × 2 × 6 |",
         "",
-        "Tier 3 每月代表日按次序配 `甲子` 至 `乙亥`；此為狀態取樣，不宣稱對應同一公曆年。",
+        "Tier 2 完整交叉 12 月支與 60 日辰。Tier 3 每月取兩個獨立日支（同支、相沖），不再把月支與日支固定同支配對；兩者共同覆蓋月沖、日沖、同沖、皆不沖。此為狀態取樣，不宣稱對應同一公曆年。",
         "",
         "## B1 — 例外統計",
         "",
@@ -1030,7 +1094,9 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
         f"- C15 不觸發：{c15_none:,}（{c15_none / line_exposures:.4%}）。",
         "",
         f"Tier 3 目前可唯一定位者之 C1 命中：{_format_counter(c1_t3, c1_order)}；C15 命中：{_format_counter(c15_t3, c15_order)}。",
+        f"Tier 2 C1 沖來源：{_format_counter(c1_t2_chong_sources, ('month', 'day', 'moving_line', 'multiple'))}；C15 沖來源：{_format_counter(c15_t2_chong_sources, ('month', 'day', 'moving_line', 'multiple'))}。",
         f"Tier 3 C1 沖來源：{_format_counter(c1_chong_sources, ('month', 'day', 'moving_line', 'multiple'))}；C15 沖來源：{_format_counter(c15_chong_sources, ('month', 'day', 'moving_line', 'multiple'))}。",
+        f"全部機械沖來源（不把動爻沖硬塞入 C1／C15）：Tier 2 {_format_counter(all_t2_chong_sources, CHONG_SOURCE_VALUES)}；Tier 3 {_format_counter(all_t3_chong_sources, CHONG_SOURCE_VALUES)}。四值均有命中。",
         f"按爻位選八項皆直接鎖定、無 pending_selection：{len(tier3) - line_position_pending:,}/{len(tier3):,}。",
         "",
         "## B3a — 覆蓋率",
@@ -1058,7 +1124,7 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
         "| --- | ---: | ---: | ---: | ---: |",
         f"| K（空亡狀態，機械 row） | {coverage['empty_raw']:,} | {coverage['empty_new']:,} | {coverage['total'] - coverage['current_plus_empty']:,} | {(coverage['total'] - coverage['current_plus_empty']) / coverage['total']:.4%} |",
         f"| K-R9（月破交集） | {coverage['month_break_raw']:,} | {coverage['month_break_new']:,} | {coverage['total'] - coverage['current_plus_month_break']:,} | {(coverage['total'] - coverage['current_plus_month_break']) / coverage['total']:.4%} |",
-        f"| Y（concrete 用神時整表可查） | {coverage['resolved']:,} | {coverage['current_plus_resolved_state'] - coverage['current_trigger']:,} | {coverage['total'] - coverage['current_plus_resolved_state']:,} | {(coverage['total'] - coverage['current_plus_resolved_state']) / coverage['total']:.4%} |",
+        f"| Y（concrete 用神時逐爻定位） | {coverage['resolved']:,} | {coverage['current_plus_resolved_state'] - coverage['current_trigger']:,} | {coverage['total'] - coverage['current_plus_resolved_state']:,} | {(coverage['total'] - coverage['current_plus_resolved_state']) / coverage['total']:.4%} |",
         f"| 三者合計（旬空＋月破＋concrete 元神／忌神） | — | — | {coverage['total'] - coverage['current_plus_resolved_state']:,} | {(coverage['total'] - coverage['current_plus_resolved_state']) / coverage['total']:.4%} |",
         "",
         f"加入三者並以 concrete 用神為前提之空手率：{coverage['total'] - coverage['current_plus_resolved_state']:,}/{coverage['total']:,}（{(coverage['total'] - coverage['current_plus_resolved_state']) / coverage['total']:.4%}）。",
@@ -1092,14 +1158,14 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
         "",
         "## B3b — K／Y 實際覆蓋與七種狀態",
         "",
-        "本節是本包後的現況統計。C1、C15、K 只在可機械定位 row 時列入；Y 在 concrete 用神選定後以十個材料 row 整體可查，並不表示引擎已判定其中任一狀態的效果。",
+        "本節是本包後的現況統計。C1、C15、K 只在可機械定位 row 時列入；Y 在 concrete 用神選定後，按元神／忌神逐爻定位至可見機械格位。任何格位只並列原有材料，不表示引擎已判定其效果。",
         "",
         "| 表 | 觸發次數 |",
         "| --- | ---: |",
         f"| C1 | {coverage['table_hits'].get('C1', 0):,} |",
         f"| C15 | {coverage['table_hits'].get('C15', 0):,} |",
         f"| K | {coverage['table_hits'].get('K', 0):,} |",
-        f"| Y（十 row 整體可查） | {coverage['table_hits'].get('Y', 0) // 10:,} |",
+        f"| Y（逐爻定位） | {coverage['table_hits'].get('Y', 0) // 10:,} |",
         "",
         "| status | 觸發材料 cells |",
         "| --- | ---: |",
@@ -1119,7 +1185,7 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
         "",
         "現已接通 `engine/yongshen.py`：用神類別及候選爻位由人手傳入，沒有自動揀用神；輸出以該候選為中心重算。",
         "",
-        "現時實際重算欄位：用神本身之旺衰／旬空／月破／日辰標記；元神、忌神、仇神之候選爻位及狀態；兩現／伏藏；動爻對用神之生剋及變爻回頭剋機械標記；C1／C15／K 格位；以及 `is_yongshen`。Y 表在 concrete 用神選定後可查，但不把任何書的材料判語應用為效果語義。",
+        "現時實際重算欄位：用神本身之旺衰／旬空／月破／日辰標記；元神、忌神、仇神之候選爻位及狀態；兩現／伏藏；動爻對用神之生剋及變爻回頭剋機械標記；C1／C15／K 格位；以及 `is_yongshen`。Y 表在 concrete 用神選定後按元神／忌神逐爻定位，但不把任何書的材料判語應用為效果語義。",
         "",
         f"兩兩比較（每對 {pair_sample_count:,} 個同卦同時狀態；數值為 output projection 不同欄位數 min–max；完全相同列為基準數）：",
         "",
@@ -1141,7 +1207,7 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
         f"- 不現之六親要求伏神二選一：{hidden_choice_rows:,}/{len(tier3):,}；選項固定為 `use_hidden|choose_other`。",
         f"- 八項機械狀態欄位缺失：{state_incomplete_rows:,}/{len(tier3):,}。",
         f"- C1／C15／K／Y 觸發表數：{_format_counter(table_hits) or '0'}。",
-        "- L3 不輸出任何一家之狀態效果判定；Y 僅以多軌材料表呈現，P-049、P-050、P-055 保留。",
+        "- L3 不輸出任何一家之狀態效果判定；Y 逐爻定位後僅以多軌材料呈現，仇神無格位（P-057），P-049、P-050、P-055 保留。",
         "",
         "## B5 — 結構分佈",
         "",

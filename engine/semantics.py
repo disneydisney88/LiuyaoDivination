@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -25,6 +26,14 @@ R1–R5 五個條件係本項目從《易冒》十八法與野鶴之論述反推
 **覆蓋率只記錄已採集材料之範圍，不是可信度指標，更不是票數。** 三家有表述不等於該說較可信；一家否定範疇不等於該家是少數派 —— 否定範疇是拒絕進入此提問框架，不是投了反對票。"""
 
 COLLECTION_STATUSES = frozenset({"ingested_not_surveyed", "not_ingested"})
+FRAMEWORK_DISPLAY = {
+    "ordinal_18": "看用神十八法",
+    "binary_enumeration": "二值判定 + 條件枚舉",
+    "true_false_binary": "真假二分",
+    "by_topic_no_chapters": "按事類編排、無專章",
+    "rhapsody_couplet": "賦體對句",
+    "two_role_category_then_strength": "主／輔二位，事類定身份、旺衰定效力",
+}
 
 
 def _canonical_book_id(book_id: str) -> str:
@@ -40,6 +49,58 @@ def _ingested_book_ids() -> set[str]:
         if payload.get("book_id"):
             book_ids.add(_canonical_book_id(payload["book_id"]))
     return book_ids
+
+
+@lru_cache(maxsize=None)
+def framework_for_book_id(book_id: str) -> str | None:
+    """Return the envelope's Chinese framework label for a decision-table id.
+
+    Decision tables retain their historical spellings (for example
+    ``huangjin_ce``), while doctrinal envelopes use their own book ids.  The
+    canonical comparison keeps the envelope, rather than a page-local list,
+    as the source of truth.
+    """
+    canonical_id = _canonical_book_id(book_id)
+    for path in (ROOT / "data" / "doctrinal").glob("*_rules.json"):
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if _canonical_book_id(payload.get("book_id", "")) == canonical_id:
+            return FRAMEWORK_DISPLAY.get(payload.get("framework_type"))
+    return None
+
+
+def y_conditions_for_role(role: str, state: dict[str, Any]) -> dict[str, Any]:
+    """Locate mechanically observable Y-table rows for one four-god line.
+
+    This is a table locator, not an interpretation of a row's doctrine.  The
+    two Y rows requiring R-L2-06 inputs (化退、入墓) are deliberately left
+    unmatched until those mechanical inputs exist.
+    """
+    if role not in {"元神", "忌神"}:
+        return {"role": role, "matches": [], "unmodelled_rows": []}
+    matches: list[str] = []
+    unmodelled_rows: list[str] = []
+    seasonal = state.get("seasonal_state")
+    if role == "元神":
+        if seasonal in {"旺", "相"}:
+            matches.append("Y-R1")
+        elif seasonal in {"休", "囚"}:
+            matches.append("Y-R2")
+        if state.get("empty"):
+            matches.append("Y-R3")
+        if state.get("month_break"):
+            matches.append("Y-R4")
+        # R-L2-06 supplies neither a verified 化退 nor 入墓 field yet.
+        unmodelled_rows.extend(["Y-R5", "Y-R6"])
+    else:
+        if seasonal in {"旺", "相"}:
+            matches.append("Y-R7")
+        elif seasonal in {"休", "囚"}:
+            matches.append("Y-R8")
+        if state.get("empty"):
+            matches.append("Y-R9")
+        if state.get("motion") in {"動", "散", "全動"}:
+            matches.append("Y-R10")
+    return {"role": role, "matches": matches, "unmodelled_rows": unmodelled_rows}
 
 
 def collection_status_for_book_id(book_id: str) -> str:
@@ -258,6 +319,7 @@ def _track(cell: dict[str, Any], book_name: str) -> dict[str, Any]:
     result: dict[str, Any] = {
         "book_id": cell["book_id"], "book": book_name, "status": status,
         "framework_position": cell.get("framework_position"),
+        "framework": framework_for_book_id(cell["book_id"]),
     }
     if status != "not_collected":
         result["verdict"] = cell.get("verdict")
