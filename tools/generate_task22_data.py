@@ -60,7 +60,10 @@ def cell(book_id: str, status: str, *, verdict: str | None = None,
          term_note: str | None = None,
          include_null_cross_reference: bool = False) -> dict[str, Any]:
     result: dict[str, Any] = {"book_id": book_id, "status": status}
-    if status in {"addressed", "not_addressed", "different_axis"}:
+    if status in {
+        "addressed", "not_addressed", "category_negated", "concept_absent",
+        "explicit_exclusion", "different_axis",
+    }:
         result["verdict"] = verdict
     for key, value in {
         "source": source,

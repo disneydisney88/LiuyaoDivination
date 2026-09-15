@@ -285,6 +285,7 @@
         {
           "book_id": "huozhulin",
           "status": "concept_absent",
+          "verdict": null,
           "absence_note": "TASK_27 全檔『月破』『日破』均 0 見；『破』9 見皆非月破義，無明文排除語。"
         },
         {
@@ -353,6 +354,7 @@
         {
           "book_id": "huozhulin",
           "status": "concept_absent",
+          "verdict": null,
           "absence_note": "TASK_27 全檔『退神』『進神』均 0 見；『進』『退』字不構成進神／退神術語，無明文排除語。"
         },
         {
@@ -491,6 +493,7 @@
         {
           "book_id": "huozhulin",
           "status": "explicit_exclusion",
+          "verdict": null,
           "cell_note": "① 排除者是兄弟，非忌神；不作等同。② 限財官二用語境。③ 兄弟在他篇仍論及（280／399／445），排除的是位次不是爻。④ 仇神為 concept_absent。",
           "exclusion_original": "兄弟是破财之人，不为主、不为辅，何必看也？",
           "exclusion_source": "〈6·公私用事〉 125–129（拒絕語 126）"
@@ -559,6 +562,7 @@
         {
           "book_id": "huozhulin",
           "status": "explicit_exclusion",
+          "verdict": null,
           "cell_note": "① 排除者是兄弟，非忌神；不作等同。② 限財官二用語境。③ 兄弟在他篇仍論及（280／399／445），排除的是位次不是爻。④ 仇神為 concept_absent。",
           "exclusion_original": "兄弟是破财之人，不为主、不为辅，何必看也？",
           "exclusion_source": "〈6·公私用事〉 125–129（拒絕語 126）"
@@ -627,6 +631,7 @@
         {
           "book_id": "huozhulin",
           "status": "explicit_exclusion",
+          "verdict": null,
           "cell_note": "① 排除者是兄弟，非忌神；不作等同。② 限財官二用語境。③ 兄弟在他篇仍論及（280／399／445），排除的是位次不是爻。④ 仇神為 concept_absent。",
           "exclusion_original": "兄弟是破财之人，不为主、不为辅，何必看也？",
           "exclusion_source": "〈6·公私用事〉 125–129（拒絕語 126）"
@@ -701,6 +706,7 @@
         {
           "book_id": "huozhulin",
           "status": "explicit_exclusion",
+          "verdict": null,
           "cell_note": "① 排除者是兄弟，非忌神；不作等同。② 限財官二用語境。③ 兄弟在他篇仍論及（280／399／445），排除的是位次不是爻。④ 仇神為 concept_absent。",
           "exclusion_original": "兄弟是破财之人，不为主、不为辅，何必看也？",
           "exclusion_source": "〈6·公私用事〉 125–129（拒絕語 126）"

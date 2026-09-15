@@ -128,6 +128,9 @@ def test_explicit_exclusion_and_concept_absent_are_independent_counts():
         coverage = row["coverage"]
         assert "books_addressed_and_explicit_exclusion" not in coverage
         assert "books_addressed_and_concept_absent" not in coverage
+        for entry in row["cells"]:
+            if entry["status"] in {"concept_absent", "explicit_exclusion"}:
+                assert "verdict" in entry and entry["verdict"] is None
 
 
 def test_spec_contains_explicit_exclusion_requirements_verbatim():
