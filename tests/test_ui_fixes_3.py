@@ -117,7 +117,7 @@ def test_task25_l2_motion_and_day_clash_are_kept_mechanical_then_redirected():
         relations=state["relations"],
     )
     text = "\n".join(step["text"] for step in narrative["derivation"])
-    assert "動靜分類標記為動" in text
+    assert "動靜分類：動" in text
     assert "此爻遇日辰沖（機械關係）" in text
     assert "多軌頁 C1／C15" in text
     assert not any(term in text for term in ("散", "暗動", "全動", "真空", "假空", "真破", "假破"))

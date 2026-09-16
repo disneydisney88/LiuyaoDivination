@@ -25,7 +25,7 @@
   },
   "T-MOTION-01": {
     "template_id": "T-MOTION-01",
-    "pattern": "此爻之動靜分類標記為{motion}。",
+    "pattern": "此爻之動靜分類：{motion}。",
     "rule_id": null,
     "slots": ["motion"]
   },

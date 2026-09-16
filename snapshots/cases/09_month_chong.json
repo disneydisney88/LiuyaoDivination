@@ -1,0 +1,8 @@
+{
+  "case_id": "09_month_chong",
+  "feature": "用神月破而非日沖；chong_source=month",
+  "lines": [0, 0, 0, 1, 1, 1],
+  "moving_positions": [],
+  "cast_datetime": "2026-09-09T12:00",
+  "focus_choice": "三爻"
+}

@@ -39,6 +39,7 @@ from engine.semantics import (  # noqa: E402
     load_decision_table,
     semantic_for_condition,
 )
+from engine.text_guard import find_forbidden_terms  # noqa: E402
 from engine.yongshen import (  # noqa: E402
     LINE_POSITION_OPTIONS,
     analyze_yongshen,
@@ -120,6 +121,7 @@ TIER2_FIELDS = (
     "moving_positions", "month_branch", "day_ganzhi", "xunkong",
     "month_break_branch", "seasonal_states", "empty_line_count",
     "month_break_line_count", "template_missing_lines", "template_missing_contexts",
+    "forbidden_mechanical_terms",
     "c1_hits", "c15_hits", "c1_chong_sources", "c15_chong_sources", "all_chong_sources",
     "failed_checks", "placeholder_checks",
     "exception_type", "exception_message", "result_class",
@@ -385,6 +387,7 @@ def run_tier2(output_path: Path | None = None) -> dict[str, Any]:
                     break_count: int | str = ""
                     missing_lines: list[int] = []
                     missing_contexts: list[str] = []
+                    forbidden_mechanical_terms = ""
                     c1_hits = ""
                     c15_hits = ""
                     c1_chong_sources = ""
@@ -433,6 +436,15 @@ def run_tier2(output_path: Path | None = None) -> dict[str, Any]:
                         missing_lines, missing_contexts = _template_audit(relations, templates)
                         if missing_lines:
                             placeholders.append("narrative_template_missing")
+                        derivation_text = "\n".join(
+                            step["text"]
+                            for line in states
+                            for step in _derivation(relations, line["position"], templates)[0]
+                        )
+                        forbidden = find_forbidden_terms(derivation_text, layer="narrate.derivation")
+                        forbidden_mechanical_terms = "|".join(forbidden)
+                        if forbidden:
+                            failed.append("forbidden_mechanical_text")
                         c1_hits, c1_chong_sources = _condition_hits(relations, "C1")
                         c15_hits, c15_chong_sources = _condition_hits(relations, "C15")
                         all_chong_sources = _all_chong_sources(relations)
@@ -456,6 +468,7 @@ def run_tier2(output_path: Path | None = None) -> dict[str, Any]:
                         "month_break_line_count": break_count,
                         "template_missing_lines": "|".join(map(str, missing_lines)),
                         "template_missing_contexts": "|".join(missing_contexts),
+                        "forbidden_mechanical_terms": forbidden_mechanical_terms,
                         "c1_hits": c1_hits,
                         "c15_hits": c15_hits,
                         "c1_chong_sources": c1_chong_sources,
@@ -1043,6 +1056,7 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
     missing_t2 = [row for row in tier2 if row["template_missing_lines"]]
     missing_t3 = [row for row in tier3 if row["template_missing_lines"]]
     non_binary_motion_t2 = failure_types[2]["motion_not_binary"] + failure_types[2]["motion_does_not_match_input"]
+    forbidden_mechanical_text_t2 = failure_types[2]["forbidden_mechanical_text"]
     unmatched_y_five_state_t3 = failure_types[3]["y_five_state_not_mapped"]
     missing_contexts = Counter(
         item for row in tier2 + tier3
@@ -1129,6 +1143,7 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
         f"- Tier 2：`template_missing` {len(missing_t2):,}/{len(tier2):,}（{len(missing_t2) / len(tier2):.4%}）。",
         f"- Tier 3：`template_missing` {len(missing_t3):,}/{len(tier3):,}（{len(missing_t3) / len(tier3):.4%}）。",
         f"- Tier 2 動靜二值（僅 `動`／`靜`）失敗：{non_binary_motion_t2:,}/{len(tier2):,}。",
+        f"- Tier 2 機械推導禁用詞失敗：{forbidden_mechanical_text_t2:,}/{len(tier2):,}。",
         f"- Tier 3 元神／忌神五態歸二類未命中：{unmatched_y_five_state_t3:,}/{len(tier3):,}。",
         f"- 缺失情境：{_format_counter(missing_contexts) or '無'}。",
         f"- 現行 `narrative_templates.json` 有 {template_count} 個唯一 template ID；本 sweep 所掃機械推導需新增 0 個。TASK_20 所稱 11 個是較早狀態之數字。",
