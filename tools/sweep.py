@@ -87,7 +87,7 @@ def _golden_header(commit: str, test_count: int) -> str:
         return GOLDEN_HEADER
     return f"""# 本 snapshot 產生於 commit {commit}（{test_count} tests）
 # 此為修復後現況基準，非跨版本永恆正確性證明。
-# 產生時 §11.1 待決項為 55 項。
+# 產生時 §11.1 待決項為 61 項。
 #
 # 產生時之已知問題狀態：
 #   [已修] 1. 旬空、月破顯示佔位符（L2 未接通）
