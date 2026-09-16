@@ -44,6 +44,10 @@ TABLE_PATHS = (
     ROOT / "data" / "decision_tables" / "C15_dongjing_axis.json",
     ROOT / "data" / "decision_tables" / "K_kongwang_effect.json",
     ROOT / "data" / "decision_tables" / "Y_yuanshen_jishen.json",
+    ROOT / "data" / "decision_tables" / "A_yingqi.json",
+    ROOT / "data" / "decision_tables" / "M1_mujue_source.json",
+    ROOT / "data" / "decision_tables" / "M2_suiguirumu.json",
+    ROOT / "data" / "decision_tables" / "M3_suimu_wangshuai.json",
 )
 
 
@@ -179,6 +183,20 @@ def _analysis_text(analysis: dict[str, Any]) -> list[str]:
     for table_id in ("C1", "C15", "K"):
         value = decision.get(table_id)
         lines.append("- {}：{}".format(table_id, value or "此爻不觸發任何條件"))
+    a_conditions = decision.get("A") or []
+    display_a = [condition.replace("用神安靜", "用神靜態") for condition in a_conditions]
+    lines.append("- A（應期候選）：{}".format("、".join(display_a) if display_a else "此爻不觸發任何應期候選條件"))
+    if a_conditions:
+        a_table = load_decision_table(ROOT / "data" / "decision_tables" / "A_yingqi.json")
+        for condition in a_conditions:
+            result = semantic_for_condition(line=selected["position"], condition=condition,
+                                            hidden=analysis.get("hidden", []), table=a_table)
+            for book, track in result["tracks"].items():
+                if track.get("status") == "addressed":
+                    partial = "（部分對應 —— {}）".format(track.get("partial_note")) if track.get("match_quality") == "partial" else ""
+                    lines.append("  {}：{}{}；候選規則：{}".format(book, track.get("verdict"), partial, track.get("candidate_rule", "未提供")))
+    for table_id in ("M1", "M2", "M3"):
+        lines.append("- {}：材料表已建；本快照不實作墓絕／隨墓效果語義。".format(table_id))
     y_locator = decision["Y"]
     lines.append("- Y（元神／忌神狀態）：")
     for item in y_locator["locations"]:

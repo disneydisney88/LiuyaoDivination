@@ -35,7 +35,7 @@ from engine.relations import (  # noqa: E402
 from engine.semantics import (  # noqa: E402
     VALID_STATUSES,
     chong_source_for_line,
-    infer_condition,
+    infer_condition, infer_conditions,
     load_decision_table,
     semantic_for_condition,
 )
@@ -142,6 +142,8 @@ TIER3_FIELDS = (
     "y_five_state_locations_matched",
     "four_god_positions_unique", "all_chong_sources", "triggered_tables", "template_missing_lines",
     "template_missing_contexts", "failed_checks", "placeholder_checks",
+    "a_conditions", "a_track_count", "m1_track_count", "m2_track_count", "m3_track_count",
+    "soil_dual_track_count",
     "exception_type", "exception_message", "result_class",
 )
 
@@ -527,7 +529,8 @@ def _track_originals_nonempty(semantics: dict[str, Any], relations: dict[str, An
 def _tier3_projection(
     *, state: dict[str, Any], choice: str, candidate_id: str | None,
     c1_table: dict[str, Any], c15_table: dict[str, Any], k_table: dict[str, Any],
-    y_table: dict[str, Any], line_position_choice_statuses: dict[str, str],
+    y_table: dict[str, Any], a_table: dict[str, Any], m1_table: dict[str, Any],
+    m2_table: dict[str, Any], m3_table: dict[str, Any], line_position_choice_statuses: dict[str, str],
 ) -> tuple[dict[str, Any], list[str], list[str]]:
     """Project the actual L3 result into stable sweep columns."""
     chart, relations = state["chart"], state["relations"]
@@ -545,6 +548,7 @@ def _tier3_projection(
     c1_condition = decision.get("C1")
     c15_condition = decision.get("C15")
     k_condition = decision.get("K")
+    a_conditions = decision.get("A") or []
     y_available = bool(decision.get("Y"))
     y_locator = decision.get("Y") or {}
     y_five_state_locations_matched = all(
@@ -565,6 +569,9 @@ def _tier3_projection(
         semantic_for_condition(line=selected_line, condition=k_condition, hidden=chart["hidden"], table=k_table)
         if k_condition else None
     )
+    a_semantics = [semantic_for_condition(line=selected_line, condition=condition,
+                                           hidden=chart["hidden"], table=a_table)
+                   for condition in a_conditions] if selected_line else []
     # Y is deliberately a state-material table, not a single mutually
     # exclusive outcome.  A selected use-god makes all ten source rows
     # available for inspection; it does not fabricate a one-row match.
@@ -589,6 +596,10 @@ def _tier3_projection(
             for row in y_table["rows"] for cell in row["cells"]
             if cell.get("collection_status")
         ))
+    if a_semantics:
+        table_status_counts["A"] = dict(Counter(
+            track["status"] for result in a_semantics for track in result["tracks"].values()
+        ))
     is_yongshen = [line["position"] for line in analysis.get("lines", []) if line.get("is_yongshen")]
     hidden_markers = [item for item in analysis.get("hidden", []) if item.get("is_yongshen")]
     projection = {
@@ -604,6 +615,12 @@ def _tier3_projection(
         "choushen_positions": [item["position"] for item in analysis.get("chou_shen", [])],
         "c1_condition": c1_condition,
         "c15_condition": c15_condition,
+        "a_conditions": "|".join(a_conditions),
+        "a_track_count": len(a_semantics[0]["tracks"]) if a_semantics else 0,
+        "m1_track_count": len(m1_table.get("books", [])),
+        "m2_track_count": len(m2_table.get("books", [])),
+        "m3_track_count": len(m3_table.get("books", [])),
+        "soil_dual_track_count": len(m1_table.get("soil_tracks", {})),
         "c1_chong_source": chong_source if c1_condition else None,
         "c15_chong_source": chong_source if c15_condition else None,
         "k_condition": k_condition,
@@ -642,7 +659,7 @@ def _tier3_projection(
         ),
         "all_chong_sources": _all_chong_sources(relations),
         "triggered_tables": [
-            table for table, condition in (("C1", c1_condition), ("C15", c15_condition), ("K", k_condition), ("Y", y_available))
+            table for table, condition in (("C1", c1_condition), ("C15", c15_condition), ("K", k_condition), ("A", a_conditions), ("Y", y_available))
             if condition
         ],
     }
@@ -662,7 +679,7 @@ def _tier3_projection(
         failed.append("duplicate_candidates_not_complete")
     if not pending and not visible and hidden and not hidden_markers:
         failed.append("hidden_candidate_not_marked")
-    if not pending and c1_condition is None and c15_condition is None and k_condition is None and decision.get("status") != "此爻不觸發任何條件":
+    if not pending and c1_condition is None and c15_condition is None and k_condition is None and not a_conditions and decision.get("status") != "此爻不觸發任何條件":
         failed.append("no_explicit_no_condition_result")
     if not pending and not projection["y_located"]:
         failed.append("y_table_not_located")
@@ -698,6 +715,10 @@ def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
     c15_table = load_decision_table(ROOT / "data" / "decision_tables" / "C15_dongjing_axis.json")
     k_table = load_decision_table(ROOT / "data" / "decision_tables" / "K_kongwang_effect.json")
     y_table = load_decision_table(ROOT / "data" / "decision_tables" / "Y_yuanshen_jishen.json")
+    a_table = load_decision_table(ROOT / "data" / "decision_tables" / "A_yingqi.json")
+    m1_table = load_decision_table(ROOT / "data" / "decision_tables" / "M1_mujue_source.json")
+    m2_table = load_decision_table(ROOT / "data" / "decision_tables" / "M2_suiguirumu.json")
+    m3_table = load_decision_table(ROOT / "data" / "decision_tables" / "M3_suimu_wangshuai.json")
     rows: list[dict[str, Any]] = []
     case_index = 0
     for sample_id, source, moving in _tier3_samples():
@@ -737,7 +758,8 @@ def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
                     projection, failed, placeholders = _tier3_projection(
                         state=state, choice=choice, candidate_id=candidate_id,
                         c1_table=c1_table, c15_table=c15_table,
-                        k_table=k_table, y_table=y_table,
+                        k_table=k_table, y_table=y_table, a_table=a_table,
+                        m1_table=m1_table, m2_table=m2_table, m3_table=m3_table,
                         line_position_choice_statuses=line_position_choice_statuses,
                     )
                     if template_lines:
@@ -796,6 +818,12 @@ def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
                     "choushen_positions": _json(projection.get("choushen_positions")),
                     "c1_condition": projection.get("c1_condition") or "",
                     "c15_condition": projection.get("c15_condition") or "",
+                    "a_conditions": projection.get("a_conditions", ""),
+                    "a_track_count": projection.get("a_track_count", ""),
+                    "m1_track_count": projection.get("m1_track_count", ""),
+                    "m2_track_count": projection.get("m2_track_count", ""),
+                    "m3_track_count": projection.get("m3_track_count", ""),
+                    "soil_dual_track_count": projection.get("soil_dual_track_count", ""),
                     "c1_chong_source": projection.get("c1_chong_source") or "",
                     "c15_chong_source": projection.get("c15_chong_source") or "",
                     "c1_track_count": projection.get("c1_track_count", ""),

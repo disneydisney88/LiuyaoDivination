@@ -233,6 +233,12 @@ def _validate_cell(cell: dict[str, Any]) -> None:
             raise ValueError("addressed cells must have a non-null verdict")
         if not cell.get("original") or not cell.get("source"):
             raise ValueError("addressed cells require original and source")
+        if cell.get("candidate_type") == "conditional" and not cell.get("candidate_rule"):
+            raise ValueError("conditional addressed cells require candidate_rule")
+        if cell.get("match_quality") not in {None, "clean", "partial"}:
+            raise ValueError("match_quality must be clean or partial")
+        if cell.get("match_quality") == "partial" and not cell.get("partial_note"):
+            raise ValueError("partial addressed cells require partial_note")
     if status in {"not_addressed", "category_negated", "concept_absent", "explicit_exclusion"} and cell.get("verdict") is not None:
         raise ValueError("non-addressed cells must have a null verdict")
     if status == "not_addressed" and not cell.get("search_note"):
@@ -318,6 +324,35 @@ def infer_condition(*, table_id: str, relation_result: dict[str, Any], line: int
     return None
 
 
+def infer_conditions(*, table_id: str, relation_result: dict[str, Any], line: int) -> list[str]:
+    """Return all mechanically observable rows for a line.
+
+    A is intentionally a candidate locator: it reports observable conditions
+    and never turns a condition into an actual date or doctrinal effect.
+    Legacy tables retain their single-row locator for compatibility.
+    """
+    if table_id != "A":
+        value = infer_condition(table_id=table_id, relation_result=relation_result, line=line)
+        return [value] if value else []
+    row = next((item for item in relation_result.get("lines", []) if item.get("position") == line), None)
+    if row is None:
+        return []
+    result = []
+    result.append("用神發動" if row.get("motion") == "動" else "用神安靜")
+    seasonal = seasonal_state_category(row.get("seasonal_state"))
+    if seasonal == "旺相":
+        result.append("用神旺相")
+    elif seasonal == "休囚":
+        result.append("用神休囚")
+    if row.get("empty"):
+        result.append("用神旬空")
+    if row.get("month_break"):
+        result.append("用神月破")
+    if "合" in row.get("day_relations", []):
+        result.append("用神逢合")
+    return result
+
+
 def _track(cell: dict[str, Any], book_name: str) -> dict[str, Any]:
     cell = _normalise_collection_status(cell)
     _validate_cell(cell)
@@ -333,7 +368,8 @@ def _track(cell: dict[str, Any], book_name: str) -> dict[str, Any]:
                 "verdict_note", "line", "related_material", "search_note",
                 "negation_original", "negation_source", "negation_category",
                 "absence_note", "exclusion_original", "exclusion_source", "cell_note",
-                "term_note"):
+                "term_note", "match_quality", "partial_note", "candidate_type", "candidate_rule",
+                "soil_original", "soil_track_note", "direction_note"):
         if key in cell:
             result[key] = cell[key]
     for key in ("axis_note", "axis_original", "axis_source", "cross_reference"):
@@ -382,6 +418,9 @@ def semantic_for_condition(*, line: int, condition: str,
         result["cell_context"] = {"chong_source": source}
     if decision_table.get("table_note"):
         result["table_note"] = decision_table["table_note"]
+    for key in ("soil_tracks",):
+        if decision_table.get(key):
+            result[key] = decision_table[key]
     result["row_id"] = row["row_id"]
     result.update(calculate_coverage(row, books_total=len(decision_table.get("books", []))))
     if row.get("row_title"):

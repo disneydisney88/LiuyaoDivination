@@ -1,0 +1,660 @@
+{
+  "table_id": "M1",
+  "title": "墓絕之來源（爻層）",
+  "axis_note": "M1 為來源軸；M2 位次軸與 M3 旺衰軸另表並存。",
+  "books": [
+    {
+      "book_id": "yimao",
+      "name": "易冒"
+    },
+    {
+      "book_id": "zengshan",
+      "name": "增刪卜易"
+    },
+    {
+      "book_id": "buzhengzong",
+      "name": "卜筮正宗"
+    },
+    {
+      "book_id": "huozhulin",
+      "name": "火珠林"
+    },
+    {
+      "book_id": "huangjin_ce",
+      "name": "黃金策"
+    },
+    {
+      "book_id": "buzhequanshu",
+      "name": "卜筮全書"
+    },
+    {
+      "book_id": "jing_shi_yizhuan",
+      "name": "京氏易傳"
+    },
+    {
+      "book_id": "yiyin",
+      "name": "易隱"
+    }
+  ],
+  "table_note": "本表格位以「墓絕之來源」切分，不預設墓絕為凶。各家對墓之吉凶取向不一，見各 cell。土爻墓位須並列軌 A（隨水說，墓辰）與軌 B（火土同源說，墓戌）；本表不替 scope_unclear 之書選軌。",
+  "rows": [
+    {
+      "row_id": "M1-R1",
+      "condition": "用神入日墓",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "墓于日",
+          "original": "本命臨鬼而墓于日為命墓，世爻臨鬼而墓于日為世墓。",
+          "source": "易冒 隨墓章 520–521",
+          "match_quality": "partial",
+          "candidate_type": null,
+          "soil_original": "五行家以陰陽分長生，殊不知五行之氣，原無二致。",
+          "soil_track_note": "474 行明文將分陰陽之說歸五行家，並自述不採；本表只列雙軌資料，不替《易冒》另選軌。",
+          "partial_note": "明文主語為命、世，非一般用神。"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "隨鬼入日墓",
+          "original": "古有日墓、動墓、化墓，謂之三墓。",
+          "source": "增刪卜易 隨鬼入墓章第三十 2569",
+          "match_quality": "clean",
+          "candidate_type": null
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.2：已錄材料未見本格之直接條件。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "addressed",
+          "verdict": "四者併言",
+          "original": "死墓絕空，乃是泥犁之地。",
+          "source": "黃金策 總斷千金賦 14",
+          "match_quality": "partial",
+          "candidate_type": null,
+          "direction_note": "本書墓絕材料與死、空並列，未單立來源格；本表不把並列句改寫為單一方向。",
+          "partial_note": "墓與死、絕、空並列，未分本格來源。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed",
+          "verdict": "日辰帶墓爻",
+          "original": "以日時看……若遇日辰帶墓爻，謂隨官入墓。",
+          "source": "卜筮全書 幽明兩墓 7104、7062",
+          "match_quality": "partial",
+          "candidate_type": null,
+          "partial_note": "主語為身、命、世，非一般用神。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 5,
+        "books_addressed": 4,
+        "books_not_addressed": 1,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 0,
+        "books_not_collected": 3
+      },
+      "coverage_label": "已採 5 本：4本有表述、1本未表述；另 3 本未採\n\n註：《黃金策》與《卜筮全書》文本重疊 89.4%（被收錄者與收錄者），二者之一致不構成兩個獨立證據。"
+    },
+    {
+      "row_id": "M1-R2",
+      "condition": "用神入月墓",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "category_negated",
+          "verdict": null,
+          "negation_original": "日有隨墓助傷，而月則無也，故日尤親。",
+          "negation_source": "易冒 類總章第四十一 688",
+          "negation_category": "月有隨墓助傷",
+          "absence_note": "明文否定月有隨墓助傷；不延伸為一般月墓。"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "2569列日墓、動墓、化墓三墓，未列月墓；古法轉述不作明文排除。"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.2：已錄材料未見本格之直接條件。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "addressed",
+          "verdict": "四者併言",
+          "original": "死墓絕空，乃是泥犁之地。",
+          "source": "黃金策 總斷千金賦 14",
+          "match_quality": "partial",
+          "candidate_type": null,
+          "direction_note": "本書墓絕材料與死、空並列，未單立來源格；本表不把並列句改寫為單一方向。",
+          "partial_note": "墓與死、絕、空並列，未分本格來源。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.2：已錄材料未見本格之直接條件。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 5,
+        "books_addressed": 1,
+        "books_not_addressed": 3,
+        "books_category_negated": 1,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 0,
+        "books_not_collected": 3
+      },
+      "coverage_label": "已採 5 本：1本有表述、1本否定範疇、3本未表述；另 3 本未採"
+    },
+    {
+      "row_id": "M1-R3",
+      "condition": "用神入動爻之墓",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "用入墓，喜刑喜沖",
+          "original": "死墓之法……墓而有刑，如擊如發，墓而無沖，為匿為藏；凡用入墓，喜刑喜沖。",
+          "source": "易冒 長生章第三十一 468–469",
+          "match_quality": "partial",
+          "candidate_type": null,
+          "partial_note": "論入墓通則，未按日／月／動來源分條。"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "入動墓",
+          "original": "未土爻動者，謂之入動墓。",
+          "source": "增刪卜易 生旺墓絕章第二十六 1951",
+          "match_quality": "clean",
+          "candidate_type": null
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.2：已錄材料未見本格之直接條件。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "addressed",
+          "verdict": "四者併言",
+          "original": "死墓絕空，乃是泥犁之地。",
+          "source": "黃金策 總斷千金賦 14",
+          "match_quality": "partial",
+          "candidate_type": null,
+          "direction_note": "本書墓絕材料與死、空並列，未單立來源格；本表不把並列句改寫為單一方向。",
+          "partial_note": "墓與死、絕、空並列，未分本格來源。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.2：已錄材料未見本格之直接條件。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 5,
+        "books_addressed": 3,
+        "books_not_addressed": 2,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 0,
+        "books_not_collected": 3
+      },
+      "coverage_label": "已採 5 本：3本有表述、2本未表述；另 3 本未採"
+    },
+    {
+      "row_id": "M1-R4",
+      "condition": "用神化墓",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "化爻隨鬼入墓",
+          "original": "化爻隨鬼入墓，與命墓世墓無差等，而有真偽。",
+          "source": "易冒 隨墓章第三十五 526",
+          "match_quality": "clean",
+          "candidate_type": null,
+          "rule_id": "R-YM-M1-R4"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "化墓",
+          "original": "動而變出未土者，謂之化墓。",
+          "source": "增刪卜易 生旺墓絕章第二十六 1953",
+          "match_quality": "clean",
+          "candidate_type": null
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "官鬼發動化未土",
+          "original": "用神或世爻隨官鬼入墓者，主凶。如世爻為寅木，官鬼發動化未土，未為木之墓。",
+          "source": "卜筮正宗 隨鬼入墓 244",
+          "match_quality": "clean",
+          "candidate_type": null,
+          "rule_id": "R-BZ-M1-R4"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "addressed",
+          "verdict": "四者併言",
+          "original": "死墓絕空，乃是泥犁之地。",
+          "source": "黃金策 總斷千金賦 14",
+          "match_quality": "partial",
+          "candidate_type": null,
+          "direction_note": "本書墓絕材料與死、空並列，未單立來源格；本表不把並列句改寫為單一方向。",
+          "partial_note": "墓與死、絕、空並列，未分本格來源。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed",
+          "verdict": "發動而化入墓",
+          "original": "若主象發動而化入者，不問公私大小之事，皆主不成。",
+          "source": "卜筮全書 5571–5572",
+          "match_quality": "clean",
+          "candidate_type": null
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 5,
+        "books_addressed": 5,
+        "books_not_addressed": 0,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 0,
+        "books_not_collected": 3
+      },
+      "coverage_label": "已採 5 本：5本有表述；另 3 本未採\n\n註：《黃金策》與《卜筮全書》文本重疊 89.4%（被收錄者與收錄者），二者之一致不構成兩個獨立證據。"
+    },
+    {
+      "row_id": "M1-R5",
+      "condition": "用神入飛爻之墓",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書按所墓者位次分五類，非按飛爻來源分格。",
+          "axis_original": "夫隨墓有五：一曰命墓，二曰世墓，三曰化爻墓，四曰卦身墓，五曰世身墓。",
+          "axis_source": "易冒 隨墓章第三十五 520",
+          "cross_reference": "M2 位次軸"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書明文另立位次軸，非以飛爻來源切分。",
+          "axis_original": "又有世爻隨鬼入墓、本命隨鬼入墓、卦身隨鬼入墓、世身隨鬼入墓。",
+          "axis_source": "增刪卜易 隨鬼入墓章第三十 2569",
+          "cross_reference": "M2 位次軸"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "用神或世爻隨官鬼入墓",
+          "original": "用神或世爻隨官鬼入墓者，主凶。如世爻為寅木，官鬼發動化未土。",
+          "source": "卜筮正宗 隨鬼入墓 244",
+          "match_quality": "partial",
+          "candidate_type": null,
+          "partial_note": "主語含用神或世爻，來源例限於化墓。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.2：已錄材料未見本格之直接條件。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書以隨官入墓之位次及幽明切分，非以飛爻來源切分。",
+          "axis_original": "隨官入墓，其目有三：有身隨鬼入墓，有世隨鬼入墓，有命隨鬼入墓。",
+          "axis_source": "卜筮全書 3097",
+          "cross_reference": "M2 位次軸"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 5,
+        "books_addressed": 1,
+        "books_not_addressed": 1,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 3,
+        "books_not_collected": 3
+      },
+      "coverage_label": "已採 5 本：1本有表述、1本未表述、3本用另一軸；另 3 本未採"
+    },
+    {
+      "row_id": "M1-R6",
+      "condition": "用神絕於日",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "生絕于日辰特重",
+          "original": "用爻生絕于日辰之上者特重，生絕于月建之上者有分。",
+          "source": "易冒 長生章第三十一 470",
+          "match_quality": "clean",
+          "candidate_type": null
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "絕於巳",
+          "original": "土雖絕于巳，必須休囚無氣，又逢巳爻，謂之絕也。",
+          "source": "增刪卜易 生旺墓絕章第二十六 1961",
+          "match_quality": "partial",
+          "candidate_type": null,
+          "partial_note": "立絕於某支並附旺衰條件，未分日絕與月絕。"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.2：已錄材料未見本格之直接條件。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.2：已錄材料未見本格之直接條件。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.2：已錄材料未見本格之直接條件。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 5,
+        "books_addressed": 2,
+        "books_not_addressed": 3,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 0,
+        "books_not_collected": 3
+      },
+      "coverage_label": "已採 5 本：2本有表述、3本未表述；另 3 本未採"
+    },
+    {
+      "row_id": "M1-R7",
+      "condition": "用神絕於月",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "生絕于月建有分",
+          "original": "用爻生絕于日辰之上者特重，生絕于月建之上者有分。",
+          "source": "易冒 長生章第三十一 470",
+          "match_quality": "clean",
+          "candidate_type": null
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "絕於巳",
+          "original": "土雖絕于巳，必須休囚無氣，又逢巳爻，謂之絕也。",
+          "source": "增刪卜易 生旺墓絕章第二十六 1961",
+          "match_quality": "partial",
+          "candidate_type": null,
+          "partial_note": "立絕於某支並附旺衰條件，未分日絕與月絕。"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.2：已錄材料未見本格之直接條件。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.2：已錄材料未見本格之直接條件。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.2：已錄材料未見本格之直接條件。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 5,
+        "books_addressed": 2,
+        "books_not_addressed": 3,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 0,
+        "books_not_collected": 3
+      },
+      "coverage_label": "已採 5 本：2本有表述、3本未表述；另 3 本未採"
+    },
+    {
+      "row_id": "M1-R8",
+      "condition": "用神化絕",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "動爻生絕于變",
+          "original": "動爻生絕于變，其法猶類日也，然有真偽之辯焉。",
+          "source": "易冒 長生章第三十一 472",
+          "match_quality": "clean",
+          "candidate_type": null
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "化絕",
+          "original": "動而變出申金者，謂之化絕。",
+          "source": "增刪卜易 生旺墓絕章第二十六 1953",
+          "match_quality": "clean",
+          "candidate_type": null
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.2：已錄材料未見本格之直接條件。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "not_collected",
+          "collection_status": "ingested_not_surveyed"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "addressed",
+          "verdict": "四者併言",
+          "original": "死墓絕空，乃是泥犁之地。",
+          "source": "黃金策 總斷千金賦 14",
+          "match_quality": "partial",
+          "candidate_type": null,
+          "direction_note": "本書墓絕材料與死、空並列，未單立來源格；本表不把並列句改寫為單一方向。",
+          "partial_note": "墓與死、絕、空並列，未分本格來源。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed",
+          "verdict": "發動而化入墓",
+          "original": "用爻變動，忌遭死墓絕空；若主象發動而化入者，皆主不成。",
+          "source": "卜筮全書 5571–5572",
+          "match_quality": "clean",
+          "candidate_type": null
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 5,
+        "books_addressed": 4,
+        "books_not_addressed": 1,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 0,
+        "books_not_collected": 3
+      },
+      "coverage_label": "已採 5 本：4本有表述、1本未表述；另 3 本未採\n\n註：《黃金策》與《卜筮全書》文本重疊 89.4%（被收錄者與收錄者），二者之一致不構成兩個獨立證據。"
+    }
+  ],
+  "soil_tracks": {
+    "track_A": {
+      "track_id": "track_A",
+      "長生": "申",
+      "墓": "辰",
+      "source": "SPEC §7",
+      "rule_id": "R-L1-05"
+    },
+    "track_B": {
+      "track_id": "track_B",
+      "長生": "寅",
+      "墓": "戌",
+      "source": "SPEC §7",
+      "rule_id": "R-L1-05"
+    }
+  }
+}

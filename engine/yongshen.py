@@ -20,7 +20,7 @@ from engine.relations import (
 from engine.semantics import (
     Y_IMPLEMENTATION_GAPS,
     chong_source_for_line,
-    infer_condition,
+    infer_condition, infer_conditions,
     y_conditions_for_role,
 )
 
@@ -281,6 +281,7 @@ def analyze_yongshen(state: dict[str, Any], choice: str, candidate_id: str | Non
         hidden_outputs.append(value)
     own_state = _candidate_state(selected, relations)
     decision = {
+        "A": [],
         "C1": None,
         "C15": None,
         "K": None,
@@ -290,6 +291,7 @@ def analyze_yongshen(state: dict[str, Any], choice: str, candidate_id: str | Non
         "analysis_position": selected["position"],
     }
     if not selected.get("hidden"):
+        decision["A"] = infer_conditions(table_id="A", relation_result=relations, line=selected["position"])
         decision["C1"] = infer_condition(table_id="C1", relation_result=relations, line=selected["position"])
         decision["C15"] = infer_condition(table_id="C15", relation_result=relations, line=selected["position"])
         decision["K"] = infer_condition(table_id="K", relation_result=relations, line=selected["position"])
@@ -297,7 +299,7 @@ def analyze_yongshen(state: dict[str, Any], choice: str, candidate_id: str | Non
             source = chong_source_for_line(relations, selected["position"])
             if source:
                 decision["cell_context"] = {"chong_source": source}
-    if decision["C1"] is None and decision["C15"] is None and decision["K"] is None:
+    if decision["C1"] is None and decision["C15"] is None and decision["K"] is None and not decision["A"]:
         decision["status"] = "此爻不觸發任何條件"
         decision["coverage_gap_note"] = "目前沖與空亡狀態表未觸發；Y 表已按元神／忌神逐爻定位，僅不輸出效果判定。"
     candidate_listing = []

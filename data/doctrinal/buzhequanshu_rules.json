@@ -1538,5 +1538,19 @@
         }
       ]
     }
+  ],
+  "task27_materials": [
+    {
+      "table_id": "A",
+      "source": "5660–5661"
+    },
+    {
+      "table_id": "M1",
+      "source": "5571–5572; 7104; 7062"
+    },
+    {
+      "table_id": "M2",
+      "source": "3097"
+    }
   ]
 }

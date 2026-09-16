@@ -815,5 +815,23 @@
         }
       ]
     }
+  ],
+  "task27_materials": [
+    {
+      "table_id": "A",
+      "source": "2001–2046"
+    },
+    {
+      "table_id": "M1",
+      "source": "1951; 1953; 1961; 2569"
+    },
+    {
+      "table_id": "M2",
+      "source": "2569"
+    },
+    {
+      "table_id": "M3",
+      "source": "2622–2624"
+    }
   ]
 }

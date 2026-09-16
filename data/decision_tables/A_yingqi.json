@@ -1,0 +1,672 @@
+{
+  "table_id": "A",
+  "title": "應期候選",
+  "axis_note": "依用神狀態列出候選條件；本表不定單一應期、不輸出實際日期。",
+  "books": [
+    {
+      "book_id": "yimao",
+      "name": "易冒"
+    },
+    {
+      "book_id": "zengshan",
+      "name": "增刪卜易"
+    },
+    {
+      "book_id": "buzhengzong",
+      "name": "卜筮正宗"
+    },
+    {
+      "book_id": "huozhulin",
+      "name": "火珠林"
+    },
+    {
+      "book_id": "huangjin_ce",
+      "name": "黃金策"
+    },
+    {
+      "book_id": "buzhequanshu",
+      "name": "卜筮全書"
+    },
+    {
+      "book_id": "jing_shi_yizhuan",
+      "name": "京氏易傳"
+    },
+    {
+      "book_id": "yiyin",
+      "name": "易隱"
+    }
+  ],
+  "table_note": "應期只輸出候選條件，不展開實際日期；《卜筮正宗》386–392屬第一層摘要層。",
+  "rows": [
+    {
+      "row_id": "A-R1",
+      "condition": "用神安靜",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.1：已錄材料未見本格之一般應期條文。"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "值逢沖",
+          "original": "静而逢值逢冲；如主事爻临子水不动，后逢子日午日而应之，余仿此。",
+          "source": "增刪卜易 2002–2003",
+          "match_quality": "clean",
+          "candidate_type": "conditional",
+          "candidate_rule": "用神之支或沖用神之支"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "以沖用神之日為應期",
+          "original": "用神安静，以冲用神之日为应期",
+          "source": "卜筮正宗 各門類應期總注第十四 386",
+          "match_quality": "clean",
+          "candidate_type": "conditional",
+          "candidate_rule": "沖用神之支",
+          "layer": "summary"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "concept_absent",
+          "verdict": null,
+          "absence_note": "該書無應期、刻期、期、何日、何時命中（TASK_27 §四）。"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書斷人之動靜，非斷應期之日。其出處不是日期候選。",
+          "axis_original": "主象交重身已動，用爻安靜未思歸",
+          "axis_source": "黃金策 行人章 1633",
+          "cross_reference": null
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.1：已錄材料未立本格之一般應期條文。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 2,
+        "books_not_addressed": 2,
+        "books_category_negated": 0,
+        "books_concept_absent": 1,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：2本有表述、1本無此概念、2本未表述、1本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "A-R2",
+      "condition": "用神發動",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.1：已錄材料未見本格之一般應期條文。"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "值逢合",
+          "original": "动而逢值逢合；如主事爻临子水发动，后遇子日丑日而应之，余仿此。",
+          "source": "增刪卜易 2004–2005",
+          "match_quality": "clean",
+          "candidate_type": "conditional",
+          "candidate_rule": "用神之支或合用神之支"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "以合用神之日為應期",
+          "original": "用神发动，以合用神之日为应期",
+          "source": "卜筮正宗 各門類應期總注第十四 386",
+          "match_quality": "clean",
+          "candidate_type": "conditional",
+          "candidate_rule": "合用神之支",
+          "layer": "summary"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "concept_absent",
+          "verdict": null,
+          "absence_note": "該書無應期、刻期、期、何日、何時命中（TASK_27 §四）。"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書斷人之動靜，非斷應期之日。其出處不是日期候選。",
+          "axis_original": "主象交重身已動，用爻安靜未思歸",
+          "axis_source": "黃金策 行人章 1633",
+          "cross_reference": null
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.1：已錄材料未立本格之一般應期條文。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 2,
+        "books_not_addressed": 2,
+        "books_category_negated": 0,
+        "books_concept_absent": 1,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：2本有表述、1本無此概念、2本未表述、1本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "A-R3",
+      "condition": "用神旺相",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "以墓乃收",
+          "original": "用爻旺而墓乃收",
+          "source": "易冒 類總章第四十一 700",
+          "match_quality": "partial",
+          "candidate_type": "conditional",
+          "candidate_rule": "用神之墓支",
+          "partial_note": "原文以旺而墓乃收表述，未逐字使用『旺相』。"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "逢墓逢沖",
+          "original": "太旺者，逢墓逢冲。",
+          "source": "增刪卜易 2006",
+          "match_quality": "partial",
+          "candidate_type": "conditional",
+          "candidate_rule": "用神之墓支或沖用神之支",
+          "partial_note": "原文條件為『太旺』，範圍窄於本格旺相。"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "以墓庫之日為應期",
+          "original": "用神太旺，以墓库之日为应期",
+          "source": "卜筮正宗 各門類應期總注第十四 388",
+          "match_quality": "clean",
+          "candidate_type": "conditional",
+          "candidate_rule": "用神之墓支",
+          "layer": "summary"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "concept_absent",
+          "verdict": null,
+          "absence_note": "該書無應期、刻期、期、何日、何時命中（TASK_27 §四）。"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.1：未見以此條件推日期之條文。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed",
+          "verdict": "以生旺之月日為候選",
+          "original": "用爻旺相，後逢生旺月日斷之。",
+          "source": "卜筮全書 5660–5661",
+          "match_quality": "partial",
+          "candidate_type": "conditional",
+          "candidate_rule": "用神旺支",
+          "partial_note": "原文置於事類及期日段，未按本格完整拆分。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 4,
+        "books_not_addressed": 1,
+        "books_category_negated": 0,
+        "books_concept_absent": 1,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 0,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：4本有表述、1本無此概念、1本未表述；另 2 本未採"
+    },
+    {
+      "row_id": "A-R4",
+      "condition": "用神休囚",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "得生而病康",
+          "original": "用神困矣，得生而病康",
+          "source": "易冒 疾病章 1052",
+          "match_quality": "partial",
+          "candidate_type": "conditional",
+          "candidate_rule": "生用神之支",
+          "partial_note": "原文在『問病日期／疾病』情境中表述，非一般應期總注。"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "遇生遇旺",
+          "original": "衰绝者，遇生遇旺。",
+          "source": "增刪卜易 2009",
+          "match_quality": "partial",
+          "candidate_type": "conditional",
+          "candidate_rule": "生用神之支或用神旺支",
+          "partial_note": "原文以衰絕為條件，未完全等同休囚。"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "以生旺之日為應期",
+          "original": "用神休囚，以生旺之日为应期",
+          "source": "卜筮正宗 各門類應期總注第十四 388",
+          "match_quality": "clean",
+          "candidate_type": "conditional",
+          "candidate_rule": "生用神之支",
+          "layer": "summary"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "concept_absent",
+          "verdict": null,
+          "absence_note": "該書無應期、刻期、期、何日、何時命中（TASK_27 §四）。"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.1：未見以此條件推日期之條文。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.1：已錄材料未立本格之一般應期條文。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 3,
+        "books_not_addressed": 2,
+        "books_category_negated": 0,
+        "books_concept_absent": 1,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 0,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：3本有表述、1本無此概念、2本未表述；另 2 本未採"
+    },
+    {
+      "row_id": "A-R5",
+      "condition": "用神旬空",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "得實而病愈",
+          "original": "用神空矣，得實而病愈",
+          "source": "易冒 疾病章 1052",
+          "match_quality": "partial",
+          "candidate_type": "conditional",
+          "candidate_rule": "填實用神之支",
+          "partial_note": "原文在『問病日期／疾病』情境中表述，非一般應期總注。"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "填沖",
+          "original": "旬空最爱填冲。",
+          "source": "增刪卜易 2019",
+          "match_quality": "clean",
+          "candidate_type": "conditional",
+          "candidate_rule": "填實或沖用神之支"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "以出旬之日為應期",
+          "original": "用神旬空，以出旬之日为应期",
+          "source": "卜筮正宗 各門類應期總注第十四 390",
+          "match_quality": "clean",
+          "candidate_type": "conditional",
+          "candidate_rule": "出旬",
+          "layer": "summary"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "concept_absent",
+          "verdict": null,
+          "absence_note": "該書無應期、刻期、期、何日、何時命中（TASK_27 §四）。"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.1：未見以此條件推日期之條文。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed",
+          "verdict": "以過旬為候選",
+          "original": "用爻旺空，或空而逢沖、逢并、逢動者，則以過旬斷之。",
+          "source": "卜筮全書 5660–5661",
+          "match_quality": "clean",
+          "candidate_type": "conditional",
+          "candidate_rule": "出旬"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 4,
+        "books_not_addressed": 1,
+        "books_category_negated": 0,
+        "books_concept_absent": 1,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 0,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：4本有表述、1本無此概念、1本未表述；另 2 本未採"
+    },
+    {
+      "row_id": "A-R6",
+      "condition": "用神月破",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "逾日月而可保",
+          "original": "用神破散，逾日月而可保",
+          "source": "易冒 疾病章 1052",
+          "match_quality": "partial",
+          "candidate_type": "conditional",
+          "candidate_rule": "出破之月日",
+          "partial_note": "原文在『問病日期／疾病』情境中表述，非一般應期總注。"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "填合",
+          "original": "月破喜逢填合。",
+          "source": "增刪卜易 2016",
+          "match_quality": "clean",
+          "candidate_type": "conditional",
+          "candidate_rule": "填實或合用神之支"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "以出月或填實之日為應期",
+          "original": "用神月破，以出月或填实之日为应期",
+          "source": "卜筮正宗 各門類應期總注第十四 390",
+          "match_quality": "clean",
+          "candidate_type": "conditional",
+          "candidate_rule": "出月或填實用神之支",
+          "layer": "summary"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "concept_absent",
+          "verdict": null,
+          "absence_note": "該書無應期、刻期、期、何日、何時命中（TASK_27 §四）。"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.1：未見以此條件推日期之條文。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed",
+          "verdict": "以沖破之日為候選",
+          "original": "用爻合住，則以沖破之日斷之。",
+          "source": "卜筮全書 5660–5661",
+          "match_quality": "clean",
+          "candidate_type": "conditional",
+          "candidate_rule": "沖破用神之合"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 4,
+        "books_not_addressed": 1,
+        "books_category_negated": 0,
+        "books_concept_absent": 1,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 0,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：4本有表述、1本無此概念、1本未表述；另 2 本未採"
+    },
+    {
+      "row_id": "A-R7",
+      "condition": "用神逢合",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.1：已錄材料未見本格之一般應期條文。"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "沖開",
+          "original": "遇六合，亦宜相击。",
+          "source": "增刪卜易 2013–2014",
+          "match_quality": "clean",
+          "candidate_type": "conditional",
+          "candidate_rule": "沖開用神之合"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "以合住之日為應期",
+          "original": "动应合住",
+          "source": "卜筮正宗 各門類應期總注第十四 392",
+          "match_quality": "partial",
+          "candidate_type": "conditional",
+          "candidate_rule": "合住之支",
+          "layer": "summary",
+          "partial_note": "原文主語是變化之爻應於合住之日，非用神逢合之一般條件。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "concept_absent",
+          "verdict": null,
+          "absence_note": "該書無應期、刻期、期、何日、何時命中（TASK_27 §四）。"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.1：未見以此條件推日期之條文。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.1：已錄材料未立本格之一般應期條文。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 2,
+        "books_not_addressed": 3,
+        "books_category_negated": 0,
+        "books_concept_absent": 1,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 0,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：2本有表述、1本無此概念、3本未表述；另 2 本未採"
+    },
+    {
+      "row_id": "A-R8",
+      "condition": "用神入墓",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "墓開而疾退",
+          "original": "墓開而疾退",
+          "source": "易冒 疾病章 1052",
+          "match_quality": "partial",
+          "candidate_type": "conditional",
+          "candidate_rule": "沖開用神之墓支",
+          "partial_note": "原文在『問病日期／疾病』情境中表述，非一般應期總注。"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "沖開三墓",
+          "original": "入三墓，俱喜冲开。",
+          "source": "增刪卜易 2011–2012",
+          "match_quality": "clean",
+          "candidate_type": "conditional",
+          "candidate_rule": "沖開用神之墓支"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.1：388、392之墓庫為旺爻應期之日，未立『用神入墓』格。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "concept_absent",
+          "verdict": null,
+          "absence_note": "該書無應期、刻期、期、何日、何時命中（TASK_27 §四）。"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_26 §8.1：未見以此條件推日期之條文。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed",
+          "verdict": "以破墓月日為候選",
+          "original": "若用爻入墓，則以破墓月日斷之。",
+          "source": "卜筮全書 5660–5661",
+          "match_quality": "clean",
+          "candidate_type": "conditional",
+          "candidate_rule": "破用神之墓"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 3,
+        "books_not_addressed": 2,
+        "books_category_negated": 0,
+        "books_concept_absent": 1,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 0,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：3本有表述、1本無此概念、2本未表述；另 2 本未採"
+    }
+  ]
+}

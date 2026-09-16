@@ -1,0 +1,442 @@
+{
+  "table_id": "M2",
+  "title": "隨鬼入墓（位次軸）",
+  "axis_note": "M2 與 M1 並存；增刪 2569 明文以『又有』並列來源軸與位次軸。",
+  "books": [
+    {
+      "book_id": "yimao",
+      "name": "易冒"
+    },
+    {
+      "book_id": "zengshan",
+      "name": "增刪卜易"
+    },
+    {
+      "book_id": "buzhengzong",
+      "name": "卜筮正宗"
+    },
+    {
+      "book_id": "huozhulin",
+      "name": "火珠林"
+    },
+    {
+      "book_id": "huangjin_ce",
+      "name": "黃金策"
+    },
+    {
+      "book_id": "buzhequanshu",
+      "name": "卜筮全書"
+    },
+    {
+      "book_id": "jing_shi_yizhuan",
+      "name": "京氏易傳"
+    },
+    {
+      "book_id": "yiyin",
+      "name": "易隱"
+    }
+  ],
+  "table_note": "本表之材料曾因檢索主詞而幾乎漏收。『隨墓』與『隨鬼入墓／隨官入墓』須並搜；卜筮全書、卜筮正宗各有專章。項數不等，未為對齊而補項。此為 S10.1 所列位次軸；不將不同項數補成相同清單。",
+  "rows": [
+    {
+      "row_id": "M2-R1",
+      "condition": "命隨鬼入墓",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "命墓",
+          "original": "夫隨墓有五：一曰命墓，二曰世墓，三曰化爻墓，四曰卦身墓，五曰世身墓。",
+          "source": "易冒 隨墓章第三十五 520",
+          "match_quality": "clean",
+          "candidate_type": null,
+          "rule_id": "R-YM-M2"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "本命隨鬼入墓",
+          "original": "又有世爻隨鬼入墓、本命隨鬼入墓、卦身隨鬼入墓、世身隨鬼入墓。",
+          "source": "增刪卜易 隨鬼入墓章第三十 2569",
+          "match_quality": "clean",
+          "candidate_type": null,
+          "rule_id": "R-ZS-M2"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "244只明文涉及用神或世爻，未列本格其他位次。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書另有『卦有三墓：宮墓、鬼墓、財墓』，不是隨鬼入墓位次軸。",
+          "axis_original": "卦有三墓：宮墓、鬼墓、財墓。",
+          "axis_source": "火珠林 41·占疾病 768",
+          "cross_reference": "火珠林三墓分類"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_29：『隨墓／隨鬼入墓／隨官入墓』全檔 0 命中；已錄墓材料未立本表位次。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed",
+          "verdict": "命隨鬼入墓",
+          "original": "隨官入墓，其目有三：有身隨鬼入墓，有世隨鬼入墓，有命隨鬼入墓。",
+          "source": "卜筮全書 隨官入墓 3097",
+          "match_quality": "clean",
+          "candidate_type": null,
+          "rule_id": "R-BQ-M2"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 3,
+        "books_not_addressed": 2,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：3本有表述、2本未表述、1本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "M2-R2",
+      "condition": "世爻隨鬼入墓",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "世墓",
+          "original": "夫隨墓有五：一曰命墓，二曰世墓，三曰化爻墓，四曰卦身墓，五曰世身墓。",
+          "source": "易冒 隨墓章第三十五 520",
+          "match_quality": "clean",
+          "candidate_type": null,
+          "rule_id": "R-YM-M2"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "世爻隨鬼入墓",
+          "original": "又有世爻隨鬼入墓、本命隨鬼入墓、卦身隨鬼入墓、世身隨鬼入墓。",
+          "source": "增刪卜易 隨鬼入墓章第三十 2569",
+          "match_quality": "clean",
+          "candidate_type": null,
+          "rule_id": "R-ZS-M2"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "addressed",
+          "verdict": "世爻隨官鬼入墓",
+          "original": "用神或世爻隨官鬼入墓者，主凶。",
+          "source": "卜筮正宗 隨鬼入墓 244",
+          "match_quality": "partial",
+          "candidate_type": null,
+          "partial_note": "原文另含用神角色；本格只取世爻項。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書另有『卦有三墓：宮墓、鬼墓、財墓』，不是隨鬼入墓位次軸。",
+          "axis_original": "卦有三墓：宮墓、鬼墓、財墓。",
+          "axis_source": "火珠林 41·占疾病 768",
+          "cross_reference": "火珠林三墓分類"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_29：『隨墓／隨鬼入墓／隨官入墓』全檔 0 命中；已錄墓材料未立本表位次。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed",
+          "verdict": "世隨鬼入墓",
+          "original": "隨官入墓，其目有三：有身隨鬼入墓，有世隨鬼入墓，有命隨鬼入墓。",
+          "source": "卜筮全書 隨官入墓 3097",
+          "match_quality": "clean",
+          "candidate_type": null,
+          "rule_id": "R-BQ-M2"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 4,
+        "books_not_addressed": 1,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：4本有表述、1本未表述、1本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "M2-R3",
+      "condition": "卦身隨鬼入墓",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "卦身墓",
+          "original": "夫隨墓有五：一曰命墓，二曰世墓，三曰化爻墓，四曰卦身墓，五曰世身墓。",
+          "source": "易冒 隨墓章第三十五 520",
+          "match_quality": "clean",
+          "candidate_type": null,
+          "rule_id": "R-YM-M2"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "卦身隨鬼入墓",
+          "original": "又有世爻隨鬼入墓、本命隨鬼入墓、卦身隨鬼入墓、世身隨鬼入墓。",
+          "source": "增刪卜易 隨鬼入墓章第三十 2569",
+          "match_quality": "clean",
+          "candidate_type": null,
+          "rule_id": "R-ZS-M2"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "244只明文涉及用神或世爻，未列本格其他位次。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書另有『卦有三墓：宮墓、鬼墓、財墓』，不是隨鬼入墓位次軸。",
+          "axis_original": "卦有三墓：宮墓、鬼墓、財墓。",
+          "axis_source": "火珠林 41·占疾病 768",
+          "cross_reference": "火珠林三墓分類"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_29：『隨墓／隨鬼入墓／隨官入墓』全檔 0 命中；已錄墓材料未立本表位次。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "addressed",
+          "verdict": "身隨鬼入墓",
+          "original": "隨官入墓，其目有三：有身隨鬼入墓，有世隨鬼入墓，有命隨鬼入墓。",
+          "source": "卜筮全書 隨官入墓 3097",
+          "match_quality": "clean",
+          "candidate_type": null,
+          "rule_id": "R-BQ-M2"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 3,
+        "books_not_addressed": 2,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：3本有表述、2本未表述、1本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "M2-R4",
+      "condition": "世身隨鬼入墓",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "世身墓",
+          "original": "夫隨墓有五：一曰命墓，二曰世墓，三曰化爻墓，四曰卦身墓，五曰世身墓。",
+          "source": "易冒 隨墓章第三十五 520",
+          "match_quality": "clean",
+          "candidate_type": null,
+          "rule_id": "R-YM-M2"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "addressed",
+          "verdict": "世身隨鬼入墓",
+          "original": "又有世爻隨鬼入墓、本命隨鬼入墓、卦身隨鬼入墓、世身隨鬼入墓。",
+          "source": "增刪卜易 隨鬼入墓章第三十 2569",
+          "match_quality": "clean",
+          "candidate_type": null,
+          "rule_id": "R-ZS-M2"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "244只明文涉及用神或世爻，未列本格其他位次。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書另有『卦有三墓：宮墓、鬼墓、財墓』，不是隨鬼入墓位次軸。",
+          "axis_original": "卦有三墓：宮墓、鬼墓、財墓。",
+          "axis_source": "火珠林 41·占疾病 768",
+          "cross_reference": "火珠林三墓分類"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_29：『隨墓／隨鬼入墓／隨官入墓』全檔 0 命中；已錄墓材料未立本表位次。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "3097之專章只列身、世、命三項，未列本格項目。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 2,
+        "books_not_addressed": 3,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：2本有表述、3本未表述、1本用另一軸；另 2 本未採"
+    },
+    {
+      "row_id": "M2-R5",
+      "condition": "化爻隨鬼入墓",
+      "cells": [
+        {
+          "book_id": "yimao",
+          "status": "addressed",
+          "verdict": "化爻墓",
+          "original": "夫隨墓有五：一曰命墓，二曰世墓，三曰化爻墓，四曰卦身墓，五曰世身墓。",
+          "source": "易冒 隨墓章第三十五 520",
+          "match_quality": "clean",
+          "candidate_type": null,
+          "rule_id": "R-YM-M2"
+        },
+        {
+          "book_id": "zengshan",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "2569列位次軸四項，未列化爻隨鬼入墓。"
+        },
+        {
+          "book_id": "buzhengzong",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "244只明文涉及用神或世爻，未列本格其他位次。"
+        },
+        {
+          "book_id": "huozhulin",
+          "status": "different_axis",
+          "verdict": null,
+          "axis_note": "本書另有『卦有三墓：宮墓、鬼墓、財墓』，不是隨鬼入墓位次軸。",
+          "axis_original": "卦有三墓：宮墓、鬼墓、財墓。",
+          "axis_source": "火珠林 41·占疾病 768",
+          "cross_reference": "火珠林三墓分類"
+        },
+        {
+          "book_id": "huangjin_ce",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "TASK_29：『隨墓／隨鬼入墓／隨官入墓』全檔 0 命中；已錄墓材料未立本表位次。"
+        },
+        {
+          "book_id": "buzhequanshu",
+          "status": "not_addressed",
+          "verdict": null,
+          "search_note": "3097之專章只列身、世、命三項，未列本格項目。"
+        },
+        {
+          "book_id": "jing_shi_yizhuan",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        },
+        {
+          "book_id": "yiyin",
+          "status": "not_collected",
+          "collection_status": "not_ingested"
+        }
+      ],
+      "coverage": {
+        "books_total": 8,
+        "books_collected": 6,
+        "books_addressed": 1,
+        "books_not_addressed": 4,
+        "books_category_negated": 0,
+        "books_concept_absent": 0,
+        "books_explicit_exclusion": 0,
+        "books_different_axis": 1,
+        "books_not_collected": 2
+      },
+      "coverage_label": "已採 6 本：1本有表述、4本未表述、1本用另一軸；另 2 本未採"
+    }
+  ],
+  "unmapped_items": [
+    {
+      "book_id": "buzhengzong",
+      "items": [
+        {
+          "name": "用神隨官鬼入墓",
+          "source": "卜筮正宗 244"
+        }
+      ],
+      "count_declared": 2,
+      "count_actual": 2
+    }
+  ]
+}

@@ -1,6 +1,16 @@
 {
   "schema_version": 1,
   "purpose": "TASK_CODEX_26：防止教義判定、內部標記及 JSON 語法洩漏至機械層使用者文字。多軌層各家原文及判語不適用。",
+  "task27_review": [
+    {"term": "應期", "decision": "not_added", "reason": "A 表題目名稱，非機械判定詞。"},
+    {"term": "刻期", "decision": "not_added", "reason": "只作材料檢索／題目詞，非機械判定詞。"},
+    {"term": "值日", "decision": "not_added", "reason": "候選條件可機械展開，非效果語義。"},
+    {"term": "填實", "decision": "not_added", "reason": "候選條件可機械展開，非效果語義。"},
+    {"term": "出旬", "decision": "not_added", "reason": "候選條件可機械展開，非效果語義。"},
+    {"term": "沖開", "decision": "not_added", "reason": "候選條件可機械展開，非效果語義。"},
+    {"term": "墓庫", "decision": "not_added", "reason": "多軌層引用可出現；本包不把它加入機械層黑名單。"},
+    {"term": "長生", "decision": "not_added", "reason": "多軌層引用及雙軌資料可出現；本包不把它加入機械層黑名單。"}
+  ],
   "entries": [
     {"term": "散", "added_by": "TASK_CODEX_25", "reason": "《易冒》十八法第 18 位之判定用詞；野鶴明文否定此範疇（元神忌神衰旺章第十 922）。L2 使用即為採納一家而否定另一家。", "layer_forbidden": ["L1", "L2", "L3", "narrate.derivation"], "layer_allowed": ["tracks.book_verdict", "tracks.original"]},
     {"term": "全動", "added_by": "TASK_CODEX_25", "reason": "《易冒》旬空章對動爻值空遇日沖之教義性表述，非 L2 機械分類。", "layer_forbidden": ["L1", "L2", "L3", "narrate.derivation"], "layer_allowed": ["tracks.book_verdict", "tracks.original"]},

@@ -155,6 +155,10 @@ def _track_text(book: str, track: dict[str, Any], templates: dict[str, dict[str,
         text, template_id = _render("T-TRACK-DIFFERENT-AXIS-01", {}, templates)
         implication, _ = _render("T-TRACK-IMPLICATION-DIFFERENT-AXIS-01", {}, templates)
         return text, implication, template_id
+    if track.get("match_quality") == "partial":
+        verdict, verdict_id = _render("T-TRACK-VERDICT-01", {"verdict": track.get("verdict")}, templates)
+        note = track.get("partial_note") or "原文只部分覆蓋本格條件。"
+        return verdict, "部分對應 —— " + note, verdict_id
     if track.get("rule_id") == "R-YM-01-18":
         verdict, verdict_id = _render("T-TRACK-YM-18", {}, templates)
         implication, _ = _render("T-TRACK-IMPLICATION-YM", {}, templates)
@@ -214,7 +218,9 @@ def narrate(*, semantics: dict[str, Any], relations: dict[str, Any]) -> dict[str
             "implication": implication, "rule_id": track.get("rule_id"),
         }
         for key in ("verdict_note", "line", "related_material", "search_note",
-                    "axis_note", "axis_original", "axis_source", "cross_reference", "term_note"):
+                    "axis_note", "axis_original", "axis_source", "cross_reference", "term_note",
+                    "match_quality", "partial_note", "candidate_type", "candidate_rule",
+                    "soil_original", "soil_track_note", "direction_note"):
             if key in track:
                 entry[key] = track[key]
         if verdict_template:

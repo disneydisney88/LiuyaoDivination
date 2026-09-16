@@ -19,12 +19,20 @@ DECISION_TABLES = {
     "C15：沖之判定（動靜軸）": ROOT / "data" / "decision_tables" / "C15_dongjing_axis.json",
     "K：空亡之狀態材料": ROOT / "data" / "decision_tables" / "K_kongwang_effect.json",
     "Y：元神／忌神狀態材料": ROOT / "data" / "decision_tables" / "Y_yuanshen_jishen.json",
+    "A：應期候選": ROOT / "data" / "decision_tables" / "A_yingqi.json",
+    "M1：墓絕之來源": ROOT / "data" / "decision_tables" / "M1_mujue_source.json",
+    "M2：隨鬼入墓位次": ROOT / "data" / "decision_tables" / "M2_suiguirumu.json",
+    "M3：隨墓旺衰": ROOT / "data" / "decision_tables" / "M3_suimu_wangshuai.json",
 }
 TABLE_AXIS_LABELS = {
     "C1": "衰旺軸",
     "C15": "動靜軸",
     "K": "空亡狀態",
     "Y": "元神／忌神狀態",
+    "A": "應期候選",
+    "M1": "墓絕來源",
+    "M2": "隨鬼入墓位次",
+    "M3": "隨墓旺衰",
 }
 CHINESE_COUNTS = {0: "零", 1: "一", 2: "二", 3: "三", 4: "四", 5: "五", 6: "六", 7: "七", 8: "八"}
 
@@ -178,6 +186,10 @@ if decision_table["table_id"] == "Y" and selected_analyses and not manual_overri
 automatic_condition = None if hidden_selected else infer_condition(
     table_id=decision_table["table_id"], relation_result=relation_state, line=line,
 )
+if decision_table["table_id"] == "A" and not hidden_selected:
+    from engine.semantics import infer_conditions
+    a_conditions = infer_conditions(table_id="A", relation_result=relation_state, line=line)
+    automatic_condition = a_conditions[0] if a_conditions else None
 if automatic_condition in conditions:
     st.caption("按當前爻之機械狀態自動定位：{}。".format(automatic_condition))
 else:

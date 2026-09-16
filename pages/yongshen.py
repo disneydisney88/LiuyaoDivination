@@ -1,6 +1,10 @@
+from pathlib import Path
+
 import streamlit as st
 
 from engine.narrate import narrate_flying_hidden
+from engine.narrate import narrate
+from engine.semantics import load_decision_table, semantic_for_condition
 from engine.yongshen import (
     LINE_POSITION_OPTIONS,
     SIX_RELATIVE_OPTIONS,
@@ -8,6 +12,8 @@ from engine.yongshen import (
     candidate_options,
 )
 from ui_contracts import save_cases, state_for_case
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def _state_text(state: dict) -> str:
@@ -77,6 +83,27 @@ def _render_analysis(analysis: dict) -> None:
     st.write("C1（衰旺軸）：{}".format(decision.get("C1") or "不觸發任何條件"))
     st.write("C15（動靜軸）：{}".format(decision.get("C15") or "不觸發任何條件"))
     st.write("K（空亡狀態）：{}".format(decision.get("K") or "不觸發任何條件"))
+    a_conditions = decision.get("A") or []
+    st.write("A（應期候選）：{}".format("、".join(a_conditions) if a_conditions else "未觸發可機械定位條件"))
+    if a_conditions:
+        a_table = load_decision_table(ROOT / "data/decision_tables/A_yingqi.json")
+        for condition in a_conditions:
+            result = semantic_for_condition(line=selected["position"], condition=condition,
+                                            hidden=analysis.get("hidden", []), table=a_table)
+            st.caption("{}：{}".format(condition, result["coverage_label"]))
+            for book, track in result["tracks"].items():
+                if track.get("status") == "addressed":
+                    text = "{}：{}".format(book, track.get("verdict"))
+                    if track.get("match_quality") == "partial":
+                        text += "（部分對應 —— {}）".format(track.get("partial_note", "原文只部分覆蓋本格條件。"))
+                    st.write(text + "；候選規則：" + str(track.get("candidate_rule", "未提供")))
+    for table_id, path in (("M1", ROOT / "data/decision_tables/M1_mujue_source.json"),
+                           ("M2", ROOT / "data/decision_tables/M2_suiguirumu.json"),
+                           ("M3", ROOT / "data/decision_tables/M3_suimu_wangshuai.json")):
+        table = load_decision_table(path)
+        st.caption("{}：本頁只顯示材料表；墓絕／隨墓效果未在本包實作。".format(table_id))
+        if table.get("soil_tracks"):
+            st.caption("土爻雙軌：軌 A 墓辰；軌 B 墓戌。")
     y_locator = decision.get("Y") or {}
     if y_locator.get("located"):
         st.write("Y（元神／忌神狀態）")
