@@ -101,7 +101,7 @@ def _render_analysis(analysis: dict) -> None:
                            ("M2", ROOT / "data/decision_tables/M2_suiguirumu.json"),
                            ("M3", ROOT / "data/decision_tables/M3_suimu_wangshuai.json")):
         table = load_decision_table(path)
-        st.caption("{}：本頁只顯示材料表；墓絕／隨墓效果未在本包實作。".format(table_id))
+        st.caption("{}：未接入機械層（P-064）；本頁只顯示材料表，格位條件所需之入墓、絕判定尚未實作。".format(table_id))
         if table.get("soil_tracks"):
             st.caption("土爻雙軌：軌 A 墓辰；軌 B 墓戌。")
     y_locator = decision.get("Y") or {}

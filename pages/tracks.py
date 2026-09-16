@@ -200,7 +200,9 @@ else:
             hidden_item.get("six_relative", ""),
         ))
     st.caption("此爻不觸發任何可機械定位的條件。這是目前決策表之覆蓋缺口，並非此爻無事可說。")
-    if decision_table["table_id"] == "Y":
+    if decision_table["table_id"] in {"M1", "M2", "M3"}:
+        st.caption("{}：未接入機械層（P-064）；此訊息表示本項目尚未做格位判定，不等於此爻沒有該狀況。".format(decision_table["table_id"]))
+    elif decision_table["table_id"] == "Y":
         st.caption("Y 表已按元神／忌神的可見機械狀態逐爻比對；沒有命中時不補造格位。")
     else:
         st.caption("可查表包括 C1、C15、K；Y 為元神／忌神狀態材料，不作效果判定。")

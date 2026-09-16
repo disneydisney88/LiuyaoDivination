@@ -235,7 +235,7 @@ def m1_table():
             matrix[row_id][book_id] = not_addressed(book_id, "TASK_26 §8.2：已錄材料未見本格之直接條件。")
     matrix["M1-R4"]["buzhengzong"] = addressed("buzhengzong", "官鬼發動化未土", "用神或世爻隨官鬼入墓者，主凶。如世爻為寅木，官鬼發動化未土，未為木之墓。", "卜筮正宗 隨鬼入墓 244", rule_id="R-BZ-M1-R4")
     matrix["M1-R5"]["buzhengzong"] = addressed("buzhengzong", "用神或世爻隨官鬼入墓", "用神或世爻隨官鬼入墓者，主凶。如世爻為寅木，官鬼發動化未土。", "卜筮正宗 隨鬼入墓 244", quality="partial", partial_note="主語含用神或世爻，來源例限於化墓。")
-    note = "本表格位以「墓絕之來源」切分，不預設墓絕為凶。各家對墓之吉凶取向不一，見各 cell。土爻墓位須並列軌 A（隨水說，墓辰）與軌 B（火土同源說，墓戌）；本表不替 scope_unclear 之書選軌。"
+    note = "本表格位以「墓絕之來源」切分，不預設墓絕為凶。各家對墓之吉凶取向不一，見各 cell。土爻墓位須並列軌 A（隨水說，墓辰）與軌 B（火土同源說，墓戌）；本表不替 scope_unclear 之書選軌。本表尚未接入機械層（P-064）。格位條件所需之入墓、絕之判定，L2 未實作，故本表現階段不會觸發。材料已入庫，可供原文檢索頁查閱。"
     result = table("M1", "墓絕之來源（爻層）", rows_for("M1", conditions, matrix), note,
                    axis_note="M1 為來源軸；M2 位次軸與 M3 旺衰軸另表並存。")
     result["soil_tracks"] = {
@@ -264,7 +264,7 @@ def m2_table():
         row_id = row_id[0]
         matrix[row_id]["huangjin_ce"] = not_addressed("huangjin_ce", "TASK_29：『隨墓／隨鬼入墓／隨官入墓』全檔 0 命中；已錄墓材料未立本表位次。")
         matrix[row_id]["huozhulin"] = different_axis("huozhulin", "本書另有『卦有三墓：宮墓、鬼墓、財墓』，不是隨鬼入墓位次軸。", "卦有三墓：宮墓、鬼墓、財墓。", "火珠林 41·占疾病 768", "火珠林三墓分類")
-    note = "本表之材料曾因檢索主詞而幾乎漏收。『隨墓』與『隨鬼入墓／隨官入墓』須並搜；卜筮全書、卜筮正宗各有專章。項數不等，未為對齊而補項。此為 S10.1 所列位次軸；不將不同項數補成相同清單。"
+    note = "本表之材料曾因檢索主詞而幾乎漏收。『隨墓』與『隨鬼入墓／隨官入墓』須並搜；卜筮全書、卜筮正宗各有專章。項數不等，未為對齊而補項。此為 S10.1 所列位次軸；不將不同項數補成相同清單。本表尚未接入機械層（P-064）。格位條件所需之入墓、絕之判定，L2 未實作，故本表現階段不會觸發。材料已入庫，可供原文檢索頁查閱。"
     unmapped = [{"book_id": "buzhengzong", "items": [{"name": "用神隨官鬼入墓", "source": "卜筮正宗 244"}], "count_declared": 2, "count_actual": 2}]
     return table("M2", "隨鬼入墓（位次軸）", rows_for("M2", conditions, matrix), note,
                  axis_note="M2 與 M1 並存；增刪 2569 明文以『又有』並列來源軸與位次軸。",
@@ -281,7 +281,7 @@ def m3_table():
             matrix[row_id][book_id] = base_cell(book_id, "not_collected")
     matrix["M3-R1"]["zengshan"] = addressed("zengshan", "旺相者非真", "此三墓者，自占看世爻，旺相者非真；代占看用神，旺相者非真。", "增刪卜易 隨鬼入墓章第三十 2622–2624", rule_id="R-ZS-M3-R1")
     matrix["M3-R2"]["zengshan"] = addressed("zengshan", "休囚被克而入墓始見凶危", "惟世爻、用神休囚被克，而又入墓者，是也。", "增刪卜易 隨鬼入墓章第三十 2623", rule_id="R-ZS-M3-R2")
-    note = "野鶴原文：『諸書竟不言及旺衰，隨墓概以不吉斷。』此為該書明文批評，只記錄，不據此判定其餘各書；其餘七本均 not_collected。"
+    note = "野鶴原文：『諸書竟不言及旺衰，隨墓概以不吉斷。』此為該書明文批評，只記錄，不據此判定其餘各書；其餘七本均 not_collected。本表尚未接入機械層（P-064）。格位條件所需之入墓、絕之判定，L2 未實作，故本表現階段不會觸發。材料已入庫，可供原文檢索頁查閱。"
     return table("M3", "隨墓之旺衰（旺衰軸）", rows_for("M3", conditions, matrix), note,
                  axis_note="M3 只收已採集之增刪卜易材料；不把批評句轉成他書狀態。")
 

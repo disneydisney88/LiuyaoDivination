@@ -196,7 +196,7 @@ def _analysis_text(analysis: dict[str, Any]) -> list[str]:
                     partial = "（部分對應 —— {}）".format(track.get("partial_note")) if track.get("match_quality") == "partial" else ""
                     lines.append("  {}：{}{}；候選規則：{}".format(book, track.get("verdict"), partial, track.get("candidate_rule", "未提供")))
     for table_id in ("M1", "M2", "M3"):
-        lines.append("- {}：材料表已建；本快照不實作墓絕／隨墓效果語義。".format(table_id))
+        lines.append("- {}：未接入機械層（P-064）；此訊息不等於此爻沒有該狀況。".format(table_id))
     y_locator = decision["Y"]
     lines.append("- Y（元神／忌神狀態）：")
     for item in y_locator["locations"]:

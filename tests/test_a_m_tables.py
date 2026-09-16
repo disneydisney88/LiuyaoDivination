@@ -103,3 +103,8 @@ def test_huangjin_m1_has_direction_note():
     table = load_decision_table(TABLES["M1"])
     cells = [c for r in table["rows"] for c in r["cells"] if c["book_id"] == "huangjin_ce"]
     assert any(c.get("direction_note") for c in cells)
+
+
+def test_m_tables_explicitly_report_unconnected_mechanical_layer():
+    for key in ("M1", "M2", "M3"):
+        assert "未接入機械層（P-064）" in load_decision_table(TABLES[key])["table_note"]
