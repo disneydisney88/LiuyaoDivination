@@ -5,6 +5,8 @@ does not assign any semantic effect to empty, broken, or scattered lines.
 """
 from __future__ import annotations
 
+import json
+from pathlib import Path
 from typing import Iterable
 
 STEMS = "甲乙丙丁戊己庚辛壬癸"
@@ -16,6 +18,10 @@ BRANCH_ELEMENT = {"子": "水", "亥": "水", "寅": "木", "卯": "木", "巳":
 BRANCH_CLASH = dict(zip(BRANCHES, "午未申酉戌亥子丑寅卯辰巳"))
 BRANCH_COMBINE = {"子": "丑", "丑": "子", "寅": "亥", "亥": "寅", "卯": "戌", "戌": "卯",
                   "辰": "酉", "酉": "辰", "巳": "申", "申": "巳", "午": "未", "未": "午"}
+ROOT = Path(__file__).resolve().parents[1]
+SEASONAL_STATE_CATEGORIES = json.loads(
+    (ROOT / "data" / "mechanical" / "seasonal_state_categories.json").read_text(encoding="utf-8")
+)
 
 
 def element_relation(left: str, right: str) -> str:
@@ -48,6 +54,14 @@ def seasonal_state(line_element: str, month_element: str) -> str:
     raise ValueError(f"unknown seasonal pair: {line_element}, {month_element}")
 
 
+def seasonal_state_category(state: str) -> str:
+    """Return the project's editorial two-category grouping of five states."""
+    try:
+        return SEASONAL_STATE_CATEGORIES[state]
+    except KeyError as exc:
+        raise ValueError(f"unknown seasonal state: {state}") from exc
+
+
 def xunkong(day_stem: str, day_branch: str) -> tuple[str, str]:
     """Return the two empty branches for a valid sexagenary day."""
     if day_stem not in STEMS or day_branch not in BRANCHES:
@@ -68,13 +82,8 @@ def day_branch_relations(day_branch: str, line_branch: str) -> list[str]:
     return relations
 
 
-def classify_motion(*, moving: bool, empty: bool, day_branch: str, line_branch: str) -> str:
-    """R-L2-09 mechanical order: empty+冲 is classified before 散."""
-    day_clashes = BRANCH_CLASH[day_branch] == line_branch
-    if moving and empty and day_clashes:
-        return "全動"
-    if moving and day_clashes:
-        return "散"
+def classify_motion(*, moving: bool) -> str:
+    """Return the sole L2 motion fact, without a doctrinal classification."""
     return "動" if moving else "靜"
 
 
@@ -106,8 +115,7 @@ def build_relation_graph(*, line_rows: Iterable[dict], month_element: str,
             "month_break": BRANCH_CLASH[month_branch] == branch,
             "empty": branch in empty_branches,
             "day_relations": day_branch_relations(day_branch, branch),
-            "motion": classify_motion(moving=position in moving, empty=branch in empty_branches,
-                                       day_branch=day_branch, line_branch=branch),
+            "motion": classify_motion(moving=position in moving),
         })
 
     edges = []
@@ -129,7 +137,7 @@ def build_relation_graph(*, line_rows: Iterable[dict], month_element: str,
             {"source": "月建", "target": f"變爻:{position}", "rule_id": "R-L2-05"},
         ])
     return {
-        "rule_scope": ["R-L2-01", "R-L2-02", "R-L2-03", "R-L2-04", "R-L2-05", "R-L2-09"],
+        "rule_scope": ["R-L2-01", "R-L2-02", "R-L2-03", "R-L2-04", "R-L2-05"],
         "empty_branches": list(empty_branches), "month_branch": month_branch,
         "month_element": month_element,
         "month_break_branch": BRANCH_CLASH[month_branch],

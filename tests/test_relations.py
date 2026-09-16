@@ -1,5 +1,5 @@
 from engine.build import build
-from engine.relations import build_relation_graph, classify_motion, seasonal_state, xunkong
+from engine.relations import build_relation_graph, classify_motion, seasonal_state, seasonal_state_category, xunkong
 from engine.semantics import semantics_from_relations
 
 
@@ -57,10 +57,16 @@ def test_xunkong_is_mechanically_derived():
     assert xunkong("甲", "子") == ("戌", "亥")
 
 
-def test_empty_then_clash_is_full_motion_not_scatter():
-    """Sourced R-L2-09 ordering: empty is checked before 日辰冲."""
-    assert classify_motion(moving=True, empty=True, day_branch="午", line_branch="子") == "全動"
-    assert classify_motion(moving=True, empty=False, day_branch="午", line_branch="子") == "散"
+def test_motion_is_binary_and_empty_clash_remains_mechanical_data():
+    """L2 records moving/static only; 空 and 日沖 remain separate facts."""
+    assert classify_motion(moving=True) == "動"
+    assert classify_motion(moving=False) == "靜"
+
+
+def test_five_seasonal_states_use_the_explicit_editorial_two_category_mapping():
+    assert {state: seasonal_state_category(state) for state in ("旺", "相", "休", "囚", "死")} == {
+        "旺": "旺相", "相": "旺相", "休": "休囚", "囚": "休囚", "死": "休囚",
+    }
 
 
 def test_multiple_hidden_entries_pass_through_relations_and_semantics():

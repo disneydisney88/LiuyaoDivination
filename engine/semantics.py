@@ -6,7 +6,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any, Iterable
 
-from engine.relations import BRANCH_CLASH
+from engine.relations import BRANCH_CLASH, seasonal_state_category
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_TABLE_PATH = ROOT / "data" / "decision_tables" / "C1_chong_san.json"
@@ -34,6 +34,12 @@ FRAMEWORK_DISPLAY = {
     "rhapsody_couplet": "賦體對句",
     "two_role_category_then_strength": "主／輔二位，事類定身份、旺衰定效力",
 }
+Y_IMPLEMENTATION_GAPS = (
+    {
+        "row_ids": ["Y-R5", "Y-R6"],
+        "message": "Y-R5（元神動而化退神）、Y-R6（元神入墓）：L2 尚未實作化退神與入墓之機械判定，故本兩格永不觸發。此為實作缺口，非該格無材料 —— 見 P-059。",
+    },
+)
 
 
 def _canonical_book_id(book_id: str) -> str:
@@ -81,9 +87,9 @@ def y_conditions_for_role(role: str, state: dict[str, Any]) -> dict[str, Any]:
     unmodelled_rows: list[str] = []
     seasonal = state.get("seasonal_state")
     if role == "元神":
-        if seasonal in {"旺", "相"}:
+        if seasonal_state_category(seasonal) == "旺相":
             matches.append("Y-R1")
-        elif seasonal in {"休", "囚"}:
+        elif seasonal_state_category(seasonal) == "休囚":
             matches.append("Y-R2")
         if state.get("empty"):
             matches.append("Y-R3")
@@ -92,13 +98,13 @@ def y_conditions_for_role(role: str, state: dict[str, Any]) -> dict[str, Any]:
         # R-L2-06 supplies neither a verified 化退 nor 入墓 field yet.
         unmodelled_rows.extend(["Y-R5", "Y-R6"])
     else:
-        if seasonal in {"旺", "相"}:
+        if seasonal_state_category(seasonal) == "旺相":
             matches.append("Y-R7")
-        elif seasonal in {"休", "囚"}:
+        elif seasonal_state_category(seasonal) == "休囚":
             matches.append("Y-R8")
         if state.get("empty"):
             matches.append("Y-R9")
-        if state.get("motion") in {"動", "散", "全動"}:
+        if state.get("motion") == "動":
             matches.append("Y-R10")
     return {"role": role, "matches": matches, "unmodelled_rows": unmodelled_rows}
 
@@ -141,7 +147,7 @@ def chong_source_for_line(relation_result: dict[str, Any], line: int) -> str | N
         sources.append("day")
     moving_clash = any(
         other.get("position") != line
-        and other.get("motion") in {"動", "散", "全動"}
+        and other.get("motion") == "動"
         and BRANCH_CLASH.get(other.get("branch")) == row.get("branch")
         for other in relation_result.get("lines", [])
     )
@@ -277,15 +283,15 @@ def infer_condition(*, table_id: str, relation_result: dict[str, Any], line: int
             relation_result.get("month_branch"), relation_result.get("day_branch"),
         }:
             return "臨日月之爻遇沖"
-        if row.get("seasonal_state") in {"旺", "相"}:
+        if seasonal_state_category(row.get("seasonal_state")) == "旺相":
             return "旺相之爻遇沖"
-        if day_clash and row.get("seasonal_state") in {"休", "囚"}:
+        if day_clash and seasonal_state_category(row.get("seasonal_state")) == "休囚":
             return "休囚之爻遇日沖"
         return None
     if table_id == "C15":
         if row.get("empty"):
             return "空爻遇沖"
-        if row.get("motion") in {"動", "散", "全動"}:
+        if row.get("motion") == "動":
             return "動爻遇沖"
         return "靜爻遇沖"
     if table_id == "K":
@@ -299,11 +305,11 @@ def infer_condition(*, table_id: str, relation_result: dict[str, Any], line: int
             return "空爻遇日辰沖"
         if row.get("month_break"):
             return "空而逢月破"
-        if row.get("motion") in {"動", "散", "全動"}:
+        if row.get("motion") == "動":
             return "動爻值旬空"
-        if row.get("seasonal_state") in {"旺", "相"}:
+        if seasonal_state_category(row.get("seasonal_state")) == "旺相":
             return "旺相之爻值旬空"
-        if row.get("seasonal_state") in {"休", "囚"}:
+        if seasonal_state_category(row.get("seasonal_state")) == "休囚":
             return "休囚之爻值旬空"
         if "生" in row.get("day_relations", []):
             return "空爻得日月動爻生扶"

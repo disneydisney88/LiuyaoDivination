@@ -29,6 +29,7 @@ from engine.pipeline import build_case_state  # noqa: E402
 from engine.relations import (  # noqa: E402
     BRANCHES,
     BRANCH_ELEMENT,
+    SEASONAL_STATE_CATEGORIES,
     build_relation_graph,
 )
 from engine.semantics import (  # noqa: E402
@@ -136,6 +137,7 @@ TIER3_FIELDS = (
     "output_json", "equal_to_choices", "selection_status", "pending_selection",
     "hidden_choice_required", "hidden_choice_options", "candidate_state_fields_complete",
     "flying_hidden_relation_status", "y_locations", "y_located",
+    "y_five_state_locations_matched",
     "four_god_positions_unique", "all_chong_sources", "triggered_tables", "template_missing_lines",
     "template_missing_contexts", "failed_checks", "placeholder_checks",
     "exception_type", "exception_message", "result_class",
@@ -421,14 +423,13 @@ def run_tier2(output_path: Path | None = None) -> dict[str, Any]:
                             if not targets <= {f"動爻:{position}", "日辰", "月建"}:
                                 failed.append("R-L2-05_changed_scope")
                                 break
-                        for line in states:
-                            if (
-                                line["position"] in moving and line.get("empty")
-                                and "沖" in line.get("day_relations", [])
-                                and line.get("motion") != "全動"
-                            ):
-                                failed.append("R-L2-09_empty_clash_not_full_motion")
-                                break
+                        if any(line.get("motion") not in {"動", "靜"} for line in states):
+                            failed.append("motion_not_binary")
+                        if any(
+                            line.get("motion") != ("動" if line["position"] in moving else "靜")
+                            for line in states
+                        ):
+                            failed.append("motion_does_not_match_input")
                         missing_lines, missing_contexts = _template_audit(relations, templates)
                         if missing_lines:
                             placeholders.append("narrative_template_missing")
@@ -533,6 +534,11 @@ def _tier3_projection(
     k_condition = decision.get("K")
     y_available = bool(decision.get("Y"))
     y_locator = decision.get("Y") or {}
+    y_five_state_locations_matched = all(
+        bool(location.get("matches"))
+        for location in y_locator.get("locations", [])
+        if location.get("seasonal_state") in SEASONAL_STATE_CATEGORIES
+    )
     chong_source = chong_source_for_line(relations, selected_line) if selected_line else None
     c1_semantics = (
         semantic_for_condition(line=selected_line, condition=c1_condition, hidden=chart["hidden"], table=c1_table)
@@ -591,6 +597,7 @@ def _tier3_projection(
         "y_table_available": y_available,
         "y_locations": y_locator.get("locations", []),
         "y_located": bool(y_locator.get("located")),
+        "y_five_state_locations_matched": y_five_state_locations_matched,
         "c1_track_count": len(c1_semantics["tracks"]) if c1_semantics else 0,
         "c15_track_count": len(c15_semantics["tracks"]) if c15_semantics else 0,
         "k_track_count": len(k_semantics["tracks"]) if k_semantics else 0,
@@ -646,6 +653,8 @@ def _tier3_projection(
         failed.append("no_explicit_no_condition_result")
     if not pending and not projection["y_located"]:
         failed.append("y_table_not_located")
+    if not pending and not projection["y_five_state_locations_matched"]:
+        failed.append("y_five_state_not_mapped")
     if not projection["four_god_positions_unique"]:
         failed.append("four_god_duplicate_position")
     if not projection["line_position_choices_all_locked"]:
@@ -802,6 +811,7 @@ def run_tier3(output_path: Path | None = None) -> dict[str, Any]:
                     "flying_hidden_relation_status": projection.get("flying_hidden_relation_status", ""),
                     "y_locations": _json(projection.get("y_locations", [])),
                     "y_located": str(projection.get("y_located", False)).lower(),
+                    "y_five_state_locations_matched": str(projection.get("y_five_state_locations_matched", False)).lower(),
                     "four_god_positions_unique": str(projection.get("four_god_positions_unique", False)).lower(),
                     "all_chong_sources": projection.get("all_chong_sources", ""),
                     "triggered_tables": "|".join(projection.get("triggered_tables", [])),
@@ -1032,6 +1042,8 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
     }
     missing_t2 = [row for row in tier2 if row["template_missing_lines"]]
     missing_t3 = [row for row in tier3 if row["template_missing_lines"]]
+    non_binary_motion_t2 = failure_types[2]["motion_not_binary"] + failure_types[2]["motion_does_not_match_input"]
+    unmatched_y_five_state_t3 = failure_types[3]["y_five_state_not_mapped"]
     missing_contexts = Counter(
         item for row in tier2 + tier3
         for item in filter(None, row["template_missing_contexts"].split("|"))
@@ -1116,6 +1128,8 @@ def write_report(stats: dict[int, dict[str, Any]] | None = None) -> Path:
         "",
         f"- Tier 2：`template_missing` {len(missing_t2):,}/{len(tier2):,}（{len(missing_t2) / len(tier2):.4%}）。",
         f"- Tier 3：`template_missing` {len(missing_t3):,}/{len(tier3):,}（{len(missing_t3) / len(tier3):.4%}）。",
+        f"- Tier 2 動靜二值（僅 `動`／`靜`）失敗：{non_binary_motion_t2:,}/{len(tier2):,}。",
+        f"- Tier 3 元神／忌神五態歸二類未命中：{unmatched_y_five_state_t3:,}/{len(tier3):,}。",
         f"- 缺失情境：{_format_counter(missing_contexts) or '無'}。",
         f"- 現行 `narrative_templates.json` 有 {template_count} 個唯一 template ID；本 sweep 所掃機械推導需新增 0 個。TASK_20 所稱 11 個是較早狀態之數字。",
         "",

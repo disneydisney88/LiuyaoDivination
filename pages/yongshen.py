@@ -1,5 +1,6 @@
 import streamlit as st
 
+from engine.narrate import narrate_flying_hidden
 from engine.yongshen import (
     LINE_POSITION_OPTIONS,
     SIX_RELATIVE_OPTIONS,
@@ -61,10 +62,10 @@ def _render_analysis(analysis: dict) -> None:
 
     relation = analysis.get("flying_hidden_relation")
     if relation:
+        relation_text = narrate_flying_hidden(relation)["text"]
         st.write(
-            "飛伏關係：飛神{}{} {} 伏神{}{} —— 屬《易冒》飛伏五態之「{}」。".format(
-                relation["flying_branch"], relation["flying_element"], relation["relation"],
-                relation["hidden_branch"], relation["hidden_element"], relation["doctrinal_label"],
+            "飛伏關係：{} —— 屬《易冒》飛伏五態之「{}」。".format(
+                relation_text, relation["doctrinal_label"],
             )
         )
         st.caption("原文：{}；出處：{}。{}；其餘各書：not_collected。".format(
@@ -91,10 +92,8 @@ def _render_analysis(analysis: dict) -> None:
                     item.get("six_relative", ""), state, matches,
                 )
             )
-            if item.get("unmodelled_rows"):
-                st.caption("{} 尚無已接通的化退／入墓機械輸入，未補造匹配。".format(
-                    "、".join(item["unmodelled_rows"])
-                ))
+        for gap in y_locator.get("implementation_gaps", []):
+            st.caption(gap["message"])
         st.write(y_locator["chou_shen_note"])
         st.caption("Y 表已定位至上列格位。各家說法見多軌頁。本項目不輸出效果判定 —— 各家說法並列，判斷由你作。")
     else:

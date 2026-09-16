@@ -170,6 +170,8 @@ if decision_table["table_id"] == "Y" and selected_analyses and not manual_overri
                 for book, track in result["tracks"].items():
                     with st.expander(book, expanded=False):
                         show_track(narrative_by_book[book], track)
+        for gap in (selected_analyses[0].get("decision_table", {}).get("Y", {}).get("implementation_gaps", [])):
+            st.caption(gap["message"])
         st.write("Y 表無仇神格位（P-057）")
         st.markdown(decision_table.get("table_note", ""))
         st.stop()

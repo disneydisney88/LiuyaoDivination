@@ -32,6 +32,13 @@ def narrate_hidden(hidden: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return narratives
 
 
+def narrate_flying_hidden(relation: dict[str, Any]) -> dict[str, Any]:
+    """Render the 易冒 flying/hidden wording with its original grammatical subject."""
+    templates = _load_templates()
+    text, template_id = _render(relation["template_id"], relation, templates)
+    return {"text": text, "template_id": template_id, "template_missing": template_id is None}
+
+
 def _load_templates() -> dict[str, dict[str, Any]]:
     return json.loads(TEMPLATES_PATH.read_text(encoding="utf-8"))
 
@@ -114,6 +121,12 @@ def _derivation(relation_result: dict[str, Any], line: int, templates: dict[str,
             continue
         slots = {"motion": value} if field == "motion" else {}
         text, rendered_id = _render(template_id, slots, templates)
+        steps.append({"step": len(steps) + 1, "text": text,
+                      "rule_id": templates[rendered_id]["rule_id"] if rendered_id else None,
+                      "template_id": rendered_id, "template_missing": rendered_id is None})
+        template_missing |= rendered_id is None
+    if row.get("motion") == "動" and "沖" in (row.get("day_relations") or []):
+        text, rendered_id = _render("T-DAY-CHONG-MULTI-TRACK-01", {}, templates)
         steps.append({"step": len(steps) + 1, "text": text,
                       "rule_id": templates[rendered_id]["rule_id"] if rendered_id else None,
                       "template_id": rendered_id, "template_missing": rendered_id is None})

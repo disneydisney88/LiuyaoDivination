@@ -17,7 +17,12 @@ from engine.relations import (
     element_relation,
     seasonal_state,
 )
-from engine.semantics import chong_source_for_line, infer_condition, y_conditions_for_role
+from engine.semantics import (
+    Y_IMPLEMENTATION_GAPS,
+    chong_source_for_line,
+    infer_condition,
+    y_conditions_for_role,
+)
 
 SIX_RELATIVE_OPTIONS = ("父母", "官鬼", "妻財", "子孫", "兄弟")
 LINE_POSITION_OPTIONS = ("世爻", "應爻", "初爻", "二爻", "三爻", "四爻", "五爻", "上爻")
@@ -203,16 +208,19 @@ def _flying_hidden_relation(selected: dict[str, Any]) -> dict[str, Any] | None:
     flying = selected["flying_element"]
     hidden = selected["element"]
     relation = element_relation(flying, hidden)
-    label = {
-        "剋": "飛克伏者滅", "生": "飛生伏者得", "被剋": "伏克飛者出",
-        "被生": "伏生飛者沒", "比和": "飛伏比和者拔",
+    form = {
+        "剋": ("飛克伏者滅", "T-FLYING-HIDDEN-FEI-KE-FU"),
+        "生": ("飛生伏者得", "T-FLYING-HIDDEN-FEI-SHENG-FU"),
+        "被剋": ("伏克飛者出", "T-FLYING-HIDDEN-FU-KE-FEI"),
+        "被生": ("伏生飛者沒", "T-FLYING-HIDDEN-FU-SHENG-FEI"),
+        "比和": ("飛伏比和者拔", "T-FLYING-HIDDEN-BIHE"),
     }[relation]
     return {
         "flying_branch": selected["flying_branch"], "flying_element": flying,
         "hidden_branch": selected["branch"], "hidden_element": hidden,
-        "relation": relation, "doctrinal_label": label,
+        "relation": relation, "doctrinal_label": form[0], "template_id": form[1],
         "source_book": "易冒", "source_locator": "類總章第四十一 686",
-        "original": label, "rule_id": "R-L1-08b",
+        "original": form[0], "rule_id": "R-L1-08b",
         "doctrinal_status": "《易冒》一家之說，非通則",
         "other_books_status": "not_collected",
         "not_collected_books": ["增刪卜易", "卜筮正宗", "卜筮全書", "黃金策", "火珠林", "京氏易傳", "易隱"],
@@ -320,6 +328,7 @@ def analyze_yongshen(state: dict[str, Any], choice: str, candidate_id: str | Non
         "located": True,
         "locations": y_locations,
         "chou_shen_note": "Y 表無仇神格位（P-057）",
+        "implementation_gaps": [dict(item) for item in Y_IMPLEMENTATION_GAPS],
     }
     return {
         "choice": choice, "status": "selected", "candidate_id": candidate_id,

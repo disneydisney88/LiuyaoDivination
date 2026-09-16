@@ -8,7 +8,7 @@
   "T-DAY-RELATION-01": {
     "template_id": "T-DAY-RELATION-01",
     "pattern": "日辰{day_branch}與{branch}之機械關係標記為{relation}。",
-    "rule_id": "R-L2-03",
+    "rule_id": "R-L2-08",
     "slots": ["day_branch", "branch", "relation"]
   },
   "T-EMPTY-01": {
@@ -26,7 +26,7 @@
   "T-MOTION-01": {
     "template_id": "T-MOTION-01",
     "pattern": "此爻之動靜分類標記為{motion}。",
-    "rule_id": "R-L2-09",
+    "rule_id": null,
     "slots": ["motion"]
   },
   "T-TRACK-VERDICT-01": {
@@ -108,5 +108,41 @@
     "rule_id": "ZS_NEGATED_01",
     "slots": ["author", "category"],
     "locked": true
+  },
+  "T-DAY-CHONG-MULTI-TRACK-01": {
+    "template_id": "T-DAY-CHONG-MULTI-TRACK-01",
+    "pattern": "此爻遇日辰沖（機械關係）。各家對「動爻遇沖」之判定不同，見多軌頁 C1／C15。",
+    "rule_id": null,
+    "slots": []
+  },
+  "T-FLYING-HIDDEN-FU-KE-FEI": {
+    "template_id": "T-FLYING-HIDDEN-FU-KE-FEI",
+    "pattern": "伏神{hidden_branch}{hidden_element} 剋 飛神{flying_branch}{flying_element}",
+    "rule_id": "R-L1-08b",
+    "slots": ["hidden_branch", "hidden_element", "flying_branch", "flying_element"]
+  },
+  "T-FLYING-HIDDEN-FEI-SHENG-FU": {
+    "template_id": "T-FLYING-HIDDEN-FEI-SHENG-FU",
+    "pattern": "飛神{flying_branch}{flying_element} 生 伏神{hidden_branch}{hidden_element}",
+    "rule_id": "R-L1-08b",
+    "slots": ["flying_branch", "flying_element", "hidden_branch", "hidden_element"]
+  },
+  "T-FLYING-HIDDEN-FEI-KE-FU": {
+    "template_id": "T-FLYING-HIDDEN-FEI-KE-FU",
+    "pattern": "飛神{flying_branch}{flying_element} 剋 伏神{hidden_branch}{hidden_element}",
+    "rule_id": "R-L1-08b",
+    "slots": ["flying_branch", "flying_element", "hidden_branch", "hidden_element"]
+  },
+  "T-FLYING-HIDDEN-FU-SHENG-FEI": {
+    "template_id": "T-FLYING-HIDDEN-FU-SHENG-FEI",
+    "pattern": "伏神{hidden_branch}{hidden_element} 生 飛神{flying_branch}{flying_element}",
+    "rule_id": "R-L1-08b",
+    "slots": ["hidden_branch", "hidden_element", "flying_branch", "flying_element"]
+  },
+  "T-FLYING-HIDDEN-BIHE": {
+    "template_id": "T-FLYING-HIDDEN-BIHE",
+    "pattern": "伏神{hidden_branch}{hidden_element} 與 飛神{flying_branch}{flying_element} 比和",
+    "rule_id": "R-L1-08b",
+    "slots": ["hidden_branch", "hidden_element", "flying_branch", "flying_element"]
   }
 }
